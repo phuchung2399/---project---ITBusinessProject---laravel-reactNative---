@@ -3,8 +3,8 @@
  */
 
 import { Navigation } from "react-native-navigation";
-import App from "./App";
-Navigation.registerComponent('App', () => App);
+import Demo from "./src/Demo";
+Navigation.registerComponent('Demo', () => Demo);
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
         root: {
@@ -12,7 +12,7 @@ Navigation.events().registerAppLaunchedListener(() => {
                 children: [
                     {
                         component: {
-                            name: 'App'
+                            name: 'Demo'
                         }
                     }
                 ]
