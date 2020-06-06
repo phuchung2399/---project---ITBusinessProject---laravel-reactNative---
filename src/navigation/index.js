@@ -1,25 +1,37 @@
 import React from 'react';
 import {Navigation} from 'react-native-navigation';
-import Demo from '../screens/Demo';
-import Home from '..//screens/home';
+import Home from '../screens/Home';
+import Order from '../screens/Order';
+import Love from '../screens/Love';
+import Profile from '../screens/Profile';
+// import Intro from '../screens/Intro';
 import App from '../../App';
+import Signin from '../screens/SignIn';
+import Signup from '../screens/SignUp';
+import SideBarMenu from '../screens/SideBar';
 import home_Icon from '../../assets/images/home_icon.png';
 import order_Icon from '../../assets/images/booking_icon.png';
 import love_Icon from '../../assets/images/heart_icon.png';
 import profile_Icon from '../../assets/images/profile_icon.png';
-import home_icon from '../../assets/images/home_icon.png';
+
 console.disableYellowBox = true;
 
-Navigation.registerComponent('Demo', () => Demo);
+Navigation.registerComponent('SideBarMenu', () => SideBarMenu);
 Navigation.registerComponent('Home', () => Home);
+Navigation.registerComponent('Order', () => Order);
+Navigation.registerComponent('Love', () => Love);
+Navigation.registerComponent('Profile', () => Profile);
 Navigation.registerComponent('App', () => App);
+Navigation.registerComponent('Signin', () => Signin);
+Navigation.registerComponent('Signup', () => Signup);
+// Navigation.registerComponent('Intro', () => Intro);
 
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
       root: {
         component: {
-          name: 'App',
+          name: 'Signin',
         },
       },
     });
@@ -33,7 +45,7 @@ export const onChangeIntoMainScreen = () => {
         id: 'sideMenu',
         left: {
           component: {
-            name: 'Demo',
+            name: 'SideBarMenu',
           },
         },
         center: {
@@ -48,7 +60,7 @@ export const onChangeIntoMainScreen = () => {
                         options: {
                           topBar: {
                             title: {
-                              text: '',
+                              text: 'tt',
                               alignment: 'center',
                             },
                             visible: false,
@@ -71,7 +83,7 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Demo',
+                        name: 'Order',
                         options: {
                           topBar: {
                             title: {
@@ -97,7 +109,7 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'App',
+                        name: 'Love',
                       },
                     },
                   ],
@@ -116,7 +128,7 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Home',
+                        name: 'Signin',
                       },
                     },
                   ],
@@ -136,6 +148,60 @@ export const onChangeIntoMainScreen = () => {
         right: {
           component: {
             name: 'App',
+          },
+        },
+      },
+    },
+  });
+};
+
+export const onSignIn = () => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'Signin',
+        options: {
+          topBar: {
+            title: {
+              text: 'Signin',
+              alignment: 'center',
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
+export const onSignUp = () => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'Signup',
+        options: {
+          topBar: {
+            title: {
+              text: 'Signup',
+              alignment: 'center',
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
+export const onIntro = () => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'Intro',
+        options: {
+          topBar: {
+            title: {
+              text: 'Intro',
+              alignment: 'center',
+            },
           },
         },
       },

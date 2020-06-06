@@ -1,6 +1,8 @@
 const colors = {
   //main color
   primary: '#739710',
+  pink: '#FC5895';
+  orrange: '#F99A7C';
 
   // most use
   white: '#ffffff',
