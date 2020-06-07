@@ -18,6 +18,7 @@ import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import SideBar from './components/sidebar';
 import LinearGradient from 'react-native-linear-gradient';
+import Logo from '../../../assets/images/logo.png';
 
 export default class SideBarMenu extends Component {
   constructor(props) {
@@ -158,23 +159,28 @@ export default class SideBarMenu extends Component {
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
           <SafeAreaView
             style={{
-              height: '30%',
+              padding: 16,
+              paddingTop: 48,
             }}>
-            <View
+            <Image
               style={{
-                flex: 1,
-                alignItems: 'center',
+                width: 80,
+                height: 80,
+                borderWidth: 1,
+                borderColor: '#FFF',
+                borderRadius: 40,
+              }}
+              source={Logo}
+            />
+            <Text
+              style={{
+                fontSize: 50,
+                fontWeight: 'bold',
+                marginVertical: 8,
+                color: 'white',
               }}>
-              <Text
-                style={{
-                  fontSize: 50,
-                  fontWeight: 'bold',
-                  marginTop: 20,
-                  color: 'white',
-                }}>
-                Nails
-              </Text>
-            </View>
+              Nails
+            </Text>
           </SafeAreaView>
         </LinearGradient>
 
