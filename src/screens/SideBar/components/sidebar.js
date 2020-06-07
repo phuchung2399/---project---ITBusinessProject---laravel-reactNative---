@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     height: 70,
     marginHorizontal: 20,
-    alignItems: 'center', 
+    alignItems: 'center',
     borderBottomColor: '#b3acac',
   },
   viewIcon: {

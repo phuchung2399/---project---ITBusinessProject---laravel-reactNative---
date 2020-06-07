@@ -6,17 +6,11 @@ import {
   ScrollView,
   Image,
   TouchableWithoutFeedback,
-  SafeAreaView,
-  TouchableOpacity,
 } from 'react-native';
 import Input from '../../components/Input';
 import {onSignIn} from '../../navigation';
-// import IconLogin from '../../../assets/images/login_image.png';
-// import {connect} from 'react-redux';
-import LinearGradient from 'react-native-linear-gradient';
-import * as Animatable from 'react-native-animatable';
-import Logo from '../../../assets/images/logo.png';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import IconLogin from '../../../assets/images/login_image.png';
+import {connect} from 'react-redux';
 
 class SignUp extends Component {
   constructor(props) {
@@ -132,57 +126,22 @@ class SignUp extends Component {
     } = this.state;
 
     return (
-      <ScrollView style={{flex: 1, backgroundColor: '#F99A7C'}}>
-        <LinearGradient colors={['#FC5895', '#F99A7C']}>
-          <SafeAreaView
-            style={{
-              height: 190,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-              }}>
-              <Animatable.Text
-                animation="zoomInUp"
-                style={{
-                  fontSize: 50,
-                  fontWeight: 'bold',
-                  marginTop: 20,
-                  color: 'white',
-                }}>
-                Nails
-              </Animatable.Text>
-            </View>
-          </SafeAreaView>
-        </LinearGradient>
-
-        <Animatable.View
-          animation="pulse"
-          style={{
-            flex: 1,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            paddingHorizontal: 20,
-            paddingVertical: 30,
-            backgroundColor: 'white',
-          }}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '15%',
-              marginBottom: 15,
-            }}>
-            <Text style={{fontSize: 50, fontWeight: 'bold'}}>Đăng ký</Text>
-          </View>
-
+      <ScrollView orientation="vertical">
+        <View style={style.styleViewImage}>
+          <Image style={style.styleImage} source={IconLogin} />
+        </View>
+        <View style={style.container}>
           <Input
             getData={e => this.getData('firstName', e)}
             title="Tên đầu tiên *"
-            placeholder="Tên đăng nhập..."
+            placeholder="Nhập tên đầu tiên..."
             error={errorFirstName}
+          />
+          <Input
+            getData={e => this.getData('lastName', e)}
+            title="Tên cuối *"
+            placeholder="Nhập tên cuối..."
+            error={errorLastName}
           />
           <Input
             getData={e => this.getData('phoneNumber', e)}
@@ -192,9 +151,15 @@ class SignUp extends Component {
             keyboardType="numeric"
           />
           <Input
+            getData={e => this.getData('email', e)}
+            title="Email*"
+            placeholder="Nhập email..."
+            error={errorEmail}
+          />
+          <Input
             getData={e => this.getData('password', e)}
             title="Mật khẩu *"
-            placeholder="Mật khẩu..."
+            placeholder="Nhập mật khẩu..."
             error={errorPassword}
             returnKeyType="go"
             secureTextEntry={true}
@@ -210,59 +175,45 @@ class SignUp extends Component {
             autoCorrect={false}
           />
 
-          <TouchableWithoutFeedback onPress={this.onSignin}>
-            <Text
-              style={{
-                ...style.button,
-                backgroundColor: '#e511e8',
-                borderColor: '#e511e8',
-                color: 'white',
-              }}>
-              Đăng ký
-            </Text>
-          </TouchableWithoutFeedback>
-
-          <View
-            style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
-            <Icon
-              name="angle-left"
-              size={40}
-              color="blue"
-              onPress={() => this.changScreenSearch()}
-            />
+          <View style={style.styleViewButton}>
             <TouchableWithoutFeedback onPress={this.onSignin}>
               <Text
                 style={{
-                  color: 'blue',
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  textDecorationLine: 'underline',
-                  marginHorizontal: 12,
+                  ...style.button,
+                  backgroundColor: 'white',
+                  borderColor: 'blue',
+                  color: 'gray',
                 }}>
-                Đã có tài khoản
+                Đăng nhập
+              </Text>
+            </TouchableWithoutFeedback>
+
+            <TouchableWithoutFeedback onPress={this.onHandleSubmit}>
+              <Text
+                style={{
+                  ...style.button,
+                  backgroundColor: '#2bb6f9',
+                  borderColor: 'blue',
+                  color: 'white',
+                }}>
+                Đăng kí
               </Text>
             </TouchableWithoutFeedback>
           </View>
-        </Animatable.View>
 
-        <Animatable.View
-          animation="pulse"
-          easing="ease-out"
-          iterationCount="infinite"
-          style={{
-            position: 'absolute',
-            right: '30%',
-            top: '12%',
-            overflow: 'hidden',
-          }}>
-          <Image
-            style={{
-              width: 170,
-              height: 170,
-            }}
-            source={Logo}
-          />
-        </Animatable.View>
+          <View style={style.styleViewText}>
+            <Text style={style.styleTextBottom}>
+              Bằng việc xác nhận tạo tài khoản, bạn đã đồng ý với các
+              <TouchableWithoutFeedback onPress={this.onLogIn}>
+                <Text style={style.styleButtonCommit}>
+                  {' '}
+                  điều khoản quy định{' '}
+                </Text>
+              </TouchableWithoutFeedback>
+              của chúng tôi
+            </Text>
+          </View>
+        </View>
       </ScrollView>
     );
   }

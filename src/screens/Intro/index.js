@@ -1,289 +1,330 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
-  StyleSheet,
   View,
   Text,
-  ScrollView,
-  TouchableWithoutFeedback,
-  Image,
-  AsyncStorage,
-  FlatList,
-  ImageBackground,
-  Animated,
+  TouchableOpacity,
+  TextInput,
+  Platform,
+  StyleSheet,
+  StatusBar,
+  Alert,
 } from 'react-native';
-import {onSignIn} from '../../navigation';
-import {connect} from 'react-redux';
-// import {logOut} from '../../redux/userRedux/actions';
-import iconProfile from '../../../assets/images/Home/imageLibrary.png';
-import iconLibrary from '../../../assets/images/Home/library.jpg';
-import Icon from 'react-native-vector-icons/thebook-appicon';
-import Book from '../../component/Book';
-import {Navigation} from 'react-native-navigation';
-import ScrollableTabView from 'rn-collapsing-tab-bar';
-import ImageProfile from '../../../assets/images/Profile/khuyenmai.png';
+import * as Animatable from 'react-native-animatable';
+import LinearGradient from 'react-native-linear-gradient';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fullName: '',
-      email: '',
-      phoneNumber: '',
-      gender: '',
-      scrollY: new Animated.Value(0),
-    };
-  }
+import {useTheme} from 'react-native-paper';
 
-  onLogOut = () => {
-    this.props.onLogOutUser();
-    onSignIn();
-    this.removeEverything();
-  };
+import {AuthContext} from '../components/context';
 
-  removeEverything = async () => {
-    try {
-      await AsyncStorage.clear();
-      alert('Log out successfully!');
-    } catch (e) {
-      alert('Logout failed');
+import Users from '../model/users';
+
+const SignInScreen = ({navigation}) => {
+  const [data, setData] = React.useState({
+    username: '',
+    password: '',
+    check_textInputChange: false,
+    secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
+  });
+
+  const {colors} = useTheme();
+
+  const {signIn} = React.useContext(AuthContext);
+
+  const textInputChange = val => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        username: val,
+        check_textInputChange: true,
+        isValidUser: true,,
+      });
+    } else {
+      setData({
+        ...data,
+        username: val,
+        check_textInputChange: false,
+        isValidUser: false,,
+      });
     }
-  };
+  };;
 
-  componentDidMount() {
-    this.onCheck();
-  }
-
-  onCheck = async () => {
-    try {
-      let user = await AsyncStorage.getItem('user');
-      let parsed = JSON.parse(user);
-
-      // console.log(username, email, phoneNumber, gender);
-
-      if (parsed) {
-        let fullName = parsed.Data.FullName;
-        let email = parsed.Data.Email;
-        let phoneNumber = parsed.Data.PhoneNumber;
-        let gender = parsed.Data.Gender;
-        this.setState({
-          fullName: fullName,
-          email: email,
-          phoneNumber: phoneNumber,
-          gender: gender,
-        });
-      }
-    } catch (error) {
-      console.log(error);
+  const handlePasswordChange = val => {
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: true,,
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: false,,
+      });
     }
-  };
+  };;
 
-  onPress = () => {
-    Navigation.mergeOptions('sideMenu', {
-      sideMenu: {
-        right: {
-          visible: true,
-        },
-      },
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry,,
     });
-  };
+  };;
 
-  render() {
-    return (
-      <Animated.ScrollView
-        stickyHeaderIndices={[1]}
-        onScroll={Animated.event([
-          {nativeEvent: {contentOffset: {y: this.state.scrollY}}},
-        ])}>
-        <View style={style.container}>
-          <ImageBackground source={iconProfile} style={style.imageBack}>
-            <View style={style.viewText}>
-              <Text style={style.text1}>The Books</Text>
-              <Text style={style.text2}>www.thebook.com</Text>
-              <Text style={style.text3}>
-                Think back over your life. Think about the people that had a
-                positive influence on you. If your past ...
-              </Text>
-              <Text style={style.text4}>Think back over your life</Text>
-            </View>
-            <View style={style.viewIcon}>
-              <View style={style.iconButton}>
-                <Icon name="ic-instagram" size={30} color="white" />
-              </View>
-              <View style={style.iconButton}>
-                <Icon name="ic-facebook" size={30} color="white" />
-              </View>
-              <View style={style.iconButton}>
-                <Icon name="ic-youtube" size={30} color="white" />
-              </View>
-            </View>
-            <View style={style.viewIconText}>
-              <View style={style.iconButton}>
-                <Text style={style.texttime}>OPEN</Text>
-                <Text style={style.texttime}>8am</Text>
-              </View>
-              <View style={style.iconButton}>
-                <Image style={style.Image} source={iconLibrary} />
-              </View>
-              <View style={style.iconButton}>
-                <Text style={style.texttime}>CLOSE</Text>
-                <Text style={style.texttime}>6pm</Text>
-              </View>
-            </View>
-            <View style={style.container2}>
-              <View style={style.viewbutton}>
-                <View style={style.viewIcon2}>
-                  <Icon name="ic-phone" size={20} color="white" />
-                </View>
-                <View style={style.viewPhone}>
-                  <Text style={style.texttime}>Phone</Text>
-                  <Text style={style.textPhone}>(+84) 000 00 000)</Text>
-                </View>
-              </View>
+  const handleValidUser = val => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        isValidUser: true,,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidUser: false,,
+      });
+    }
+  };;
 
-              <View style={style.viewbutton}>
-                <View style={style.viewIcon2}>
-                  <Icon name="ic-solid-direction" size={20} color="white" />
-                </View>
-                <View style={style.viewPhone}>
-                  <Text style={{color: 'white'}}>Address</Text>
-                  <Text style={style.textPhone}>20 Cao Thắng</Text>
-                </View>
-              </View>
-            </View>
-          </ImageBackground>
+  const loginHandle = (userName, password) => {
+    const foundUser = Users.filter(item => {
+      return userName == item.username && password == item.password;
+    });
+
+    if (data.username.length == 0 || data.password.length == 0) {
+      Alert.alert(
+        'Wrong Input!',
+        'Username or password field cannot be empty.',
+        [{text: 'Okay'}],,
+      );
+      return;
+    }
+
+    if (foundUser.length == 0) {
+      Alert.alert('Invalid User!', 'Username or password is incorrect.', [
+        {text: 'Okay'},,
+      ]);
+      return;
+    }
+    signIn(foundUser);
+  };;
+
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      <View style={styles.header}>
+        <Text style={styles.text_header}>Welcome!</Text>
+      </View>
+      <Animatable.View
+        animation="fadeInUpBig"
+        style={[
+          styles.footer,
+          {
+            backgroundColor: colors.background,
+          },
+        ]}>
+        <Text
+          style={[
+            styles.text_footer,
+            {
+              color: colors.text,,
+            },
+          ]}>
+          Username
+        </Text>
+        <View style={styles.action}>
+          <FontAwesome name="user-o" color={colors.text} size={20} />
+          <TextInput
+            placeholder="Your Username"
+            placeholderTextColor="#666666"
+            style={[
+              styles.textInput,
+              {
+                color: colors.text,,
+              },
+            ]}
+            autoCapitalize="none"
+            onChangeText={val => textInputChange(val)}
+            onEndEditing={e => handleValidUser(e.nativeEvent.text)}
+          />
+          {data.check_textInputChange ? (
+            <Animatable.View animation="bounceIn">
+              <Feather name="check-circle" color="green" size={20} />
+            </Animatable.View>
+          ) : null}
         </View>
+        {data.isValidUser ? null : (
+          <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>
+              Username must be 4 characters long.
+            </Text>
+          </Animatable.View>
+        )}
 
-        <ScrollableTabView>
-          <View style={{margin: 25}} name="tab1" tabLabel="Hình Ảnh">
-            <Image source={ImageProfile} style={style.styleImageProfile} />
-          </View>
-          <View style={style.viewTab} name="tab2" tabLabel="Sự Kiện">
-            <Text style={style.styleText}>Chưa có sự kiện</Text>
-          </View>
-          <View style={style.viewTab} name="tab3" tabLabel="Khuyến Mãi">
-            <Text style={style.styleText}>Chưa có khuyến mãi</Text>
-          </View>
-        </ScrollableTabView>
-      </Animated.ScrollView>
-    );
-  }
-}
+        <Text
+          style={[
+            styles.text_footer,
+            {
+              color: colors.text,
+              marginTop: 35,,
+            },
+          ]}>
+          Password
+        </Text>
+        <View style={styles.action}>
+          <Feather name="lock" color={colors.text} size={20} />
+          <TextInput
+            placeholder="Your Password"
+            placeholderTextColor="#666666"
+            secureTextEntry={data.secureTextEntry ? true : false}
+            style={[
+              styles.textInput,
+              {
+                color: colors.text,,
+              },
+            ]}
+            autoCapitalize="none"
+            onChangeText={val => handlePasswordChange(val)}
+          />
+          <TouchableOpacity onPress={updateSecureTextEntry}>
+            {data.secureTextEntry ? (
+              <Feather name="eye-off" color="grey" size={20} />
+            ) : (
+              <Feather name="eye" color="grey" size={20} />
+            )}
+          </TouchableOpacity>
+        </View>
+        {data.isValidPassword ? null : (
+          <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>
+              Password must be 8 characters long.
+            </Text>
+          </Animatable.View>
+        )}
 
-const style = StyleSheet.create({
-  styleImageProfile: {
-    width: '100%',
-    height: 200,
-  },
+        <TouchableOpacity>
+          <Text style={{color: '#009387', marginTop: 15}}>
+            Forgot password?
+          </Text>
+        </TouchableOpacity>
+        <View style={styles.button}>
+          <TouchableOpacity
+            style={styles.signIn}
+            onPress={() => {
+              loginHandle(data.username, data.password);
+            }}>
+            <LinearGradient
+              colors={['#08d4c4', '#01ab9d']}
+              style={styles.signIn}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: '#fff',,
+                  },
+                ]}>
+                Sign In
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
 
-  viewIcon: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginHorizontal: 100,
-  },
-  iconButton: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SignUpScreen')}
+            style={[
+              styles.signIn,
+              {
+                borderColor: '#009387',
+                borderWidth: 1,
+                marginTop: 15,,
+              },
+            ]}>
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  color: '#009387',,
+                },
+              ]}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Animatable.View>
+    </View>
+  );
+};
+
+export default SignInScreen;
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#009387',,
   },
-  container2: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  header: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+    paddingBottom: 50,,
   },
-  imageBack: {
-    width: '100%',
-    height: 500,
+  footer: {
+    flex: 3,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 30,,
   },
-  viewText: {
-    alignItems: 'center',
-    marginHorizontal: 30,
-    marginVertical: 10,
-  },
-  text1: {
-    color: 'white',
-    fontSize: 30,
-  },
-  text2: {
-    color: 'white',
-    fontSize: 15,
-    marginTop: 10,
-  },
-  text3: {
-    color: 'white',
-    fontSize: 15,
-    textAlign: 'center',
-    marginTop: 10,
-  },
-  text4: {
-    color: 'white',
-    fontSize: 15,
-    textAlign: 'center',
-  },
-  viewIconText: {
-    flexDirection: 'row',
-    marginVertical: 20,
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  texttime: {
-    color: 'white',
-  },
-  Image: {
-    width: 120,
-    height: 120,
-    borderRadius: 90,
-    borderWidth: 3,
-    borderColor: 'white',
-  },
-  viewbutton: {
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: 'white',
-    width: 190,
-    height: 70,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 5,
-  },
-  viewIcon2: {
-    borderWidth: 2,
-    borderColor: 'white',
-    padding: 10,
-    borderRadius: 50,
-  },
-  viewPhone: {
-    marginLeft: 6,
-  },
-  textPhone: {
-    color: 'white',
+  text_header: {
+    color: '#fff',
     fontWeight: 'bold',
+    fontSize: 30,,
   },
-  styleText: {
+  text_footer: {
+    color: '#05375a',
+    fontSize: 18,,
+  },
+  action: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f2f2f2',
+    paddingBottom: 5,,
+  },
+  actionError: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#FF0000',
+    paddingBottom: 5,,
+  },
+  textInput: {
+    flex: 1,
+    marginTop: Platform.OS === 'ios' ? 0 : -12,
+    paddingLeft: 10,
+    color: '#05375a',
+  },
+  errorMsg: {
+    color: '#FF0000',
+    fontSize: 14,
+  },
+  button: {
     alignItems: 'center',
-    marginVertical: 20,
+    marginTop: 50,,
+  },
+  signIn: {
+    width: '100%',
+    height: 50,
     justifyContent: 'center',
-  },
-  viewTab: {
     alignItems: 'center',
+    borderRadius: 10,,
   },
+  textSign: {
+    fontSize: 18,
+    fontWeight: 'bold',,
+  },,
 });
 
-const mapStateToProps = state => {
-  return {
-    userData: state.user,
-    book: state.bookReducer,
-  };
-};
-
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    onLogOutUser: () => {
-      dispatch(logOut());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);

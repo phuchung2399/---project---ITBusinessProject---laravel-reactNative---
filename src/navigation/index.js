@@ -8,6 +8,7 @@ import Profile from '../screens/Profile';
 import App from '../../App';
 import Signin from '../screens/SignIn';
 import Signup from '../screens/SignUp';
+import Announcement from '../screens/Announcement';
 import SideBarMenu from '../screens/SideBar';
 import home_Icon from '../../assets/images/home_icon.png';
 import order_Icon from '../../assets/images/booking_icon.png';
@@ -24,6 +25,7 @@ Navigation.registerComponent('Profile', () => Profile);
 Navigation.registerComponent('App', () => App);
 Navigation.registerComponent('Signin', () => Signin);
 Navigation.registerComponent('Signup', () => Signup);
+Navigation.registerComponent('Announcement', () => Announcement);
 // Navigation.registerComponent('Intro', () => Intro);
 
 export default () => {
@@ -31,7 +33,7 @@ export default () => {
     Navigation.setRoot({
       root: {
         component: {
-          name: 'Signin',
+          name: 'App',
         },
       },
     });

@@ -12,10 +12,12 @@ import {
   SafeAreaView,
   AsyncStorage,
   TouchableWithoutFeedback,
+  TextInput,
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import SideBar from './components/sidebar';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class SideBarMenu extends Component {
   constructor(props) {
@@ -152,29 +154,65 @@ export default class SideBarMenu extends Component {
     // );
 
     return (
-      <View style={{backgroundColor: 'white', flex: 1}}>
-        <SafeAreaView>
-          <View style={styles.header}>
-            <Text style={styles.title}>Nails</Text>
-          </View>
-
-          <ScrollView>
-            <View style={styles.container}>
-              <View style={styles.styleViewProfile}>
-                {/* {showImageProfile} */}
-                <Text style={{fontSize: 25}}>{userName}</Text>
-              </View>
-              {/* {showTabInforPerson}
-              {showTabChangePass} */}
-              <SideBar lable={'Trang cá nhân'} icon={'profile'} />
-              <SideBar lable={'Ưu đãi'} icon={'profile'} />
-              <SideBar lable={'Book ngay'} icon={'profile'} />
-              <SideBar lable={'Ưu đãi độc quyền'} icon={'profile'} />
-              <SideBar lable={'Đăng nhập'} icon={'profile'} />
-              <SideBar lable={'Đăng kí'} icon={'profile'} />
+      <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
+        <LinearGradient colors={['#FC5895', '#F99A7C']}>
+          <SafeAreaView
+            style={{
+              height: '30%',
+            }}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  fontSize: 50,
+                  fontWeight: 'bold',
+                  marginTop: 20,
+                  color: 'white',
+                }}>
+                Nails
+              </Text>
             </View>
-          </ScrollView>
-        </SafeAreaView>
+          </SafeAreaView>
+        </LinearGradient>
+
+        <View style={styles.container}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#dedada',
+              borderWidth: 0.5,
+              borderColor: '#000',
+              height: 40,
+              borderRadius: 15,
+              margin: 10,
+            }}>
+            <TextInput
+              style={{flex: 1}}
+              placeholder="Tìm kiếm!"
+              onChangeText={text => this.searchFilterFunction(text)}
+              autoCorrect={false}
+              value={this.state.value}
+            />
+
+            <Icon
+              name="search1"
+              size={26}
+              color="#5f5f5f"
+              onPress={() => this.onPress()}
+            />
+          </View>
+          <SideBar lable={'Trang cá nhân'} icon={'user'} />
+          <SideBar lable={'Ưu đãi'} icon={'switcher'} />
+          <SideBar lable={'Book ngay'} icon={'form'} />
+          <SideBar lable={'Ưu đãi độc quyền'} icon={'alipay-circle'} />
+          <SideBar lable={'Đăng nhập'} icon={'login'} />
+          <SideBar lable={'Đăng kí'} icon={'logout'} />
+        </View>
       </View>
     );
   }
@@ -191,7 +229,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    marginHorizontal: 16,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    backgroundColor: 'white',
+    flex: 1,
   },
   title: {
     fontSize: 25,
