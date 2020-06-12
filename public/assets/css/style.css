@@ -1,0 +1,84 @@
+#container {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    position: fixed; /*  Cố phần tử định trên trang web */
+    background-size: cover;
+    background-image: url("./../image/background/bacground.png");
+    overflow: auto;
+}
+
+#menu {
+    position: relative;
+    width: 100%;
+    background-color: rgb(255, 0, 170);
+    height: 120px;
+    opacity: 50%;
+}
+
+#logo {
+    padding: 5px;
+    position: absolute;
+}
+/* css for confirm password */
+#content {
+    display: grid;
+    justify-content: center;
+    height: 100px;
+}
+
+#content h3 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+#voucher {
+    border: 0px solid #fd4084;
+    background-color: #fd4084;
+}
+
+#voucher h3 {
+    padding: 10px;
+}
+
+/* css for resert password */
+#format-form {
+    display: grid;
+    height: 250px;
+    justify-content: center;
+    opacity: 90%;
+}
+
+#format-form #form {
+    display: grid;
+    border: 1px solid #fd4084;
+    padding: 40px;
+}
+
+#format-form #form label {
+    margin-top: 5px;
+}
+
+#format-form #form input {
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    height: 30px;
+    border-bottom: 1px solid #fd4084;
+}
+
+#bnt-reset-password {
+    height: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: #fd4084;
+    border: 0 solid #fd4084;
+}
+
+#format-form h3 {
+    text-align: center;
+    color: rgb(255, 0, 170);
+}
