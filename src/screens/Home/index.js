@@ -14,17 +14,27 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import Logo from '../../../assets/images/logo.png';
-
+import Carousel from '../../components/Carousel';
+import {dummyData} from '../../utils/index';
+import {Navigation} from 'react-native-navigation';
 export default class Home extends Component {
+  changScreenFilter = () => {
+    Navigation.mergeOptions('sideMenu', {
+      sideMenu: {
+        left: {
+          visible: true,
+        },
+      },
+    });
+  };
+
   render() {
     return (
       <View style={{flex: 1}}>
         <View
           style={{
             backgroundColor: '#FC5895',
-            paddingLeft: 15,
-            paddingTop: 10,
-            fontSize: 10.5,
+            padding: 10,
             flexDirection: 'row',
           }}>
           <View
@@ -49,31 +59,30 @@ export default class Home extends Component {
         <ScrollView
           style={{
             flex: 1,
+            marginTop: -10,
           }}>
-          <LinearGradient colors={['#FC5895', '#F99A7C']}>
-            <SafeAreaView
+          <LinearGradient colors={['#FC5895', '#F99A7C', '#F99A7C', '#F99A7C']}>
+            <View
               style={{
-                height: 120,
+                flex: 1,
+                alignItems: 'center',
+                height: 200,
               }}>
-              <View
+              <Animatable.Text
+                animation="zoomInUp"
                 style={{
-                  flex: 1,
-                  alignItems: 'center',
+                  fontSize: 50,
+                  fontWeight: 'bold',
+                  color: 'white',
+                  marginTop: -10,
                 }}>
-                <Animatable.Text
-                  animation="zoomInUp"
-                  style={{
-                    fontSize: 50,
-                    fontWeight: 'bold',
-                    color: 'white',
-                  }}>
-                  Home
-                </Animatable.Text>
-              </View>
-            </SafeAreaView>
+                Home
+              </Animatable.Text>
+            </View>
           </LinearGradient>
-          <View style={{backgroundColor: 'blue', height: 100}}>
-            <Text>f</Text>
+
+          <View style={{marginTop: '-30%'}}>
+            <Carousel data={dummyData} />
           </View>
         </ScrollView>
       </View>

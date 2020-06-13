@@ -18,6 +18,7 @@ import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import SideBar from './components/sidebar';
 import LinearGradient from 'react-native-linear-gradient';
+import Logo from '../../../assets/images/logo.png';
 
 export default class SideBarMenu extends Component {
   constructor(props) {
@@ -104,6 +105,16 @@ export default class SideBarMenu extends Component {
     }
   };
 
+  onClose = () => {
+    Navigation.mergeOptions('sideMenu', {
+      sideMenu: {
+        left: {
+          visible: false,
+        },
+      },
+    });
+  };
+
   render() {
     const {userName} = this.state;
 
@@ -117,64 +128,51 @@ export default class SideBarMenu extends Component {
       </TouchableWithoutFeedback>
     );
 
-    // const showImageProfile = this.state.isShowInfor ? (
-    //   <Image source={ImageProfile} style={styles.styleImageProfile} />
-    // ) : (
-    //   <Text />
-    // );
-
-    // const showTabInforPerson = this.state.isShowInfor ? (
-    //   <View style={styles.viewRow}>
-    //     <View style={styles.viewIcon}>
-    //       <Icon name="ic-profile" size={25} color="#979797" />
-    //     </View>
-    //     <View style={{flex: 5}}>
-    //       <TouchableWithoutFeedback onPress={() => this.onClickPerInfor()}>
-    //         <Text style={styles.titleOption}>Thông tin cá nhân</Text>
-    //       </TouchableWithoutFeedback>
-    //     </View>
-    //   </View>
-    // ) : (
-    //   <Text />
-    // );
-
-    // const showTabChangePass = this.state.isShowInfor ? (
-    //   <View style={styles.viewRow}>
-    //     <View style={styles.viewIcon}>
-    //       <Icon name="ic-password" size={25} color="#979797" />
-    //     </View>
-    //     <View style={{flex: 5}}>
-    //       <TouchableWithoutFeedback onPress={this.onSetting}>
-    //         <Text style={styles.titleOption}>Đổi mật khẩu</Text>
-    //       </TouchableWithoutFeedback>
-    //     </View>
-    //   </View>
-    // ) : (
-    //   <Text />
-    // );
-
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
           <SafeAreaView
             style={{
-              height: '30%',
+              paddingTop: 10,
             }}>
             <View
               style={{
-                flex: 1,
-                alignItems: 'center',
+                flexDirection: 'row',
+                marginHorizontal: 10,
               }}>
-              <Text
-                style={{
-                  fontSize: 50,
-                  fontWeight: 'bold',
-                  marginTop: 20,
-                  color: 'white',
-                }}>
-                Nails
-              </Text>
+              <View style={{flex: 1}}>
+                <Image
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderWidth: 1,
+                    borderColor: '#FFF',
+                    borderRadius: 40,
+                  }}
+                  source={Logo}
+                />
+              </View>
+              <View style={{alignItems: 'flex-end'}}>
+                <TouchableOpacity onPress={() => this.onPress()}>
+                  <Icon
+                    name="close"
+                    size={30}
+                    color="white"
+                    onPress={() => this.onClose()}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
+
+            <Text
+              style={{
+                fontSize: 50,
+                fontWeight: 'bold',
+                marginVertical: 8,
+                color: 'white',
+              }}>
+              Nails
+            </Text>
           </SafeAreaView>
         </LinearGradient>
 
