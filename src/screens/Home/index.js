@@ -19,21 +19,22 @@ import {dummyData} from '../../utils/index';
 import {Navigation} from 'react-native-navigation';
 export default class Home extends Component {
   changScreenFilter = () => {
-    Navigation.mergeOptions('SideBarMenu', {
-      SideBarMenu: {
+    Navigation.mergeOptions('sideMenu', {
+      sideMenu: {
         left: {
           visible: true,
         },
       },
     });
   };
+
   render() {
     return (
       <View style={{flex: 1}}>
         <View
           style={{
             backgroundColor: '#FC5895',
-            padding: 5,
+            padding: 10,
             flexDirection: 'row',
           }}>
           <View
@@ -58,6 +59,7 @@ export default class Home extends Component {
         <ScrollView
           style={{
             flex: 1,
+            marginTop: -10,
           }}>
           <LinearGradient colors={['#FC5895', '#F99A7C', '#F99A7C', '#F99A7C']}>
             <View
