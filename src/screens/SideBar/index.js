@@ -18,7 +18,7 @@ import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import SideBar from './components/sidebar';
 import LinearGradient from 'react-native-linear-gradient';
-import Logo from '../../../assets/images/logo.png';
+import Profile from '../../../assets/images/profile.png';
 
 export default class SideBarMenu extends Component {
   constructor(props) {
@@ -115,6 +115,19 @@ export default class SideBarMenu extends Component {
     });
   };
 
+  onSignOut = () => {
+    alert('sign out');
+  };
+
+  changeProfileScreen = () => {
+    // Navigation.showModal({
+    //   component: {
+    //     name: 'ShowAllBook',
+    //   },
+    // });
+    alert('profile');
+  };
+
   render() {
     const {userName} = this.state;
 
@@ -134,82 +147,119 @@ export default class SideBarMenu extends Component {
           <SafeAreaView
             style={{
               paddingTop: 10,
+              marginHorizontal: 15,
+              marginBottom: 10,
             }}>
+            <View style={{alignItems: 'flex-end'}}>
+              <TouchableOpacity onPress={() => this.onPress()}>
+                <Icon
+                  name="close"
+                  size={30}
+                  color="white"
+                  onPress={() => this.onClose()}
+                />
+              </TouchableOpacity>
+            </View>
             <View
               style={{
                 flexDirection: 'row',
-                marginHorizontal: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
               <View style={{flex: 1}}>
-                <Image
-                  style={{
-                    width: 80,
-                    height: 80,
-                    borderWidth: 1,
-                    borderColor: '#FFF',
-                    borderRadius: 40,
-                  }}
-                  source={Logo}
-                />
-              </View>
-              <View style={{alignItems: 'flex-end'}}>
-                <TouchableOpacity onPress={() => this.onPress()}>
-                  <Icon
-                    name="close"
-                    size={30}
-                    color="white"
-                    onPress={() => this.onClose()}
+                <TouchableOpacity onPress={() => this.changeProfileScreen()}>
+                  <Image
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderWidth: 1,
+                      borderColor: '#FFF',
+                      borderRadius: 60,
+                    }}
+                    source={Profile}
                   />
                 </TouchableOpacity>
               </View>
+              <View style={{flex: 2}}>
+                <TouchableOpacity onPress={() => this.changeProfileScreen()}>
+                  <Text
+                    style={{
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      marginVertical: 8,
+                      color: 'white',
+                    }}>
+                    Tuan Nguyen
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-
-            <Text
-              style={{
-                fontSize: 50,
-                fontWeight: 'bold',
-                marginVertical: 8,
-                color: 'white',
-              }}>
-              Nails
-            </Text>
           </SafeAreaView>
         </LinearGradient>
 
         <View style={styles.container}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#dedada',
-              borderWidth: 0.5,
-              borderColor: '#000',
-              height: 40,
-              borderRadius: 15,
-              margin: 10,
-            }}>
-            <TextInput
-              style={{flex: 1}}
-              placeholder="Tìm kiếm!"
-              onChangeText={text => this.searchFilterFunction(text)}
-              autoCorrect={false}
-              value={this.state.value}
-            />
-
-            <Icon
-              name="search1"
-              size={26}
-              color="#5f5f5f"
-              onPress={() => this.onPress()}
-            />
+          <SideBar lable={'Ưu đãi'} icon={'switcher'} data={'Ưu đãi'} />
+          <SideBar lable={'Book ngay'} icon={'form'} data={'Book ngay'} />
+          <SideBar
+            lable={'Ưu đãi độc quyền'}
+            icon={'alipay-circle'}
+            data={'Ưu đãi độc quyền'}
+          />
+        </View>
+        <View style={{backgroundColor: '#f0f0f3'}}>
+          <View style={{flexDirection: 'row', marginHorizontal: 15}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+              }}>
+              <Icon
+                name="setting"
+                size={25}
+                color="#4290ea"
+                onPress={() => this.onSignOut()}
+              />
+              <TouchableWithoutFeedback onPress={this.onSignOut}>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    padding: 15,
+                    textAlign: 'center',
+                    color: '#4c4c4e',
+                  }}>
+                  Cài đặt
+                </Text>
+              </TouchableWithoutFeedback>
+            </View>
+            <View style={{flex: 1}} />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+              }}>
+              <Icon
+                name="logout"
+                size={20}
+                color="#4290ea"
+                onPress={() => this.onSignOut()}
+              />
+              <TouchableWithoutFeedback onPress={this.onSignOut}>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    padding: 12,
+                    textAlign: 'center',
+                    color: '#4c4c4e',
+                  }}>
+                  Đăng xuất
+                </Text>
+              </TouchableWithoutFeedback>
+            </View>
           </View>
-          <SideBar lable={'Trang cá nhân'} icon={'user'} />
-          <SideBar lable={'Ưu đãi'} icon={'switcher'} />
-          <SideBar lable={'Book ngay'} icon={'form'} />
-          <SideBar lable={'Ưu đãi độc quyền'} icon={'alipay-circle'} />
-          <SideBar lable={'Đăng nhập'} icon={'login'} />
-          <SideBar lable={'Đăng kí'} icon={'logout'} />
         </View>
       </View>
     );
@@ -229,8 +279,8 @@ const styles = StyleSheet.create({
   container: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingHorizontal: 20,
-    paddingVertical: 30,
+    paddingHorizontal: 5,
+    paddingVertical: 25,
     backgroundColor: 'white',
     flex: 1,
   },

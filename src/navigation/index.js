@@ -4,10 +4,14 @@ import Home from '../screens/Home';
 import Order from '../screens/Order';
 import Love from '../screens/Love';
 import Profile from '../screens/Profile';
-// import Intro from '../screens/Intro';
+import Booking from '../screens/Home/Booking';
+import Search from '../screens/Home/Search';
 import App from '../../App';
 import Signin from '../screens/SignIn';
 import Signup from '../screens/SignUp';
+import SearchItems from '../screens/Home/components/SearchItems';
+import Intro from '../screens/Intro';
+import BookingItems from '../screens/Home/components/BookingItems';
 import Announcement from '../screens/Announcement';
 import SideBarMenu from '../screens/SideBar';
 import home_Icon from '../../assets/images/home_icon.png';
@@ -26,7 +30,11 @@ Navigation.registerComponent('App', () => App);
 Navigation.registerComponent('Signin', () => Signin);
 Navigation.registerComponent('Signup', () => Signup);
 Navigation.registerComponent('Announcement', () => Announcement);
-// Navigation.registerComponent('Intro', () => Intro);
+Navigation.registerComponent('Booking', () => Booking);
+Navigation.registerComponent('BookingItems', () => BookingItems);
+Navigation.registerComponent('Intro', () => Intro);
+Navigation.registerComponent('Search', () => Search);
+Navigation.registerComponent('SearchItems', () => SearchItems);
 
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
@@ -121,25 +129,6 @@ export const onChangeIntoMainScreen = () => {
                       text: 'Yêu thích',
                       icon: love_Icon,
                       testID: 'THIRST_TAB_BAR_BUTTON',
-                    },
-                  },
-                },
-              },
-              {
-                stack: {
-                  children: [
-                    {
-                      component: {
-                        name: 'Signin',
-                      },
-                    },
-                  ],
-                  options: {
-                    topBar: {visible: false},
-                    bottomTab: {
-                      text: 'Tôi',
-                      icon: profile_Icon,
-                      testID: 'FOUR_TAB_BAR_BUTTON',
                     },
                   },
                 },

@@ -18,8 +18,6 @@ import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 
 class SignIn extends Component {
   constructor(props) {
@@ -90,7 +88,7 @@ class SignIn extends Component {
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
           <SafeAreaView
             style={{
-              height: 190,
+              height: 150,
             }}>
             <View
               style={{
@@ -102,7 +100,7 @@ class SignIn extends Component {
                 style={{
                   fontSize: 50,
                   fontWeight: 'bold',
-                  marginTop: 20,
+                  marginTop: 10,
                   color: 'white',
                 }}>
                 Nails
@@ -111,7 +109,7 @@ class SignIn extends Component {
           </SafeAreaView>
         </LinearGradient>
 
-        <Animatable.View
+        <View
           animation="pulse"
           style={{
             flex: 1,
@@ -126,10 +124,10 @@ class SignIn extends Component {
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: '15%',
+              marginTop: '18%',
               marginBottom: 20,
             }}>
-            <Animatable.Text style={{fontSize: 50, fontWeight: 'bold'}}>
+            <Animatable.Text style={{fontSize: 40, fontWeight: 'bold'}}>
               Đăng nhập
             </Animatable.Text>
           </View>
@@ -229,7 +227,7 @@ class SignIn extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                margin: 10,
+                marginVertical: 5,
               }}>
               <View>
                 <TouchableOpacity onPress={() => this.onPress()}>
@@ -264,8 +262,7 @@ class SignIn extends Component {
               </View>
             </View>
           </View>
-          {/* </View> */}
-        </Animatable.View>
+        </View>
 
         <Animatable.View
           animation="pulse"
@@ -273,14 +270,14 @@ class SignIn extends Component {
           iterationCount="infinite"
           style={{
             position: 'absolute',
-            right: '30%',
-            top: '14%',
+            right: '32%',
+            top: '12%',
             overflow: 'hidden',
           }}>
           <Image
             style={{
-              width: 170,
-              height: 170,
+              width: 150,
+              height: 150,
             }}
             source={Logo}
           />

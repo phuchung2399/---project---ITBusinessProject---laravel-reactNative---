@@ -11,6 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import Logo from '../../../assets/images/logo.png';
@@ -18,12 +19,55 @@ import Carousel from '../../components/Carousel';
 import {dummyData} from '../../utils/index';
 import {Navigation} from 'react-native-navigation';
 export default class Home extends Component {
-  changScreenFilter = () => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: '',
+      isShowInfor: false,
+      showAlert: false,
+    };
+  }
+
+  changScreenSidebar = () => {
     Navigation.mergeOptions('sideMenu', {
       sideMenu: {
         left: {
           visible: true,
         },
+      },
+    });
+  };
+
+  changScreenSearch = () => {
+    Navigation.showModal({
+      component: {
+        name: 'Search',
+      },
+    });
+  };
+
+  onPress = idBook => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Booking',
+              // passProps: {
+              //   IdBook: idBook,
+              // },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
       },
     });
   };
@@ -34,7 +78,7 @@ export default class Home extends Component {
         <View
           style={{
             backgroundColor: '#FC5895',
-            padding: 10,
+            padding: 16,
             flexDirection: 'row',
           }}>
           <View
@@ -43,16 +87,22 @@ export default class Home extends Component {
               name="list"
               size={30}
               color="white"
-              onPress={() => this.changScreenFilter()}
+              onPress={() => this.changScreenSidebar()}
             />
           </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Image
-              style={{
-                width: 50,
-                height: 50,
-              }}
-              source={Logo}
+          <View
+            style={{
+              alignItems: 'flex-end',
+              justifyContent: 'center',
+              borderWidth: 0.5,
+              borderColor: 'white',
+              borderRadius: 20,
+            }}>
+            <EvilIcons
+              name="search"
+              size={30}
+              color="white"
+              onPress={() => this.changScreenSearch()}
             />
           </View>
         </View>
@@ -60,6 +110,7 @@ export default class Home extends Component {
           style={{
             flex: 1,
             marginTop: -10,
+            paddingBottom: 100,
           }}>
           <LinearGradient colors={['#FC5895', '#F99A7C', '#F99A7C', '#F99A7C']}>
             <View
@@ -84,8 +135,35 @@ export default class Home extends Component {
           <View style={{marginTop: '-30%'}}>
             <Carousel data={dummyData} />
           </View>
+
+          <View style={styles.category}>
+            <Text style={styles.text}>Cửa hàng mới nhất</Text>
+            <Text style={styles.showall}>Xem hết</Text>
+          </View>
         </ScrollView>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  category: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 22,
+    paddingTop: 5,
+    flex: 4,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  showall: {
+    alignItems: 'flex-end',
+    color: '#1d9dd8',
+    flex: 1,
+    fontSize: 15,
+  },
+});
