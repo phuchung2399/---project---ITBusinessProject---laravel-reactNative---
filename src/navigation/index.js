@@ -4,16 +4,21 @@ import Home from '../screens/Home';
 import Order from '../screens/Order';
 import Love from '../screens/Love';
 import Profile from '../screens/Profile';
-// import Intro from '../screens/Intro';
+import Booking from '../screens/Home/Booking';
+import Search from '../screens/Home/Search';
 import App from '../../App';
 import Signin from '../screens/SignIn';
 import Signup from '../screens/SignUp';
+import SearchItems from '../screens/Home/components/SearchItems';
+import Intro from '../screens/Intro';
+import BookingItems from '../screens/Home/components/BookingItems';
 import Announcement from '../screens/Announcement';
 import SideBarMenu from '../screens/SideBar';
 import home_Icon from '../../assets/images/home_icon.png';
 import order_Icon from '../../assets/images/booking_icon.png';
 import love_Icon from '../../assets/images/heart_icon.png';
 import profile_Icon from '../../assets/images/profile_icon.png';
+import Loading from '../screens/Loading';
 
 console.disableYellowBox = true;
 
@@ -26,7 +31,12 @@ Navigation.registerComponent('App', () => App);
 Navigation.registerComponent('Signin', () => Signin);
 Navigation.registerComponent('Signup', () => Signup);
 Navigation.registerComponent('Announcement', () => Announcement);
-// Navigation.registerComponent('Intro', () => Intro);
+Navigation.registerComponent('Booking', () => Booking);
+Navigation.registerComponent('BookingItems', () => BookingItems);
+Navigation.registerComponent('Intro', () => Intro);
+Navigation.registerComponent('Search', () => Search);
+Navigation.registerComponent('SearchItems', () => SearchItems);
+Navigation.registerComponent('Loading', () => Loading);
 
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
@@ -85,13 +95,14 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Order',
+                        name: 'Booking',
                         options: {
                           topBar: {
                             title: {
                               text: '',
                               alignment: 'center',
                             },
+                            visible: false,
                           },
                         },
                       },
@@ -111,7 +122,7 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Love',
+                        name: 'Announcement',
                       },
                     },
                   ],
@@ -125,31 +136,7 @@ export const onChangeIntoMainScreen = () => {
                   },
                 },
               },
-              {
-                stack: {
-                  children: [
-                    {
-                      component: {
-                        name: 'Signin',
-                      },
-                    },
-                  ],
-                  options: {
-                    topBar: {visible: false},
-                    bottomTab: {
-                      text: 'Tôi',
-                      icon: profile_Icon,
-                      testID: 'FOUR_TAB_BAR_BUTTON',
-                    },
-                  },
-                },
-              },
             ],
-          },
-        },
-        right: {
-          component: {
-            name: 'App',
           },
         },
       },

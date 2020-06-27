@@ -1,19 +1,29 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 export default class sidebar extends Component {
+  onPress = data => {
+    alert(data);
+  };
+
   render() {
-    const {lable, icon} = this.props;
+    const {lable, icon, data} = this.props;
     return (
       <View style={styles.viewRow}>
         <View style={styles.viewIcon}>
-          <Icon name={icon} size={25} color="#979797" />
+          <Icon name={icon} size={25} color="#4290ea" />
         </View>
         <View style={{flex: 5}}>
-          <TouchableWithoutFeedback onPress={this.onSetting}>
+          <TouchableOpacity onPress={() => this.onPress(data)}>
             <Text style={styles.titleOption}>{lable}</Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </View>
     );

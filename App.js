@@ -8,86 +8,79 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {onChangeIntoMainScreen} from './src/navigation';
+import {onChangeIntoMainScreen, onSignIn} from './src/navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Loading from './src/screens/Loading';
 
 export default class App extends Component {
   constructor() {
     super();
+    this.state = {
+      userName: 'tuan',
+    };
   }
 
   componentDidMount() {
-    this.onCheck();
+    // this.onShow();
   }
 
-  onCheck = async () => {
-    try {
-      let user = await AsyncStorage.getItem('user');
-      let parsed = JSON.parse(user);
-      // alert(parsed.username);
-      if (parsed) {
-        onChangeIntoMainScreen();
-      }
-    } catch (error) {
-      alert(error);
+  // onCheck = async () => {
+  //   try {
+  //     let user = await AsyncStorage.getItem('user');
+  //     let parsed = JSON.parse(user);
+  //     if (parsed) {
+  //       onChangeIntoMainScreen();
+  //     } else {
+  //       onSignIn();
+  //     }
+  //   } catch (error) {
+  //     // alert(error);
+  //   }
+  // };
+
+  onCheck = () => {
+    let user = 'tuan,nguyen';
+    if (user === '') {
+      onSignIn();
+    } else {
+      onChangeIntoMainScreen();
     }
   };
 
-  onShow = () => {
-    // alert('ok');
+  onChangeMainScreen = () => {
+    // alert(this.state.u);
     onChangeIntoMainScreen();
   };
 
-  changScreenSearch = () => {
-    alert('ok');
-  };
-
-  componentWillMount() {
-    setTimeout(() => {}, 3000);
-  }
   render() {
     return (
-      <ScrollView>
-        {/* <View style={style.container}>
-          <ActivityIndicator size="large" color="red " />
-        </View> */}
+      <View style={style.container}>
+        <View style={style.container}>
+          <Loading />
+        </View>
 
-        <View>
-          <TouchableWithoutFeedback onPress={this.onShow}>
+        <View
+          style={{
+            flex: 1,
+          }}>
+          <TouchableWithoutFeedback onPress={this.onChangeMainScreen}>
             <Text
-              style={[
-                style.button,
-                {
-                  backgroundColor: '#15d0ef',
-                  borderColor: 'white',
-                  color: 'white',
-                  height: 56,
-                },
-              ]}>
-              Đăng kí
+              style={{
+                borderWidth: 1.5,
+                borderRadius: 20,
+                fontSize: 24,
+                fontWeight: 'bold',
+                padding: 12,
+                textAlign: 'center',
+                backgroundColor: '#e511e8',
+                borderColor: '#e511e8',
+                color: 'white',
+              }}>
+              Màn hình chính
             </Text>
           </TouchableWithoutFeedback>
-
-          <View
-            style={{
-              marginTop: 16,
-              marginBottom: 16,
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-            }}>
-            <Icon
-              name="left"
-              size={30}
-              color="#900"
-              onPress={() => this.changScreenSearch()}
-            />
-          </View>
-          <View>
-            <Icon name="search" size={30} color="blue" />
-          </View>
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -95,7 +88,7 @@ export default class App extends Component {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

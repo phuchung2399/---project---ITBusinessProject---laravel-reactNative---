@@ -1,8 +1,8 @@
 const colors = {
   //main color
   primary: '#739710',
-  pink: '#FC5895';
-  orrange: '#F99A7C';
+  pink: '#FC5895',
+  orrange: '#F99A7C',
 
   // most use
   white: '#ffffff',
@@ -12,8 +12,9 @@ const colors = {
 
   // secondary color
   darkGray: '#A9A9A9',
+  gray: '#4c4c4e',
   lightBlue: '#d9ee9f',
-  shadow: 'rgba(0,0,0,0.2)',
+  shadow: 'rgba(1,0,0,0.1)',
 
   //notification color
   info: '#007bff',
