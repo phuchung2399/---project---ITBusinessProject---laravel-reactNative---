@@ -16,7 +16,8 @@ export const dummyData = [
   },
   {
     title: 'Vegatable Salad',
-    url: 'https://nailspa365.com/wp-content/uploads/2019/01/studio5.jpg',
+    url:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT6DGySK-8xGfVaO0TLp7Do3zM1OS14xJSiKA&usqp=CAU',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     id: 3,
