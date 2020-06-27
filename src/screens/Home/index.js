@@ -24,6 +24,7 @@ import demodata from './../../utils/DemoData';
 import NailItem from './components/NailItems';
 import ReviewData from '../../utils/ReviewData';
 import UserReview from './components/UserReview';
+import {get, filter} from 'lodash';
 
 export default class Home extends Component {
   constructor(props) {
@@ -75,6 +76,18 @@ export default class Home extends Component {
             },
           },
         ],
+      },
+    });
+  };
+
+  changeScreenShowAll = (data, title) => {
+    Navigation.showModal({
+      component: {
+        name: 'ShowAllStores',
+        passProps: {
+          data: data,
+          title: title,
+        },
       },
     });
   };
@@ -144,8 +157,16 @@ export default class Home extends Component {
           </View>
           <View style={{padding: 10, paddingBottom: 10}}>
             <View style={styles.category}>
-              <Text style={styles.text}>Cửa hàng mới nhất</Text>
-              <Text style={styles.showall}>Xem hết</Text>
+              <Text style={styles.text}>
+                Cửa hàng mới nhất ({get(demodata, 'length')})
+              </Text>
+              <Text
+                style={styles.showall}
+                onPress={() =>
+                  this.changeScreenShowAll(demodata, ' Cửa hàng mới nhất')
+                }>
+                Xem hết
+              </Text>
             </View>
             <FlatList
               data={demodata}
@@ -172,8 +193,20 @@ export default class Home extends Component {
                 justifyContent: 'center',
                 marginTop: 10,
               }}>
-              <Text style={styles.text}>Cửa hàng mới nhất</Text>
-              <Text style={styles.showall}>Xem hết</Text>
+              <Text style={styles.text}>
+                Cửa hàng chất lượng ({get(demodata, 'length')}){' '}
+              </Text>
+              <Text
+                style={styles.showall}
+                onPress={() =>
+                  this.changeScreenShowAll(
+                    demodata,
+                    'Cửa hàng order nhiều nhất',
+                  )
+                }>
+                {' '}
+                Xem hết
+              </Text>
             </View>
             <FlatList
               data={demodata}

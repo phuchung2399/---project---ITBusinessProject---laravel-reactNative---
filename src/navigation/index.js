@@ -10,6 +10,7 @@ import App from '../../App';
 import Signin from '../screens/SignIn';
 import Signup from '../screens/SignUp';
 import SearchItems from '../screens/Home/components/SearchItems';
+import ShowAllStores from '../screens/Home/ShowAllStores';
 import Intro from '../screens/Intro';
 import BookingItems from '../screens/Home/components/BookingItems';
 import Announcement from '../screens/Announcement';
@@ -37,6 +38,7 @@ Navigation.registerComponent('Intro', () => Intro);
 Navigation.registerComponent('Search', () => Search);
 Navigation.registerComponent('SearchItems', () => SearchItems);
 Navigation.registerComponent('Loading', () => Loading);
+Navigation.registerComponent('ShowAllStores', () => ShowAllStores);
 
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
