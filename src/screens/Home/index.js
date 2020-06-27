@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   TextInput,
+  FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -18,6 +19,12 @@ import Logo from '../../../assets/images/logo.png';
 import Carousel from '../../components/Carousel';
 import {dummyData} from '../../utils/index';
 import {Navigation} from 'react-native-navigation';
+import {t} from '../../i18n/t';
+import demodata from './../../utils/DemoData';
+import NailItem from './components/NailItems';
+import ReviewData from '../../utils/ReviewData';
+import UserReview from './components/UserReview';
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -119,7 +126,7 @@ export default class Home extends Component {
                 alignItems: 'center',
                 height: 200,
               }}>
-              <Animatable.Text
+              <Text
                 animation="zoomInUp"
                 style={{
                   fontSize: 50,
@@ -127,18 +134,93 @@ export default class Home extends Component {
                   color: 'white',
                   marginTop: -10,
                 }}>
-                Home
-              </Animatable.Text>
+                {t('home_page')}
+              </Text>
             </View>
           </LinearGradient>
 
           <View style={{marginTop: '-30%'}}>
             <Carousel data={dummyData} />
           </View>
+          <View style={{padding: 10, paddingBottom: 10}}>
+            <View style={styles.category}>
+              <Text style={styles.text}>Cửa hàng mới nhất</Text>
+              <Text style={styles.showall}>Xem hết</Text>
+            </View>
+            <FlatList
+              data={demodata}
+              keyExtractor={(item, index) => `${index}`}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({item, index}) => {
+                return (
+                  <NailItem
+                    item={item}
+                    index={index}
+                    parentFlatList={this}
+                    component={this.props.componentId}
+                  />
+                );
+              }}
+            />
 
-          <View style={styles.category}>
-            <Text style={styles.text}>Cửa hàng mới nhất</Text>
-            <Text style={styles.showall}>Xem hết</Text>
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                padding: 10,
+                justifyContent: 'center',
+                marginTop: 10,
+              }}>
+              <Text style={styles.text}>Cửa hàng mới nhất</Text>
+              <Text style={styles.showall}>Xem hết</Text>
+            </View>
+            <FlatList
+              data={demodata}
+              keyExtractor={(item, index) => `${index}`}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({item, index}) => {
+                return (
+                  <NailItem
+                    item={item}
+                    index={index}
+                    parentFlatList={this}
+                    component={this.props.componentId}
+                  />
+                );
+              }}
+            />
+
+            <View style={styles.category}>
+              <Text style={styles.text}>Top 10 khách hàng tốt nhất</Text>
+            </View>
+            <FlatList
+              data={ReviewData}
+              renderItem={({item}) => (
+                <UserReview
+                  image={item.image}
+                  name={item.name}
+                  orderCount={item.orderCount}
+                  extraInfor={'lượt order'}
+                />
+              )}
+              horizontal={true}
+              keyExtractor={(item, index) => index.toString()}
+              showsHorizontalScrollIndicator={false}
+            />
+            <View style={styles.category}>
+              <Text style={styles.text}>Top 5 người nhận xét nổi bật</Text>
+            </View>
+            <FlatList
+              data={ReviewData}
+              renderItem={({item}) => (
+                <UserReview image={item.image} name={item.name} />
+              )}
+              horizontal={true}
+              keyExtractor={(item, index) => index.toString()}
+              showsHorizontalScrollIndicator={false}
+            />
           </View>
         </ScrollView>
       </View>

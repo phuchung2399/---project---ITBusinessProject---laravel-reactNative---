@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   Switch,
+  Dimensions,
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -33,6 +34,23 @@ export default class Search extends Component {
     this.state = {
       text: '',
       colorFalseSwitchIsOn: true,
+      searchData: [
+        {
+          name: 'Mai Nail Store',
+          image:
+            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
+        },
+        {
+          name: 'Tuan Spa',
+          image:
+            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
+        },
+        {
+          name: 'Dieu Qouch',
+          image:
+            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
+        },
+      ],
     };
   }
 
@@ -48,7 +66,45 @@ export default class Search extends Component {
     alert('ok');
   };
 
+  onShowDataSearch = item => {
+    // alert(item);
+  };
+
+  _renderItem = ({item}) => {
+    console.log(item.uri);
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          flex: 1,
+          borderWidth: 4,
+          borderColor: 'white',
+        }}>
+        {/* <Image
+          source={{uri: item.image}}
+          style={{width: 125, height: 125, borderRadius: 150}}
+        /> */}
+        <View>
+          <Image
+            style={{width: 40, height: 40, borderRadius: 50}}
+            resizeMode="cover"
+            source={{uri: item.image}}
+          />
+        </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            marginHorizontal: 20,
+          }}>
+          <Text resizeMode="cover">{item.name}</Text>
+        </View>
+      </View>
+    );
+  };
+
   render() {
+    const searchData = this.state.searchData;
+
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
@@ -121,7 +177,7 @@ export default class Search extends Component {
               placeholder="Tìm kiếm..."
               // onChangeText={text => this.searchFilterFunction(text)}
               autoCapitalize="sentences"
-              // autoFocus={true}
+              autoFocus={true}
               autoCorrect={true}
               value={this.state.value}
               editable
@@ -146,15 +202,51 @@ export default class Search extends Component {
             style={{
               flex: 1,
             }}>
+            <View
+              style={{
+                padding: 10,
+              }}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                Tìm kiếm gần đây
+              </Text>
+            </View>
+            <View
+              style={{borderBottomWidth: 1, borderBottomColor: Colors.shadow}}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                marginVertical: 10,
+                padding: 10,
+              }}>
+              <FlatList
+                data={this.state.searchData}
+                extraData={this.state}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={this._renderItem}
+              />
+            </View>
+
+            <View
+              style={{
+                padding: 10,
+              }}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                Tìm kiếm liên quan
+              </Text>
+            </View>
+            <View
+              style={{borderBottomWidth: 1, borderBottomColor: Colors.shadow}}
+            />
+            <SearchItems />
+            <SearchItems />
+            {/* <SearchItems />
             <SearchItems />
             <SearchItems />
             <SearchItems />
             <SearchItems />
             <SearchItems />
-            <SearchItems />
-            <SearchItems />
-            <SearchItems />
-            <SearchItems />
+            <SearchItems /> */}
           </View>
         </ScrollView>
       </View>

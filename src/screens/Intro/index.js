@@ -7,6 +7,7 @@ import Chrome from 'react-native-vector-icons/FontAwesome';
 import Instagram from 'react-native-vector-icons/AntDesign';
 import Colors from '../../themers/Colors';
 import Fonts from '../../themers/Fonts';
+import {t} from '../../i18n/t';
 
 export default class Home extends Component {
   constructor(props) {
@@ -20,34 +21,34 @@ export default class Home extends Component {
           <Image style={styles.image} source={Logo} />
         </View>
         <View style={styles.viewBottom}>
-          <Text style={styles.text}>Nail</Text>
+          <Text style={styles.text}>{t('brand_name')}</Text>
           <View style={styles.viewIcon}>
             <View style={styles.icon}>
               <Icon
                 name="facebook-with-circle"
-                size={25}
+                size={20}
                 color={Colors.darkGray}
               />
             </View>
             <View style={styles.icon}>
               <Message
                 name="facebook-messenger"
-                size={25}
+                size={20}
                 color={Colors.darkGray}
               />
             </View>
             <View style={styles.icon}>
-              <Chrome name="chrome" size={23} color={Colors.darkGray} />
+              <Chrome name="chrome" size={20} color={Colors.darkGray} />
             </View>
             <View style={styles.icon}>
               <Icon
                 name="youtube-with-circle"
-                size={25}
+                size={20}
                 color={Colors.darkGray}
               />
             </View>
             <View style={styles.icon}>
-              <Instagram name="instagram" size={25} color={Colors.darkGray} />
+              <Instagram name="instagram" size={20} color={Colors.darkGray} />
             </View>
           </View>
         </View>

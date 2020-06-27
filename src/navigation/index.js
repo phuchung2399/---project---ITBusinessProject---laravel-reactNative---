@@ -18,6 +18,7 @@ import home_Icon from '../../assets/images/home_icon.png';
 import order_Icon from '../../assets/images/booking_icon.png';
 import love_Icon from '../../assets/images/heart_icon.png';
 import profile_Icon from '../../assets/images/profile_icon.png';
+import Loading from '../screens/Loading';
 
 console.disableYellowBox = true;
 
@@ -35,6 +36,7 @@ Navigation.registerComponent('BookingItems', () => BookingItems);
 Navigation.registerComponent('Intro', () => Intro);
 Navigation.registerComponent('Search', () => Search);
 Navigation.registerComponent('SearchItems', () => SearchItems);
+Navigation.registerComponent('Loading', () => Loading);
 
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
@@ -93,13 +95,14 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Order',
+                        name: 'Booking',
                         options: {
                           topBar: {
                             title: {
                               text: '',
                               alignment: 'center',
                             },
+                            visible: false,
                           },
                         },
                       },
@@ -119,7 +122,7 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Love',
+                        name: 'Announcement',
                       },
                     },
                   ],
@@ -134,11 +137,6 @@ export const onChangeIntoMainScreen = () => {
                 },
               },
             ],
-          },
-        },
-        right: {
-          component: {
-            name: 'App',
           },
         },
       },

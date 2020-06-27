@@ -18,6 +18,7 @@ import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import {t} from '../../i18n/t';
 
 class SignIn extends Component {
   constructor(props) {
@@ -103,7 +104,7 @@ class SignIn extends Component {
                   marginTop: 10,
                   color: 'white',
                 }}>
-                Nails
+                {t('brand_name')}
               </Animatable.Text>
             </View>
           </SafeAreaView>
@@ -128,7 +129,7 @@ class SignIn extends Component {
               marginBottom: 20,
             }}>
             <Animatable.Text style={{fontSize: 40, fontWeight: 'bold'}}>
-              Đăng nhập
+              {t('txtLogin')}
             </Animatable.Text>
           </View>
 
@@ -206,6 +207,7 @@ class SignIn extends Component {
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
+              marginVertical: 15,
             }}>
             <View
               style={{
@@ -227,7 +229,7 @@ class SignIn extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                marginVertical: 5,
+                marginVertical: 15,
               }}>
               <View>
                 <TouchableOpacity onPress={() => this.onPress()}>
