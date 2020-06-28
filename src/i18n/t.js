@@ -19,6 +19,7 @@ i18next.init({
         cua_hang_moi_nhat: 'Cửa hàng mới nhất',
         cua_hang_chat_luong: 'Cửa hàng chất lượng',
         xem_het: 'Xem hết',
+        thong_bao: 'Thông báo',
       },
     },
   },

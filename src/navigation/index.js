@@ -20,6 +20,8 @@ import order_Icon from '../../assets/images/booking_icon.png';
 import love_Icon from '../../assets/images/heart_icon.png';
 import profile_Icon from '../../assets/images/profile_icon.png';
 import noti_Icon from '../../assets/images/noti_icon.png';
+import Notification from '../screens/Notification';
+import NotificationItems from '../screens/Notification/components/NotifyItems';
 
 import Loading from '../screens/Loading';
 import history_icon from '../../assets/images/history_icon.png';
@@ -42,6 +44,8 @@ Navigation.registerComponent('Search', () => Search);
 Navigation.registerComponent('SearchItems', () => SearchItems);
 Navigation.registerComponent('Loading', () => Loading);
 Navigation.registerComponent('ShowAllStores', () => ShowAllStores);
+Navigation.registerComponent('Notification', () => Notification);
+Navigation.registerComponent('NotificationItems', () => NotificationItems);
 
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
@@ -100,7 +104,7 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Booking',
+                        name: 'Notification',
                         options: {
                           topBar: {
                             title: {
@@ -146,7 +150,7 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Announcement',
+                        name: 'Booking',
                       },
                     },
                   ],
