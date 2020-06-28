@@ -22,6 +22,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../../../assets/images/logo.png';
 import Img from '../../../assets/images/service-img.jpg';
 import Items from './components/BookingItems';
+import Fonts from '../../themers/Fonts';
+import {t} from '../../i18n/t';
 
 export default class Booking extends Component {
   constructor(props) {
@@ -84,7 +86,7 @@ export default class Booking extends Component {
                   fontWeight: 'bold',
                   color: 'white',
                 }}>
-                Xác nhận
+                {t('xac_nhan')}
               </Text>
             </View>
             <View style={{alignItems: 'flex-end', flex: 1}}>
@@ -121,7 +123,7 @@ export default class Booking extends Component {
                 style={{
                   fontSize: 30,
                   color: '#FC959C',
-                  fontFamily: 'sans-serif',
+                  fontFamily: Fonts.serif,
                 }}>
                 Hung cute
               </Text>
@@ -187,7 +189,7 @@ export default class Booking extends Component {
             <Items />
 
             <View style={{flex: 5, marginHorizontal: 20}}>
-              <Text style={{fontSize: 25}}>Ghi chú</Text>
+              <Text style={{fontSize: 25}}>{t('ghi_chu')}</Text>
               <View
                 style={{
                   borderColor: '#E8E8E8',
@@ -213,7 +215,7 @@ export default class Booking extends Component {
                   marginVertical: 10,
                   marginHorizontal: 10,
                 }}>
-                <Text>Đặt làm tại nhà</Text>
+                <Text>{t('dat_lam_tai_nha')}</Text>
                 <Switch
                   onValueChange={value => {
                     this.changeSwitch(value);

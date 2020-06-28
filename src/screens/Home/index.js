@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   TextInput,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -25,6 +26,8 @@ import NailItem from './components/NailItems';
 import ReviewData from '../../utils/ReviewData';
 import UserReview from './components/UserReview';
 import {get, filter} from 'lodash';
+import Fonts from '../../themers/Fonts';
+const {width, height} = Dimensions.get('window');
 
 export default class Home extends Component {
   constructor(props) {
@@ -62,7 +65,7 @@ export default class Home extends Component {
             component: {
               name: 'Booking',
               // passProps: {
-              //   IdBook: idBook,
+              //   IdStore: idStore,
               // },
               options: {
                 topBar: {
@@ -98,7 +101,7 @@ export default class Home extends Component {
         <View
           style={{
             backgroundColor: '#FC5895',
-            padding: 16,
+            padding: 10,
             flexDirection: 'row',
           }}>
           <View
@@ -129,43 +132,42 @@ export default class Home extends Component {
         <ScrollView
           style={{
             flex: 1,
-            marginTop: -10,
-            paddingBottom: 100,
           }}>
           <LinearGradient colors={['#FC5895', '#F99A7C', '#F99A7C', '#F99A7C']}>
             <View
               style={{
                 flex: 1,
                 alignItems: 'center',
-                height: 200,
+                height: height / 5,
               }}>
               <Text
                 animation="zoomInUp"
                 style={{
-                  fontSize: 50,
+                  fontSize: 40,
                   fontWeight: 'bold',
                   color: 'white',
                   marginTop: -10,
+                  fontFamily: Fonts.serif,
                 }}>
                 {t('home_page')}
               </Text>
             </View>
           </LinearGradient>
 
-          <View style={{marginTop: '-30%'}}>
+          <View style={{marginTop: '-20%'}}>
             <Carousel data={dummyData} />
           </View>
           <View style={{padding: 10, paddingBottom: 10}}>
             <View style={styles.category}>
               <Text style={styles.text}>
-                Cửa hàng mới nhất ({get(demodata, 'length')})
+                {t('cua_hang_moi_nhat')} ({get(demodata, 'length')})
               </Text>
               <Text
                 style={styles.showall}
                 onPress={() =>
                   this.changeScreenShowAll(demodata, ' Cửa hàng mới nhất')
                 }>
-                Xem hết
+                {t('xem_het')}
               </Text>
             </View>
             <FlatList
@@ -194,7 +196,7 @@ export default class Home extends Component {
                 marginTop: 10,
               }}>
               <Text style={styles.text}>
-                Cửa hàng chất lượng ({get(demodata, 'length')}){' '}
+                {t('cua_hang_chat_luong')} ({get(demodata, 'length')}){' '}
               </Text>
               <Text
                 style={styles.showall}
@@ -205,7 +207,7 @@ export default class Home extends Component {
                   )
                 }>
                 {' '}
-                Xem hết
+                {t('xem_het')}
               </Text>
             </View>
             <FlatList

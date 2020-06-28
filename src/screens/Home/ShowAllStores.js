@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Navigation} from 'react-native-navigation';
 import {get} from 'lodash';
-import NailItem from '../Home/components/NailItems';
+import ShowAllStoreItems from './components/ShowAllStoreItems';
 
 export default class ShowAllStores extends Component {
   componentDidMount() {
@@ -31,7 +31,7 @@ export default class ShowAllStores extends Component {
 
           <View
             style={{
-              flex: 15,
+              flex: 20,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -39,12 +39,12 @@ export default class ShowAllStores extends Component {
           </View>
         </View>
 
-        <View>
+        <View style={{marginTop: '5%'}}>
           <FlatList
             data={data}
             renderItem={({item, index}) => {
               return (
-                <NailItem
+                <ShowAllStoreItems
                   item={item}
                   index={index}
                   parentFlatList={this}
@@ -52,7 +52,6 @@ export default class ShowAllStores extends Component {
                 />
               );
             }}
-            numColumns={2}
             keyExtractor={(item, index) => index.toString()}
             showsVerticalScrollIndicator={false}
           />

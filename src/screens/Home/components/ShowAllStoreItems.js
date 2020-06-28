@@ -9,10 +9,9 @@ import {
 } from 'react-native';
 // import data from '../../utils/Data';
 import {Navigation} from 'react-native-navigation';
-import ic_launcher_background from '../../../../UserApplication/MyApplication/app/build/generated/res/pngs/debug/drawable-mdpi/ic_launcher_background.png';
 const {width, height} = Dimensions.get('window');
 
-export default class Item extends Component {
+export default class ShowAllStoreItems extends Component {
   onPress = item => {
     Navigation.showModal({
       stack: {
@@ -41,21 +40,15 @@ export default class Item extends Component {
   render() {
     const {item} = this.props;
     return (
-      <View
-        style={{
-          marginHorizontal: 12,
-          width: width - 200,
-        }}>
+      <View style={{marginHorizontal: 15, marginTop: 10}}>
         <TouchableOpacity onPress={() => this.onPress(item)}>
           <Image source={{uri: item.imageUrl}} style={style.styleImage} />
         </TouchableOpacity>
         <Text style={style.styleText}>{item.date.en}</Text>
-        <Text style={{color: '#353638', fontWeight: 'bold', fontSize: 20}}>
+        <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>
           {item.title}
         </Text>
-        <Text style={{color: 'gray', fontSize: 15}} numberOfLines={1}>
-          {item.address.en}
-        </Text>
+        <Text style={{color: 'gray', fontSize: 15}}>{item.address.en}</Text>
       </View>
     );
   }
@@ -72,9 +65,8 @@ const style = StyleSheet.create({
     fontSize: 17,
   },
   styleImage: {
-    width: width - 200,
+    width: width - 50,
     height: height / 4,
-    backgroundColor: '#ababab',
     borderRadius: 10,
   },
   styleView: {

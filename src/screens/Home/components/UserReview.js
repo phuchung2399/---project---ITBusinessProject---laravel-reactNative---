@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
-import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import iconProfile from '../../../../assets/images/profile_icon.png';
-
+const {width, height} = Dimensions.get('window');
 import {Navigation} from 'react-native-navigation';
 
 class UserReview extends Component {
@@ -57,7 +64,7 @@ class UserReview extends Component {
 
 const styles = StyleSheet.create({
   showflast: {
-    width: 160,
+    width: width / 3,
     marginVertical: 20,
     justifyContent: 'center',
     alignContent: 'center',
