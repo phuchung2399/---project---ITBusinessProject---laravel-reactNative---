@@ -188,7 +188,7 @@ export default class Home extends Component {
               }}
             />
             <View
-              style={{backgroundColor: Colors.shadow, height: 5, marginTop: 10}}
+              style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
             />
 
             <View
@@ -231,7 +231,7 @@ export default class Home extends Component {
               }}
             />
             <View
-              style={{backgroundColor: Colors.shadow, height: 5, marginTop: 10}}
+              style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
             />
             <View style={styles.category}>
               <Text style={styles.text}>Top 10 khách hàng tốt nhất</Text>
@@ -251,7 +251,7 @@ export default class Home extends Component {
               showsHorizontalScrollIndicator={false}
             />
             <View
-              style={{backgroundColor: Colors.shadow, height: 5, marginTop: 10}}
+              style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
             />
             <View style={styles.category}>
               <Text style={styles.text}>Top 5 người nhận xét nổi bật</Text>
@@ -264,6 +264,9 @@ export default class Home extends Component {
               horizontal={true}
               keyExtractor={(item, index) => index.toString()}
               showsHorizontalScrollIndicator={false}
+            />
+            <View
+              style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
             />
           </View>
         </ScrollView>
