@@ -27,6 +27,7 @@ import ReviewData from '../../utils/ReviewData';
 import UserReview from './components/UserReview';
 import {get, filter} from 'lodash';
 import Fonts from '../../themers/Fonts';
+import Colors from '../../themers/Colors';
 const {width, height} = Dimensions.get('window');
 
 export default class Home extends Component {
@@ -154,10 +155,10 @@ export default class Home extends Component {
             </View>
           </LinearGradient>
 
-          <View style={{marginTop: '-20%'}}>
+          <View style={{marginTop: '-25%'}}>
             <Carousel data={dummyData} />
           </View>
-          <View style={{padding: 10, paddingBottom: 10}}>
+          <View style={{padding: 2, paddingBottom: 10}}>
             <View style={styles.category}>
               <Text style={styles.text}>
                 {t('cua_hang_moi_nhat')} ({get(demodata, 'length')})
@@ -186,6 +187,9 @@ export default class Home extends Component {
                 );
               }}
             />
+            <View
+              style={{backgroundColor: Colors.shadow, height: 5, marginTop: 10}}
+            />
 
             <View
               style={{
@@ -193,7 +197,7 @@ export default class Home extends Component {
                 flexDirection: 'row',
                 padding: 10,
                 justifyContent: 'center',
-                marginTop: 10,
+                marginTop: 5,
               }}>
               <Text style={styles.text}>
                 {t('cua_hang_chat_luong')} ({get(demodata, 'length')}){' '}
@@ -226,7 +230,9 @@ export default class Home extends Component {
                 );
               }}
             />
-
+            <View
+              style={{backgroundColor: Colors.shadow, height: 5, marginTop: 10}}
+            />
             <View style={styles.category}>
               <Text style={styles.text}>Top 10 khách hàng tốt nhất</Text>
             </View>
@@ -243,6 +249,9 @@ export default class Home extends Component {
               horizontal={true}
               keyExtractor={(item, index) => index.toString()}
               showsHorizontalScrollIndicator={false}
+            />
+            <View
+              style={{backgroundColor: Colors.shadow, height: 5, marginTop: 10}}
             />
             <View style={styles.category}>
               <Text style={styles.text}>Top 5 người nhận xét nổi bật</Text>

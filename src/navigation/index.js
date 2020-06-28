@@ -19,6 +19,8 @@ import home_Icon from '../../assets/images/home_icon.png';
 import order_Icon from '../../assets/images/booking_icon.png';
 import love_Icon from '../../assets/images/heart_icon.png';
 import profile_Icon from '../../assets/images/profile_icon.png';
+import history_Icon from '../../assets/images/history_icon.png';
+import notification_Icon from '../../assets/images/noti_icon.png';
 import Loading from '../screens/Loading';
 
 console.disableYellowBox = true;
@@ -97,11 +99,11 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Booking',
+                        name: 'Home',
                         options: {
                           topBar: {
                             title: {
-                              text: '',
+                              text: 'tt',
                               alignment: 'center',
                             },
                             visible: false,
@@ -112,13 +114,14 @@ export const onChangeIntoMainScreen = () => {
                   ],
                   options: {
                     bottomTab: {
-                      text: 'Đặt lịch',
-                      icon: order_Icon,
-                      testID: 'SECOND_TAB_BAR_BUTTON',
+                      text: 'Thông báo',
+                      icon: notification_Icon,
+                      testID: 'FIRST_TAB_BAR_BUTTON',
                     },
                   },
                 },
               },
+
               {
                 stack: {
                   children: [
@@ -134,6 +137,33 @@ export const onChangeIntoMainScreen = () => {
                       text: 'Yêu thích',
                       icon: love_Icon,
                       testID: 'THIRST_TAB_BAR_BUTTON',
+                    },
+                  },
+                },
+              },
+              {
+                stack: {
+                  children: [
+                    {
+                      component: {
+                        name: 'Booking',
+                        options: {
+                          topBar: {
+                            title: {
+                              text: '',
+                              alignment: 'center',
+                            },
+                            visible: false,
+                          },
+                        },
+                      },
+                    },
+                  ],
+                  options: {
+                    bottomTab: {
+                      text: 'Lịch sử GD',
+                      icon: history_Icon,
+                      testID: 'SECOND_TAB_BAR_BUTTON',
                     },
                   },
                 },
