@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "3abb14fa-b3e2-45a4-b311-0688a283de2c",
+		"name": "admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYWQyMTUxYTkwODI3MTA1ODczNWM3ZjJkNDA0ZGE0Y2Y0NzI3OTZlMjViZjFlMDcwZjBiYWEzODQ1NmFkODYxODRkMTQ2YjhmNGE2YjZiODAiLCJpYXQiOjE1OTM0MjE4MjAsIm5iZiI6MTU5MzQyMTgyMCwiZXhwIjoxNjI0OTU3ODIwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.ZbKGwxru-hKVZM7k3wzWOjVmpiMOpGRHpz_7r7Z8760FNmBnBRlTkCS3gZ71mUIVgybVzzTQp6vCFV3G-rg32tnz5OZ1FrSScJU0qjI6l-gnM0D6tq8UcyWjMZX59zh3lkr-E8wvmA48YoRsFweYtXz5zuSEWLYwNCVpgkZK4wJ2AxsW51ywkU0GLFWzmUI3k40B31NO9z22Yfsfz_M-sx7P2LMzRr6BDoY59AP9qOVf0rBoaVQ0oT3Suu1Jmxh-eMNu8dNXYqTE0ZXmc_KIYo_Jjvx64wazxz1WBaZx2CNSr5UqKdpICHYgnCz6ZR1t3fyXM3vcU7y5F8l3nZif2-cwJGLA02UYr1Sodw_0i4PBpxD17NSVXlYLNo4u_euVzu6Jr16Sf1JD208YDiTqJak3QOEjAgC-m10D82fSws12Le7Kr1HbG8FIpFz7EzhOwQlZrOp1wJtjcEhtSFW30_BSC6h2QidwTMgde8lo2z8tFvv4k2LwhDv_yxJQ3aqrANJ9fuztmUroZfNRjEShwieSZJCL9rBaEHgt3wsku8Plbq0lF5OcOVQgnUS8CpLwMdlD15J3KOdqH3KN5lQcXcf7lh-VUbfb2j0fqRh8PKeH4BT-KRP-ag-hy5OUafWhy0vl3ttKNadoQGyAFxiTE6IT4IrB0XvNwi_X5MENk5I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "admin_name",
+							"value": "Trương vô kị",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "phuchung2399999@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0967258205",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "confirm_password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/admin/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change pasword",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTk5NWM0MzFjODc3YjQxMDU5NDk0ZTAyOTViNTk3MDdiYTc0NDAzMjU3YmE3Y2MzMDVjZGNiY2M3MTc3YTdjYmQ4NzFiNzk1YzM4MDgzY2QiLCJpYXQiOjE1OTM0MjIwNDUsIm5iZiI6MTU5MzQyMjA0NSwiZXhwIjoxNjI0OTU4MDQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.hxhPWyQWcKdiMMryiY2nPZKFl8dgt9uOxtJs1whfVd3wy5_NdgW_OENXcx-MFmd9Opzt7VsVeJvi7VqEkIK50qZPzyBeLCFXXE48wCsF_8W0LE9WVQddU-agdv8pp2uphijTQGsEstoF-9Wa4cEhXkgRi_kBMaomvxF6cnrSNPMVT9znDB2ofV01d8CD0atVcyg0HC7tJvBlpj_7lZw20RONnJQGlripLNxoFBDAO0zDrHCe1U-Cz0rYUP2Gqd925nubl_go53XkEap89yVIvuuhgykIFxWkvbpQC-xwaOaYYrvd88YpywHsrIvDRIQUkuu0WT-HkKY3MOhmL3AsCRHxteiWyhT596i7PNwYGX5eW-xmfYECihTUnBOqWEJihg5odXpfQmnZ-hBijmx6dNudw7ltdQ7yZZWTtmm2leZ-Gt1AM4tGZV7cB2qoOe2KxFEpW1GqZrE4kmThww4hqOkIoa7yvTx6sTmFQXFPHK3lLwCXQ9XzKPiAXCq7AZvlG40EMf0IoHWdgYnnho_axls7YYrvkbm8DdihkFD6Q64RIp4cof27Q17yG7Ys_X-mP3PtDY2SH9AWh4JUa60CcOeYpyqkVcrGJbtu2vVUbFfJl3OErcOKM-diCp_jzpbE9FMkNh3PFmA-SVcdazfsLZGBlyRy91F6IVa4wJK2FtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "old_password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "confirm_password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/admin/change-password",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "0912345678",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/admin/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "me",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTk5NWM0MzFjODc3YjQxMDU5NDk0ZTAyOTViNTk3MDdiYTc0NDAzMjU3YmE3Y2MzMDVjZGNiY2M3MTc3YTdjYmQ4NzFiNzk1YzM4MDgzY2QiLCJpYXQiOjE1OTM0MjIwNDUsIm5iZiI6MTU5MzQyMjA0NSwiZXhwIjoxNjI0OTU4MDQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.hxhPWyQWcKdiMMryiY2nPZKFl8dgt9uOxtJs1whfVd3wy5_NdgW_OENXcx-MFmd9Opzt7VsVeJvi7VqEkIK50qZPzyBeLCFXXE48wCsF_8W0LE9WVQddU-agdv8pp2uphijTQGsEstoF-9Wa4cEhXkgRi_kBMaomvxF6cnrSNPMVT9znDB2ofV01d8CD0atVcyg0HC7tJvBlpj_7lZw20RONnJQGlripLNxoFBDAO0zDrHCe1U-Cz0rYUP2Gqd925nubl_go53XkEap89yVIvuuhgykIFxWkvbpQC-xwaOaYYrvd88YpywHsrIvDRIQUkuu0WT-HkKY3MOhmL3AsCRHxteiWyhT596i7PNwYGX5eW-xmfYECihTUnBOqWEJihg5odXpfQmnZ-hBijmx6dNudw7ltdQ7yZZWTtmm2leZ-Gt1AM4tGZV7cB2qoOe2KxFEpW1GqZrE4kmThww4hqOkIoa7yvTx6sTmFQXFPHK3lLwCXQ9XzKPiAXCq7AZvlG40EMf0IoHWdgYnnho_axls7YYrvkbm8DdihkFD6Q64RIp4cof27Q17yG7Ys_X-mP3PtDY2SH9AWh4JUa60CcOeYpyqkVcrGJbtu2vVUbFfJl3OErcOKM-diCp_jzpbE9FMkNh3PFmA-SVcdazfsLZGBlyRy91F6IVa4wJK2FtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/admin/me",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYWQyMTUxYTkwODI3MTA1ODczNWM3ZjJkNDA0ZGE0Y2Y0NzI3OTZlMjViZjFlMDcwZjBiYWEzODQ1NmFkODYxODRkMTQ2YjhmNGE2YjZiODAiLCJpYXQiOjE1OTM0MjE4MjAsIm5iZiI6MTU5MzQyMTgyMCwiZXhwIjoxNjI0OTU3ODIwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.ZbKGwxru-hKVZM7k3wzWOjVmpiMOpGRHpz_7r7Z8760FNmBnBRlTkCS3gZ71mUIVgybVzzTQp6vCFV3G-rg32tnz5OZ1FrSScJU0qjI6l-gnM0D6tq8UcyWjMZX59zh3lkr-E8wvmA48YoRsFweYtXz5zuSEWLYwNCVpgkZK4wJ2AxsW51ywkU0GLFWzmUI3k40B31NO9z22Yfsfz_M-sx7P2LMzRr6BDoY59AP9qOVf0rBoaVQ0oT3Suu1Jmxh-eMNu8dNXYqTE0ZXmc_KIYo_Jjvx64wazxz1WBaZx2CNSr5UqKdpICHYgnCz6ZR1t3fyXM3vcU7y5F8l3nZif2-cwJGLA02UYr1Sodw_0i4PBpxD17NSVXlYLNo4u_euVzu6Jr16Sf1JD208YDiTqJak3QOEjAgC-m10D82fSws12Le7Kr1HbG8FIpFz7EzhOwQlZrOp1wJtjcEhtSFW30_BSC6h2QidwTMgde8lo2z8tFvv4k2LwhDv_yxJQ3aqrANJ9fuztmUroZfNRjEShwieSZJCL9rBaEHgt3wsku8Plbq0lF5OcOVQgnUS8CpLwMdlD15J3KOdqH3KN5lQcXcf7lh-VUbfb2j0fqRh8PKeH4BT-KRP-ag-hy5OUafWhy0vl3ttKNadoQGyAFxiTE6IT4IrB0XvNwi_X5MENk5I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/admin/delete/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"delete",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYWQyMTUxYTkwODI3MTA1ODczNWM3ZjJkNDA0ZGE0Y2Y0NzI3OTZlMjViZjFlMDcwZjBiYWEzODQ1NmFkODYxODRkMTQ2YjhmNGE2YjZiODAiLCJpYXQiOjE1OTM0MjE4MjAsIm5iZiI6MTU5MzQyMTgyMCwiZXhwIjoxNjI0OTU3ODIwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.ZbKGwxru-hKVZM7k3wzWOjVmpiMOpGRHpz_7r7Z8760FNmBnBRlTkCS3gZ71mUIVgybVzzTQp6vCFV3G-rg32tnz5OZ1FrSScJU0qjI6l-gnM0D6tq8UcyWjMZX59zh3lkr-E8wvmA48YoRsFweYtXz5zuSEWLYwNCVpgkZK4wJ2AxsW51ywkU0GLFWzmUI3k40B31NO9z22Yfsfz_M-sx7P2LMzRr6BDoY59AP9qOVf0rBoaVQ0oT3Suu1Jmxh-eMNu8dNXYqTE0ZXmc_KIYo_Jjvx64wazxz1WBaZx2CNSr5UqKdpICHYgnCz6ZR1t3fyXM3vcU7y5F8l3nZif2-cwJGLA02UYr1Sodw_0i4PBpxD17NSVXlYLNo4u_euVzu6Jr16Sf1JD208YDiTqJak3QOEjAgC-m10D82fSws12Le7Kr1HbG8FIpFz7EzhOwQlZrOp1wJtjcEhtSFW30_BSC6h2QidwTMgde8lo2z8tFvv4k2LwhDv_yxJQ3aqrANJ9fuztmUroZfNRjEShwieSZJCL9rBaEHgt3wsku8Plbq0lF5OcOVQgnUS8CpLwMdlD15J3KOdqH3KN5lQcXcf7lh-VUbfb2j0fqRh8PKeH4BT-KRP-ag-hy5OUafWhy0vl3ttKNadoQGyAFxiTE6IT4IrB0XvNwi_X5MENk5I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/admin/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

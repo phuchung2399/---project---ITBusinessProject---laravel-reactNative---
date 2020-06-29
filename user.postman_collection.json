@@ -1,0 +1,585 @@
+{
+	"info": {
+		"_postman_id": "bebe4100-31d5-4142-b41d-c0e6b98a400c",
+		"name": "user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/kisspng-logo-nail-salon-nail-art-vector-fashion-beauty-5b4c2a12027183.08577066153171816201.png"
+						},
+						{
+							"key": "user_name",
+							"value": "Nguyễn văn gia thịnh",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0969258200",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "h1234568789@student.passerellesnumeriques.org",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "confirm_password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"register"
+					]
+				},
+				"description": "user"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGExMmJjMWUxOTAwMTVjZDJiNTcyOGU5ZDg2OWQyZGU4NDQwNDhmOTYzYjk4MmZjMWZhMmM4YTliMzRlMTU3ZTIwNDNlZjFiMGM4MTU3MjAiLCJpYXQiOjE1OTIyOTYxOTcsIm5iZiI6MTU5MjI5NjE5NywiZXhwIjoxNjIzODMyMTk3LCJzdWIiOiIxMDEwMTAxMCIsInNjb3BlcyI6W119.DWvkMLIZJeyHLh8-tVeZEs6OIXZ-hqUPMV8FVIJ1kzJ-ISHVHE6umqqByCRB8DwK2dH9OEyRKpJ-UhiJPykOZs6AvUfyzTx2MFL9pv4lCTucbrSUbFdakGnUFFPVaVqn3yZOhSDW7JdlFsWPD5hl_l5qf5DGLXcbe6SPS4fcFY8ThLZMtmcgYSwf2FC2-vTLQs9Vbeqm0Qvtom-kRruxpmfeL77eZ9TUcIfXc3Su0BmRaHRIrAlwZmw53zXh0H8qLxdOpkHKmAWWq4jauoQQlJbUolT7i5MlZ1zquaRKSUz7IVmR4QlPjJ5IHh2aWYGMajQzoXtT0-RvZ7vFRXgEwusa4TH1qyEwnZkhDZnZgyDW2VxxxUUvu6ofgUaEo8Q1MUP3XyK7MkVgsx06mXL1MMF12nOh4GO0y5_gvBvPxTiWUjcfw-VvN8GEGhaldgvcEm_CVRm7W_mSW4UBPfUXkRIN8pnzZl3Znxb2uVEJu8G8xxR1nKendKYI-Gam3avigBgtLhQFOeRPdq-dO60LTGtAB1x2JNhTXXfuQLCTNw7YEa-3GvoAUmFz8jsdkZBQaCdekNeWbaX4YSrqBwPvvFpxokUYDAzCFrYgy6CfbzHICGgKdwAzMsuys204yJrshijccKH0nFiw8G6HnUThLOjvn88gxT1lo2ffQHWBgK8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_name",
+							"value": "toi ạ haiih",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0967258206",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hung.vo@student.passerellesnumeriques.org",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/image/ahihi.jpg"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/update-profile/10101010",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"update-profile",
+						"10101010"
+					]
+				},
+				"description": "user"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTk4MmE1MDExMDMwYWU0MDNkMTdkYjJhZTExZDkwZWU1Mzk3OGFlZDVmZDYxZWJmYTA0MDI2YmU5N2Y4MjViM2JiMmY1OTEzMjA5NjFkOWMiLCJpYXQiOjE1OTMxNTM3NzAsIm5iZiI6MTU5MzE1Mzc3MCwiZXhwIjoxNjI0Njg5NzcwLCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.lFKNijRJq7vrndi8NoJKKfHLJIhNekQu1MvxtIFcQBOgyQ26xBAVFyrHenHpmMruSOTP4svf4iCVlpQmms04TGKxR4QpMk0pGU505GCIb4A74Aq3Qdm4tHSSPdLdQW9bNegnZy02QB4u26CvKMoyjU4PShNRkxkKjWpssUC5hqYRdvaclsM6zbD5vt9r7II41-LK0Om_qufoJhCwYYqJgZTT99_IlekxMpE2nSvmmoUFrJsM8HAuAarMNNo9FljuhONhrbFX6Yt5wbb_S5IAwzcmquOOhPO6v5XfoOzQKOEzg5hInXx7dK8v-BHpiVlxUtw_mIgV44EXN481ixWARYm2UzxnhDJzygeNPagQu1CAoiDTt4iwZZeev5-h67PrPQ4i0IwExYh7V5tuZwtDzEwaE7m3VWOmI494vyifu7sOJSlPNYJOzZd5PYtWeL7kgM0UJusmKjRBymtvSqRoXJKhKYt0jiqVXabHycO2xBI6bDaltJmQgCiStwc2BurL2lJF_ghbZcMm2SGPuexkAvCz2K4MnSdfP4O-6LpiT_LoHdKEcGkB0Ppb1-Ymbr4ppa7ij3S_Xdz7GmUeg1CAyLHXtvcl6Lk46HDNg8Yp_IT5CG3fthxbgkqj-rd-mMn-12qAd0p0KgGw3RSb2NwtBXHFpgG_7UVNdXaqjhcR5MY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "0969258201",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"login"
+					]
+				},
+				"description": "login"
+			},
+			"response": []
+		},
+		{
+			"name": "change password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGExMmJjMWUxOTAwMTVjZDJiNTcyOGU5ZDg2OWQyZGU4NDQwNDhmOTYzYjk4MmZjMWZhMmM4YTliMzRlMTU3ZTIwNDNlZjFiMGM4MTU3MjAiLCJpYXQiOjE1OTIyOTYxOTcsIm5iZiI6MTU5MjI5NjE5NywiZXhwIjoxNjIzODMyMTk3LCJzdWIiOiIxMDEwMTAxMCIsInNjb3BlcyI6W119.DWvkMLIZJeyHLh8-tVeZEs6OIXZ-hqUPMV8FVIJ1kzJ-ISHVHE6umqqByCRB8DwK2dH9OEyRKpJ-UhiJPykOZs6AvUfyzTx2MFL9pv4lCTucbrSUbFdakGnUFFPVaVqn3yZOhSDW7JdlFsWPD5hl_l5qf5DGLXcbe6SPS4fcFY8ThLZMtmcgYSwf2FC2-vTLQs9Vbeqm0Qvtom-kRruxpmfeL77eZ9TUcIfXc3Su0BmRaHRIrAlwZmw53zXh0H8qLxdOpkHKmAWWq4jauoQQlJbUolT7i5MlZ1zquaRKSUz7IVmR4QlPjJ5IHh2aWYGMajQzoXtT0-RvZ7vFRXgEwusa4TH1qyEwnZkhDZnZgyDW2VxxxUUvu6ofgUaEo8Q1MUP3XyK7MkVgsx06mXL1MMF12nOh4GO0y5_gvBvPxTiWUjcfw-VvN8GEGhaldgvcEm_CVRm7W_mSW4UBPfUXkRIN8pnzZl3Znxb2uVEJu8G8xxR1nKendKYI-Gam3avigBgtLhQFOeRPdq-dO60LTGtAB1x2JNhTXXfuQLCTNw7YEa-3GvoAUmFz8jsdkZBQaCdekNeWbaX4YSrqBwPvvFpxokUYDAzCFrYgy6CfbzHICGgKdwAzMsuys204yJrshijccKH0nFiw8G6HnUThLOjvn88gxT1lo2ffQHWBgK8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "old_password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "0123456789",
+							"type": "text"
+						},
+						{
+							"key": "confirm_password",
+							"value": "0123456789",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/password/10101010",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"password",
+						"10101010"
+					]
+				},
+				"description": "login"
+			},
+			"response": []
+		},
+		{
+			"name": "sendMail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "hung.vo@student.passerellesnumeriques.org",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/mail-reset-password",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"mail-reset-password"
+					]
+				},
+				"description": "sendMail"
+			},
+			"response": []
+		},
+		{
+			"name": "detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZmI3ZDQ4ZDIwNTc2ZTk5YmQ3MzUwNDEzMjUwNmE2ZjBhMDEyMGJmOGUwNzkwNDAwOGU4YTViOWM1OTUyOTE3MDY1ODgxMGMyOTI1MmM2YzUiLCJpYXQiOjE1OTM0MDQ1OTUsIm5iZiI6MTU5MzQwNDU5NSwiZXhwIjoxNjI0OTQwNTk1LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.MoAujAB7FDvGPJAtM4gXQaI2BBc8SSUYQ2pWNkiyJJhXqz-aD-KlXqk2CN0aYgPm8HBNsoHK2U6BJC1u4iA36UpzvCJ_k2BWyypX0jLneT9MnrgM_Hj0r8wPQV4l3MR2Yx6L933XS-3d1arR-_gUJieNSoi36jz1qhXRdjhpKz82TLex4AMhRjnF5qptqiP03Z5txgmXoNuriGClRIUHYXdvp-GBVZ0BWmmKwSbwTCuu2vtKTCnAQXlFCo_a5VwWlQDfWfo21uJbeTdvAWB6AbsdReQaF1gmHJitQgGYc6iqMjzdsBw8C8rFzY90enRTRDgJIU1KYZh8eY2RWSLbNlzJTiwUXuX66pRY2RPi9Mb17w8cGdjl8wBNpmIPsHbpAJDLthAy3bJxq25kz3uSe2BFiZsblL7zImQiaRQn4mx9HhnI6pukEFBxw_YE2ejrSu0zLJs96siBnFRlDINFZ87n7B1KpveoY9fRYkVciJxwdsM_mUXJeqzM16HmixUAEH5mheYsm2wXHeJAgiSm1qlnwp0OsUg03LJyc701J8JQrlRE5zmC_pk2Fp5gbV_gDN_XNuKkeVUQ0CYPVQMqZfkhjHvp8VTNvje2CamxNSztoJwRDqN5DwKRVyOnV2IFxt655JTj-gAroIm2mHgP2dmxqiLQ0IFapQR9dAh5lIc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "0967254456",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/me",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"me"
+					]
+				},
+				"description": "login"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMzYyOWEyNGI1MzI4OGRlZDUzMDNhMGU1MzQxYWNlZTk0YjE4ZDA2ZGU1ZTUxZWY2MzM0MmVlNWY2MTVmNzEzZmVhZjIzMWQ0MTYwY2U2ZGUiLCJpYXQiOjE1OTEyMzk5MjYsIm5iZiI6MTU5MTIzOTkyNiwiZXhwIjoxNjIyNzc1OTI2LCJzdWIiOiI5MDkwOTQiLCJzY29wZXMiOltdfQ.AwAr8nNV2yxQ17Y-j6Y8D5O0P8cYmuIOiPTSktN3v002cynpMDXLCkT59lNkfBJV1QQ4GIZO_Q4zMbhBjIKClI7XFGS4Zn41hdmwmBnyix2f0Aak7urXXrttwerUX0F_HFwkov1TvSVDP_Sr86PSvKi0KOfcfEFLtt9-08g-_6xxZEnoQdT6oL-Kgms6I2bDm024F62xujUVgK7_ugJTdctitXjGXQ0QPOxiCvw84qSme0H9ZGIwQgF9SaUMDdJrekfqI6y5wCaV9yiL_sNvBGBCDFi1R2_5mP-JK-Xi8ayyND9LTQX6-JbPzNt87YhWgw686ICqVbPVf79GcfNsrXg-ZH_UZsXOTc9G_QBejADNzK57bvIRldycbRliRyZ_X27o4zREuS6Tbyw4TU46er8tjWAopJLivvqv9S9ROzXaomD3UIcjMIMNou9_PmpdfGynAP4knf_R9_doNuo0XKBSt5hvfRixFcFBOGzZmOzTRsBLd1lymhr_IkZj6OE3mlSAxmEA1giJdzJ6sPo09zHsvbvOeq6zILWCCqou5e52qg3Wvjcv347wL9Q58ircPW3HjSNYd3xGdI247mUtIMZ5ThWMJplBDANglidivmt9u1qKqgwtyOVMor0fXmRJe9mSYYrjXOLF4GktmWJs2pN0d7V5r3BnzECF8s5weZo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "0967254456",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/auth/user/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"user",
+						"logout"
+					]
+				},
+				"description": "login"
+			},
+			"response": []
+		},
+		{
+			"name": "user-update-image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjU4ZWQ0MDNiYjJjMzNhOTUxZDg5OWViMGY3ZmFhYmNkYjEyNWJhOWIyNzY0ZTdkMzNkMTM3MTFiM2M4MjMzY2E5ODYwMWY0MjQyMTBjMzIiLCJpYXQiOjE1OTMzOTQ1NTcsIm5iZiI6MTU5MzM5NDU1NywiZXhwIjoxNjI0OTMwNTU3LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.afIN8ixACo97LMI4A0UnpsOrx_KcmYdGRLe7UxMgD5yUNCF65spo2W8Buft5w5gM8SK1nH8SKDagqn1zFOeftVbYYvyNPs9xIRHYfSvigWp-hWz_oydL2Msp82v_DiTjXFqGMCi9fmm6Jh5PRAQ8-QvaStopp6p0jK4b5NaccDCP7NL4B4KfLKpizFT36UuDVryumi4mnZ1oqRP1g010NZ_S_yWr5buAhbmuwFmE9pvEqiEkJDc5PmUtdw58B2Qc_chtEgcHGQ8OXwe4rrZHefH4YtfhzgThu_nmagvQe5CA43jn0IbEiAD1iQYklT1EuKpr9cnuP_opw34IazBcNcKaujoZVhLLEcNs3GJBnkf7QhZSnSGPKoZWh-CHFHgkA1F_hdgpRtFDFjvlMRTDr8sAc9zil9Zt3x00xCsQbw72dH73dJnJXg5fVRhVxk3e7qxCgFln04MI84Pq28roTyQIN0rQIXNPR2_5K1MLZRajxOZTCjMN8LZlzkBQ0YWGZE6YS3i4u0s69vlCxD1pHY5Xid4smaOZvjgikAvx1pdtSjojzP-CISwLh6BUtMTaB7BaFtzr8bviWkVQxSoGBnMhBSlMj7Jv7hT2D3TjDISImi4Fx6GThdp8AABbWnuKutMQrn48txv1VsxzQjKv5OKObBaT2TEPsugap15abjM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/60940-OA6VIE-130-eps.jpg"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/user-update-image",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"user-update-image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mail-confirm-update-email",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWQ5MWFjMzgxNDc5ZGM3YTQwMDMzMmQ5MGZlZDY3ZWE3YmEwY2JiZmViNDkyOTdjYWQ3NTg5YTRkZDUyMzNlMjg5ZjljMTY5MGZiNmMwM2QiLCJpYXQiOjE1OTM0MDY3NjEsIm5iZiI6MTU5MzQwNjc2MSwiZXhwIjoxNjI0OTQyNzYxLCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.uMjTSVzkKbhbVti1nYfPE7D3tXRf54-vQEjv2IKy3_vg17sADdrrq7f01wB6iq1q2BPOWkrb6w9ODmw6WwFI0kHYwDguM_HcwSHxHZcnNwf65-Z7FbWFN-cz5VHPEwLVLROBXC0pHC-IeiSMtyCspRpyvqAAtIjNl7tRpJmJlGyMoTsBqLujFzcMBtez2uG0HjcbFInjOP9WNrMwN8WnhQUHfwVlRGeh59rRj-cnF_Mx0PIy2eLZneTxbzJxT_vXJ7LpqNSIEsacbzMn3ERX2HsF5zVup_Gm9ZavbXh68_xv1GCfjXWSbZsPtSKn7ytj-psVk-uo7anl0J7EWzE-kRhWP1Z41qfSZW7BS5D3ZLQqHm_e6eRtFRCILY7zrIxkvN2NXJkRSde1pww1OdmZbuTV3Lulm8gUMf1S1eYLtVRHp4JUULD6QhA2NZYqYwu8qnkLPzGw3JibTr0JnM06NmWoAB3bv6ESA56Of6V5qd-Af55SLj7OA76tduR3n0oIaqGDFG7QwM6VN35bhZaIC_G-ewIaHdxRxaUAL0NvyKmjDPtKcGuylTWvIo8G9L1qu8cpV9_CqXLEcYyLb9YIs_fkiGZIXJ0TgGavW0os6sS9EBBogKjc7S3VW8xrYnUmbYGTMZegMdHGzV-_r0yilidCcncc1aaubIcTJEUurLs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "wrwerwerwe",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/mail-confirm-update-email",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"mail-confirm-update-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-phone",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiM2IxYmE1NjhhYjRhN2Q0OTU4MjVhZThjNmNhODIwNTEzMGI3MmRiOTI1OGUwYmRkODY1NWFiODM0NGY2ZGEzYWVkNGM0ZTkyNWUxNmE2MTQiLCJpYXQiOjE1OTM0MTI1NTksIm5iZiI6MTU5MzQxMjU1OSwiZXhwIjoxNjI0OTQ4NTU5LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.SDXQaJ-L0DLWkN0cNa8lFkOt6ZYBgwaKV25utke2FG145a2YHJGpqQ7fowVF9G_ngKN9C-EqJszibIsEWMxpLPGoodDwjTLAYQ1QiIJ5H4ZNO1AcBmLEMv-_sHEgD08YrmSy9zht6E1T538ffclKc6ZBvRwR5gKuKthYtIflyuZV-schhJUxPUt1ibTu_vsMoY6gGTFWotwt5Avc2OLvAsC-XRY8aNp-ojDkmZZSVZqSAdEzNJfxFU0Gj5uzzM_mO1jqHRaQ1-YwJDrBiHtPVAfyLPtpPRbf-5xf_DCtRpeKpJJjG2_-qhY5uLOVuOinpmQdDy9K-oxCkn83iqG2wDWmbbTs3hVeGqn91p15nCWA6PLSUOIS6MLvk_YLpmfJDuAd0dYCcZ-gG_cwxhDdLBdDF5jpya4divGHJovE5daDRkSO8rO1tOPrHKBekkPtfmvTRcU2o-nrPlXkjhGgaf2tUP5QOfKa0UtHrTSfkr3u_5sAhau1PKulYyywnw1cyBNqnP_rciQ8XG-g8ylQ2kOw6L20xVBlMXHP54VdO2tONcvxNvYidY7PF5CuYwswu_e-VbXAJMlFbTsgaSxNNiJT-eNYmFz5dQuuuWsiqrB22Emb5vuTAClJJMKcQpI7MO2FRp9DcbC1DMPE-NjbTo2U3XBcD6aEUGOfJgDn1ag",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "0969258201",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/update-phone",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"update-phone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-user-name",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiM2IxYmE1NjhhYjRhN2Q0OTU4MjVhZThjNmNhODIwNTEzMGI3MmRiOTI1OGUwYmRkODY1NWFiODM0NGY2ZGEzYWVkNGM0ZTkyNWUxNmE2MTQiLCJpYXQiOjE1OTM0MTI1NTksIm5iZiI6MTU5MzQxMjU1OSwiZXhwIjoxNjI0OTQ4NTU5LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.SDXQaJ-L0DLWkN0cNa8lFkOt6ZYBgwaKV25utke2FG145a2YHJGpqQ7fowVF9G_ngKN9C-EqJszibIsEWMxpLPGoodDwjTLAYQ1QiIJ5H4ZNO1AcBmLEMv-_sHEgD08YrmSy9zht6E1T538ffclKc6ZBvRwR5gKuKthYtIflyuZV-schhJUxPUt1ibTu_vsMoY6gGTFWotwt5Avc2OLvAsC-XRY8aNp-ojDkmZZSVZqSAdEzNJfxFU0Gj5uzzM_mO1jqHRaQ1-YwJDrBiHtPVAfyLPtpPRbf-5xf_DCtRpeKpJJjG2_-qhY5uLOVuOinpmQdDy9K-oxCkn83iqG2wDWmbbTs3hVeGqn91p15nCWA6PLSUOIS6MLvk_YLpmfJDuAd0dYCcZ-gG_cwxhDdLBdDF5jpya4divGHJovE5daDRkSO8rO1tOPrHKBekkPtfmvTRcU2o-nrPlXkjhGgaf2tUP5QOfKa0UtHrTSfkr3u_5sAhau1PKulYyywnw1cyBNqnP_rciQ8XG-g8ylQ2kOw6L20xVBlMXHP54VdO2tONcvxNvYidY7PF5CuYwswu_e-VbXAJMlFbTsgaSxNNiJT-eNYmFz5dQuuuWsiqrB22Emb5vuTAClJJMKcQpI7MO2FRp9DcbC1DMPE-NjbTo2U3XBcD6aEUGOfJgDn1ag",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_name",
+							"value": "ahihi a qwe &^*&(&9",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/update-user-name",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"update-user-name"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

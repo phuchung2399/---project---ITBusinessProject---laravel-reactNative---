@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "6ec80ba9-c036-4e33-8ab4-467f7d68fdd2",
+		"name": "Map",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://api.opencagedata.com/geocode/v1/json?q=h%C3%A0+n%E1%BB%99i%2C+vi%E1%BB%87t+nam\n&key=1de1c11c38ac4bae9ecde050ff94589c&pretty=1&language=vi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.opencagedata.com/geocode/v1/json?q=h%C3%A0+n%E1%BB%99i%2C+vi%E1%BB%87t+nam\n&key=1de1c11c38ac4bae9ecde050ff94589c&pretty=1&language=vi",
+					"protocol": "https",
+					"host": [
+						"api",
+						"opencagedata",
+						"com"
+					],
+					"path": [
+						"geocode",
+						"v1",
+						"json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "h%C3%A0+n%E1%BB%99i%2C+vi%E1%BB%87t+nam\n"
+						},
+						{
+							"key": "key",
+							"value": "1de1c11c38ac4bae9ecde050ff94589c"
+						},
+						{
+							"key": "pretty",
+							"value": "1"
+						},
+						{
+							"key": "language",
+							"value": "vi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.opencagedata.com/geocode/v1/json?q=h%C3%A0+n%E1%BB%99i+vi%E1%BB%87t+nam\n&key=1de1c11c38ac4bae9ecde050ff94589c&no_annotations=1&language=en",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.opencagedata.com/geocode/v1/json?q=h%C3%A0+n%E1%BB%99i+vi%E1%BB%87t+nam\n&key=1de1c11c38ac4bae9ecde050ff94589c&no_annotations=1&language=en",
+					"protocol": "https",
+					"host": [
+						"api",
+						"opencagedata",
+						"com"
+					],
+					"path": [
+						"geocode",
+						"v1",
+						"json"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "h%C3%A0+n%E1%BB%99i+vi%E1%BB%87t+nam\n"
+						},
+						{
+							"key": "key",
+							"value": "1de1c11c38ac4bae9ecde050ff94589c"
+						},
+						{
+							"key": "no_annotations",
+							"value": "1"
+						},
+						{
+							"key": "language",
+							"value": "en"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.opencagedata.com/geocode/v1/google-v3-json?address=101B+l%C3%AA+h%E1%BB%AFu+tr%C3%A1c%2C+th%C3%A0nh+ph%E1%BB%91+%C4%91%C3%A0+n%E1%BA%B5ng\n&pretty=1&key=1de1c11c38ac4bae9ecde050ff94589c&language=vi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.opencagedata.com/geocode/v1/google-v3-json?address=101B+l%C3%AA+h%E1%BB%AFu+tr%C3%A1c%2C+th%C3%A0nh+ph%E1%BB%91+%C4%91%C3%A0+n%E1%BA%B5ng\n&pretty=1&key=1de1c11c38ac4bae9ecde050ff94589c&language=vi",
+					"protocol": "https",
+					"host": [
+						"api",
+						"opencagedata",
+						"com"
+					],
+					"path": [
+						"geocode",
+						"v1",
+						"google-v3-json"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "101B+l%C3%AA+h%E1%BB%AFu+tr%C3%A1c%2C+th%C3%A0nh+ph%E1%BB%91+%C4%91%C3%A0+n%E1%BA%B5ng\n"
+						},
+						{
+							"key": "pretty",
+							"value": "1"
+						},
+						{
+							"key": "key",
+							"value": "1de1c11c38ac4bae9ecde050ff94589c"
+						},
+						{
+							"key": "language",
+							"value": "vi"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

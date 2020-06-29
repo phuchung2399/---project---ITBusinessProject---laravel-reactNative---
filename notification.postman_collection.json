@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "d53b2e61-9f8c-4496-8a16-0b5e43d0d252",
+		"name": "notification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get notification user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmMxM2Y1NmNiMDhlYTM1YTc3NmU5M2QzODMzNDAyNTgzNGM2ZmUwNmIyN2VhZmFmODJmMzU3NmM3NGI2N2VjNjRjODFjNjJlZDU1MjJlY2UiLCJpYXQiOjE1OTI4OTc3NjAsIm5iZiI6MTU5Mjg5Nzc2MCwiZXhwIjoxNjI0NDMzNzYwLCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.NZ1LzItKGeQDcNgeHsVjrI3r1OxUuqkpCtBhdTuvtFoTHZryYglVUH2qiP3RXARKlquZkq6Cxz-XhcOwNodfq8dbRAHFLL9iAr7-vxfbp4KiJGgnMEGfGq-1ZW8V2PgboDyAtkB-mEPC98DOliO06wqWKuek81xhtMzA8ffZbhzWOAgXULNZquQILzs28JQzkScBO-fIEjIwFEmCTvw-UVnedh2hXZ7rvGZg3x_2fPlvAD_RuAYswlk-SYdx6QsZMqpYfl48pGxnmngvq0ofY953QenWcVCNdBNI6T40oKOeraq9mUOMZX7hvuU4lNb58mk9dZsmRS56k_3oj6I3xVxNGr03c33fApAZOrRsojH634qz0A9fUUdrNvvgirbafjoOiNvrDgI7Fbhk8yKachO1uXDYrMDQyQHK3L8vc4pPgHlftxq-RsFlNwr4SoQHgOEp7FE7DXQzTbrPGARZIOODBpCXoOKIDdKdiikNmMMEy2EwQ1huxlQ4ZxBSy8stGv7wKTliWtbphNeD63ynSJXldGeH81G2eLkhvvMLEF-JGd-qlqtKnArIzNYPHvrmyXpYRYRyfp4689-Ud_Q1qiffGFyt0XZbNHE2Ni6d3PnaXPrGSzKbxPFwmaMS1fOjaUiL967AYB5fdfspRgN4fYx67Xuq1mMJLwJNOCYDngc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/notification/user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"notification",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get notification store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiY2M0ZjMwNWMxNjZjNTM2MjI4NTg2ZGQxMGYzNWQ5YzA1MmEyNzcxMThlMGY5NmE1NTA4NGZmZjgwYmM2Mjc2NzRhNWUwZjVjZDI3YTcwNzUiLCJpYXQiOjE1OTMxNjkzODksIm5iZiI6MTU5MzE2OTM4OSwiZXhwIjoxNjI0NzA1Mzg5LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.sWKhWRRSExoQkuIHfnjQe6Jh65st-YzKfxcrkzoDv2smfxO9Tm-hsrO-l3WNKjLgmwAkTyB0IOayC_3mwdGg6-sET1171lFC_v5t_4oU3z2LDvV0DfjunFewBZpVWBImsGZlpcfJc4GdfGQ8WwMB7HB_eHi2Ca8s9L9qSQTPDBIj1LogLGiK21y5yOwm9CqjUJ-oiMPuc3wI7vBpiZt8vcx3wgh1cxPxWT81sId7sOK5DXK5Fju9W0E_NBwXZGfYpZqf-aH6mTSpwsqVcI1kVVhqrGqYeWX09Zta3Aq6wRsN1UmS4aCM5tcWg0PzbZpKWdvVZhbFHhKQQZ5CpCrNSPwBWzG02qpapc4bj6e_fMu8H5MsVuibdAg6DfVggzeQ49j4jCvF6THKvAedSJB5m2IHz9QCZH6c-fJOQwMz0RfyJ-r_srZz3M4BOlY73kDZ9cubBoJtSBph2ZE35v_xO4wTQuEGk6tj41aO1T1o2MCAmCZD4ZLu0ubNdB6bNxyMnEyEXsH02aE0SaXl517Iv18tuf5yhk5u8EOJb-PD5jk7n6SpkfNgUIUFUhf0LkGGMBj4JrcAsQSPnpkLrixEjO_WBCz3DD9F8oXYQxekwruTGjWyOzu_G0GsdimqxGRSf-nKU0v3UhUI4M1NDmHRPTAaDnrK-_ZJauV1F0-SGsI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/notification/store/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"notification",
+						"store",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mark-at-read",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNmEyNjExM2ZmOWQ5OTkyNjFhMDg0ZmE4OGY4ZGNmZTFmMTczZmYxMjc2N2JlYjcwMTBhOTQyNjI3MDNjYzRiZWRkZmUzZDllMWUxYzViOGIiLCJpYXQiOjE1OTIyODk5NjEsIm5iZiI6MTU5MjI4OTk2MSwiZXhwIjoxNjIzODI1OTYxLCJzdWIiOiIyMjIyMjIyNSIsInNjb3BlcyI6W119.IlpPyr8oXvhAIGhv40Tu02hJ3oO1OxfdaM4-p6RaoKtPAsloCoaw7g3cpakw4_lNcWmkZfrk3SgvOiGjLda6Ruun3T9Yayx_buCSk71PMF-VWByY0ZzPZ2bJApdeJaGk-sAzZnUAhhLWqYjJO4C1M2cXC8jQVyQ3KF_sILOydFYu2xPzheFE4_MfnZw-pMDwkBWGFsS_Hf0Jo6wZBaexsKg4Pd6G0i9W19FuiYqDwWR6WL_IjAMKj6u2pVggq1N7l6r-0FsZecZCayWZXRPR6SDsSq1Ra9_EC8-fob9rW0KRrsSP0ZOM2zhjZYRilgIufn1O3fR4PJmj86B9-on1k1lr2Jmcoxr82hxrcokg8h0wjPTsuMNblYjtJGh85aQaVb9QpnNQlUMSVX-80uRQVABz1KuwbMTAaSMIDo93b9NrURolVPhHyuiS9ebgxoDPOQFv-LQFeFHDgkwcPP2nJcnPvBxrTAo8BlH0x85uKtqwYKoG55AbNfk2vSfdX6J1xSAH_bntWmoevKwe6lVe4OCIaxuYbNpx9hQRCpqNiIWQvOXtC3gPPhHOtnv9qETzPFsGpIkMAXj3F21OoFZxpiEM_Ic4HiwIyOo_Uuz3StObvySqsfN46yywR5Mpsm8IV899fDgOycyvJWNiz5uZ3ANXeDXy7dARINwsDZ40cFA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/notification/mark-at-read/de5de22a-86c0-4d4d-bde9-9c6ed5ba697a",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"notification",
+						"mark-at-read",
+						"de5de22a-86c0-4d4d-bde9-9c6ed5ba697a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send notifi store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTE0YTQ0YTBiNmQyNmZhZjQ3OGI5NDZhY2M3ZWUxYzRlNGEwYmUyZTRjZTEwNWQwN2FlM2E4ZGZhMTc3OTkzOTQ0MTliMmJmNTFhMTY3OWIiLCJpYXQiOjE1OTI5NzEyMTIsIm5iZiI6MTU5Mjk3MTIxMiwiZXhwIjoxNjI0NTA3MjEyLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.ZzLlY-L022NfLuX1ZRoO126xQa0V4dEefpztzEe00OIQReFzOHnN8q0FqH9-C0g9nIue2I2865HleZeEnsr5tAH8OL1loZC0TIuU0NOdRWh9Xi79Y3u2TH-uQToTTHeHs9ogxuY96-5WuEoxv8WJIPL-n0UG6sGYxcgxDCHHugR3P100VvUCXJHGDaXPDl50AAP7gMGUfGDTOiQdrGIpJqo2neoJHu1HsajDhmtDleVf2oFfegtciPdheu25sZdr7QCAUcNwLgsmmO-jleHFfh5i-FxmMOEPoVTShotqTV132M3Wa3su3YA8chZ9HEgk-5ob2-r0qFSDrq6Y008dT8M3vdSvca1o54CGRJR8TFiv-gcrZpyoBW7Dv19zBa-q53paqte92BTCLj0lrsfIOhbp6LUe0nwi3GJk6uptOp7mTGOD3GGcg_490qrjiUlu3MA_9SbYb51eYk2nFm9ymSpVCctfkQD4I3Tlud2VYHxCJWBouA55nk2DjdeA_2__AgU8k_-cLYql6xy4O1xoAFDVftTlhMiNBONSlLbyjDEuplV0HZJldpDu2FrG-mgIi-O32JkBTQ3x2F1GeH4LvCIbd-m19w_iar8hzLmr9UmImLYyn2Z4DUs3bJJsa2a1BrBKL8YXcL6Eka1scD-Z6dqFX84WRBS02MO520Dh7Ds",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "massage",
+							"value": "ww hưqh",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "tui nek ak",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/notification/send-notification-store",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"notification",
+						"send-notification-store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send notifi user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTE0YTQ0YTBiNmQyNmZhZjQ3OGI5NDZhY2M3ZWUxYzRlNGEwYmUyZTRjZTEwNWQwN2FlM2E4ZGZhMTc3OTkzOTQ0MTliMmJmNTFhMTY3OWIiLCJpYXQiOjE1OTI5NzEyMTIsIm5iZiI6MTU5Mjk3MTIxMiwiZXhwIjoxNjI0NTA3MjEyLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.ZzLlY-L022NfLuX1ZRoO126xQa0V4dEefpztzEe00OIQReFzOHnN8q0FqH9-C0g9nIue2I2865HleZeEnsr5tAH8OL1loZC0TIuU0NOdRWh9Xi79Y3u2TH-uQToTTHeHs9ogxuY96-5WuEoxv8WJIPL-n0UG6sGYxcgxDCHHugR3P100VvUCXJHGDaXPDl50AAP7gMGUfGDTOiQdrGIpJqo2neoJHu1HsajDhmtDleVf2oFfegtciPdheu25sZdr7QCAUcNwLgsmmO-jleHFfh5i-FxmMOEPoVTShotqTV132M3Wa3su3YA8chZ9HEgk-5ob2-r0qFSDrq6Y008dT8M3vdSvca1o54CGRJR8TFiv-gcrZpyoBW7Dv19zBa-q53paqte92BTCLj0lrsfIOhbp6LUe0nwi3GJk6uptOp7mTGOD3GGcg_490qrjiUlu3MA_9SbYb51eYk2nFm9ymSpVCctfkQD4I3Tlud2VYHxCJWBouA55nk2DjdeA_2__AgU8k_-cLYql6xy4O1xoAFDVftTlhMiNBONSlLbyjDEuplV0HZJldpDu2FrG-mgIi-O32JkBTQ3x2F1GeH4LvCIbd-m19w_iar8hzLmr9UmImLYyn2Z4DUs3bJJsa2a1BrBKL8YXcL6Eka1scD-Z6dqFX84WRBS02MO520Dh7Ds",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "massage",
+							"value": "2365656565",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "vui choi voi voucher HANOI",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/notification/send-notification-user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"notification",
+						"send-notification-user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

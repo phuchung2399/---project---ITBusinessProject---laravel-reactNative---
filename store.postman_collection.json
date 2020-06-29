@@ -1,0 +1,1066 @@
+{
+	"info": {
+		"_postman_id": "9c749a4a-fe51-43eb-84af-171bdeee98ea",
+		"name": "store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/ahh.png"
+						},
+						{
+							"key": "store_name",
+							"value": "adkjaskdj",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0967258999",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "phuchung996@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "sagdag",
+							"type": "text"
+						},
+						{
+							"key": "open_time",
+							"value": "5:00:00",
+							"type": "text"
+						},
+						{
+							"key": "close_time",
+							"value": "5:00:00",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "confirm_password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "location_id",
+							"value": "3891672d-1362-49a6-b085-81eaead53b47",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"register"
+					]
+				},
+				"description": "store"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmVkZWE4NGQ1MTIyYTljNDQ2ZDI2YzVhZTAxYjQzZGNhOWUxMzBiMTRhODFmOGNmZmZlNTI2ZmUyZTZkYzZiMDhjNjM5NjBhNWQ5NzVjN2YiLCJpYXQiOjE1OTIzMDA1NzgsIm5iZiI6MTU5MjMwMDU3OCwiZXhwIjoxNjIzODM2NTc4LCJzdWIiOiIyMjIyMjIyNSIsInNjb3BlcyI6W119.gq6j48S1hUpYmlRhMvmLX-zo0ZV2a71_eDo2LqJkxy6FBiWwjHPUv1fbKv__90kDe1FvAR3R-i409hI9cy8stDulgGHp8JMmEgrHG32mcuhjn6lySEONBkemwvwr44TZIOB67zlKB7Y7xlT3UotGYRrfIdCOlXiGMskL8Qg99W0K4D037qj_eUPzp4M3Hxu7yZKWVHGLMX81CnuDRfQk5BOhUR2y5dSxcQxlBy9R6flYLEFBLxltrhacUc_N72TGP04MUajCg0e7kW1hydOyGFSYKkhjhzwwzAiEWdEpSB1jR1IwWGZEljkWn8cj1tjC6GXtvmMB9LwKpY9LSk-Jbm51d-mOEyf_M4Fca8ueQBEYvC1Sn5s-eWo0aHyr7oaJnQUUiKT7GS1EUJBnWdZdneLwl8x8WcmULXn0bCSr7LKsQytOikMe29zHWvKH3A5I4zIZZFuxNo7iKResG2xSRjq5HShuwHRW_uKGIv09LrsPluZKwZKkxvfWV3gzkfxSPNJ-J8sDFO7D25RWXpsS54oTRJzUfkqM_Zxp09u6iUKpMN4J3Z2Wr_ylSbEWOMiFHz1bV3V6iVFIGFipEDqc81YK5til_Az6tvaM4xfSuR7dd3oCotOMpW8-kCetosuVG6PERvxIw0HgHu_rjIICcwFg3GGmNGSxyRL1eDnP7Gc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/IMG_0954.JPG"
+						},
+						{
+							"key": "store_name",
+							"value": "hung nail& aad",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0967258222",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hung.vo@student.passerellesnumeriques.org",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "101b abc& aaaad",
+							"type": "text"
+						},
+						{
+							"key": "open_time",
+							"value": "08:00:00",
+							"type": "text"
+						},
+						{
+							"key": "close_time",
+							"value": "09:00:00",
+							"type": "text"
+						},
+						{
+							"key": "location_id",
+							"value": "3891672d-1362-49a6-b085-81eaead53b47",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/update-profile/22222224",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"update-profile",
+						"22222224"
+					]
+				},
+				"description": "store"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODAyYTA3ODlhZTAyYmUzMjQyYjMzYmVmYzM2NWE2N2VlZTU4NjJlODIzMzlhZGYyYzBhMGQyMDQ5ZTI4ZGNmYTI5ODcxMjczMzNhMzI0MmQiLCJpYXQiOjE1OTEzNTQ4NTEsIm5iZiI6MTU5MTM1NDg1MSwiZXhwIjoxNjIyODkwODUxLCJzdWIiOiIyMjIyMjI0NSIsInNjb3BlcyI6W119.MjcadR32TJL6DgnfHF77mM1xBxw7dTE3z1J2lDMo5lMd-SUcz_O25Pi06oysCtF6EXDk9Sp532W3UifZsIAMK0_71l3H-XlPE66lqMXQKfxncQN6ZamngxrWaepQ-NOTq8MBiBPN-tXCrN9Fqn-z_xqfGMipa7sFIc4uU3JVBaTgs2SuNTizfIS2CbGPsZ25gl52CSZ-MBBdblDIKUT-mK38pfm8tCj1sDKS7ec3jQ8q1NNxnVIVPh_Px7c3BsD3FVwOwdQ4kU-_7eYdCG0B8KAqstXfFMh8-gzmHhvm9CyvPCpun99DB29Vdec0vTIaUrDNW3ZDOtw0nu1imH3P7OnY7Kok_bRBvGQgQHziI1ykfoC9boCfdfmUGgIsV0v-k4f_6IsPEwAC3kaCThUeicnoK6Oy922PUOUnV04nK2AmIuspujGsbNeTThKnJJd9-5olMgGrA_8UBHa1ZidizZ2UiLcnXvAGplNBexYgQ2FJkwIP7-NWFM9L6L5bBaKJ0yClcvOeyWiXc_WCvwO11hdhR7p85l9enKAxXW6Z7Zq4sMARd66DQQQesNZBi563cTBIM6gOLR3tE8uH3dgWndo3O4chsy9smDAPA-0lmiP1eh58MOCMdqEpca3r76Zp17qGORvC92niyQY8B5hC-qtoPpkIXwOr021z2WVcick",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"phone\": \"0967258000\",\n\t\"password\":\"123456789\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendMail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "hung.vo@student.passerellesnumeriques.org",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/mail-reset-password",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"mail-reset-password"
+					]
+				},
+				"description": "sendMail"
+			},
+			"response": []
+		},
+		{
+			"name": "change password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmVkZWE4NGQ1MTIyYTljNDQ2ZDI2YzVhZTAxYjQzZGNhOWUxMzBiMTRhODFmOGNmZmZlNTI2ZmUyZTZkYzZiMDhjNjM5NjBhNWQ5NzVjN2YiLCJpYXQiOjE1OTIzMDA1NzgsIm5iZiI6MTU5MjMwMDU3OCwiZXhwIjoxNjIzODM2NTc4LCJzdWIiOiIyMjIyMjIyNSIsInNjb3BlcyI6W119.gq6j48S1hUpYmlRhMvmLX-zo0ZV2a71_eDo2LqJkxy6FBiWwjHPUv1fbKv__90kDe1FvAR3R-i409hI9cy8stDulgGHp8JMmEgrHG32mcuhjn6lySEONBkemwvwr44TZIOB67zlKB7Y7xlT3UotGYRrfIdCOlXiGMskL8Qg99W0K4D037qj_eUPzp4M3Hxu7yZKWVHGLMX81CnuDRfQk5BOhUR2y5dSxcQxlBy9R6flYLEFBLxltrhacUc_N72TGP04MUajCg0e7kW1hydOyGFSYKkhjhzwwzAiEWdEpSB1jR1IwWGZEljkWn8cj1tjC6GXtvmMB9LwKpY9LSk-Jbm51d-mOEyf_M4Fca8ueQBEYvC1Sn5s-eWo0aHyr7oaJnQUUiKT7GS1EUJBnWdZdneLwl8x8WcmULXn0bCSr7LKsQytOikMe29zHWvKH3A5I4zIZZFuxNo7iKResG2xSRjq5HShuwHRW_uKGIv09LrsPluZKwZKkxvfWV3gzkfxSPNJ-J8sDFO7D25RWXpsS54oTRJzUfkqM_Zxp09u6iUKpMN4J3Z2Wr_ylSbEWOMiFHz1bV3V6iVFIGFipEDqc81YK5til_Az6tvaM4xfSuR7dd3oCotOMpW8-kCetosuVG6PERvxIw0HgHu_rjIICcwFg3GGmNGSxyRL1eDnP7Gc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "old_password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "0123456789",
+							"type": "text"
+						},
+						{
+							"key": "confirm_password",
+							"value": "0123456789",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/password/22222224",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"password",
+						"22222224"
+					]
+				},
+				"description": "login"
+			},
+			"response": []
+		},
+		{
+			"name": "detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZTU1MjE2NDJhYWI1YTg3M2FmYzJkMTIyYjk5ZmM0YzBkM2YzMDFjOWQ5YjdlN2U3MzJkZTAyODg5M2RjZDViYTUyNDYwY2VmZTAyMDFmMDEiLCJpYXQiOjE1OTIzMDA3MzQsIm5iZiI6MTU5MjMwMDczNCwiZXhwIjoxNjIzODM2NzM0LCJzdWIiOiIyMjIyMjIyNiIsInNjb3BlcyI6W119.ywp79YzDs5GEz9ceLwWsO331CwZ-102Ce4R-eI3eMCdefcQTnzSWW5UXcj552Lrc2pJe2dKiPZ4EAx_3kFaY8GWTnaTwT9bUoETWpQGa22hr_EGC7vIxMkg1AW3gPol8wglAnL4EjGz-_HxZ6JJFMfOyRMawCs-aQFz-GFc7wln-m2UXcWAnQT-z6Pve1KUxldzjN7jHJLxNM0NghTcO4zDIolfk1ETc3-Buq5sirQ1XuZNX-R0a6QbKmqFw6TFaQ4YmwZpW8sl9ZyJ0fGApagNhFE_IekkWA1GLhYM1cZeyhAu-n_x_jlCh6dfhCjMOKsQTUMeJPIr9BbSVUoloSIZZUbOQoIcx-bsxnbf7ctTDH-mhro7IvKUFLvLkxuL1T-4mA-JgZtPgZJMlm64gc6wjjPs-8lx8gLKOlioJOtswn9obmJtzEGQrBog1e4BKlDR2rvIFNDzCBpclGfx0BNN7GoPijsZuqRviA2B0ZppTksR9dcP1tEoEFqV22D6dkid9C-258KofxTdbce1iQDK6k2-zREt-6CesaUXaiMKJ6gHvtmmt5XeFp_3Suypi_4A6ymN3eC-_fkjMazSQyf4IlUfvrCOvp_2jwTPiH06oYoPbtbriotPqCS8VB-xlm-qeH_iyr77k4IysmcOBwEXiG_FZ4r1kjtBqoYgD9x8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/me",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"me"
+					]
+				},
+				"description": "store"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzhlZTk4N2FmM2YxMzZjYzZlOTdhNjBjMjRjM2YwZGRmMmUyMzI2YjVkYmYyYzcwZjRlZTA0YmEwYTJmZTg5OGRlNTZlY2JlYTg5ZWY1Y2IiLCJpYXQiOjE1OTE3MDEzMzQsIm5iZiI6MTU5MTcwMTMzNCwiZXhwIjoxNjIzMjM3MzM0LCJzdWIiOiIyMjIyMjIyNCIsInNjb3BlcyI6W119.zJl_PgELyxO07XMSp_OIUKkb9AaZYDpv0M9MNENKW3VDrmZdexyO1COMKAHv6Cr0DFjgz7Kz9hS4ru5ZVZCQROSbBS1Tn4t2iWy4R5pgj_qBdmBAPSopizEttWGfuwDV1pbxJ0iMac-PubB_b-SQ0r9dTo_tzh0n2HxNuBbK5ZcMpGAbkefoRRQQk5XizRnZa0K7ZOX-7yEPWRkRoGqCiKRkk_e9Rr7np9aPaGAZbN8yZMCN0lYofDlfPnDOJ_Ho--w4fwt7XTq_sb4doovtOj3vGzgA2Ab3aw8KfFKOFOMrnDnFlszJAXFqTJunMffvwD1LqU5TWDwpSNpNtow-n_w4wkQCXwaI32Sc0cM2eMI5WrsE8ElbYLEA_jzpSpOuGOPd0_3q1Xabav7RBL7l_wCvhy9pud1QGD230ze-mU_qsWhPo79bfP7vovwDOLE-c5eaxiBndXA4nZAB4QboGMwpfiDR8COkwNItvMZERr5jzYVSt2ewcrc8LInAmvRycnLYlalhKZZTv_p_KXPWIDQqyVYH7GvNggqjGJ4AATiFi5oOEETuqX4untb1bKdDULAYUEIF1nwChi_i_idHJVwSxcxVR4OsfXPYr2t-US6rkBaDbuDUk3rLy7L90zP2dvotErhCP9yF-AyYbbMGeOFZRdscggoWY2TdqCc0Dik",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "0967258206",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234567",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"logout"
+					]
+				},
+				"description": "store"
+			},
+			"response": []
+		},
+		{
+			"name": "store-detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTNhNGQ3MDAzZmY2ZDA0MjU1NjFkNWJhMWRiZDg5ODU2MzEyY2QwZTIyMzViY2U4NGQxYzJiYjAwZmVkYzhiZjAyNTA4YmU2MmZhNWQ0ZWMiLCJpYXQiOjE1OTMxNjU0OTAsIm5iZiI6MTU5MzE2NTQ5MCwiZXhwIjoxNjI0NzAxNDkwLCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.YWbAwH8ydVxxHzzN2n63_6cX5yNmbeQtYk4SFxgeYLJDwV3qEznGVCf-zYrlnk9ztrY6uade5KjQA_SpnsBQqXtQ3xAxepYkXY-2Ce_zsMrN-se31oLEJbLUwHhS-LwKDQr-KBdjC5rNS5hlLJwPILuopFuIXfqC5E_0U3fcHxGMFuyooAp5yQ5Gu5w-E0bvNaQtqtDPMsnFSFbjKvYRVogU4MJDScfP1NNHuyiTo7EB76mMvV2-rN7fiPSQ8LVgro2qpdRWGFkQSBOd0wxcqIa4VsNm8fsniHa3ufFfpvleQmqzNXZ8Yzjxev7wCDM023l-ToOW9dDFq4gtIg8-oCQVMR7MlewcvQxfJyMGcoiwAZuY4KnTNvyyZtZPBR6LFHVbTQyrDOjXHsfzKDHQ-9Ccd8d47ex3M83kaTWvwlj-zN6lN4EneZ6FwoBZytMB4lqbQ41S-j4zxvMefavpnQ5DjpNnxVbZi44alZEDqOy1QZmleRhogxz-kuutqZItqlU7zPiNGKDMb0GdOevifhFVlPW7_e_o-j2qlxfXibbuen9B8CDWoLzNnwGiMxsrIYO9-Mr88Jaoe2hwfSQVG8I4OBgK4rph9MviS-KWBbc9d5tVpTO_vCO_OUZnM42Vh00BWP8eggWjbDupcT_LBhpzaxzmUejWiJ-z_Kh1Q4A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/store-detail/22222224",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"store-detail",
+						"22222224"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store-all",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTNhNGQ3MDAzZmY2ZDA0MjU1NjFkNWJhMWRiZDg5ODU2MzEyY2QwZTIyMzViY2U4NGQxYzJiYjAwZmVkYzhiZjAyNTA4YmU2MmZhNWQ0ZWMiLCJpYXQiOjE1OTMxNjU0OTAsIm5iZiI6MTU5MzE2NTQ5MCwiZXhwIjoxNjI0NzAxNDkwLCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.YWbAwH8ydVxxHzzN2n63_6cX5yNmbeQtYk4SFxgeYLJDwV3qEznGVCf-zYrlnk9ztrY6uade5KjQA_SpnsBQqXtQ3xAxepYkXY-2Ce_zsMrN-se31oLEJbLUwHhS-LwKDQr-KBdjC5rNS5hlLJwPILuopFuIXfqC5E_0U3fcHxGMFuyooAp5yQ5Gu5w-E0bvNaQtqtDPMsnFSFbjKvYRVogU4MJDScfP1NNHuyiTo7EB76mMvV2-rN7fiPSQ8LVgro2qpdRWGFkQSBOd0wxcqIa4VsNm8fsniHa3ufFfpvleQmqzNXZ8Yzjxev7wCDM023l-ToOW9dDFq4gtIg8-oCQVMR7MlewcvQxfJyMGcoiwAZuY4KnTNvyyZtZPBR6LFHVbTQyrDOjXHsfzKDHQ-9Ccd8d47ex3M83kaTWvwlj-zN6lN4EneZ6FwoBZytMB4lqbQ41S-j4zxvMefavpnQ5DjpNnxVbZi44alZEDqOy1QZmleRhogxz-kuutqZItqlU7zPiNGKDMb0GdOevifhFVlPW7_e_o-j2qlxfXibbuen9B8CDWoLzNnwGiMxsrIYO9-Mr88Jaoe2hwfSQVG8I4OBgK4rph9MviS-KWBbc9d5tVpTO_vCO_OUZnM42Vh00BWP8eggWjbDupcT_LBhpzaxzmUejWiJ-z_Kh1Q4A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/store-all",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"store-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store-search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjhhODRlOTMzODVhYTU1MWUzMjU4OTVkZDRmMGI4OThhZTg0NDU5NDJhM2Q0YjQ2MmY3ZTYxMThkZmFkNGVjZDEwMmUwODZiODAyZDY1ODkiLCJpYXQiOjE1OTMxNzA5MTQsIm5iZiI6MTU5MzE3MDkxNCwiZXhwIjoxNjI0NzA2OTE0LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.dumA2-psbxMypuyLZdd2Fljf4hUOrFaMnkvNCz2yINMWUlw7FQOXUgupcdR3r3SMymR3seM9-MfgJKI8w8AiRrTqcckpisynFGmruM9a0PVew8ITitZJ6yBW4w6_IQHGOFePLRzAZG_wA2PAJ8zE_6-B6RrDErX3fE_sZsyx9mjlxTL10SJS-dja-w2UvKRn_Az27svvo6Ra3TJsytxLL_MvuMRw6e81kGv6sBPMXsyJ6jqI93AmvL7hI2bsuLdp-5PjLdT-l-eMrG0cdBupNZbd4JqV5yvU-62uWz2X9mhZt7H0XTlUwHIVNsWNk64RZZs22eyDWdObNHVlBChn_EvutazPVWVu8aHQJBsrjnTMaCj97Jkle4MnPD6AXF3OI7_0B9pVsKPzMj--CJHJMJ3bMSs0Ze3czxUx8TJnsQxHHM63q5efwdOsIw8kRrYKwPFjS267OW_exWcQDV1UvcxWnqwt_h1Fjti2hguYONFTOYh55Vk-DFI8Yef3qTnglOAFvqi-5dENiJnJdwhtqPHw3OO1qC6Dmqng5AS1EVa9cAlNQi_1DZy04kkzhsMh6zIiZbT3LNIEdngdG2EkGRcPX59XrN6h4pywxIbERvQUa-Z0IRCqFZ8S1OTVqpNTiJfMncKDO4a20sJvmtL9XSvCnydfj6TgeVmFVmI6H28",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "key",
+							"value": "nail",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/store-search",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"store-search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store-search-star",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTNhNGQ3MDAzZmY2ZDA0MjU1NjFkNWJhMWRiZDg5ODU2MzEyY2QwZTIyMzViY2U4NGQxYzJiYjAwZmVkYzhiZjAyNTA4YmU2MmZhNWQ0ZWMiLCJpYXQiOjE1OTMxNjU0OTAsIm5iZiI6MTU5MzE2NTQ5MCwiZXhwIjoxNjI0NzAxNDkwLCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.YWbAwH8ydVxxHzzN2n63_6cX5yNmbeQtYk4SFxgeYLJDwV3qEznGVCf-zYrlnk9ztrY6uade5KjQA_SpnsBQqXtQ3xAxepYkXY-2Ce_zsMrN-se31oLEJbLUwHhS-LwKDQr-KBdjC5rNS5hlLJwPILuopFuIXfqC5E_0U3fcHxGMFuyooAp5yQ5Gu5w-E0bvNaQtqtDPMsnFSFbjKvYRVogU4MJDScfP1NNHuyiTo7EB76mMvV2-rN7fiPSQ8LVgro2qpdRWGFkQSBOd0wxcqIa4VsNm8fsniHa3ufFfpvleQmqzNXZ8Yzjxev7wCDM023l-ToOW9dDFq4gtIg8-oCQVMR7MlewcvQxfJyMGcoiwAZuY4KnTNvyyZtZPBR6LFHVbTQyrDOjXHsfzKDHQ-9Ccd8d47ex3M83kaTWvwlj-zN6lN4EneZ6FwoBZytMB4lqbQ41S-j4zxvMefavpnQ5DjpNnxVbZi44alZEDqOy1QZmleRhogxz-kuutqZItqlU7zPiNGKDMb0GdOevifhFVlPW7_e_o-j2qlxfXibbuen9B8CDWoLzNnwGiMxsrIYO9-Mr88Jaoe2hwfSQVG8I4OBgK4rph9MviS-KWBbc9d5tVpTO_vCO_OUZnM42Vh00BWP8eggWjbDupcT_LBhpzaxzmUejWiJ-z_Kh1Q4A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "star",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/store-search-star",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"store-search-star"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store-point-search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTBjMzMzNmQxNmEzYTNiZTVmOTc5YmI5YmFhM2UyYjhmMTAxNDliMTE0ODBiNThhMWE0OGVhYjBhOTZhZmNkYjdhNTAzMDU3YzcwODQ4M2MiLCJpYXQiOjE1OTMxNzIyMzUsIm5iZiI6MTU5MzE3MjIzNSwiZXhwIjoxNjI0NzA4MjM1LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.h8OAKMGymslz6nowBimbeD7-nLiJJM6bCPohX5dO5yF1ncQ4TRmxO4R17ac34q-PXRi0hCQbwh29B3mRWIT6bDY_TQnNtgwJ9x055I-0rEJn5G5qWWITvxkT9mBmQZ1Sh5fksChfecJYA9eUp4B4goNR_R7jpKsyOF06R_gp5cZiNiuvGnxe4J0s_ZivQ-XBBpd0R0wJJcIaC2Cv3jz2qHuHpwYMrAYDclF3q4Ykv6Y52U-f7Hf3ZB9fEJYbnhvFB2IwKdyWKCDxNVvuz8i2hiKTcIpxi1PR5FzWIM3nmq16hRF6K2Q4ybYmfI2vPD-CtFp6qu8IAaAfc0GyyEi9X9dNv1v37n5RtXk4pQDtdhuJFPWtXbYkQEDIVWAFlMtw2OhbI1Ggu6R4qcwNSfyv5ZqEF6PFTEYmPkaDADBn4cKHfVkgMt4Ioq9xIy89WzIrkIb24LjAMym_AAvxskda4HZ8O29g4D34ZQP1K8MNnpuuRy0D7KjQJMmPr-3XIi45a99GCFz5MCWF3EDDsNRNqGIIJCJG-8FxuYnrq0QGysH3F8RcDbRjqLB4XNBX2ZOeCjFKThbKRoSJplWKSThYIkoQEuDNI74z12SPVMa4NaLCKaiNf6U-S7faGt2c5o4tXwpXgzIqUaGopLXIoa6SpPOrgPdFpabQsAX3kqssz9g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "point_search",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "store_id",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/store-point-search/22222224",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"store-point-search",
+						"22222224"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store-update-image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjI1YmEyOGIwNTgzZDNmOWI0YTk5ZDIxMjdjOTA3Y2NlODk5YTk2MjBiZjlhYmE5MTY5NDI2OWJmODBiNGQxZTBhODU3NTk0YWUxNzE0MDIiLCJpYXQiOjE1OTMzOTQ0NzAsIm5iZiI6MTU5MzM5NDQ3MCwiZXhwIjoxNjI0OTMwNDcwLCJzdWIiOiIyMjIyMjIyNCIsInNjb3BlcyI6W119.5bVYyBv6RiG6hlPvfpGi5zpk35RVKsP1bLT71rZcTxhskLQ3pgwaUQP00LNKeCZp8NozsUWdfOLOjDqJBF8WVbnTRmBkrZA7409-BWBe551BT8nQD7mm7-uvpk6sxXaSJcRQKwYf-UQR_p8FmPPSpwhpowfMKachDppctKEQKUFa1we9wWIDigUIAKz6Zag3qprURDdgsktIKse9luuTHgla5sfpibVKZaJS7HPSvlriHUxYEU4OQaDOzWKSo6DSlSof3bZFDKYuS09Zol72Fg9LO2hN72jlR896F3Mnxu1k5EtSQt37VRdhG7VpsiNjCxZRSiFKCY5J9LZLlfzhKk1wpXfk70hKtO640IR9fsmoew8aUI5A-yasHEaV_Q8Oa_HHS3lDeBURqEx5cKWE0Nlhqe4Sm36iLfvkl1wYqDOjPqKXJGGinphfJnJdgUgU7CiIJdAR9GosPsPEg48Jg4EAG892nXNi7eUBPknvwxDsu49A1bq3HI2aM5LM5_6gf2-shClgcgXoAPd_5CMA7dyco2h-blsLInTi_BAVqt2fQn1L5Mg609H3LUt1gZKIFoVnmRtF48a7j3aW8W0elHCt1zj2IPjnoFwwyx5GNwPG8uGVgED8T22jLZXR6ZyOu6b8oUp0OzyEPVm-Ey73qmal8taAoVZGR3neojsxMvg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/IMG_6955.JPG"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/store-update-image",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"store-update-image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mail-confirm-update-email",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZDcxOTdlMGIxM2Y0OTBhZmJkOTZlMWRlZmM0NDM5NTFjZTgyNWI0NThkN2M1ZmRlMGY5ZTlkMDk5MDJjYzc1YWJjNDVmMGQzMTY4NjZiYmEiLCJpYXQiOjE1OTM0MTUxMTMsIm5iZiI6MTU5MzQxNTExMywiZXhwIjoxNjI0OTUxMTEzLCJzdWIiOiIyMjIyMjIyMyIsInNjb3BlcyI6W119.Z8SRnX3tvqhafKlCB_zl8NN3fPyv1G8EB356rXDIC3BBbX2dNhTcC1AoSvKSkiufI74QSRInABtrZXkJJp77Gg2Q610Vc4rk8xrd8AcXLlmgBS6_Fm8uVu8Rv4JvFJOIfwqmNbxki6nCJgmAJXy6bhUD8Akrp2wMuvz2vsRKuZwCRXzAOnPAh1y497PspsUkhN-yia2in0dAoczIM9mAR0Xm7lNtHlEXT5dJv5pmR1m5VBMMS1_png4KgeLVEQDaNSxg5i6N7qHEx_N54mH6AKqPAXETRc9hIx4pcZWf_AUIZXt1s4-6-40e2HNW3IhVYXpyEqNtZ95-Bn7bPks74KjU12mgRDwGF83nERgGelUP6vOXxbX76g4GdABjjCOEJ_Xnyw6v3ivPE-cscQRCdWY3Vy1BFZscG7Am7dYRQR-BqHsrP9yVAkRwqKBQWNxyHjwy3c5SlZS5el85OIganY2BQf2yoIKqH4FQVBWMII_h5LQGWbL1hn9dNYFTpgpJtG6f8DK-CUaKDOMz7lfo4v2S6M12KNijQ_74nx77OtiXCa9eHMM6tjvgk4QhwdIFxpaBjTitCGJo7zWiyDAz6Clv7uRlns4pMznBiAtccQhtEoHu_CVVi3HGFLia24mL7h0Qnd7c9zkso4pNx9wlUVFIdVryrwfR4jwE-ySQVhk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "phuchung996@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/mail-confirm-update-email",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"mail-confirm-update-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-phone-store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOWQzNmI5ZjE2N2VlZDBkYWY0NGUyZmFhNmRkZmNlODFlZTA1MTM3ZWI2NjA4NWJkOGMxNTViZmY2YzBmMDZmZWNmZTllZWQ3Mzc1MzkzZDQiLCJpYXQiOjE1OTM0MTUyOTEsIm5iZiI6MTU5MzQxNTI5MSwiZXhwIjoxNjI0OTUxMjkxLCJzdWIiOiIyMjIyMjIyMyIsInNjb3BlcyI6W119.bdGaU6KbQXhoQ9Wyd93qW4gz_FI4gZT-0yLJSqePv0HoIsWVRvlC0xUavWuYshdsEjWaeyuTvnIe7nbqd0awutcY-bCIx6anjgAvx1utxKcIBBuKFl_D4KmkkjHcKqzTHPy63s1ym9IBqvTeB-mRlxE2aiZF9T06p0kZOUyHyOoMJIypjN30HVNxJ--OApMWgMGluRX0_8oOu07Vm3gFxxTR1CLRywwM2RGPmuJ4RiHt961eyD1yOhDZDweTSh-av0x9R5ff-21YicOYjDu9cKLsjSY3TSG35w4AUUW-D0QTlaQrkjevLhaqQ5pvXEAR9c58_beqrrb-kVc2khGbVfbIAsU9bV_TXrGP0X1baQnctkv0uKLCbOQlnhpkbgevebx68MHzfrD-n9xdKCAS5jxu_q9OjG8NiEVhbPGYp5DXbpwLLQ6iPyzDAX2606QNu5L5ddcaP4lnz27fj_dXuNjinJgtJ2TbJskRxQpdMAGWe_EFFz6hS3DhOHEP4DuEGD7XSWppXim320bH91M8f9JQZ0qPJd1EnCfCT8HauMvQMUt2lK8gwhQKzoZDkpZbpdNl_x08gcVbwKwNi9qy11Ho_lZXmI7wctRJrKfpnefkjL4XStSDmzZlsMIVLCjkjfIiiqCeYKoig68Se7AKFFeLcNZKyEEp2yjZig7D3j8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "0967258000",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/update-phone-store",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"update-phone-store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-store-name",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOWQzNmI5ZjE2N2VlZDBkYWY0NGUyZmFhNmRkZmNlODFlZTA1MTM3ZWI2NjA4NWJkOGMxNTViZmY2YzBmMDZmZWNmZTllZWQ3Mzc1MzkzZDQiLCJpYXQiOjE1OTM0MTUyOTEsIm5iZiI6MTU5MzQxNTI5MSwiZXhwIjoxNjI0OTUxMjkxLCJzdWIiOiIyMjIyMjIyMyIsInNjb3BlcyI6W119.bdGaU6KbQXhoQ9Wyd93qW4gz_FI4gZT-0yLJSqePv0HoIsWVRvlC0xUavWuYshdsEjWaeyuTvnIe7nbqd0awutcY-bCIx6anjgAvx1utxKcIBBuKFl_D4KmkkjHcKqzTHPy63s1ym9IBqvTeB-mRlxE2aiZF9T06p0kZOUyHyOoMJIypjN30HVNxJ--OApMWgMGluRX0_8oOu07Vm3gFxxTR1CLRywwM2RGPmuJ4RiHt961eyD1yOhDZDweTSh-av0x9R5ff-21YicOYjDu9cKLsjSY3TSG35w4AUUW-D0QTlaQrkjevLhaqQ5pvXEAR9c58_beqrrb-kVc2khGbVfbIAsU9bV_TXrGP0X1baQnctkv0uKLCbOQlnhpkbgevebx68MHzfrD-n9xdKCAS5jxu_q9OjG8NiEVhbPGYp5DXbpwLLQ6iPyzDAX2606QNu5L5ddcaP4lnz27fj_dXuNjinJgtJ2TbJskRxQpdMAGWe_EFFz6hS3DhOHEP4DuEGD7XSWppXim320bH91M8f9JQZ0qPJd1EnCfCT8HauMvQMUt2lK8gwhQKzoZDkpZbpdNl_x08gcVbwKwNi9qy11Ho_lZXmI7wctRJrKfpnefkjL4XStSDmzZlsMIVLCjkjfIiiqCeYKoig68Se7AKFFeLcNZKyEEp2yjZig7D3j8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						},
+						{
+							"key": "store_name",
+							"value": "mail nail",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/update-store-name",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"update-store-name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-store-address",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOWQzNmI5ZjE2N2VlZDBkYWY0NGUyZmFhNmRkZmNlODFlZTA1MTM3ZWI2NjA4NWJkOGMxNTViZmY2YzBmMDZmZWNmZTllZWQ3Mzc1MzkzZDQiLCJpYXQiOjE1OTM0MTUyOTEsIm5iZiI6MTU5MzQxNTI5MSwiZXhwIjoxNjI0OTUxMjkxLCJzdWIiOiIyMjIyMjIyMyIsInNjb3BlcyI6W119.bdGaU6KbQXhoQ9Wyd93qW4gz_FI4gZT-0yLJSqePv0HoIsWVRvlC0xUavWuYshdsEjWaeyuTvnIe7nbqd0awutcY-bCIx6anjgAvx1utxKcIBBuKFl_D4KmkkjHcKqzTHPy63s1ym9IBqvTeB-mRlxE2aiZF9T06p0kZOUyHyOoMJIypjN30HVNxJ--OApMWgMGluRX0_8oOu07Vm3gFxxTR1CLRywwM2RGPmuJ4RiHt961eyD1yOhDZDweTSh-av0x9R5ff-21YicOYjDu9cKLsjSY3TSG35w4AUUW-D0QTlaQrkjevLhaqQ5pvXEAR9c58_beqrrb-kVc2khGbVfbIAsU9bV_TXrGP0X1baQnctkv0uKLCbOQlnhpkbgevebx68MHzfrD-n9xdKCAS5jxu_q9OjG8NiEVhbPGYp5DXbpwLLQ6iPyzDAX2606QNu5L5ddcaP4lnz27fj_dXuNjinJgtJ2TbJskRxQpdMAGWe_EFFz6hS3DhOHEP4DuEGD7XSWppXim320bH91M8f9JQZ0qPJd1EnCfCT8HauMvQMUt2lK8gwhQKzoZDkpZbpdNl_x08gcVbwKwNi9qy11Ho_lZXmI7wctRJrKfpnefkjL4XStSDmzZlsMIVLCjkjfIiiqCeYKoig68Se7AKFFeLcNZKyEEp2yjZig7D3j8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "address",
+							"value": "asdasdsad",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/update-store-address",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"update-store-address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-time-open-close-store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOWQzNmI5ZjE2N2VlZDBkYWY0NGUyZmFhNmRkZmNlODFlZTA1MTM3ZWI2NjA4NWJkOGMxNTViZmY2YzBmMDZmZWNmZTllZWQ3Mzc1MzkzZDQiLCJpYXQiOjE1OTM0MTUyOTEsIm5iZiI6MTU5MzQxNTI5MSwiZXhwIjoxNjI0OTUxMjkxLCJzdWIiOiIyMjIyMjIyMyIsInNjb3BlcyI6W119.bdGaU6KbQXhoQ9Wyd93qW4gz_FI4gZT-0yLJSqePv0HoIsWVRvlC0xUavWuYshdsEjWaeyuTvnIe7nbqd0awutcY-bCIx6anjgAvx1utxKcIBBuKFl_D4KmkkjHcKqzTHPy63s1ym9IBqvTeB-mRlxE2aiZF9T06p0kZOUyHyOoMJIypjN30HVNxJ--OApMWgMGluRX0_8oOu07Vm3gFxxTR1CLRywwM2RGPmuJ4RiHt961eyD1yOhDZDweTSh-av0x9R5ff-21YicOYjDu9cKLsjSY3TSG35w4AUUW-D0QTlaQrkjevLhaqQ5pvXEAR9c58_beqrrb-kVc2khGbVfbIAsU9bV_TXrGP0X1baQnctkv0uKLCbOQlnhpkbgevebx68MHzfrD-n9xdKCAS5jxu_q9OjG8NiEVhbPGYp5DXbpwLLQ6iPyzDAX2606QNu5L5ddcaP4lnz27fj_dXuNjinJgtJ2TbJskRxQpdMAGWe_EFFz6hS3DhOHEP4DuEGD7XSWppXim320bH91M8f9JQZ0qPJd1EnCfCT8HauMvQMUt2lK8gwhQKzoZDkpZbpdNl_x08gcVbwKwNi9qy11Ho_lZXmI7wctRJrKfpnefkjL4XStSDmzZlsMIVLCjkjfIiiqCeYKoig68Se7AKFFeLcNZKyEEp2yjZig7D3j8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "open_time",
+							"value": "05:00:00",
+							"type": "text"
+						},
+						{
+							"key": "close_time",
+							"value": "22:00:00",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/update-time-open-close-store",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"update-time-open-close-store"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-location-store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOWQzNmI5ZjE2N2VlZDBkYWY0NGUyZmFhNmRkZmNlODFlZTA1MTM3ZWI2NjA4NWJkOGMxNTViZmY2YzBmMDZmZWNmZTllZWQ3Mzc1MzkzZDQiLCJpYXQiOjE1OTM0MTUyOTEsIm5iZiI6MTU5MzQxNTI5MSwiZXhwIjoxNjI0OTUxMjkxLCJzdWIiOiIyMjIyMjIyMyIsInNjb3BlcyI6W119.bdGaU6KbQXhoQ9Wyd93qW4gz_FI4gZT-0yLJSqePv0HoIsWVRvlC0xUavWuYshdsEjWaeyuTvnIe7nbqd0awutcY-bCIx6anjgAvx1utxKcIBBuKFl_D4KmkkjHcKqzTHPy63s1ym9IBqvTeB-mRlxE2aiZF9T06p0kZOUyHyOoMJIypjN30HVNxJ--OApMWgMGluRX0_8oOu07Vm3gFxxTR1CLRywwM2RGPmuJ4RiHt961eyD1yOhDZDweTSh-av0x9R5ff-21YicOYjDu9cKLsjSY3TSG35w4AUUW-D0QTlaQrkjevLhaqQ5pvXEAR9c58_beqrrb-kVc2khGbVfbIAsU9bV_TXrGP0X1baQnctkv0uKLCbOQlnhpkbgevebx68MHzfrD-n9xdKCAS5jxu_q9OjG8NiEVhbPGYp5DXbpwLLQ6iPyzDAX2606QNu5L5ddcaP4lnz27fj_dXuNjinJgtJ2TbJskRxQpdMAGWe_EFFz6hS3DhOHEP4DuEGD7XSWppXim320bH91M8f9JQZ0qPJd1EnCfCT8HauMvQMUt2lK8gwhQKzoZDkpZbpdNl_x08gcVbwKwNi9qy11Ho_lZXmI7wctRJrKfpnefkjL4XStSDmzZlsMIVLCjkjfIiiqCeYKoig68Se7AKFFeLcNZKyEEp2yjZig7D3j8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "location_id",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/store/update-location-store",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"store",
+						"update-location-store"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

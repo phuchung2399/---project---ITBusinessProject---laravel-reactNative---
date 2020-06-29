@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "32668ea0-5d57-4686-ab52-c0d10bc48a1c",
+		"name": "voucher",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTk5NWM0MzFjODc3YjQxMDU5NDk0ZTAyOTViNTk3MDdiYTc0NDAzMjU3YmE3Y2MzMDVjZGNiY2M3MTc3YTdjYmQ4NzFiNzk1YzM4MDgzY2QiLCJpYXQiOjE1OTM0MjIwNDUsIm5iZiI6MTU5MzQyMjA0NSwiZXhwIjoxNjI0OTU4MDQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.hxhPWyQWcKdiMMryiY2nPZKFl8dgt9uOxtJs1whfVd3wy5_NdgW_OENXcx-MFmd9Opzt7VsVeJvi7VqEkIK50qZPzyBeLCFXXE48wCsF_8W0LE9WVQddU-agdv8pp2uphijTQGsEstoF-9Wa4cEhXkgRi_kBMaomvxF6cnrSNPMVT9znDB2ofV01d8CD0atVcyg0HC7tJvBlpj_7lZw20RONnJQGlripLNxoFBDAO0zDrHCe1U-Cz0rYUP2Gqd925nubl_go53XkEap89yVIvuuhgykIFxWkvbpQC-xwaOaYYrvd88YpywHsrIvDRIQUkuu0WT-HkKY3MOhmL3AsCRHxteiWyhT596i7PNwYGX5eW-xmfYECihTUnBOqWEJihg5odXpfQmnZ-hBijmx6dNudw7ltdQ7yZZWTtmm2leZ-Gt1AM4tGZV7cB2qoOe2KxFEpW1GqZrE4kmThww4hqOkIoa7yvTx6sTmFQXFPHK3lLwCXQ9XzKPiAXCq7AZvlG40EMf0IoHWdgYnnho_axls7YYrvkbm8DdihkFD6Q64RIp4cof27Q17yG7Ys_X-mP3PtDY2SH9AWh4JUa60CcOeYpyqkVcrGJbtu2vVUbFfJl3OErcOKM-diCp_jzpbE9FMkNh3PFmA-SVcdazfsLZGBlyRy91F6IVa4wJK2FtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/voucher/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"voucher",
+						""
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"disabled": true
+						}
+					]
+				},
+				"description": "voucher"
+			},
+			"response": []
+		},
+		{
+			"name": "get voucher to user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWQ1ZWVkMWU3MzY2MmZmMzYyYmJjOTkwZGVlNjFlNjlkN2Q5MmI2OGE5MjRkYmRjMzMwNjZlMTY0NjJhY2Q2ZjY1NDdmZTE2ZDZmZmU2NTQiLCJpYXQiOjE1OTM0MjIyMDksIm5iZiI6MTU5MzQyMjIwOSwiZXhwIjoxNjI0OTU4MjA5LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.V-7kC1muSIVAcYpRKnvvUCnRT37vR81_29tobyEbO7rqZTJS1vHPbgr8pyxk7l2-Ce9hqC1dg3yDXy--e3XhnYgzLY7n7vFsmlUmJ_Ghw83N_PK51r9wjpBN7moJfirufHQUKtzKpdZuk8wKj-TK3WAAc12TbMwelVLKaCcoXNiS6IOvJyDS0TNSuRwGNY8jw5BXOdC0HkZ1fT-cZ6M-L6JYd5S2r2oE7bqkVP9HDquU96IpPMYR75nSZVnYUlYK_KzcjzdsXQIw30Gj-XK406DPaSD1htnoo5-bqsDkp-wFZgwbDEZVqfLmzbyQ6sI2YxSMqujPWzu6tzria_lg9iXD16pfs9ZzuE09Ed2L7mqzjZFOynQ_aOMk430RRxawyuLiH8a41A38uhAQ_1YrjlYRvQbmUjSQLS6KfvIkb_RykZ2HnJIirl3heCo2_dxU0EbZqzHMuhdZJrBvO5i5Ky_2K2y1VwfHFaNqJG9_vEt0Ol7NDYSTZzW73wnIXuZCtYvw4ypW81PqwfxCRGpa68J13zpP7MGQMbyoHWJW1PXG3xBFku3e00FlOmP3LklXljnriLCQeyGR6eC73cIoEE96qnQDxXCElrMqO3rWvB23m8MnwXB915mmu7Jbn1cN6TmSGsR0BJYV9rie1X6nQD8SPRj5A0J5CJq5MEmT1Jg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/voucher-to-user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"voucher-to-user"
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"disabled": true
+						}
+					]
+				},
+				"description": "voucher"
+			},
+			"response": []
+		},
+		{
+			"name": "get by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWQ1ZWVkMWU3MzY2MmZmMzYyYmJjOTkwZGVlNjFlNjlkN2Q5MmI2OGE5MjRkYmRjMzMwNjZlMTY0NjJhY2Q2ZjY1NDdmZTE2ZDZmZmU2NTQiLCJpYXQiOjE1OTM0MjIyMDksIm5iZiI6MTU5MzQyMjIwOSwiZXhwIjoxNjI0OTU4MjA5LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.V-7kC1muSIVAcYpRKnvvUCnRT37vR81_29tobyEbO7rqZTJS1vHPbgr8pyxk7l2-Ce9hqC1dg3yDXy--e3XhnYgzLY7n7vFsmlUmJ_Ghw83N_PK51r9wjpBN7moJfirufHQUKtzKpdZuk8wKj-TK3WAAc12TbMwelVLKaCcoXNiS6IOvJyDS0TNSuRwGNY8jw5BXOdC0HkZ1fT-cZ6M-L6JYd5S2r2oE7bqkVP9HDquU96IpPMYR75nSZVnYUlYK_KzcjzdsXQIw30Gj-XK406DPaSD1htnoo5-bqsDkp-wFZgwbDEZVqfLmzbyQ6sI2YxSMqujPWzu6tzria_lg9iXD16pfs9ZzuE09Ed2L7mqzjZFOynQ_aOMk430RRxawyuLiH8a41A38uhAQ_1YrjlYRvQbmUjSQLS6KfvIkb_RykZ2HnJIirl3heCo2_dxU0EbZqzHMuhdZJrBvO5i5Ky_2K2y1VwfHFaNqJG9_vEt0Ol7NDYSTZzW73wnIXuZCtYvw4ypW81PqwfxCRGpa68J13zpP7MGQMbyoHWJW1PXG3xBFku3e00FlOmP3LklXljnriLCQeyGR6eC73cIoEE96qnQDxXCElrMqO3rWvB23m8MnwXB915mmu7Jbn1cN6TmSGsR0BJYV9rie1X6nQD8SPRj5A0J5CJq5MEmT1Jg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "voucher_name",
+							"value": "toiyeuvietnam",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "10000",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/voucher/97819fe4-9005-400e-b67e-651e00e75f75",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"voucher",
+						"97819fe4-9005-400e-b67e-651e00e75f75"
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"disabled": true
+						}
+					]
+				},
+				"description": "voucher"
+			},
+			"response": []
+		},
+		{
+			"name": "post voucher",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTk5NWM0MzFjODc3YjQxMDU5NDk0ZTAyOTViNTk3MDdiYTc0NDAzMjU3YmE3Y2MzMDVjZGNiY2M3MTc3YTdjYmQ4NzFiNzk1YzM4MDgzY2QiLCJpYXQiOjE1OTM0MjIwNDUsIm5iZiI6MTU5MzQyMjA0NSwiZXhwIjoxNjI0OTU4MDQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.hxhPWyQWcKdiMMryiY2nPZKFl8dgt9uOxtJs1whfVd3wy5_NdgW_OENXcx-MFmd9Opzt7VsVeJvi7VqEkIK50qZPzyBeLCFXXE48wCsF_8W0LE9WVQddU-agdv8pp2uphijTQGsEstoF-9Wa4cEhXkgRi_kBMaomvxF6cnrSNPMVT9znDB2ofV01d8CD0atVcyg0HC7tJvBlpj_7lZw20RONnJQGlripLNxoFBDAO0zDrHCe1U-Cz0rYUP2Gqd925nubl_go53XkEap89yVIvuuhgykIFxWkvbpQC-xwaOaYYrvd88YpywHsrIvDRIQUkuu0WT-HkKY3MOhmL3AsCRHxteiWyhT596i7PNwYGX5eW-xmfYECihTUnBOqWEJihg5odXpfQmnZ-hBijmx6dNudw7ltdQ7yZZWTtmm2leZ-Gt1AM4tGZV7cB2qoOe2KxFEpW1GqZrE4kmThww4hqOkIoa7yvTx6sTmFQXFPHK3lLwCXQ9XzKPiAXCq7AZvlG40EMf0IoHWdgYnnho_axls7YYrvkbm8DdihkFD6Q64RIp4cof27Q17yG7Ys_X-mP3PtDY2SH9AWh4JUa60CcOeYpyqkVcrGJbtu2vVUbFfJl3OErcOKM-diCp_jzpbE9FMkNh3PFmA-SVcdazfsLZGBlyRy91F6IVa4wJK2FtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "voucher_name",
+							"value": "ahuhu",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "5468",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/voucher",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"voucher"
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"disabled": true
+						}
+					]
+				},
+				"description": "voucher"
+			},
+			"response": []
+		},
+		{
+			"name": "put",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTk5NWM0MzFjODc3YjQxMDU5NDk0ZTAyOTViNTk3MDdiYTc0NDAzMjU3YmE3Y2MzMDVjZGNiY2M3MTc3YTdjYmQ4NzFiNzk1YzM4MDgzY2QiLCJpYXQiOjE1OTM0MjIwNDUsIm5iZiI6MTU5MzQyMjA0NSwiZXhwIjoxNjI0OTU4MDQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.hxhPWyQWcKdiMMryiY2nPZKFl8dgt9uOxtJs1whfVd3wy5_NdgW_OENXcx-MFmd9Opzt7VsVeJvi7VqEkIK50qZPzyBeLCFXXE48wCsF_8W0LE9WVQddU-agdv8pp2uphijTQGsEstoF-9Wa4cEhXkgRi_kBMaomvxF6cnrSNPMVT9znDB2ofV01d8CD0atVcyg0HC7tJvBlpj_7lZw20RONnJQGlripLNxoFBDAO0zDrHCe1U-Cz0rYUP2Gqd925nubl_go53XkEap89yVIvuuhgykIFxWkvbpQC-xwaOaYYrvd88YpywHsrIvDRIQUkuu0WT-HkKY3MOhmL3AsCRHxteiWyhT596i7PNwYGX5eW-xmfYECihTUnBOqWEJihg5odXpfQmnZ-hBijmx6dNudw7ltdQ7yZZWTtmm2leZ-Gt1AM4tGZV7cB2qoOe2KxFEpW1GqZrE4kmThww4hqOkIoa7yvTx6sTmFQXFPHK3lLwCXQ9XzKPiAXCq7AZvlG40EMf0IoHWdgYnnho_axls7YYrvkbm8DdihkFD6Q64RIp4cof27Q17yG7Ys_X-mP3PtDY2SH9AWh4JUa60CcOeYpyqkVcrGJbtu2vVUbFfJl3OErcOKM-diCp_jzpbE9FMkNh3PFmA-SVcdazfsLZGBlyRy91F6IVa4wJK2FtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "voucher_name",
+							"value": "AHOHO",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "1000",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "100",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/voucher/18c983e1-3b8b-4f29-b4f1-db26c717e6d6",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"voucher",
+						"18c983e1-3b8b-4f29-b4f1-db26c717e6d6"
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"disabled": true
+						}
+					]
+				},
+				"description": "voucher"
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGFmZWIxZmRhOGM2Nzg4NTIyZDZiZjAxNGVkNDJhZjQ1YzQyNjQ4ZjY2YjY2OTgwYmUyYjYyNjg0YWJhMjViNmJlY2U2ZWZlMjEyNTJiZjUiLCJpYXQiOjE1OTIyOTI1NjAsIm5iZiI6MTU5MjI5MjU2MCwiZXhwIjoxNjIzODI4NTYwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.lb_GPz9HDJiN9B2u8RtVIosq48SG1DJm4_X5CYcbJ94qSjMvD9XBO2-0jnaXldyUtIwsg2b3WwhLuV1lHjNyfG2Iiifz-FuMmpVKuM7cLKYqRGTPnScgYqER35bFHe1MhgaxdPPOIC17BYDd5AjvnmFkYcKWTW7eechf_GRccx9xF9bc1SO3LkYCwUdnB_bT9mzAZ9I2vQDbu_aUYg7p6he5etamXHmcN42Xbaoqc787Bb0dS24-yP0UvTko6RdolEBz3-Rye3mjpkJg8-HuwWP1hV2gKN9ZYy73Cctx5moTVJ3NCBu2GPffbFI_T1G6uXsR5U_iFLTQNesB_tokHLQObnw0hHa_6s3ybqXxhxZs8kWEId7V3JwJkzFEy_4zXI4m2kUMyLoAwD8WGBGGds6K6QpbPh7AVe0qzgb2nW6tuCPdq4XP4mAuTCAhxSmiOJiJ5EaL4UvL0RwXwlu1nIHRC_WkBLhrgsOQd4A5Ngn014aYNkytr6iZKebQGDAtcdS5tNbRwNsQ3oz56ZBuhveG8Y7cS_bRPfxGJ7Qnc7QPWtcRu71Mht90ShE2fYyi1o3d6SopPHuBmV9Rf764rgy5LVH88573E1ufz1eCmEtOZi8PHRz0Y7ax77V7dXjD63glmWL9s3Qi4ZItyqRjCNWz5pfR8MPTPoTHaY2QQe8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "voucher_name",
+							"value": "toiyeuvietnam",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "10000",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/voucher/fd9bf5d8-adcd-46f6-8679-e512c25ab96e",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"voucher",
+						"fd9bf5d8-adcd-46f6-8679-e512c25ab96e"
+					],
+					"query": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"disabled": true
+						}
+					]
+				},
+				"description": "voucher"
+			},
+			"response": []
+		},
+		{
+			"name": "voucher-search-name",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWQ1ZWVkMWU3MzY2MmZmMzYyYmJjOTkwZGVlNjFlNjlkN2Q5MmI2OGE5MjRkYmRjMzMwNjZlMTY0NjJhY2Q2ZjY1NDdmZTE2ZDZmZmU2NTQiLCJpYXQiOjE1OTM0MjIyMDksIm5iZiI6MTU5MzQyMjIwOSwiZXhwIjoxNjI0OTU4MjA5LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.V-7kC1muSIVAcYpRKnvvUCnRT37vR81_29tobyEbO7rqZTJS1vHPbgr8pyxk7l2-Ce9hqC1dg3yDXy--e3XhnYgzLY7n7vFsmlUmJ_Ghw83N_PK51r9wjpBN7moJfirufHQUKtzKpdZuk8wKj-TK3WAAc12TbMwelVLKaCcoXNiS6IOvJyDS0TNSuRwGNY8jw5BXOdC0HkZ1fT-cZ6M-L6JYd5S2r2oE7bqkVP9HDquU96IpPMYR75nSZVnYUlYK_KzcjzdsXQIw30Gj-XK406DPaSD1htnoo5-bqsDkp-wFZgwbDEZVqfLmzbyQ6sI2YxSMqujPWzu6tzria_lg9iXD16pfs9ZzuE09Ed2L7mqzjZFOynQ_aOMk430RRxawyuLiH8a41A38uhAQ_1YrjlYRvQbmUjSQLS6KfvIkb_RykZ2HnJIirl3heCo2_dxU0EbZqzHMuhdZJrBvO5i5Ky_2K2y1VwfHFaNqJG9_vEt0Ol7NDYSTZzW73wnIXuZCtYvw4ypW81PqwfxCRGpa68J13zpP7MGQMbyoHWJW1PXG3xBFku3e00FlOmP3LklXljnriLCQeyGR6eC73cIoEE96qnQDxXCElrMqO3rWvB23m8MnwXB915mmu7Jbn1cN6TmSGsR0BJYV9rie1X6nQD8SPRj5A0J5CJq5MEmT1Jg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "voucher_name",
+							"value": "ahuhu",
+							"type": "text"
+						},
+						{
+							"key": "total",
+							"value": "50000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/total-by-voucher",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"total-by-voucher"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

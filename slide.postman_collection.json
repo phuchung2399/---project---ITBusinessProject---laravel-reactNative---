@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "c9defcd1-ab98-443b-972f-a2356417a1ee",
+		"name": "slide",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjUyMmU1MDg4YTE2MmUzYmNkY2YyMDRhYjkxMjgzNjEyYzU2MGJhOGUwOTRjY2ZhNjUwNWYyYTVmOWYyOTU4ODY0OWJmZTVhNDFlYmYzMDkiLCJpYXQiOjE1OTI3OTA1MTcsIm5iZiI6MTU5Mjc5MDUxNywiZXhwIjoxNjI0MzI2NTE3LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.ek-xs124Ml6u34PJtt54ipFxtYyfTd7U0nafysuAi8pyAoPCt3HnRVxjJ4o4vY7gZJyTu6xUlBtQfR0gIMhPmdRd1h5E0uTm2j36ZxXzRI2tbl1561LkFE4DqdFuv1hpcJHQm3F07-R0vwlaLstw6dFSzrxv8jNK0Uz8KvQY3OK8op2jTb0WIqSzV1HS_sQWZeD7uwRT86i7QfyjOiTOm8ySoMUZJ25EFu35ovflYDSbFnZKKUeazzU0c3thyv3A_paFC1kyQomcbiAyegA6XZ84U45u-D_heuz3M8TPcPwHZVupH2PWWe_UbbyBhpIOjkFZKykl8a5aPaY-SFOHzVgrG0x4s388Sr3jYr_7SqXZIrDl1Tt2E3829j7CSVWzATQ-Qk16JaLoR3R-b366dYRZqfJMPQxSkLTBAOWZ_KW_Va-o2BpDHAbUzvvLVeh2BERTH8oWet03HTlvL0Vqlz_du-C5oOgncKTl_VRJG7AHi5VtM-DuAhynkp-a53FwN_J35cH4lRuXIrpM_jPBm1ekqF46Ol-l4jUWRaOiFhS973V_RVsx4HFHlg0LCVRFsdJ9fRW6taPlD6sYbmtq-BIEswvr0oIDexV3RYDlYlwyI_arUbWyl0qR1U253nkNJwWvrehpc421hvUC15Qu94RxGJMw8y-1GsS1jh2EXm4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/slide/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"slide",
+						""
+					]
+				},
+				"description": "slide"
+			},
+			"response": []
+		},
+		{
+			"name": "get by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "ahihias ",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/image/ahihi.jpg"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/slide/f13cf77e-65a4-4b49-901b-5685344d62d3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"slide",
+						"f13cf77e-65a4-4b49-901b-5685344d62d3"
+					]
+				},
+				"description": "slide"
+			},
+			"response": []
+		},
+		{
+			"name": "post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiN2VmMjIyODE3NjM5N2MzNWViOGQzZGU4ODk1YzZkMTQ0YTliNWE4OWE3NDUzMTQ4OThjYzJlZTkzZWYzOWMwMzEwZGNiOGZkOTdiYTE5YzIiLCJpYXQiOjE1OTMzOTQzMTQsIm5iZiI6MTU5MzM5NDMxNCwiZXhwIjoxNjI0OTMwMzE0LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.E0LNT6m0kkR0sp6b0UXJ7Ke9hJQ5ZQDR5rDTSK9kKxVqsN1xzzO5ceimntgjHL6Scz0uvQyMpOvomhbPO7nDB1zxtPIef-SxaqtLHlYxRVQCo-xk2qsMRE41nBMS9iRz4VQpXyr-Ni7wg_Vc2IPhWXPe10fIPkLMaQFHysdDbNageEAp2xtD75d5BCSIek69prH-0DzxdB6GwbcQQZ4iVTW4KuA9FAjIrr2gBxvJ1D0XvcJvNDdqgfWpEnfu2Kfe07W4Qj4iySS6ZsNlMMxzYiHDuRnXEsBLY6uADRZtUP4Ymd48bn82tsz-E9Jgdw1yBCvNIOuevwgK-t2DtXpGyXQQO0Z74xtkaRA297wSEKep014aMpNsNJP7ypE4rr6_LtOAAztKrXfcBB7dVZQSty9I2mOFCY9cYME0MOgkZZ5Ei44igiQfaD_MPd4Dlt0Yx35mP0HN0AHnCbtuVl6J30Gs9-OMsjpLlad9OKptktQGhKJdV0txQaswfYYDTImPj__BdfxaqabI_B6dF8xSpbiCA3fPZydQanzDUKWqQzRcNdPvJPqfoC3TTGquGgvH2ghvARaYxrYxJMb6iJu2hQpemYq4rIgRjCnUOD8aOi-OGa8VSLVrXQr2oVr2yoNzj9v-goc1flv-KaXUYRNKa-pcviedcLdShD-KAtXUQvA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "ajdjhasj hjahdhajdkhas",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/IMG_1020.JPG"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/slide/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"slide",
+						""
+					]
+				},
+				"description": "slide"
+			},
+			"response": []
+		},
+		{
+			"name": "put",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTNmNWE2ZDJhOTM2NDdjNmNlZDJmN2ZmNDEyNzIwMDVlNWY5MTAwZmYxOTA1ZDg4ZDEwZGZjMGVkZTMzMWMzNzI4ZTNmODVmZWI5OTk2MjkiLCJpYXQiOjE1OTIyOTE5ODksIm5iZiI6MTU5MjI5MTk4OSwiZXhwIjoxNjIzODI3OTg5LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.Fnm1i_sd3OgQkChj8LG4QwDKTOwKCrqXUgCIzR4DmCDSpJhLhnj8eYiSwdj9s7MvCORHGXOgi8d9S0LyXxaevU5yJLGRsoU3fb3rTeJNbHJmJAyl8AFaSg3Vmsj5FTbZqaXSwlF4j_D1ekTgh5b4ooUI_970qIplgrthbFvyWx0G0R8WefIor5LPgYKfyv7c80ZY7yPX2HFjH5wpfzOmKdXx6oqjravGzRAZCr4KpavYJTs0UNT7r3zLXuAsqySHXGh6l27T9I-QFL8B9zTLA7MVwxBmR08quWnqozm2hKCBgSM7LfYxzUR4H65NLjsuO7UtxWjgMH9e_ZsqTHmF1xH6TtZ70XHL4rOHDEaYi6vNsgc-9CIaOHmugKDZVHS9rOMFz_sZZ8Ya9DS0WBS6ZJ_MhFId_JzZNkzFaOVchoYi0ya75i5vjv4ycguGhB2Y8fRSEuPV1nSZxNHvZnX2drUNlUYQ4QlQqxkZYU5oy0lzPnoXH8mbpCt6dA-UH_uH445ckuqyvO8sRUeb7buKewxggYBAQnaX4SgHTead8aRyCF3mL_BgKIOFBWnhzQFlk6Cuoyo45skONHLzt00l7aIc0VmNSsFjLIAgBgDTJEtsn85iEqyjnA3OGO021v_nnYTY_uIr791TccqTgScToyJeNXk5d1okIphlvZRMg-Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "jjtkerktjkerj",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/image/ahihi.jpg"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/slide/fadf41be-6363-4ce0-8e33-e174ac3cda0d",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"slide",
+						"fadf41be-6363-4ce0-8e33-e174ac3cda0d"
+					]
+				},
+				"description": "slide"
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTNmNWE2ZDJhOTM2NDdjNmNlZDJmN2ZmNDEyNzIwMDVlNWY5MTAwZmYxOTA1ZDg4ZDEwZGZjMGVkZTMzMWMzNzI4ZTNmODVmZWI5OTk2MjkiLCJpYXQiOjE1OTIyOTE5ODksIm5iZiI6MTU5MjI5MTk4OSwiZXhwIjoxNjIzODI3OTg5LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.Fnm1i_sd3OgQkChj8LG4QwDKTOwKCrqXUgCIzR4DmCDSpJhLhnj8eYiSwdj9s7MvCORHGXOgi8d9S0LyXxaevU5yJLGRsoU3fb3rTeJNbHJmJAyl8AFaSg3Vmsj5FTbZqaXSwlF4j_D1ekTgh5b4ooUI_970qIplgrthbFvyWx0G0R8WefIor5LPgYKfyv7c80ZY7yPX2HFjH5wpfzOmKdXx6oqjravGzRAZCr4KpavYJTs0UNT7r3zLXuAsqySHXGh6l27T9I-QFL8B9zTLA7MVwxBmR08quWnqozm2hKCBgSM7LfYxzUR4H65NLjsuO7UtxWjgMH9e_ZsqTHmF1xH6TtZ70XHL4rOHDEaYi6vNsgc-9CIaOHmugKDZVHS9rOMFz_sZZ8Ya9DS0WBS6ZJ_MhFId_JzZNkzFaOVchoYi0ya75i5vjv4ycguGhB2Y8fRSEuPV1nSZxNHvZnX2drUNlUYQ4QlQqxkZYU5oy0lzPnoXH8mbpCt6dA-UH_uH445ckuqyvO8sRUeb7buKewxggYBAQnaX4SgHTead8aRyCF3mL_BgKIOFBWnhzQFlk6Cuoyo45skONHLzt00l7aIc0VmNSsFjLIAgBgDTJEtsn85iEqyjnA3OGO021v_nnYTY_uIr791TccqTgScToyJeNXk5d1okIphlvZRMg-Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "ahihias ",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Neolab/Downloads/image/ahihi.jpg"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/slide/fadf41be-6363-4ce0-8e33-e174ac3cda0d",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"slide",
+						"fadf41be-6363-4ce0-8e33-e174ac3cda0d"
+					]
+				},
+				"description": "slide"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

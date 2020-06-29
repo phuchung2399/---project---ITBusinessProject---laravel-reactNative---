@@ -1,0 +1,400 @@
+{
+	"info": {
+		"_postman_id": "a4140224-a220-4bf8-9d73-990429cc2f89",
+		"name": "order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMGQzY2MyM2JmOGMwMmI5NTkyNzYwOTUzMWJlMTFjMDAxNjI3MTMwOGRmZmNjYWE1OTczZDQ4M2YwMjcxNTljNjAzMzY1Nzg4NWFlNzZkYTAiLCJpYXQiOjE1OTM0MjMzMDUsIm5iZiI6MTU5MzQyMzMwNSwiZXhwIjoxNjI0OTU5MzA1LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.U1I7YMiDi66dE8EAx6bUf4s4y5WeITJ6VnK8Mc5xreSQUAvFgKIgyVilk39peB5FvHXvrsMlsSQ54bfSIQT2m0saiNzuHFzY3ipJBfA3hsryKAto4TXi3ZsoJsc24lxurDFD-EbjtJ2CCx_LoMxsD8uZNnIDf5lEHEPTX5UTCktA3lzjTtKGN2inYLQ6ojlRndDo0pXQPpZ5T91E8Is7rwHYHikVGofJY5BhXTWCZS1rAPbIkkdoEC4FsXYJ6nepLPYZuSJODt8qLF0vdWLzPis4oYvPCnnhD0dqJvNczI78LqmQX7GUG31kXr9hI-U8eK2SpEbTQ-k6P-cgH4zO2z_DHsAB7QuwQaSCa5yJcfpiKD1viDu9oWawC1gxAcMdZtu7p0v5Ky3c8xHCYkCVR1UChD0IFz0gsErzA9nEZ3DEG9ScwXWR7A523U_W72L7Pt_lL0vY2UJ1rcapMCQnxtiOlZrc87IwGzBbs4UaH98R-p7gw8avyP-OixU6ROIlUjOwsv6X-iBGAncsY1Sh-l194pqnaMDi3TR11qztuRKavPBPTchBc9zSAZ4VjgJGno0pxG6cLSaep2ihAWXNOsAAvnDxItsoSL8M6s76PllVU2KYB_nxUSpYWcmkKfeZe4FVk61ieXw248KvN3XxZHrzkZnbKaMz3id-eLneZrs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"AHSDG 446556 aq \",\r\n    \"total\": 150000,\r\n    \"note\": \"dosad ngon nghe\",\r\n    \"voucher_name\": \"ahuhu\",\r\n    \"store_id\": 4546465,\r\n    \"store\": {\r\n            \"store_id\": 22222224,\r\n            \"store_name\": \"Dieu nail\",\r\n            \"image\": \"https://drive.google.com/uc?export=view&id=1Ot5aOKzsy0HF8n9sJrWIYmW9F7CmL2_b\",\r\n            \"phone\": \"0967258111\",\r\n            \"email\": \"hung.vo@student.passerellesnumeriques.org\",\r\n            \"open_time\": \"09:00:00\",\r\n            \"close_time\": \"22:00:00\",\r\n            \"location\": [\r\n                {\r\n                    \"location_id\": \"3891672d-1362-49a6-b085-81eaead53b47\",\r\n                    \"location_name\": \"Hồ Chí Minh\",\r\n                    \"created_at\": \"2020-06-26 11:15:04\",\r\n                    \"updated_at\": \"2020-06-26 11:15:04\"\r\n                }\r\n            ],\r\n            \"rank\": 5\r\n        },\r\n    \"order_time\":\"19:59:00\",\r\n    \"order_day\":\"2020-06-27\",\r\n    \"service\": [\r\n        {\r\n            \"service_id\": \"3891672d-1362-49a6-b986-81eaead53b43\",\r\n            \"service_name\": \"nail bình thường\",\r\n            \"description\": \"0\",\r\n            \"reduced_price\": null,\r\n            \"price\": \"10000000.00\",\r\n            \"image\": \"/storage/services/nail.jpg\",\r\n            \"store_id\": 22222223\r\n        }, {\r\n            \"service_id\": \"3891672d-1362-49a6-b986-81eaead53b40\",\r\n            \"service_name\": \"nail ádhjashjd\",\r\n            \"description\": \"0\",\r\n            \"reduced_price\": null,\r\n            \"price\": \"10000000.00\",\r\n            \"image\": \"/storage/services/nail.jpg\",\r\n            \"store_id\": 22222223\r\n        }, {\r\n         \"service_id\": \"3891672d-1362-49a6-b986-81eaead53b40\",\r\n            \"service_name\": \"nail ádhjashjd\",\r\n            \"description\": \"0\",\r\n            \"reduced_price\": null,\r\n            \"price\": \"10000000.00\",\r\n            \"image\": \"/storage/services/nail.jpg\",\r\n            \"store_id\": 22222223\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/order",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order-detail",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNDlhYWEwNTk0ZGQyMGNiZDQ2MDIyMWY3NjZhMTBjNmY0NGI2NjYyOGZhMGY1NGU4ZTkzZTY3NmY0Njg1N2Q2ZjIwOWNhYjVkMDBjZmE2NzUiLCJpYXQiOjE1OTMyNTEyNDUsIm5iZiI6MTU5MzI1MTI0NSwiZXhwIjoxNjI0Nzg3MjQ1LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.0HetkY1Hgst62Vv6bJHxwyzzrjixXwGwTqvEcx0dtLEF6Q-sP5gqtT9K90PpuzguktgbRSnjEwPaB2i0olMp-wj-imodif-_Zxb7YPS8NQKHKGiB38_lwXv6TuPEGJCP0PYguMbhzWWihHHNIhyTur07vpcd_Utr_AXCBrMgNy9DDH4M2yVEhEQL-Z_7lOZaQBLHCOJztX68OiimioOzo_Yzc7uDIVurEJY0hRTn2DvbcZFkvb69FcqSxdAQJkOZFp3pxX6PZUp-LDGzfkt9vEhrp3ZzL43A6gDttfgKmzojaztOmdYH5ShuwxPdNmEX4BEcAHnjmuLmyPxWEY8Kn_pRWRQIz-fhei-_NsWL19oFBy-nnZ-aji6L3xisBpeAMZt37evBI6gv1j6dd2JmYejte6OXb6D-aF6Xn4sdmy3IxRUPpkPKJ7_uNMh3x0KJF7dOczeXMOnt1NdJAEkqcT96zgJ_zvZ1EIQ3a3QOdAmI0sepZgg-1ivcs_dFy4c_BYnTsG5C_h6zrafu4N1jGN4CJgtk98Xw9IKOVg9Ln_-rDsjcTDA7io_IfOcr3CJE_IGXH_Nn-8wf4st4P517nd7ZQvK-skAoLbbcjqpZ33SdquUb-noDl9Eso8tmLyxaRicE_4DapJ7HRujIY_qfn5ib_RunrNQZOnmFGmmt4eY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"101b le huu trac\",\r\n    \"total\": 150000,\r\n    \"note\": \"aihih do ngon\",\r\n    \"store_id\": \"22222223\",\r\n    \"user_id\": \"909090\",\r\n    \"service\": [\r\n        {\r\n            \"service_id\": \"3891672d-1362-49a6-b986-81eaead53b40\",\r\n            \"service_name\": \"nail ádhjashjd\",\r\n            \"description\": \"0\",\r\n            \"reduced_price\": null,\r\n            \"price\": \"10000000.00\",\r\n            \"image\": \"/storage/services/nail.jpg\",\r\n            \"store_id\": 22222223\r\n        },\r\n        {\r\n            \"service_id\": \"3891672d-1362-49a6-b986-81eaead53b43\",\r\n            \"service_name\": \"nail bình thường\",\r\n            \"description\": \"0\",\r\n            \"reduced_price\": null,\r\n            \"price\": \"10000000.00\",\r\n            \"image\": \"/storage/services/nail.jpg\",\r\n            \"store_id\": 22222223\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/order-detail/0e759584-c79e-42d9-aaaf-cf505a5c1b36",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"order-detail",
+						"0e759584-c79e-42d9-aaaf-cf505a5c1b36"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order-store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMzRjMzQzNDQ0NzhmM2JhYjI2YjczMzU3MWFhMGUyOTI3MGM5MWM1MTEwMDBlMjkzMTU5MjFkOGRjNTZkZTU5ZGI4MTBlYzAxZjZmMWVmN2UiLCJpYXQiOjE1OTMxNDY0MzYsIm5iZiI6MTU5MzE0NjQzNiwiZXhwIjoxNjI0NjgyNDM2LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.pad0whhCDyolbisOQqyriL2WJWEjf6O-3BraCVnXDwECa7_0k54aKOkK00JRt9hJ2nNekClWaQHOxPYl7P1_8II25fS4F7rYEgou7gOWmDVmzPpWlMwcAVUnO-DnehxdLUqOje47FHSpnV8KI2PX9_FLH4WdvEeKJGbK2lJoo4c5Wl4yzGHiNRnnropMajzlVEibKLfSkTuAOm6REl3wJdqc6kQqwliTR5jKqtWTQAoW2wgZzOQhO_-dAMkmI1uBI394I4K3QLvRnmzkvJJdClQG7ww7bqr83A9QSohc8Ese-dnA6gIcJTKNVoiRG4qQi-9HBdwQXvaemO_mdiLL6ClQ9rxLGnIZGdLiBS8g_FmbZWpIvv0fdFEaJu195hfG2jlA_C7Gt8I3blayBCj4jyLBBXmw8OGyrRhaMhI8ROXO8wDXLiAOoV-vOXgWIcNd4RztSlvnljZDQwMogAqgk0YUIMi9sFQ0Hr7P_CuAqL9JxFqS7C1O7jyN2HUzgYYMs483pWcm2M8XknrNbo7CcyBAmVXFMIigl8bct_yzwgEhpVYxulWwmtod-CRmonjo6VrLXn6cTNVhY0tD5zzFqWZ0KcPoGYIs5u8iaY1sHkISqC9eOaK5GJDK_j3oMoBHiL9080IDCgPVpiaxSHIvZoqNrb7u_CQM9S9Qs0HmsdI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/order-user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"order-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order-user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjhhODRlOTMzODVhYTU1MWUzMjU4OTVkZDRmMGI4OThhZTg0NDU5NDJhM2Q0YjQ2MmY3ZTYxMThkZmFkNGVjZDEwMmUwODZiODAyZDY1ODkiLCJpYXQiOjE1OTMxNzA5MTQsIm5iZiI6MTU5MzE3MDkxNCwiZXhwIjoxNjI0NzA2OTE0LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.dumA2-psbxMypuyLZdd2Fljf4hUOrFaMnkvNCz2yINMWUlw7FQOXUgupcdR3r3SMymR3seM9-MfgJKI8w8AiRrTqcckpisynFGmruM9a0PVew8ITitZJ6yBW4w6_IQHGOFePLRzAZG_wA2PAJ8zE_6-B6RrDErX3fE_sZsyx9mjlxTL10SJS-dja-w2UvKRn_Az27svvo6Ra3TJsytxLL_MvuMRw6e81kGv6sBPMXsyJ6jqI93AmvL7hI2bsuLdp-5PjLdT-l-eMrG0cdBupNZbd4JqV5yvU-62uWz2X9mhZt7H0XTlUwHIVNsWNk64RZZs22eyDWdObNHVlBChn_EvutazPVWVu8aHQJBsrjnTMaCj97Jkle4MnPD6AXF3OI7_0B9pVsKPzMj--CJHJMJ3bMSs0Ze3czxUx8TJnsQxHHM63q5efwdOsIw8kRrYKwPFjS267OW_exWcQDV1UvcxWnqwt_h1Fjti2hguYONFTOYh55Vk-DFI8Yef3qTnglOAFvqi-5dENiJnJdwhtqPHw3OO1qC6Dmqng5AS1EVa9cAlNQi_1DZy04kkzhsMh6zIiZbT3LNIEdngdG2EkGRcPX59XrN6h4pywxIbERvQUa-Z0IRCqFZ8S1OTVqpNTiJfMncKDO4a20sJvmtL9XSvCnydfj6TgeVmFVmI6H28",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/order-user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"order-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order-confirm",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMzdkNmMzOTI2ZjkyNDJhMWJjZDBkNTFkMWZkZTM2ODI1OGU2ZDU5M2QzYmYzZDFkMWRlZmFiNzdhMjg1YzZiMGEzMzRiZDQ3YzhhM2YyMzAiLCJpYXQiOjE1OTI1NTgxNDQsIm5iZiI6MTU5MjU1ODE0NCwiZXhwIjoxNjI0MDk0MTQ0LCJzdWIiOiIyMjIyMjIyMyIsInNjb3BlcyI6W119.Xuese8HL6axcWnqk4aWVY8HP1ISlEgSOa-PIAjD3Qz72PZ81DSLAfFwVvB161PvJTLXJW8taqqj5teWn0TlB4nUglNngp2N2xNw9c59fSEfxk-GU7czatLDfjbXKERhoW1RgKoQvwzVnq_YCnRuYDfuq8tNnZERCLk8U9svPT5nM0MX4w42oE1Hozd0GbyIkQ0HPb9ou4MyWQ1X4U1cdt4XWAjs3gSG8KwS0f5CHfg0ckTRzLr5pJxwOa9MhJVS2UGHCBduDRyejVXl8daMmU5innhzop2HhsE3Pp6FKCUT709Q8rTtyF8jRHuqUM0V41llnNEJ-wzlweaVohrDk6tMVRF2GQxuTTs7VyTZxOe1h_KVbgFr6mNYkJ6U-_xumXNvxMZVoE5EX1bqb8JJt9IMU2Qu83YQu5_akdGWd02yhPYJnSPXavv1xTxM-cnOvw_8Fm5N70PMzzw1tA9uV-5vMGloRKdBye5eUhh1sAOFoamhepimCFvSk5LCg05AyFsJ1h1lRZzqGlqu1RbrOPpd2QqK3K5TygEDs6-OB3iv4_aAtEmT95l8TCGwNfbemM3RTu8WIHeZqmc3USpPm6kDASJ9dPK_BhujvMyI3ko-B3wtrjaJEaoasXapa9YsTto1cH8fTkMwkdtLAqaE3nG8iLnEuyLiKQAiLanus5WA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/order-confirm/4871be6f-b1a9-4eba-b299-8782f4599d1d",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"order-confirm",
+						"4871be6f-b1a9-4eba-b299-8782f4599d1d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order-cancel",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTk4MmE1MDExMDMwYWU0MDNkMTdkYjJhZTExZDkwZWU1Mzk3OGFlZDVmZDYxZWJmYTA0MDI2YmU5N2Y4MjViM2JiMmY1OTEzMjA5NjFkOWMiLCJpYXQiOjE1OTMxNTM3NzAsIm5iZiI6MTU5MzE1Mzc3MCwiZXhwIjoxNjI0Njg5NzcwLCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.lFKNijRJq7vrndi8NoJKKfHLJIhNekQu1MvxtIFcQBOgyQ26xBAVFyrHenHpmMruSOTP4svf4iCVlpQmms04TGKxR4QpMk0pGU505GCIb4A74Aq3Qdm4tHSSPdLdQW9bNegnZy02QB4u26CvKMoyjU4PShNRkxkKjWpssUC5hqYRdvaclsM6zbD5vt9r7II41-LK0Om_qufoJhCwYYqJgZTT99_IlekxMpE2nSvmmoUFrJsM8HAuAarMNNo9FljuhONhrbFX6Yt5wbb_S5IAwzcmquOOhPO6v5XfoOzQKOEzg5hInXx7dK8v-BHpiVlxUtw_mIgV44EXN481ixWARYm2UzxnhDJzygeNPagQu1CAoiDTt4iwZZeev5-h67PrPQ4i0IwExYh7V5tuZwtDzEwaE7m3VWOmI494vyifu7sOJSlPNYJOzZd5PYtWeL7kgM0UJusmKjRBymtvSqRoXJKhKYt0jiqVXabHycO2xBI6bDaltJmQgCiStwc2BurL2lJF_ghbZcMm2SGPuexkAvCz2K4MnSdfP4O-6LpiT_LoHdKEcGkB0Ppb1-Ymbr4ppa7ij3S_Xdz7GmUeg1CAyLHXtvcl6Lk46HDNg8Yp_IT5CG3fthxbgkqj-rd-mMn-12qAd0p0KgGw3RSb2NwtBXHFpgG_7UVNdXaqjhcR5MY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/order-cancel/a16c79b0-222f-4885-93a3-d288b247aebc",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"order-cancel",
+						"a16c79b0-222f-4885-93a3-d288b247aebc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order-refuse",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWZmNjI0MzYzZTUwNWRkNGUwMTcwMjEzMzdmOGU5YTUyY2RhYjVlYzkwOWY1NDg4NWE0ZjcxODg3NzhlNTAzZmM1OWU5ZWY2ZmQzZmUzNmMiLCJpYXQiOjE1OTMxMzc2NTYsIm5iZiI6MTU5MzEzNzY1NiwiZXhwIjoxNjI0NjczNjU2LCJzdWIiOiIyMjIyMjIyNCIsInNjb3BlcyI6W119.Dj73APZW93ZrZScFp8YYou-5e-4-Kj5eoG0IprulUJC1uvzv55gh_7hz8perHd6QyhVsmcImRflAIpvhv2q_mjXuY9-DBQ7co28AP6-mE95IrsJq78YuK3-QYhcykSKx06MpTRxYcgJAoM9eNE0LxVZ8DnbzMTDThigCGa_RRD35aPBKaXmUTtQXrUhHCPMVUVSR_J7FLsPdwCi20Q9hApYL1CY9W4_ztPegsOjRNPllspUQLQFgJTUz7XOzgmrQibSHVVSIyrbHFebv4Ld0ks24iGzfeCeKAFjXwdGTUrDUuOQtItzFPtS1RMPG68dAw1yMIrRzo65HAxgEnykSgxX7k3_uMQQODHv0fhlb9r1kElZ2XgJDc8d9CgbuUMeGqxhAhBaquiKLa7l8J_2rBvyPBgwsehuQlZxwkEexUtNNV66sKtFaGQsvoiN2O2azE0QUAR3i797QfhEXQMjTD-HP1qZ3CZZxtnJKyCK2NPwuTyGjQan9KnmOwrnw8bX2koh7sYzMsIu1VRFFN6sfWKUE2HDLRtYCveMFKCptNOtJAjjGPoE0ZbFdUFwgbbTBKDiFIghkMHdQnodilBQgDMIx9cSKKxb5HVqrbrLQdErY3B4ZednOkzm9n6iOn2FqocTEXyLWa08tFpWOEQ0li2kT6ha04U5YE3vf-mZ5k9I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/order-refuse/a16c79b0-222f-4885-93a3-d288b247aebc",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"order-refuse",
+						"a16c79b0-222f-4885-93a3-d288b247aebc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order-finish",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWZmNjI0MzYzZTUwNWRkNGUwMTcwMjEzMzdmOGU5YTUyY2RhYjVlYzkwOWY1NDg4NWE0ZjcxODg3NzhlNTAzZmM1OWU5ZWY2ZmQzZmUzNmMiLCJpYXQiOjE1OTMxMzc2NTYsIm5iZiI6MTU5MzEzNzY1NiwiZXhwIjoxNjI0NjczNjU2LCJzdWIiOiIyMjIyMjIyNCIsInNjb3BlcyI6W119.Dj73APZW93ZrZScFp8YYou-5e-4-Kj5eoG0IprulUJC1uvzv55gh_7hz8perHd6QyhVsmcImRflAIpvhv2q_mjXuY9-DBQ7co28AP6-mE95IrsJq78YuK3-QYhcykSKx06MpTRxYcgJAoM9eNE0LxVZ8DnbzMTDThigCGa_RRD35aPBKaXmUTtQXrUhHCPMVUVSR_J7FLsPdwCi20Q9hApYL1CY9W4_ztPegsOjRNPllspUQLQFgJTUz7XOzgmrQibSHVVSIyrbHFebv4Ld0ks24iGzfeCeKAFjXwdGTUrDUuOQtItzFPtS1RMPG68dAw1yMIrRzo65HAxgEnykSgxX7k3_uMQQODHv0fhlb9r1kElZ2XgJDc8d9CgbuUMeGqxhAhBaquiKLa7l8J_2rBvyPBgwsehuQlZxwkEexUtNNV66sKtFaGQsvoiN2O2azE0QUAR3i797QfhEXQMjTD-HP1qZ3CZZxtnJKyCK2NPwuTyGjQan9KnmOwrnw8bX2koh7sYzMsIu1VRFFN6sfWKUE2HDLRtYCveMFKCptNOtJAjjGPoE0ZbFdUFwgbbTBKDiFIghkMHdQnodilBQgDMIx9cSKKxb5HVqrbrLQdErY3B4ZednOkzm9n6iOn2FqocTEXyLWa08tFpWOEQ0li2kT6ha04U5YE3vf-mZ5k9I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/order-finish/a16c79b0-222f-4885-93a3-d288b247aebc",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"order-finish",
+						"a16c79b0-222f-4885-93a3-d288b247aebc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "handle-order-cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNDlhYWEwNTk0ZGQyMGNiZDQ2MDIyMWY3NjZhMTBjNmY0NGI2NjYyOGZhMGY1NGU4ZTkzZTY3NmY0Njg1N2Q2ZjIwOWNhYjVkMDBjZmE2NzUiLCJpYXQiOjE1OTMyNTEyNDUsIm5iZiI6MTU5MzI1MTI0NSwiZXhwIjoxNjI0Nzg3MjQ1LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.0HetkY1Hgst62Vv6bJHxwyzzrjixXwGwTqvEcx0dtLEF6Q-sP5gqtT9K90PpuzguktgbRSnjEwPaB2i0olMp-wj-imodif-_Zxb7YPS8NQKHKGiB38_lwXv6TuPEGJCP0PYguMbhzWWihHHNIhyTur07vpcd_Utr_AXCBrMgNy9DDH4M2yVEhEQL-Z_7lOZaQBLHCOJztX68OiimioOzo_Yzc7uDIVurEJY0hRTn2DvbcZFkvb69FcqSxdAQJkOZFp3pxX6PZUp-LDGzfkt9vEhrp3ZzL43A6gDttfgKmzojaztOmdYH5ShuwxPdNmEX4BEcAHnjmuLmyPxWEY8Kn_pRWRQIz-fhei-_NsWL19oFBy-nnZ-aji6L3xisBpeAMZt37evBI6gv1j6dd2JmYejte6OXb6D-aF6Xn4sdmy3IxRUPpkPKJ7_uNMh3x0KJF7dOczeXMOnt1NdJAEkqcT96zgJ_zvZ1EIQ3a3QOdAmI0sepZgg-1ivcs_dFy4c_BYnTsG5C_h6zrafu4N1jGN4CJgtk98Xw9IKOVg9Ln_-rDsjcTDA7io_IfOcr3CJE_IGXH_Nn-8wf4st4P517nd7ZQvK-skAoLbbcjqpZ33SdquUb-noDl9Eso8tmLyxaRicE_4DapJ7HRujIY_qfn5ib_RunrNQZOnmFGmmt4eY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"AHSDG 446556 aq \",\r\n    \"total\": 150000,\r\n    \"note\": \"dosad ngon nghe\",\r\n    \"store_id\": \"22222224\",\r\n    \"order_time\":\"19:50:00\",\r\n    \"order_day\":\"2020-06-27\",\r\n    \"service\": [\"3891672d-1362-49a6-b986-81eaead53b43\",\"3891672d-1362-49a6-b986-81eaead53b40\",\"3891672d-1362-49a6-b986-81eaead53b40\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/handle-order-cart",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"handle-order-cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "total-by-voucher",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmU4MmJmZWU5MDM3ZjdmYjVkNGQ3NzMzMTU4MTYzYjU2MGM2MmNmMTliOTVhOGU4MzEyMTE5NGVkODdkZWQzNDcyYjRjZDAwMTRmYTIyZDUiLCJpYXQiOjE1OTMyNTM0NjYsIm5iZiI6MTU5MzI1MzQ2NiwiZXhwIjoxNjI0Nzg5NDY2LCJzdWIiOiI5MDkwOTAiLCJzY29wZXMiOltdfQ.jJ70Uof0L199Ku3gPFHRUPuU7dmcCq9KJPRb_wb6iWlhmUh3pUwYXiHcl8kG-6nZnyUkIc1defHuvT72CzBX5IC4kay6ynKnx8hxeL8jpJoGyp7q80klXtUNJwgzB0YeGx0KRdtLVMz2kfgXZKhW-BG9lWK2GQtk1-KzJfCuNMyMmkleNLSN2ZAC0HOqTeatxEjpFMAXfgyaV8gG3pAQ_pUYfuy9wFw-54rs4-JD2sfZ2-Ejvy8uXQoaLm0j0CWIm08zQF4WU33o2dhqfE-uCoAQNTu8i-M11Ka3lnrmvZn3UNJcpGvmtqUImlYJn2t5e_MZ1QodHomh4u2RKwjpFD4XiMVZ1EVhWlmeHA0dm9sBeA0G86iNZDh9Qm-FNZz0Zgo4ISkzKoYxfdreqG_WPeCSSm5tDg57Ht_C9zt9BvZopuR5UC4-qXzwbyFwSOOLrhtUroCcAqEBvi27I3QVuk5gz3_eJUgzAlbZa60HoxrP1IvhxrwBJb7Ql3-gSyXZVVrFNd77JVLeyDwTQKDawOepyaGOS33YvaqVrJ5ZN06sgtDV2iGD8I2Z2qc2RbBKKbTLzUI8BpSjuaiJ-a0o2srFR2De0xlgwJRkR4zMPVPnq3_7Med1wlTQHNfoY4KdByftyk1cXVmi7tEmudK8c4A46gJdoRbFkrRSFE0uiJo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "total",
+							"value": "465465",
+							"type": "text"
+						},
+						{
+							"key": "voucher_name",
+							"value": "ahuhu",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/total-by-voucher",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"total-by-voucher"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
