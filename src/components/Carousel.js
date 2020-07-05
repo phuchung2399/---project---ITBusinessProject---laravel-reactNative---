@@ -76,10 +76,10 @@ const Carousel = ({data}) => {
                 key={i}
                 style={{
                   opacity,
-                  height: 10,
-                  width: 10,
-                  backgroundColor: '#595959',
-                  margin: 8,
+                  height: 5,
+                  width: 15,
+                  backgroundColor: '#FC5895',
+                  margin: 5,
                   borderRadius: 5,
                 }}
               />
@@ -95,7 +95,10 @@ const Carousel = ({data}) => {
 };
 
 const styles = StyleSheet.create({
-  dotView: {flexDirection: 'row', justifyContent: 'center'},
+  dotView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
 });
 
 export default Carousel;
