@@ -5,24 +5,22 @@ import {
   Text,
   AsyncStorage,
   ActivityIndicator,
-  ScrollView,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import {onChangeIntoMainScreen, onSignIn} from './src/navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Loading from './src/screens/Loading';
+import Intro from './src/screens/Intro';
 
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
+      isIntro: true,
       userName: 'tuan',
     };
   }
 
-  componentDidMount() {
-    // this.onShow();
-  }
+  // componentDidMount() {
+  //   this.onCheck();
+  // }
 
   // onCheck = async () => {
   //   try {
@@ -39,57 +37,26 @@ export default class App extends Component {
   // };
 
   onCheck = () => {
-    let user = 'tuan,nguyen';
-    if (user === '') {
+    let user = '';
+    if (user === 'hu') {
       onSignIn();
     } else {
       onChangeIntoMainScreen();
     }
   };
 
-  onChangeMainScreen = () => {
-    // alert(this.state.u);
-    onChangeIntoMainScreen();
-  };
-
   render() {
-    return (
-      <View style={style.container}>
-        <View style={style.container}>
-          <Loading />
-        </View>
+    const that = this;
+    const isShowIntro = this.state.isIntro;
 
-        <View
-          style={{
-            flex: 1,
-          }}>
-          <TouchableWithoutFeedback onPress={this.onChangeMainScreen}>
-            <Text
-              style={{
-                borderWidth: 1.5,
-                borderRadius: 20,
-                fontSize: 24,
-                fontWeight: 'bold',
-                padding: 12,
-                textAlign: 'center',
-                backgroundColor: '#e511e8',
-                borderColor: '#e511e8',
-                color: 'white',
-              }}>
-              Màn hình chính
-            </Text>
-          </TouchableWithoutFeedback>
-        </View>
-      </View>
-    );
+    setTimeout(function() {
+      that.setState({isIntro: false});
+    }, 1500);
+
+    if (isShowIntro) {
+      return <Intro loadingText="Loading..." />;
+    } else {
+      return <View>{this.onCheck()}</View>;
+    }
   }
 }
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

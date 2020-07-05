@@ -29,11 +29,13 @@ import {get, filter} from 'lodash';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
 const {width, height} = Dimensions.get('window');
+import Loading from '../Loading';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       userName: '',
       isShowInfor: false,
       showAlert: false,
@@ -97,181 +99,197 @@ export default class Home extends Component {
   };
 
   render() {
-    return (
-      <View style={{flex: 1}}>
-        <View
-          style={{
-            backgroundColor: '#FC5895',
-            padding: 10,
-            flexDirection: 'row',
-          }}>
-          <View
-            style={{flex: 1, justifyContent: 'center', alignContent: 'center'}}>
-            <Icon
-              name="list"
-              size={30}
-              color="white"
-              onPress={() => this.changScreenSidebar()}
-            />
-          </View>
+    const that = this;
+    const isLoading = this.state.isLoading;
+
+    setTimeout(function() {
+      that.setState({isLoading: false});
+    }, 1000);
+
+    if (isLoading) {
+      return <Loading loadingText="Loading..." />;
+    } else {
+      return (
+        <View style={{flex: 1}}>
           <View
             style={{
-              alignItems: 'flex-end',
-              justifyContent: 'center',
-              borderWidth: 0.5,
-              borderColor: 'white',
-              borderRadius: 20,
+              backgroundColor: '#FC5895',
+              padding: 10,
+              flexDirection: 'row',
             }}>
-            <EvilIcons
-              name="search"
-              size={30}
-              color="white"
-              onPress={() => this.changScreenSearch()}
-            />
-          </View>
-        </View>
-        <ScrollView
-          style={{
-            flex: 1,
-          }}>
-          <LinearGradient colors={['#FC5895', '#F99A7C', '#F99A7C', '#F99A7C']}>
             <View
               style={{
                 flex: 1,
-                alignItems: 'center',
-                height: height / 5,
+                justifyContent: 'center',
+                alignContent: 'center',
               }}>
-              <Text
-                animation="zoomInUp"
-                style={{
-                  fontSize: 40,
-                  fontWeight: 'bold',
-                  color: 'white',
-                  marginTop: -10,
-                  fontFamily: Fonts.serif,
-                }}>
-                {t('home_page')}
-              </Text>
+              <Icon
+                name="list"
+                size={30}
+                color="white"
+                onPress={() => this.changScreenSidebar()}
+              />
             </View>
-          </LinearGradient>
-
-          <View style={{marginTop: '-25%'}}>
-            <Carousel data={dummyData} />
-          </View>
-          <View style={{padding: 2, paddingBottom: 10}}>
-            <View style={styles.category}>
-              <Text style={styles.text}>
-                {t('cua_hang_moi_nhat')} ({get(demodata, 'length')})
-              </Text>
-              <Text
-                style={styles.showall}
-                onPress={() =>
-                  this.changeScreenShowAll(demodata, ' Cửa hàng mới nhất')
-                }>
-                {t('xem_het')}
-              </Text>
-            </View>
-            <FlatList
-              data={demodata}
-              keyExtractor={(item, index) => `${index}`}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              renderItem={({item, index}) => {
-                return (
-                  <NailItem
-                    item={item}
-                    index={index}
-                    parentFlatList={this}
-                    component={this.props.componentId}
-                  />
-                );
-              }}
-            />
-            <View
-              style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-            />
-
             <View
               style={{
-                alignItems: 'center',
-                flexDirection: 'row',
-                padding: 10,
+                alignItems: 'flex-end',
                 justifyContent: 'center',
-                marginTop: 5,
+                borderWidth: 0.5,
+                borderColor: 'white',
+                borderRadius: 20,
               }}>
-              <Text style={styles.text}>
-                {t('cua_hang_chat_luong')} ({get(demodata, 'length')}){' '}
-              </Text>
-              <Text
-                style={styles.showall}
-                onPress={() =>
-                  this.changeScreenShowAll(
-                    demodata,
-                    'Cửa hàng order nhiều nhất',
-                  )
-                }>
-                {' '}
-                {t('xem_het')}
-              </Text>
+              <EvilIcons
+                name="search"
+                size={30}
+                color="white"
+                onPress={() => this.changScreenSearch()}
+              />
             </View>
-            <FlatList
-              data={demodata}
-              keyExtractor={(item, index) => `${index}`}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              renderItem={({item, index}) => {
-                return (
-                  <NailItem
-                    item={item}
-                    index={index}
-                    parentFlatList={this}
-                    component={this.props.componentId}
-                  />
-                );
-              }}
-            />
-            <View
-              style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-            />
-            <View style={styles.category}>
-              <Text style={styles.text}>Top 10 khách hàng tốt nhất</Text>
-            </View>
-            <FlatList
-              data={ReviewData}
-              renderItem={({item}) => (
-                <UserReview
-                  image={item.image}
-                  name={item.name}
-                  orderCount={item.orderCount}
-                  extraInfor={'lượt order'}
-                />
-              )}
-              horizontal={true}
-              keyExtractor={(item, index) => index.toString()}
-              showsHorizontalScrollIndicator={false}
-            />
-            <View
-              style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-            />
-            <View style={styles.category}>
-              <Text style={styles.text}>Top 5 người nhận xét nổi bật</Text>
-            </View>
-            <FlatList
-              data={ReviewData}
-              renderItem={({item}) => (
-                <UserReview image={item.image} name={item.name} />
-              )}
-              horizontal={true}
-              keyExtractor={(item, index) => index.toString()}
-              showsHorizontalScrollIndicator={false}
-            />
-            <View
-              style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-            />
           </View>
-        </ScrollView>
-      </View>
-    );
+          <ScrollView
+            style={{
+              flex: 1,
+            }}>
+            <LinearGradient
+              colors={['#FC5895', '#F99A7C', '#F99A7C', '#F99A7C']}>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  height: height / 5,
+                }}>
+                <Text
+                  animation="zoomInUp"
+                  style={{
+                    fontSize: 40,
+                    fontWeight: 'bold',
+                    color: 'white',
+                    marginTop: -10,
+                    fontFamily: Fonts.serif,
+                  }}>
+                  {t('home_page')}
+                </Text>
+              </View>
+            </LinearGradient>
+
+            <View style={{marginTop: '-25%'}}>
+              <Carousel data={dummyData} />
+            </View>
+            <View style={{padding: 2, paddingBottom: 10}}>
+              <View style={styles.category}>
+                <Text style={styles.text}>
+                  {t('cua_hang_moi_nhat')} ({get(demodata, 'length')})
+                </Text>
+                <Text
+                  style={styles.showall}
+                  onPress={() =>
+                    this.changeScreenShowAll(demodata, ' Cửa hàng mới nhất')
+                  }>
+                  {t('xem_het')}
+                </Text>
+              </View>
+              <FlatList
+                data={demodata}
+                keyExtractor={(item, index) => `${index}`}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item, index}) => {
+                  return (
+                    <NailItem
+                      item={item}
+                      index={index}
+                      parentFlatList={this}
+                      component={this.props.componentId}
+                    />
+                  );
+                }}
+              />
+              <View
+                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
+              />
+
+              <View
+                style={{
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  padding: 10,
+                  justifyContent: 'center',
+                  marginTop: 5,
+                }}>
+                <Text style={styles.text}>
+                  {t('cua_hang_chat_luong')} ({get(demodata, 'length')}){' '}
+                </Text>
+                <Text
+                  style={styles.showall}
+                  onPress={() =>
+                    this.changeScreenShowAll(
+                      demodata,
+                      'Cửa hàng order nhiều nhất',
+                    )
+                  }>
+                  {' '}
+                  {t('xem_het')}
+                </Text>
+              </View>
+              <FlatList
+                data={demodata}
+                keyExtractor={(item, index) => `${index}`}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item, index}) => {
+                  return (
+                    <NailItem
+                      item={item}
+                      index={index}
+                      parentFlatList={this}
+                      component={this.props.componentId}
+                    />
+                  );
+                }}
+              />
+              <View
+                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
+              />
+              <View style={styles.category}>
+                <Text style={styles.text}>Top 10 khách hàng tốt nhất</Text>
+              </View>
+              <FlatList
+                data={ReviewData}
+                renderItem={({item}) => (
+                  <UserReview
+                    image={item.image}
+                    name={item.name}
+                    orderCount={item.orderCount}
+                    extraInfor={'lượt order'}
+                  />
+                )}
+                horizontal={true}
+                keyExtractor={(item, index) => index.toString()}
+                showsHorizontalScrollIndicator={false}
+              />
+              <View
+                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
+              />
+              <View style={styles.category}>
+                <Text style={styles.text}>Top 5 người nhận xét nổi bật</Text>
+              </View>
+              <FlatList
+                data={ReviewData}
+                renderItem={({item}) => (
+                  <UserReview image={item.image} name={item.name} />
+                )}
+                horizontal={true}
+                keyExtractor={(item, index) => index.toString()}
+                showsHorizontalScrollIndicator={false}
+              />
+              <View
+                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
+              />
+            </View>
+          </ScrollView>
+        </View>
+      );
+    }
   }
 }
 

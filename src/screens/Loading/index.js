@@ -9,10 +9,12 @@ export default class Loading extends Component {
   }
 
   render() {
+    const {loadingText} = this.props;
+
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" />
-        <Text style={styles.Text}>{t('Loading')}</Text>
+        <Text style={styles.Text}>{loadingText}</Text>
       </View>
     );
   }
