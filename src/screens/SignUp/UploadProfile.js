@@ -112,7 +112,7 @@ class UploadProfile extends Component {
           }}>
           <View
             style={{
-              flex: 2,
+              flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -125,6 +125,14 @@ class UploadProfile extends Component {
                 source={UploadProfileImage}
               />
             </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                textAlign: 'center',
+                marginVertical: 50,
+              }}>
+              Please upload your real profile
+            </Text>
           </View>
 
           <LinearGradient
