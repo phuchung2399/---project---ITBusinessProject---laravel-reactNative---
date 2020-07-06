@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TextInput} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 class Input extends Component {
   constructor(props) {
@@ -23,14 +24,14 @@ class Input extends Component {
           {...this.props}
           value={this.state.value}
           onChangeText={text => this.getData(text)}
-          x
         />
-        <Text style={style.styleError}>{error}</Text>
+        <Animatable.Text animation="pulse" style={style.styleError}>
+          {error}
+        </Animatable.Text>
       </View>
     );
   }
 }
-
 const style = StyleSheet.create({
   styleTextInput: {
     borderRadius: 20,
@@ -47,6 +48,7 @@ const style = StyleSheet.create({
   styleError: {
     fontSize: 15,
     color: 'red',
+    marginHorizontal: 10,
   },
 });
 

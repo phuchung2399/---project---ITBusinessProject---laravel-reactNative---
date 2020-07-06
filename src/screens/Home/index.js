@@ -107,7 +107,11 @@ export default class Home extends Component {
     }, 1000);
 
     if (isLoading) {
-      return <Loading loadingText="Loading..." />;
+      return (
+        <View style={{flex: 1}}>
+          <Loading loadingText="Loading..." />
+        </View>
+      );
     } else {
       return (
         <View style={{flex: 1}}>
@@ -150,8 +154,7 @@ export default class Home extends Component {
             style={{
               flex: 1,
             }}>
-            <LinearGradient
-              colors={['#FC5895', '#F99A7C', '#F99A7C', '#F99A7C']}>
+            <LinearGradient colors={['#FC5895', '#F99A7C']}>
               <View
                 style={{
                   flex: 1,
