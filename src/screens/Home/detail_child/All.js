@@ -17,31 +17,31 @@ var data = [
     name: 'Stewed Mushrooms',
     image: require('../asset/namkho.jpg'),
     rating: 3,
-    price: '$12',,
+    price: '$12',
   },
   {
     name: 'Jackfruit Fried',
     image: require('../asset/mitkho.jpg'),
     rating: 5,
-    price: '$15',,
+    price: '$15',
   },
   {
     name: 'Noodles',
     image: require('../asset/hutieu.jpg'),
     rating: 4,
-    price: '$20',,
+    price: '$20',
   },
   {
     name: 'Beef',
     image: require('../asset/cuonlalot.jpg'),
     rating: 2,
-    price: '$12',,
+    price: '$12',
   },
   {
     name: 'Salad dressing',
     image: require('../asset/cuondiep.jpg'),
     rating: 5,
-    price: '$13',,
+    price: '$13',
   },
 ];
 
@@ -64,7 +64,7 @@ export default class All extends React.Component {
           style={{width: 15, height: 15, marginRight: 3}}
           resizeMode="cover"
         />,
-      );;
+      );
     }
     return rating;
   }
@@ -93,7 +93,7 @@ export default class All extends React.Component {
             this.props.props.navigation.navigate('DetailScreen', {
               image: item.image,
               price: item.price,
-              name: item.name,,
+              name: item.name,
             })
           }
           style={styles.button}>
@@ -107,7 +107,7 @@ export default class All extends React.Component {
     return (
       <View
         style={{
-          height: 10,,
+          height: 10,
         }}
       />
     );
@@ -208,7 +208,7 @@ var styles = StyleSheet.create({
   },
   price_container: {
     flexDirection: 'row',
-    marginTop: 10,,
+    marginTop: 10,
   },
   price: {
     backgroundColor: 'white',

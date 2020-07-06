@@ -6,9 +6,11 @@ import Love from '../screens/Love';
 import Profile from '../screens/Profile';
 import Booking from '../screens/Home/Booking';
 import Search from '../screens/Home/Search';
+import Detail from '../screens/Home/Detail';
 import App from '../../App';
 import Signin from '../screens/SignIn';
 import Signup from '../screens/SignUp';
+import UploadProfile from '../screens/SignUp/UploadProfile';
 import SearchItems from '../screens/Home/components/SearchItems';
 import ShowAllStores from '../screens/Home/ShowAllStores';
 import Intro from '../screens/Intro';
@@ -46,13 +48,15 @@ Navigation.registerComponent('Loading', () => Loading);
 Navigation.registerComponent('ShowAllStores', () => ShowAllStores);
 Navigation.registerComponent('Notification', () => Notification);
 Navigation.registerComponent('NotificationItems', () => NotificationItems);
+Navigation.registerComponent('Detail', () => Detail);
+Navigation.registerComponent('UploadProfile', () => UploadProfile);
 
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
       root: {
         component: {
-          name: 'App',
+          name: 'Signin',
         },
       },
     });

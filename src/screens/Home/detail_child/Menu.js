@@ -51,7 +51,7 @@ export default class Menu extends React.Component {
               rating: 5,
               price: '$13',
             },
-          ],,
+          ],
         },
         {
           type: 'Other',
@@ -66,10 +66,10 @@ export default class Menu extends React.Component {
               name: 'Jackfruit warehouse',
               image: require('../asset/mitkho.jpg'),
               price: '$15',
-            },,
-          ],,
+            },
+          ],
         },
-      ],,
+      ],
     };
   }
 
@@ -87,7 +87,7 @@ export default class Menu extends React.Component {
         <Image source={item.image} style={styles.image} />
         <Text style={styles.name}>{item.name}</Text>
       </TouchableOpacity>
-    );;
+    );
   };
 
   renderItem = ({item}) => {
@@ -123,11 +123,11 @@ export default class Menu extends React.Component {
   };
 
   ItemSeparatorComponent_type = () => {
-    return  <View style={{width: 10}} />;
+    return <View style={{width: 10}} />;
   };
 
   ItemSeparatorComponent = () => {
-    return  <View style={{height: 20}} />;
+    return <View style={{height: 20}} />;
   };
 
   render() {

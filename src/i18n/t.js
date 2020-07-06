@@ -9,6 +9,7 @@ i18next.init({
       translation: {
         brand_name: 'Nail',
         txtLogin: 'Đăng nhập',
+        txtSignUp: 'Đăng kí',
         Loading: 'Loading ...',
         Login: 'User Login',
         home_page: 'Trang chủ',

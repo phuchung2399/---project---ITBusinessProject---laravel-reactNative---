@@ -13,12 +13,14 @@ import {
   TouchableOpacity,
   SafeAreaView,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import {t} from '../../i18n/t';
+const {width, height} = Dimensions.get('window');
 
 class SignIn extends Component {
   constructor(props) {
@@ -89,7 +91,7 @@ class SignIn extends Component {
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
           <SafeAreaView
             style={{
-              height: 150,
+              height: height / 4,
             }}>
             <View
               style={{
@@ -272,14 +274,14 @@ class SignIn extends Component {
           iterationCount="infinite"
           style={{
             position: 'absolute',
-            right: '32%',
+            right: '30%',
             top: '12%',
             overflow: 'hidden',
           }}>
           <Image
             style={{
-              width: 150,
-              height: 150,
+              width: 170,
+              height: 170,
             }}
             source={Logo}
           />

@@ -13,7 +13,7 @@ import ic_launcher_background from '../../../../UserApplication/MyApplication/ap
 const {width, height} = Dimensions.get('window');
 
 export default class Item extends Component {
-  onPress = item => {
+  onPress = idBook => {
     Navigation.showModal({
       stack: {
         children: [
@@ -21,19 +21,28 @@ export default class Item extends Component {
             component: {
               name: 'Detail',
               passProps: {
-                data: item,
+                IdBook: idBook,
               },
               options: {
                 topBar: {
                   title: {
-                    text: item.title,
+                    text: '',
                     alignment: 'center',
                   },
+                  visible: false,
                 },
               },
             },
           },
         ],
+      },
+    });
+  };
+
+  changScreenSearch = () => {
+    Navigation.showModal({
+      component: {
+        name: 'Search',
       },
     });
   };

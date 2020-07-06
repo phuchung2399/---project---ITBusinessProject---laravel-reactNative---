@@ -10,45 +10,45 @@ export default class Popular extends React.Component {
           name: 'Alex Sander',
           rating: 5,
           comment: 'Good',
-          image: require('../asset/avatar1.png'),,
+          image: require('../asset/avatar1.png'),
         },
         {
           name: 'Trong Thanh',
           rating: 4,
           comment: 'Ok',
-          image: require('../asset/avatar2.png'),,
+          image: require('../asset/avatar2.png'),
         },
         {
           name: 'Huynh Nhu',
           rating: 2,
           comment: 'Bad',
-          image: require('../asset/avatar3.png'),,
+          image: require('../asset/avatar3.png'),
         },
         {
           name: 'Trong That',
           rating: 5,
           comment: 'good food good mood',
-          image: require('../asset/avatar4.png'),,
+          image: require('../asset/avatar4.png'),
         },
         {
           name: 'Ngoc Trai',
           rating: 4,
           comment: 'Very good',
-          image: require('../asset/avatar2.png'),,
+          image: require('../asset/avatar2.png'),
         },
         {
           name: 'Hai Bang',
           rating: 2,
           comment: 'normal',
-          image: require('../asset/avatar4.png'),,
+          image: require('../asset/avatar4.png'),
         },
-      ],,
+      ],
     };
   }
 
   _rating(item) {
     let rating = [];
-    for  (i = 0; i < item; i++) {
+    for (i = 0; i < item; i++) {
       rating.push(
         <Image
           source={require('../asset/star2.png')}
@@ -76,7 +76,7 @@ export default class Popular extends React.Component {
   };
 
   ItemSeparatorComponent = () => {
-    return  <View style={{height: 30}} />;;
+    return <View style={{height: 30}} />;
   };
 
   render() {
@@ -104,21 +104,21 @@ var styles = StyleSheet.create({
   },
   item: {
     flex: 1,
-    alignItems: 'center',,
+    alignItems: 'center',
   },
   image: {
     width: 80,
     height: 80,
     borderRadius: 40,
     borderWidth: 2,
-    borderColor: 'green',,
+    borderColor: 'green',
   },
   name: {
     color: 'green',
-    fontWeight: 'bold',,
+    fontWeight: 'bold',
   },
   comment: {
     fontStyle: 'italic',
-    marginTop: 5,,
+    marginTop: 5,
   },
 });
