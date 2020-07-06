@@ -14,38 +14,38 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 var data = [
   {
-    name: 'Stewed Mushrooms',
+    name: 'Mai Spa',
     image: require('../asset/namkho.jpg'),
     rating: 3,
     price: '$12',
   },
   {
-    name: 'Jackfruit Fried',
+    name: 'Diu spa',
     image: require('../asset/mitkho.jpg'),
     rating: 5,
     price: '$15',
   },
   {
-    name: 'Noodles',
+    name: 'Hung spa',
     image: require('../asset/hutieu.jpg'),
     rating: 4,
     price: '$20',
   },
   {
-    name: 'Beef',
+    name: 'Thinh spa',
     image: require('../asset/cuonlalot.jpg'),
     rating: 2,
     price: '$12',
   },
   {
-    name: 'Salad dressing',
+    name: 'Tuan salon',
     image: require('../asset/cuondiep.jpg'),
     rating: 5,
     price: '$13',
   },
 ];
 
-export default class All extends React.Component {
+export default class Service extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,7 +72,7 @@ export default class All extends React.Component {
   renderItem = ({item}) => {
     return (
       <LinearGradient
-        colors={['#009245', '#8cc631']}
+        colors={['#b5b1b1', '#e2d5d5']}
         start={{x: 0, y: 1}}
         end={{x: 1, y: 0}}
         style={styles.item}>
@@ -159,8 +159,10 @@ export default class All extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    paddingBottom: 5,
+    marginTop: 20,
+    marginBottom: 5,
+    backgroundColor: '#F99A7C',
+    borderRadius: 200,
   },
   flatList: {
     flex: 1,
@@ -174,7 +176,7 @@ var styles = StyleSheet.create({
     borderRadius: 10,
   },
   image_container: {
-    width: 90,
+    width: 100,
     height: 90,
   },
   image: {
@@ -227,6 +229,6 @@ var styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 100,
     backgroundColor: '#f2f2f2',
-    marginTop: 10,
+    marginTop: -10,
   },
 });

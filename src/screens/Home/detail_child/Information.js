@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default class Menu extends React.Component {
+export default class Information extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -148,8 +148,8 @@ export default class Menu extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 5,
     backgroundColor: 'white',
   },
   type: {

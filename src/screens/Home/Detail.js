@@ -17,9 +17,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
 import ImageDemo from '../../../assets/images/imagedemo.jpg';
 import Logo from '../../../assets/images/logo.png';
-import All from './detail_child/All';
-import Menu from './detail_child/Menu';
-import Popular from './detail_child/Popular';
+import Service from './detail_child/Service';
+import Information from './detail_child/Information';
+import Comment from './detail_child/Comment';
 import LinearGradient from 'react-native-linear-gradient';
 
 import ScrollableTabView from 'rn-collapsing-tab-bar';
@@ -153,15 +153,14 @@ export default class Detail extends React.Component {
             <View style={styles.tabbar}>
               <ScrollableTabView
                 initialPage={0}
-                tabBarActiveTextColor="green"
+                tabBarActiveTextColor="white"
                 tabBarUnderlineStyle="white"
                 tabBarInactiveTextColor="black"
                 tabBarTextStyle={{fontFamily: 'Roboto', fontSize: 20}}
-                borderRadius="20"
-                bor>
-                <All tabLabel="Dịch vụ" props={this.props} />
-                <Menu tabLabel="Bình luận" props={this.props} />
-                <Popular tabLabel="Thông tin" props={this.props} />
+                borderRadius="20">
+                <Service tabLabel="Dịch vụ" props={this.props} />
+                <Comment tabLabel=" Bình luận" props={this.props} />
+                <Information tabLabel="Thông tin" props={this.props} />
               </ScrollableTabView>
             </View>
           </LinearGradient>

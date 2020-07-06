@@ -56,7 +56,7 @@ export default () => {
     Navigation.setRoot({
       root: {
         component: {
-          name: 'Signin',
+          name: 'App',
         },
       },
     });

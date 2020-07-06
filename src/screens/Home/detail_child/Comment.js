@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
 
-export default class Popular extends React.Component {
+export default class Comment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,15 +62,30 @@ export default class Popular extends React.Component {
 
   renderItem = ({item}) => {
     return (
-      <View style={styles.item}>
-        <Image source={item.image} style={styles.image} />
-        <Text numberOfLines={1} style={styles.name}>
-          {item.name}
-        </Text>
-        <View style={{flexDirection: 'row'}}>{this._rating(item.rating)}</View>
-        <Text numberOfLines={2} style={styles.comment}>
-          "{item.comment}"
-        </Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          padding: 10,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderBottomWidth: 2,
+          borderBottomColor: '#eaeaea',
+          marginVertical: -10,
+        }}>
+        <View style={{flex: 1, justifyContent: 'center', marginTop: 5}}>
+          <Image source={item.image} style={styles.image} />
+        </View>
+        <View style={{flex: 3, justifyContent: 'center'}}>
+          <Text numberOfLines={1} style={styles.name}>
+            {item.name}
+          </Text>
+          <View style={{flexDirection: 'row'}}>
+            {this._rating(item.rating)}
+          </View>
+          <Text numberOfLines={2} style={styles.comment}>
+            "{item.comment}"
+          </Text>
+        </View>
       </View>
     );
   };
@@ -88,7 +103,6 @@ export default class Popular extends React.Component {
           ItemSeparatorComponent={this.ItemSeparatorComponent}
           keyExtractor={(item, index) => index.toString()}
           showsVerticalScrollIndicator={false}
-          numColumns={3}
         />
       </View>
     );
@@ -101,10 +115,16 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 20,
     marginBottom: 5,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
   },
   item: {
-    flex: 1,
+    flexDirection: 'row',
+    // padding: 10,
+    justifyContent: 'center',
     alignItems: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: '#eaeaea',
   },
   image: {
     width: 80,
@@ -119,6 +139,6 @@ var styles = StyleSheet.create({
   },
   comment: {
     fontStyle: 'italic',
-    marginTop: 5,
+    // marginTop: 5,
   },
 });

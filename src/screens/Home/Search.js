@@ -16,6 +16,7 @@ import {
   Switch,
   Dimensions,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -102,6 +103,19 @@ export default class Search extends Component {
     );
   };
 
+  _search(text) {
+    let data = [];
+    this.state.data_temp.map(function(value) {
+      if (value.name.indexOf(text) > -1) {
+        data.push(value);
+      }
+    });
+    this.setState({
+      data: data,
+      search: text,
+    });
+  }
+
   render() {
     const searchData = this.state.searchData;
 
@@ -165,17 +179,18 @@ export default class Search extends Component {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: 'white',
-              borderWidth: 0.5,
-              borderColor: '#d9d9d9',
+              backgroundColor: '#f2f2f2',
               borderRadius: 30,
               margin: 15,
               marginHorizontal: 25,
+              paddingVertical: 3,
+              paddingHorizontal: 10,
             }}>
             <TextInput
               style={styles.textInput}
               placeholder="Tìm kiếm..."
               // onChangeText={text => this.searchFilterFunction(text)}
+              // onChangeText={text => this._search(text)}
               autoCapitalize="sentences"
               autoFocus={true}
               autoCorrect={true}
@@ -186,14 +201,11 @@ export default class Search extends Component {
               onSubmitEditing={this.searchSubmit}
             />
 
-            <View style={{marginRight: 10}}>
-              <Icon
-                name="search"
-                size={20}
-                color="#5f5f5f"
-                onPress={() => this.searchSubmit()}
-              />
-            </View>
+            <TouchableOpacity
+              onPress={() => this._search('')}
+              style={{paddingHorizontal: 10}}>
+              <Ionicons name="ios-close" color="gray" size={20} />
+            </TouchableOpacity>
           </View>
         </LinearGradient>
 
@@ -310,5 +322,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
+    marginLeft: 10,
   },
 });
