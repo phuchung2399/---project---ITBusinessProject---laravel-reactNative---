@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
+  Platform,
 } from 'react-native';
 import Input from '../../components/Input';
 import {onSignIn} from '../../navigation';
@@ -17,10 +18,11 @@ import {onSignIn} from '../../navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import Logo from '../../../assets/images/logo.png';
-import UploadProfileImage from '../../../assets/images/uploadProfile.png';
+import UploadProfileImage from '../../../assets/images/profile_icon.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Navigation} from 'react-native-navigation';
 import {t} from '../../i18n/t';
+import ImagePicker from 'react-native-image-picker';
 const {width, height} = Dimensions.get('window');
 
 class UploadProfile extends Component {
@@ -28,8 +30,9 @@ class UploadProfile extends Component {
     super(props);
     this.myRef = React.createRef();
     this.state = {
-      imageProfile: 'uuu',
+      imageProfile: null,
       errorImageProfile: '',
+      isShowText: true,
     };
   }
 
@@ -68,12 +71,43 @@ class UploadProfile extends Component {
     });
   };
 
-  onPress = () => {
-    alert('0k');
+  handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.showImagePicker(options, response => {
+      if (response.uri) {
+        let source;
+        if (Platform.OS === 'android') {
+          source = {uri: response.uri, isStatic: true};
+        } else {
+          source = {uri: response.uri.replace('file://', ''), isStatic: true};
+        }
+        this.setState({imageProfile: source});
+        console.log(this.state.imageProfile);
+      }
+    });
+  };
+
+  handleUploadPhoto = () => {
+    fetch('http://localhost:3000/api/upload', {
+      method: 'POST',
+      body: this.createFormData(this.state.photo, {userId: '123'}),
+    })
+      .then(response => response.json())
+      .then(response => {
+        console.log('upload succes', response);
+        alert('Upload success!');
+        this.setState({photo: null});
+      })
+      .catch(error => {
+        console.log('upload error', error);
+        alert('Upload failed!');
+      });
   };
 
   render() {
-    var {errorImageProfile} = this.state;
+    var {errorImageProfile, imageProfile} = this.state;
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
@@ -116,23 +150,43 @@ class UploadProfile extends Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <TouchableOpacity onPress={() => this.onPress()}>
-              <Image
-                style={{
-                  width: 170,
-                  height: 170,
-                }}
-                source={UploadProfileImage}
-              />
+            <TouchableOpacity onPress={() => this.handleChoosePhoto()}>
+              {imageProfile === null ? (
+                <Image
+                  style={{
+                    width: 250,
+                    borderRadius: 190,
+                    height: 250,
+                  }}
+                  source={UploadProfileImage}
+                />
+              ) : (
+                <Image
+                  source={{uri: imageProfile.uri}}
+                  style={{width: 250, height: 250, borderRadius: 190}}
+                />
+              )}
             </TouchableOpacity>
-            <Text
-              style={{
-                fontSize: 20,
-                textAlign: 'center',
-                marginVertical: 50,
-              }}>
-              Please upload your real profile
-            </Text>
+
+            {imageProfile === null ? (
+              <Text
+                style={{
+                  fontSize: 20,
+                  textAlign: 'center',
+                  marginVertical: 50,
+                }}>
+                Please upload your real profile
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  fontSize: 20,
+                  textAlign: 'center',
+                  marginVertical: 50,
+                }}>
+                Your image has been selected
+              </Text>
+            )}
           </View>
 
           <LinearGradient
