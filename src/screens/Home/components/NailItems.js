@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 // import data from '../../utils/Data';
 import {Navigation} from 'react-native-navigation';
-import ic_launcher_background from '../../../../UserApplication/MyApplication/app/build/generated/res/pngs/debug/drawable-mdpi/ic_launcher_background.png';
 const {width, height} = Dimensions.get('window');
 
 export default class Item extends Component {
