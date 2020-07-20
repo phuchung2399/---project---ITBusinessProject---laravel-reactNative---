@@ -128,8 +128,8 @@ class UserService
     }
 
     /**
-     * sendEmailConfirmUpdateEmailUser
-     * sendEmailConfirmUpdateEmailUser *send email to update email user
+     * updatePhoneUser
+     * updatePhoneUser *send email to update email user
      * @param request
      * @return json
      **/

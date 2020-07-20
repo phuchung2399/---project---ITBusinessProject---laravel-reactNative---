@@ -11,7 +11,6 @@ use App\Helper\Response; // container Response
 use Ramsey\Uuid\Uuid;
 use App\Models\Comment;
 
-
 class CommentSerivece
 {
     private $commentRepository;
@@ -85,9 +84,13 @@ class CommentSerivece
         try {
             if ($this->commentRepository->checkCommentById($id)) {
                 $comment = $this->commentRepository->selectCommentById($id);
-                $this->handleRequest($comment, $request);
-                $this->commentRepository->updateComment($comment);
-                return Response::responseMessage(HttpStatus::SUCCESS_CREATED, "Cập nhật bình luận thành công");
+                if (Auth::user()->user_id == $comment->user_id) {
+                    $this->handleRequest($comment, $request);
+                    $this->commentRepository->updateComment($comment);
+                    return Response::responseMessage(HttpStatus::SUCCESS_CREATED, "Cập nhật bình luận thành công");
+                } else {
+                    return Response::responseMessage(HttpStatus::BAD_REQUEST, "Không được phép sửa bình luận của người khác");
+                }
             } else {
                 return Response::responseMessage(HttpStatus::BAD_REQUEST, "Cập nhật bình luận không thành công");
             }
