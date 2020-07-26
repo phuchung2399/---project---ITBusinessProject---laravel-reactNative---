@@ -19,19 +19,21 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import SideBar from './components/sidebar';
 import LinearGradient from 'react-native-linear-gradient';
 import Profile from '../../../assets/images/profile.png';
-
-export default class SideBarMenu extends Component {
+import {connect} from 'react-redux';
+import {logOut} from '../../redux/userRedux/action';
+import {onSignIn} from '../../navigation';
+import { storageRemove, storageGet } from '../../checkAsyncStorage';
+import Button from '../../components/Button';
+import AwesomeAlert from 'react-native-awesome-alerts';
+class SideBarMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: '',
+      user: '',
+      token: '',
       isShowInfor: false,
       showAlert: false,
     };
-  }
-
-  componentDidMount() {
-    this.onCheck();
   }
 
   showAlert = () => {
@@ -44,24 +46,6 @@ export default class SideBarMenu extends Component {
     this.setState({
       showAlert: false,
     });
-  };
-
-  onCheck = async () => {
-    try {
-      let user = await AsyncStorage.getItem('user');
-      let parsed = JSON.parse(user);
-
-      if (parsed) {
-        console.log(parsed);
-        let UserName = parsed.Data.FullName;
-        this.setState({
-          userName: UserName,
-          isShowInfor: true,
-        });
-      }
-    } catch (error) {
-      alert(error);
-    }
   };
 
   onClickPerInfor = () => {
@@ -88,13 +72,12 @@ export default class SideBarMenu extends Component {
     });
   };
 
-  onSignOut = () => {
-    this.showAlert();
+  onSignOut = async () => {
+    let token = this.state.token;
+    // this.showAlert();
+    this.props.onLogOutUser(token);
+    onSignIn();
   };
-
-  //   onSignIn = () => {
-  //     onSignIn();
-  //   };
 
   removeEverything = async () => {
     try {
@@ -115,10 +98,6 @@ export default class SideBarMenu extends Component {
     });
   };
 
-  onSignOut = () => {
-    alert('sign out');
-  };
-
   changeProfileScreen = () => {
     // Navigation.showModal({
     //   component: {
@@ -128,19 +107,28 @@ export default class SideBarMenu extends Component {
     alert('profile');
   };
 
+  componentDidMount() {
+    this.onCheckUserSignedIn();
+  }
+
+  onCheckUserSignedIn = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({
+          user: parsedUser.data.user,
+          token: parsedUser.data.token,
+        });
+      }
+    } catch (error) {
+      // alert(error);
+    }
+  };
+
   render() {
-    const {userName} = this.state;
-
-    const ShowButton = this.state.isShowInfor ? (
-      <TouchableWithoutFeedback onPress={this.onSignOut}>
-        <Text style={styles.titleOption}>Đăng Xuất</Text>
-      </TouchableWithoutFeedback>
-    ) : (
-      <TouchableWithoutFeedback onPress={this.onSignIn}>
-        <Text style={styles.titleOption}>Đăng Nhập</Text>
-      </TouchableWithoutFeedback>
-    );
-
+    const   userInfor  = this.state.user;
+    // console.log(userInfor);
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
@@ -170,13 +158,13 @@ export default class SideBarMenu extends Component {
                 <TouchableOpacity onPress={() => this.changeProfileScreen()}>
                   <Image
                     style={{
-                      width: 70,
-                      height: 70,
+                      width: 80,
+                      height: 80,
                       borderWidth: 1,
                       borderColor: '#FFF',
                       borderRadius: 60,
                     }}
-                    source={Profile}
+                    source={{uri: userInfor.avatar}}
                   />
                 </TouchableOpacity>
               </View>
@@ -189,7 +177,7 @@ export default class SideBarMenu extends Component {
                       marginVertical: 8,
                       color: 'white',
                     }}>
-                    Tuan Nguyen
+                    {userInfor.user_name}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -259,8 +247,30 @@ export default class SideBarMenu extends Component {
                 </Text>
               </TouchableWithoutFeedback>
             </View>
+
           </View>
         </View>
+
+
+        <AwesomeAlert
+          show={this.state.showAlert}
+          showProgress={false}
+          title="Bạn cần đăng nhập để thực hiện thao tác này?"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          cancelButtonColor="#8be4cb"
+          showConfirmButton={true}
+          cancelText="Để sau"
+          confirmText="Đăng nhập"
+          confirmButtonColor="#1d9dd8"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            onHandle();
+          }}
+        />
       </View>
     );
   }
@@ -312,3 +322,21 @@ const styles = StyleSheet.create({
     height: 200,
   },
 });
+
+
+const mapStateToProps = state => {
+  return {
+    userData: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onLogOutUser: token => {
+      dispatch(logOut(token));
+    },
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBarMenu);
