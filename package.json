@@ -31,7 +31,8 @@
     "rn-collapsing-tab-bar": "^0.1.7",
     "yarn": "^1.21.1",
     "yarn-install": "^1.0.0",
-    "uuid": "^8.0.0"
+    "uuid": "^8.0.0",
+    "react-native-awesome-alerts": "^1.3.3"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",

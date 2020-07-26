@@ -24,33 +24,140 @@ import profile_Icon from '../../assets/images/profile_icon.png';
 import noti_Icon from '../../assets/images/noti_icon.png';
 import Notification from '../screens/Notification';
 import NotificationItems from '../screens/Notification/components/NotifyItems';
-
 import Loading from '../screens/Loading';
 import history_icon from '../../assets/images/history_icon.png';
 
+import {Provider} from 'react-redux';
+import store from '../redux/store';
 console.disableYellowBox = true;
 
-Navigation.registerComponent('SideBarMenu', () => SideBarMenu);
-Navigation.registerComponent('Home', () => Home);
-Navigation.registerComponent('Order', () => Order);
-Navigation.registerComponent('Love', () => Love);
-Navigation.registerComponent('Profile', () => Profile);
-Navigation.registerComponent('App', () => App);
-Navigation.registerComponent('Signin', () => Signin);
-Navigation.registerComponent('Signup', () => Signup);
-Navigation.registerComponent('Announcement', () => Announcement);
-Navigation.registerComponent('Booking', () => Booking);
-Navigation.registerComponent('BookingItems', () => BookingItems);
-Navigation.registerComponent('Intro', () => Intro);
-Navigation.registerComponent('Search', () => Search);
-Navigation.registerComponent('SearchItems', () => SearchItems);
-Navigation.registerComponent('Loading', () => Loading);
-Navigation.registerComponent('ShowAllStores', () => ShowAllStores);
-Navigation.registerComponent('Notification', () => Notification);
-Navigation.registerComponent('NotificationItems', () => NotificationItems);
-Navigation.registerComponent('Detail', () => Detail);
-Navigation.registerComponent('UploadProfile', () => UploadProfile);
+function ReduxProvider(Component) {
+  return props => (
+    <Provider store={store}>
+      <Component {...props} />
+    </Provider>
+  );
+}
 
+Navigation.registerComponent(
+  'App',
+  () => ReduxProvider(App),
+  () => App,
+);
+
+Navigation.registerComponent(
+  'SideBarMenu',
+  () => ReduxProvider(SideBarMenu),
+  () => SideBarMenu,
+);
+
+Navigation.registerComponent(
+  'Home',
+  () => ReduxProvider(Home),
+  () => Home,
+);
+
+Navigation.registerComponent(
+  'Order',
+  () => ReduxProvider(Order),
+  () => Order,
+);
+
+Navigation.registerComponent(
+  'Love',
+  () => ReduxProvider(Love),
+  () => Love,
+);
+
+Navigation.registerComponent(
+  'Profile',
+  () => ReduxProvider(Profile),
+  () => Profile,
+);
+
+Navigation.registerComponent(
+  'Signin',
+  () => ReduxProvider(Signin),
+  () => Signin,
+);
+
+Navigation.registerComponent(
+  'Signup',
+  () => ReduxProvider(Signup),
+  () => Signup,
+);
+
+Navigation.registerComponent(
+  'Announcement',
+  () => ReduxProvider(Announcement),
+  () => Announcement,
+);
+
+Navigation.registerComponent(
+  'Booking',
+  () => ReduxProvider(Booking),
+  () => Booking,
+);
+
+Navigation.registerComponent(
+  'BookingItems',
+  () => ReduxProvider(BookingItems),
+  () => BookingItems,
+);
+
+Navigation.registerComponent(
+  'Intro',
+  () => ReduxProvider(Intro),
+  () => Intro,
+);
+
+Navigation.registerComponent(
+  'Search',
+  () => ReduxProvider(Announcement),
+  () => Announcement,
+);
+
+Navigation.registerComponent(
+  'SearchItems',
+  () => ReduxProvider(SearchItems),
+  () => SearchItems,
+);
+
+Navigation.registerComponent(
+  'Loading',
+  () => ReduxProvider(Loading),
+  () => Loading,
+);
+
+Navigation.registerComponent(
+  'Notification',
+  () => ReduxProvider(Notification),
+  () => Notification,
+);
+
+Navigation.registerComponent(
+  'NotificationItems',
+  () => ReduxProvider(NotificationItems),
+  () => NotificationItems,
+);
+
+Navigation.registerComponent(
+  'ShowAllStores',
+  () => ReduxProvider(ShowAllStores),
+  () => ShowAllStores,
+);
+
+Navigation.registerComponent(
+  'Detail',
+  () => ReduxProvider(Detail),
+  () => Detail,
+);
+
+Navigation.registerComponent(
+  'UploadProfile',
+  () => ReduxProvider(UploadProfile),
+  () => UploadProfile,
+);
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({

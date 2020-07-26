@@ -20,6 +20,8 @@ import Logo from '../../../assets/images/logo.png';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import {t} from '../../i18n/t';
+import {logIn} from '../../redux/userRedux/action';
+
 const {width, height} = Dimensions.get('window');
 
 class SignIn extends Component {
@@ -27,17 +29,16 @@ class SignIn extends Component {
     super(props);
     this.myRef = React.createRef();
     this.state = {
-      grant_type: 'password',
-      email: '',
-      password: '',
-      errorEmail: '',
+      phoneNumber: '0779763016',
+      password: 'tuannui123',
+      errorPhoneNumber: '',
       errorPassword: '',
     };
   }
 
   onRestart = () => {
     this.setState({
-      errorEmail: '',
+      errorPhoneNumber: '',
       errorPassword: '',
     });
   };
@@ -47,34 +48,32 @@ class SignIn extends Component {
   };
 
   onSignin = event => {
-    var {email, password} = this.state;
-    const formatEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var {phoneNumber, password} = this.state;
+    let phone = phoneNumber.replace(".", '');
     this.onRestart();
 
-    if (email === '') {
-      this.setState({errorEmail: 'Nhập Email!'});
+    if (phoneNumber === '') {
+      this.setState({errorPhoneNumber: 'Nhập số điện thoại!'});
     }
 
-    if (formatEmail.test(email) === false) {
-      this.setState({errorEmail: 'Email is not valid!'});
-    }
-    if (password === '') {
+    // else if (isNaN(phone)) {
+    //   this.setState({errorEmail: 'Số điện thoại không hợp lệ!'});
+    // }
+
+    else if (password === '') {
       this.setState({errorPassword: 'Nhập password!'});
     }
-    if (password.length < 8) {
+    else if (password.length < 8) {
       this.setState({errorPassword: 'Pasword không hợp lệ!'});
     }
-    if (password.length > 64) {
+    else if (password.length > 64) {
       this.setState({errorPassword: 'Pasword không hợp lệ!'});
     } else {
-      var user = {
-        grant_type: this.state.grant_type,
-        email: this.state.email,
-        password: this.state.password,
+      var userAccount = {
+        phone,
+        password
       };
-      // console.log(user);
-
-      //   this.props.onLogInUser(user);
+        this.props.onLogInUser(userAccount);
     }
   };
 
@@ -85,7 +84,7 @@ class SignIn extends Component {
   };
 
   render() {
-    var {errorEmail, errorPassword} = this.state;
+    var {errorPhoneNumber, errorPassword} = this.state;
     return (
       <ScrollView style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
@@ -137,13 +136,11 @@ class SignIn extends Component {
 
           <View style={{flex: 2, paddingHorizontal: 10}}>
             <Input
-              getData={e => this.getData('email', e)}
-              title=""
-              placeholder="Tên đăng nhập"
-              autoCorrect={false}
-              keyboardType="email-address"
-              // onSubmitEditing={() => this.ref.txtPassword.focus()}
-              error={errorEmail}
+              getData={e => this.getData('phoneNumber', e)}
+            title="Số điện thoại*"
+            placeholder="Nhập số điện thoại..."
+            error={errorPhoneNumber}
+            keyboardType="numeric"
             />
             <Input
               getData={e => this.getData('password', e)}
@@ -306,4 +303,18 @@ const style = StyleSheet.create({
   styleButtonSignUp: {},
 });
 
-export default SignIn;
+const mapStateToProps = state => {
+  return {
+    userData: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onLogInUser: userAccount => {
+      dispatch(logIn(userAccount));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
