@@ -186,6 +186,6 @@ class StoreRepository
      **/
     function searchStoreNewLimit()
     {
-        return $this->store::where('auth', '=', 'store')->orderByDesc('point_search')->orderByDesc('created_at')->limit(5)->get();
+        return $this->store::where('auth', '=', 'store')->orderByDesc('created_at')->orderByDesc('point_search')->limit(5)->get();
     }
 }

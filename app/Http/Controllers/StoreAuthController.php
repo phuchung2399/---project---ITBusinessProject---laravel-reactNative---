@@ -457,7 +457,7 @@ class StoreAuthController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      *      path="/api/v1/store/store-sort-star-home",
      *      summary="API show store for home page - show the stores by star",
      *      tags={"store"},
@@ -481,7 +481,7 @@ class StoreAuthController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      *      path="/api/v1/store/store-new-home",
      *      summary="API show store for home page - show the new stores",
      *      tags={"store"},

@@ -2911,7 +2911,7 @@
             }
         },
         "/api/v1/store/store-sort-star-home": {
-            "post": {
+            "get": {
                 "tags": [
                     "store"
                 ],
@@ -2955,7 +2955,7 @@
             }
         },
         "/api/v1/store/store-new-home": {
-            "post": {
+            "get": {
                 "tags": [
                     "store"
                 ],
