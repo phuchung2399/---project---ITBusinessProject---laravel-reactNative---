@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {onChangeIntoMainScreen, onSignIn} from './src/navigation';
 import Intro from './src/screens/Intro';
-import { storageGet } from './src/checkAsyncStorage';
+import {storageGet} from './src/checkAsyncStorage';
 
 export default class App extends Component {
   constructor() {
@@ -23,8 +23,7 @@ export default class App extends Component {
     this.onCheckUserSignedIn();
   }
 
-  onCheckExistAccount = (userAccount) => {
-    console.log(userAccount);
+  onCheckExistAccount = userAccount => {
     if (userAccount === '') {
       onSignIn();
     } else {
@@ -37,7 +36,7 @@ export default class App extends Component {
       let getUserAccount = await storageGet('user');
       let parsedUser = JSON.parse(getUserAccount);
       if (parsedUser) {
-        this.setState({ user: parsedUser });
+        this.setState({user: parsedUser});
       }
     } catch (error) {
       // alert(error);
@@ -55,10 +54,8 @@ export default class App extends Component {
     // return <Intro loadingText="Loading..." />;
     if (isShowIntro) {
       return <Intro loadingText="Loading..." />;
-    }
-    else {
+    } else {
       return <View>{this.onCheckExistAccount(userAccount)}</View>;
     }
-
   }
 }

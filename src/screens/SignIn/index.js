@@ -29,8 +29,8 @@ class SignIn extends Component {
     super(props);
     this.myRef = React.createRef();
     this.state = {
-      phoneNumber: '0779763016',
-      password: 'tuannui123',
+      phoneNumber: '0967258205',
+      password: '123456789',
       errorPhoneNumber: '',
       errorPassword: '',
     };
@@ -49,31 +49,27 @@ class SignIn extends Component {
 
   onSignin = event => {
     var {phoneNumber, password} = this.state;
-    let phone = phoneNumber.replace(".", '');
+    let phone = phoneNumber.replace('.', '');
     this.onRestart();
 
     if (phoneNumber === '') {
       this.setState({errorPhoneNumber: 'Nhập số điện thoại!'});
-    }
-
-    // else if (isNaN(phone)) {
-    //   this.setState({errorEmail: 'Số điện thoại không hợp lệ!'});
-    // }
-
-    else if (password === '') {
+    } else if (phoneNumber.length < 10 || phoneNumber.length > 10) {
+      this.setState({errorPhoneNumber: 'Số điện thoại không hợp lệ!'});
+    } else if (isNaN(phoneNumber)) {
+      this.setState({errorPhoneNumber: 'Số điện thoại không hợp lệ!'});
+    } else if (password === '') {
       this.setState({errorPassword: 'Nhập password!'});
-    }
-    else if (password.length < 8) {
+    } else if (password.length < 8) {
       this.setState({errorPassword: 'Pasword không hợp lệ!'});
-    }
-    else if (password.length > 64) {
+    } else if (password.length > 64) {
       this.setState({errorPassword: 'Pasword không hợp lệ!'});
     } else {
       var userAccount = {
         phone,
-        password
+        password,
       };
-        this.props.onLogInUser(userAccount);
+      this.props.onLogInUser(userAccount);
     }
   };
 
@@ -137,16 +133,20 @@ class SignIn extends Component {
           <View style={{flex: 2, paddingHorizontal: 10}}>
             <Input
               getData={e => this.getData('phoneNumber', e)}
-            title="Số điện thoại*"
-            placeholder="Nhập số điện thoại..."
-            error={errorPhoneNumber}
-            keyboardType="numeric"
+              title="Số điện thoại*"
+              placeholder="Nhập số điện thoại..."
+              error={errorPhoneNumber}
+              keyboardType="numeric"
             />
             <Input
               getData={e => this.getData('password', e)}
               title=""
               placeholder="Mật khẩu"
-              error={errorPassword}
+              error={
+                this.props.userData.error != ''
+                  ? this.props.userData.error
+                  : errorPassword
+              }
               returnKeyType="go"
               secureTextEntry={true}
               autoCorrect={false}
@@ -297,6 +297,7 @@ const style = StyleSheet.create({
     padding: 12,
     textAlign: 'center',
     flex: 1,
+    marginTop: 15,
   },
 
   styleViewText: {},

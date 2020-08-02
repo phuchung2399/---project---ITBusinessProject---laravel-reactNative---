@@ -22,9 +22,10 @@ import Profile from '../../../assets/images/profile.png';
 import {connect} from 'react-redux';
 import {logOut} from '../../redux/userRedux/action';
 import {onSignIn} from '../../navigation';
-import { storageRemove, storageGet } from '../../checkAsyncStorage';
+import {storageRemove, storageGet} from '../../checkAsyncStorage';
 import Button from '../../components/Button';
 import AwesomeAlert from 'react-native-awesome-alerts';
+
 class SideBarMenu extends Component {
   constructor(props) {
     super(props);
@@ -99,12 +100,11 @@ class SideBarMenu extends Component {
   };
 
   changeProfileScreen = () => {
-    // Navigation.showModal({
-    //   component: {
-    //     name: 'ShowAllBook',
-    //   },
-    // });
-    alert('profile');
+    Navigation.showModal({
+      component: {
+        name: 'Profile',
+      },
+    });
   };
 
   componentDidMount() {
@@ -127,8 +127,8 @@ class SideBarMenu extends Component {
   };
 
   render() {
-    const   userInfor  = this.state.user;
-    // console.log(userInfor);
+    const userInfor = this.state.user;
+    console.log(this.props.userData);
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
@@ -247,10 +247,8 @@ class SideBarMenu extends Component {
                 </Text>
               </TouchableWithoutFeedback>
             </View>
-
           </View>
         </View>
-
 
         <AwesomeAlert
           show={this.state.showAlert}
@@ -323,7 +321,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 const mapStateToProps = state => {
   return {
     userData: state.user,
@@ -337,6 +334,5 @@ const mapDispatchToProps = (dispatch, props) => {
     },
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBarMenu);

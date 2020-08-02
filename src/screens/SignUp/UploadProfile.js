@@ -20,55 +20,27 @@ import * as Animatable from 'react-native-animatable';
 import Logo from '../../../assets/images/logo.png';
 import UploadProfileImage from '../../../assets/images/profile_icon.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Check from 'react-native-vector-icons/AntDesign';
 import {Navigation} from 'react-native-navigation';
 import {t} from '../../i18n/t';
 import ImagePicker from 'react-native-image-picker';
 const {width, height} = Dimensions.get('window');
+import {addUser} from '../../redux/userRedux/action';
+import {connect} from 'react-redux';
 
 class UploadProfile extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
     this.state = {
+      disableButton: true,
       imageProfile: null,
-      errorImageProfile: '',
       isShowText: true,
     };
   }
 
-  onRestart = () => {
-    this.setState({
-      errorImageProfile: '',
-    });
-  };
-
   onSignin = () => {
     onSignIn();
-  };
-
-  onSignUp = event => {
-    var {imageProfile} = this.state;
-
-    this.onRestart();
-
-    if (imageProfile == '') {
-      this.setState({errorImageProfile: 'Choose your profile!'});
-    }
-
-    const data = {
-      name: this.props.data.name,
-      phoneNumber: this.props.data.phoneNumber,
-      password: this.props.data.password,
-      imageProfile: imageProfile,
-    };
-    console.log(data);
-    // this.props.register(data);
-  };
-
-  getData = (key, value) => {
-    this.setState({
-      [key]: value,
-    });
   };
 
   handleChoosePhoto = () => {
@@ -77,37 +49,40 @@ class UploadProfile extends Component {
     };
     ImagePicker.showImagePicker(options, response => {
       if (response.uri) {
-        let source;
-        if (Platform.OS === 'android') {
-          source = {uri: response.uri, isStatic: true};
-        } else {
-          source = {uri: response.uri.replace('file://', ''), isStatic: true};
-        }
-        this.setState({imageProfile: source});
-        console.log(this.state.imageProfile);
+        this.setState({imageProfile: response, disableButton: false});
       }
     });
   };
 
   handleUploadPhoto = () => {
-    fetch('http://localhost:3000/api/upload', {
-      method: 'POST',
-      body: this.createFormData(this.state.photo, {userId: '123'}),
-    })
-      .then(response => response.json())
-      .then(response => {
-        console.log('upload succes', response);
-        alert('Upload success!');
-        this.setState({photo: null});
-      })
-      .catch(error => {
-        console.log('upload error', error);
-        alert('Upload failed!');
-      });
+    const {imageProfile} = this.state;
+    const {user_name, email, phone, password} = this.props.data;
+
+    const data = new FormData();
+
+    data.append('photo', {
+      name: imageProfile.fileName,
+      type: imageProfile.type,
+      uri:
+        Platform.OS === 'android'
+          ? imageProfile.uri
+          : imageProfile.uri.replace('file://', ''),
+    });
+
+    const userInfor = {
+      avatar: '',
+      user_name,
+      email,
+      phone,
+      password,
+      confirm_password: password,
+    };
+    this.props.onRegister(userInfor);
   };
 
   render() {
-    var {errorImageProfile, imageProfile} = this.state;
+    var {imageProfile, disableButton} = this.state;
+
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <LinearGradient colors={['#FC5895', '#F99A7C']}>
@@ -175,28 +150,30 @@ class UploadProfile extends Component {
                   textAlign: 'center',
                   marginVertical: 50,
                 }}>
-                Please upload your real profile
+                Vui lòng chọn ảnh đại diện
               </Text>
             ) : (
-              <Text
+              <View
                 style={{
-                  fontSize: 20,
-                  textAlign: 'center',
-                  marginVertical: 50,
+                  marginVertical: 20,
                 }}>
-                Your image has been selected
-              </Text>
+                <Check name="checkcircleo" size={80} color="green" />
+              </View>
             )}
           </View>
 
           <LinearGradient
             colors={['#e511e8', '#F99A7C']}
+            start={{x: 0, y: 1}}
+            end={{x: 1, y: 0}}
             style={{
               paddingVertical: 13,
               paddingHorizontal: 5,
               borderRadius: 25,
             }}>
-            <TouchableWithoutFeedback onPress={this.onContinued}>
+            <TouchableOpacity
+              onPress={this.handleUploadPhoto}
+              disabled={disableButton}>
               <Text
                 style={{
                   fontSize: 24,
@@ -206,7 +183,7 @@ class UploadProfile extends Component {
                 }}>
                 {t('txtSignUp')}
               </Text>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </LinearGradient>
 
           <View
@@ -298,4 +275,18 @@ const style = StyleSheet.create({
   },
 });
 
-export default UploadProfile;
+const mapStateToProps = state => {
+  return {
+    userData: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onRegister: userAccount => {
+      dispatch(addUser(userAccount));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UploadProfile);

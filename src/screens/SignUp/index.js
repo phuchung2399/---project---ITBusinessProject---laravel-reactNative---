@@ -28,11 +28,13 @@ class SignUp extends Component {
     super(props);
     this.myRef = React.createRef();
     this.state = {
-      name: 'huutuan',
-      phoneNumber: '0909090909',
+      user_name: 'Huu Tuan',
+      email: 'tuan.nguyendev14@gmail.com',
+      phone: '0779763016',
       password: 'tuannui123',
       confirmPass: 'tuannui123',
       errorName: '',
+      errorEmail: '',
       errorPhoneNumber: '',
       errorPassword: '',
       errorConfirmPass: '',
@@ -42,7 +44,6 @@ class SignUp extends Component {
   onRestart = () => {
     this.setState({
       errorName: '',
-      errorLastName: '',
       errorEmail: '',
       errorPhoneNumber: '',
       errorPassword: '',
@@ -55,35 +56,33 @@ class SignUp extends Component {
   };
 
   onContinued = event => {
-    var {name, phoneNumber, password, confirmPass} = this.state;
+    var {user_name, email, phone, password, confirmPass} = this.state;
 
     this.onRestart();
 
-    if (name === '') {
-      this.setState({errorName: 'Enter your name!'});
-    } else if (phoneNumber === '') {
-      this.setState({errorPhoneNumber: 'Enter phone number!'});
-    } else if (isNaN(phoneNumber)) {
-      this.setState({errorPhoneNumber: 'Phone number is not valid!'});
-    } else if (phoneNumber.length > 10) {
-      this.setState({errorPhoneNumber: 'Phone number is not valid!'});
-    } else if (phoneNumber.length < 10) {
-      this.setState({errorPhoneNumber: 'Phone number is not valid!'});
+    if (user_name === '') {
+      this.setState({errorName: 'Nhập tên!'});
+    } else if (phone === '') {
+      this.setState({errorPhoneNumber: 'Nhập số điện thoại!'});
+    } else if (isNaN(phone)) {
+      this.setState({errorPhoneNumber: 'Số điện thoại không hợp lệ!'});
+    } else if (phone.length > 10 || phone.length < 10) {
+      this.setState({errorPhoneNumber: 'Số điện thoại không hợp lệ!'});
     } else if (password === '') {
-      this.setState({errorPassword: 'Enter password!'});
+      this.setState({errorPassword: 'Nhập password!'});
     } else if (password.length < 8) {
-      this.setState({errorPassword: 'Password is not valid!'});
+      this.setState({errorPassword: 'Password không hợp lệ!'});
     } else if (password.length > 64) {
-      this.setState({errorPassword: 'Password is not valid!'});
+      this.setState({errorPassword: 'Password không hợp lệ!'});
     } else if (confirmPass != password) {
-      this.setState({errorConfirmPass: 'Password does not match!'});
+      this.setState({errorConfirmPass: 'Password không khớp!'});
     } else {
       const data = {
-        name: name,
-        phoneNumber: phoneNumber,
-        password: password,
+        user_name,
+        email,
+        phone,
+        password,
       };
-      // console.log(data);
       this.onChangeUploadScreen(data);
     }
   };
@@ -109,6 +108,7 @@ class SignUp extends Component {
   render() {
     var {
       errorName,
+      errorEmail,
       errorPhoneNumber,
       errorPassword,
       errorConfirmPass,
@@ -164,13 +164,20 @@ class SignUp extends Component {
           </View>
 
           <Input
-            getData={e => this.getData('name', e)}
+            getData={e => this.getData('user_name', e)}
             title="Tên đăng nhập *"
             placeholder="Tên đăng nhập..."
             error={errorName}
           />
           <Input
-            getData={e => this.getData('phoneNumber', e)}
+            getData={e => this.getData('email', e)}
+            title="Email*"
+            placeholder="Nhập email..."
+            error={errorEmail}
+            keyboardType={'email-address'}
+          />
+          <Input
+            getData={e => this.getData('phone', e)}
             title="Số điện thoại*"
             placeholder="Nhập số điện thoại..."
             error={errorPhoneNumber}
@@ -197,6 +204,8 @@ class SignUp extends Component {
 
           <LinearGradient
             colors={['#e511e8', '#F99A7C']}
+            start={{x: 0, y: 1}}
+            end={{x: 1, y: 0}}
             style={{
               paddingVertical: 5,
               paddingHorizontal: 10,

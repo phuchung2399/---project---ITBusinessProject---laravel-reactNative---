@@ -39,6 +39,8 @@ export default class Detail extends React.Component {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
 
+    console.log(this.props.store_id);
+
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <View

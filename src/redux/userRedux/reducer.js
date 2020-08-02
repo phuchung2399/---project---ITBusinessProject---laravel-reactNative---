@@ -2,8 +2,7 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   data: {},
-  // bestUsers: {},
-  error: {},
+  error: '',
   loading: false,
 };
 

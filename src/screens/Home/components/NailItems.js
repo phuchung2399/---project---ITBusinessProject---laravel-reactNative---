@@ -12,7 +12,15 @@ import {Navigation} from 'react-native-navigation';
 const {width, height} = Dimensions.get('window');
 
 export default class Item extends Component {
-  onPress = idBook => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timeNow: '',
+      status: '',
+    };
+  }
+
+  onPress = store_id => {
     Navigation.showModal({
       stack: {
         children: [
@@ -20,7 +28,7 @@ export default class Item extends Component {
             component: {
               name: 'Detail',
               passProps: {
-                IdBook: idBook,
+                store_id: store_id,
               },
               options: {
                 topBar: {
@@ -38,6 +46,37 @@ export default class Item extends Component {
     });
   };
 
+  componentDidMount() {
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    this.setState({timeNow: hours + ':' + min + ':' + sec}, () => {
+      this.compareTime();
+    });
+  }
+
+  compareTime = () => {
+    const {open_time, close_time} = this.props.item;
+    const timeNow = this.state.timeNow;
+
+    var regex = new RegExp(':', 'g'),
+      timeStr1 = timeNow,
+      timeStr2 = close_time;
+    if (
+      parseInt(timeStr1.replace(regex, ''), 10) <
+        parseInt(timeNow.replace(regex, ''), 10) &&
+      parseInt(timeNow.replace(regex, ''), 10) <
+        parseInt(timeStr2.replace(regex, ''), 10)
+    ) {
+      this.setState({
+        status: 'Đang mở cửa',
+      });
+    } else {
+      this.setState({
+        status: 'Đã đóng cửa',
+      });
+    }
+  };
   changScreenSearch = () => {
     Navigation.showModal({
       component: {
@@ -48,21 +87,22 @@ export default class Item extends Component {
 
   render() {
     const {item} = this.props;
+    // console.log(this.state.time);
     return (
       <View
         style={{
           marginHorizontal: 12,
           width: width - 200,
         }}>
-        <TouchableOpacity onPress={() => this.onPress(item)}>
-          <Image source={{uri: item.imageUrl}} style={style.styleImage} />
+        <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
+          <Image source={{uri: item.image}} style={style.styleImage} />
         </TouchableOpacity>
-        <Text style={style.styleText}>{item.date.en}</Text>
+        <Text style={style.styleText}>{this.state.status}</Text>
         <Text style={{color: '#353638', fontWeight: 'bold', fontSize: 20}}>
-          {item.title}
+          {item.store_name}
         </Text>
         <Text style={{color: 'gray', fontSize: 15}} numberOfLines={1}>
-          {item.address.en}
+          {item.address}
         </Text>
       </View>
     );
