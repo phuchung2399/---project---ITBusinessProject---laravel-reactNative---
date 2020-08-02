@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as config from './config';
 
-export default function callApi(endpoint, method, body, Token) {
+export default function uploadImage(endpoint, method, body, Token) {
   console.log(body);
   return axios({
     method: method,
@@ -9,7 +9,7 @@ export default function callApi(endpoint, method, body, Token) {
     data: body,
     headers: {
       Authorization: 'Bearer ' + Token,
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     },
   });
 }

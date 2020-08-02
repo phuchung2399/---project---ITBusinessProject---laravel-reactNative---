@@ -30,8 +30,11 @@ import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
 const {width, height} = Dimensions.get('window');
 import Loading from '../Loading';
+import {connect} from 'react-redux';
+import {getNewStore, getStoreByStar} from '../../redux/storeRedux/action';
+import {storageRemove, storageGet} from '../../checkAsyncStorage';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,6 +42,7 @@ export default class Home extends Component {
       userName: '',
       isShowInfor: false,
       showAlert: false,
+      token: '',
     };
   }
 
@@ -98,10 +102,33 @@ export default class Home extends Component {
     });
   };
 
+  componentDidMount() {
+    this.onGetUserData();
+  }
+
+  onGetUserData = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({token: parsedUser.data.token}, () => {
+          this.props.onGetNewStore(this.state.token);
+          this.props.onGetStoresByStar(this.state.token);
+        });
+      }
+    } catch (error) {
+      // alert(error);
+    }
+  };
+
   render() {
     const that = this;
     const isLoading = this.state.isLoading;
+    const storesData = this.props.stores;
+    const newStores = storesData.dataNewStores;
+    const storesByStar = storesData.dataStoresByStar;
 
+    console.log(newStores);
     setTimeout(function() {
       that.setState({isLoading: false});
     }, 1000);
@@ -181,18 +208,18 @@ export default class Home extends Component {
             <View style={{padding: 2, paddingBottom: 10}}>
               <View style={styles.category}>
                 <Text style={styles.text}>
-                  {t('cua_hang_moi_nhat')} ({get(demodata, 'length')})
+                  {t('cua_hang_moi_nhat')} ({get(newStores, 'length')})
                 </Text>
                 <Text
                   style={styles.showall}
                   onPress={() =>
-                    this.changeScreenShowAll(demodata, ' Cửa hàng mới nhất')
+                    this.changeScreenShowAll(newStores, ' Cửa hàng mới nhất')
                   }>
                   {t('xem_het')}
                 </Text>
               </View>
               <FlatList
-                data={demodata}
+                data={newStores}
                 keyExtractor={(item, index) => `${index}`}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -220,13 +247,13 @@ export default class Home extends Component {
                   marginTop: 5,
                 }}>
                 <Text style={styles.text}>
-                  {t('cua_hang_chat_luong')} ({get(demodata, 'length')}){' '}
+                  {t('cua_hang_chat_luong')} ({get(storesByStar, 'length')}){' '}
                 </Text>
                 <Text
                   style={styles.showall}
                   onPress={() =>
                     this.changeScreenShowAll(
-                      demodata,
+                      storesByStar,
                       'Cửa hàng order nhiều nhất',
                     )
                   }>
@@ -235,7 +262,7 @@ export default class Home extends Component {
                 </Text>
               </View>
               <FlatList
-                data={demodata}
+                data={storesByStar}
                 keyExtractor={(item, index) => `${index}`}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -317,3 +344,22 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    stores: state.stores,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onGetNewStore: token => {
+      dispatch(getNewStore(token));
+    },
+    onGetStoresByStar: token => {
+      dispatch(getStoreByStar(token));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
