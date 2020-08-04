@@ -40,7 +40,6 @@ class Validation
         return str_replace($folder_id . '/', '', $path);
     }
 
-
     /**
      * handleImageNameGetId
      * handleImageNameGetId *slice id from link

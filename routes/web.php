@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/ahuhu', function () {
-    return view('welcome');
-});
+// Route::get('/ahuhu', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/ahihi', function () {
 //     return view('ahihi');

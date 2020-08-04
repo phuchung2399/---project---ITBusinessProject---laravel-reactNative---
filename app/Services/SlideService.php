@@ -133,7 +133,8 @@ class SlideService
     function hanldeRequst($slide, $request)
     {
         $slide->title = Validation::handleSpace($request->title);
-        $slide->image = Support::handleImageGetLink(FolderID::SLIDE_ID, $request->file('image')->store(FolderID::SLIDE_ID, 'google'));
+        // $slide->image = Support::handleImageGetLink(FolderID::SLIDE_ID, $request->file('image')->store(FolderID::SLIDE_ID, 'google'));
+        $slide->image = Support::handleImageGetLink(FolderID::SLIDE_ID, Storage::cloud()->put(FolderID::SLIDE_ID, $request->image));
         return $slide;
     }
 }
