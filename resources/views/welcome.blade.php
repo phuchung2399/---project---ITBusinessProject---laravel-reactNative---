@@ -9,7 +9,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
     <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
-    <!-- <script src="js/app.js"></script> -->
 </head>
 
 <body>
@@ -55,14 +54,13 @@
 </body>
 <script>
     var count = document.getElementById("count");
-    // Pusher.logToConsole = true;
     var pusher = new Pusher('99ac8370b9aa803cb529', {
         cluster: 'ap1'
     });
-    var test = 'channel-order-notification-storeid.22222224';
+    var test = 'channel-order-notification-storeid.222222230';
     var channel = pusher.subscribe(test);
     channel.bind('event-order-notification', function(data) {
-        alert(data.data.massage)
+        alert('loz')
         // var triggered = channel.trigger('client-someeventname', {
         //     your: data
         // });

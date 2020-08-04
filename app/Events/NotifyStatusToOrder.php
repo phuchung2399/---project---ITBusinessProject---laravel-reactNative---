@@ -20,7 +20,7 @@ class NotifyStatusToOrder implements ShouldBroadcast
     {
         $this->data = $data;
     }
-
+    
     public function broadcastOn()
     {
         return ('channel-status-order-notification-id.' . $this->data["id"]);

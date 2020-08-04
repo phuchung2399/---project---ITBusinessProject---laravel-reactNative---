@@ -65,12 +65,4 @@ class AdminSendNotification extends Notification
             'auth' => $this->auth
         ];
     }
-
-    /**
-     * send notification to broadcast.
-     */
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage($this->toArray($notifiable));
-    }
 }

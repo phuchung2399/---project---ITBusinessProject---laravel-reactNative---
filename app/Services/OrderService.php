@@ -72,7 +72,10 @@ class OrderService
             if ($this->coordinateService->checkRealCoordinate($request->address)) {
                 $order =  $this->order;
                 $order->order_id = Uuid::uuid4();
-                $order->address =  $this->storeSevice->hanldeAddress($request->address, ($this->storeRepository->selectStoreById($request->store))->location()->first()['location_id']);
+                $order->address =  $this->storeSevice->hanldeAddress(
+                    $request->address,
+                    ($this->storeRepository->selectStoreById($request->store))->location()->first()['location_id']
+                );
                 $order->order_day = $request->order_day;
                 $order->order_time = $request->order_time;
                 $order->total = $this->hanldeTotalApplyVouvher($request->voucher_name, $request->service);
@@ -224,7 +227,7 @@ class OrderService
         try {
             if ($this->orderRepository->checkOrderById($id)) {
                 $order = $this->orderRepository->selectOrderById($id);
-                $service_id = []; // save id servicez
+                $service_id = []; // save id services
                 foreach ($order->Order_Services()->get() as $orderService) {
                     array_push($service_id, $orderService["service_id"]); // push object into data
                 }
@@ -398,7 +401,7 @@ class OrderService
             "order" => $this->orderRepository->selectOrderById($order_id),
             "massage" => "Khách hàng tên " . $user_name . " vừa đặt dịch vụ của của cửa hàng"
         ];
-        broadcast(new NotifyStoreToUserOrder($data));
+        return broadcast(new NotifyStoreToUserOrder($data));
     }
 
     /**

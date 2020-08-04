@@ -7,6 +7,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Bus\Queueable;
+use App\Events\NotifyStoreToUserOrder;
 
 class UserOrderNotification extends Notification
 {
@@ -64,11 +65,13 @@ class UserOrderNotification extends Notification
         ];
     }
 
-    /**
-     * send notification to broadcast.
-     */
+    /*
+    * send notification to broadcast.
     public function toBroadcast($notifiable)
     {
-        return new BroadcastMessage($this->toArray($notifiable));
+        //  return new BroadcastMessage($this->toArray($notifiable));
+        var_dump($this->toArray($notifiable));
+        return  broadcast(new NotifyStoreToUserOrder($this->toArray($notifiable)));
     }
+    */
 }
