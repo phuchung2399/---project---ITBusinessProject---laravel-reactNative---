@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function () {
+    return view('index');
+});
+
+Route::get('/ahuhu', function () {
     return view('welcome');
 });
 
