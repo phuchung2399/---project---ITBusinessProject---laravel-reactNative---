@@ -4,6 +4,7 @@ const initState = {
   dataNewStores: {},
   dataStoresByStar: {},
   detailStore: {},
+  storeServices: {},
   error: {},
   loading: false,
 };
@@ -44,11 +45,31 @@ const storeReducer = (state = initState, action) => {
         loading: false,
       };
 
-    // case types.GET_BOOK_DETAIL:
-    //   return {...state, loading: true};
+    case types.GET_STORE_DETAIL:
+      return {...state, loading: true};
 
-    // case types.GET_BOOK_DETAIL_SUCCESS:
-    //   return {...state, detailBook: action.payload, loading: false};
+    case types.GET_STORE_DETAIL_SUCCESS:
+      return {...state, detailStore: action.payload, loading: false};
+
+    case types.GET_STORE_DETAIL_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+
+    case types.GET_STORE_SERVICES:
+      return {...state, loading: true};
+
+    case types.GET_STORE_SERVICES_SUCCESS:
+      return {...state, storeServices: action.payload, loading: false};
+
+    case types.GET_STORE_SERVICES_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
 
     default:
       return state;

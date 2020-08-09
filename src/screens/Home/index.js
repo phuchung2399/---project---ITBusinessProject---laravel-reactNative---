@@ -127,8 +127,8 @@ class Home extends Component {
     const storesData = this.props.stores;
     const newStores = storesData.dataNewStores;
     const storesByStar = storesData.dataStoresByStar;
+    const userToken = this.state.token;
 
-    console.log(newStores);
     setTimeout(function() {
       that.setState({isLoading: false});
     }, 1000);

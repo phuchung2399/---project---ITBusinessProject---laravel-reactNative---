@@ -21,13 +21,41 @@ import Service from './detail_child/Service';
 import Information from './detail_child/Information';
 import Comment from './detail_child/Comment';
 import LinearGradient from 'react-native-linear-gradient';
-
+import {connect} from 'react-redux';
 import ScrollableTabView from 'rn-collapsing-tab-bar';
 const {width, height} = Dimensions.get('window');
+import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import {getStoreDetail, getStoreServices} from '../../redux/storeRedux/action';
 
-export default class Detail extends React.Component {
+class Detail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: '',
+    };
+  }
+
   backMainScreen = () => {
     Navigation.dismissModal(this.props.componentId);
+  };
+
+  componentDidMount() {
+    this.onGetUserData();
+  }
+
+  onGetUserData = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({token: parsedUser.data.token}, () => {
+          this.props.onGetStoreDetail(this.props.store_id, this.state.token);
+          // this.props.onGetStoresByStar(this.state.token);
+        });
+      }
+    } catch (error) {
+      // alert(error);
+    }
   };
 
   render() {
@@ -39,7 +67,8 @@ export default class Detail extends React.Component {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
 
-    console.log(this.props.store_id);
+    const storesDetail = this.props.stores.detailStore;
+    console.log('storesDetail', storesDetail);
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -97,7 +126,7 @@ export default class Detail extends React.Component {
                   color: 'black',
                   fontFamily: Fonts.serif,
                 }}>
-                Ngoc Mai Nail
+                {storesDetail.store_name}
               </Text>
               <View style={{flexDirection: 'row'}}>{star}</View>
             </View>
@@ -125,7 +154,7 @@ export default class Detail extends React.Component {
                     color: 'black',
                     fontFamily: Fonts.serif,
                   }}>
-                  101B-22 Le Huu Trac, Da Nang
+                  {storesDetail.address}
                 </Text>
               </View>
 
@@ -230,3 +259,22 @@ var styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    stores: state.stores,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onGetStoreDetail: (storeId, token) => {
+      dispatch(getStoreDetail(storeId, token));
+    },
+    // onGetStoresByStar: token => {
+    //   dispatch(getStoreByStar(token));
+    // },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

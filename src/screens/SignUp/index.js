@@ -16,7 +16,6 @@ import {onSignIn} from '../../navigation';
 // import IconLogin from '../../../assets/images/login_image.png';
 // import {connect} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
-import * as Animatable from 'react-native-animatable';
 import Logo from '../../../assets/images/logo.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import UploadProfile from './UploadProfile';
@@ -127,7 +126,6 @@ class SignUp extends Component {
                 alignItems: 'center',
               }}>
               <Text
-                animation="zoomInUp"
                 style={{
                   fontSize: 50,
                   fontWeight: 'bold',
@@ -140,8 +138,7 @@ class SignUp extends Component {
           </SafeAreaView>
         </LinearGradient>
 
-        <Animatable.View
-          animation="pulse"
+        <View
           style={{
             flex: 1,
             borderTopLeftRadius: 30,
@@ -247,11 +244,9 @@ class SignUp extends Component {
               </Text>
             </TouchableWithoutFeedback>
           </View>
-        </Animatable.View>
+        </View>
 
-        <Animatable.View
-          animation="pulse"
-          easing="ease-out"
+        <View
           iterationCount="infinite"
           style={{
             position: 'absolute',
@@ -266,7 +261,7 @@ class SignUp extends Component {
             }}
             source={Logo}
           />
-        </Animatable.View>
+        </View>
       </ScrollView>
     );
   }

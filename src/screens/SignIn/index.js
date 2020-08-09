@@ -18,7 +18,6 @@ import {
 import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
 import LinearGradient from 'react-native-linear-gradient';
-import * as Animatable from 'react-native-animatable';
 import {t} from '../../i18n/t';
 import {logIn} from '../../redux/userRedux/action';
 
@@ -93,8 +92,7 @@ class SignIn extends Component {
                 flex: 1,
                 alignItems: 'center',
               }}>
-              <Animatable.Text
-                animation="zoomInUp"
+              <Text
                 style={{
                   fontSize: 50,
                   fontWeight: 'bold',
@@ -102,13 +100,12 @@ class SignIn extends Component {
                   color: 'white',
                 }}>
                 {t('brand_name')}
-              </Animatable.Text>
+              </Text>
             </View>
           </SafeAreaView>
         </LinearGradient>
 
         <View
-          animation="pulse"
           style={{
             flex: 1,
             borderTopLeftRadius: 30,
@@ -125,9 +122,9 @@ class SignIn extends Component {
               marginTop: '18%',
               marginBottom: 20,
             }}>
-            <Animatable.Text style={{fontSize: 40, fontWeight: 'bold'}}>
+            <Text style={{fontSize: 40, fontWeight: 'bold'}}>
               {t('txtLogin')}
-            </Animatable.Text>
+            </Text>
           </View>
 
           <View style={{flex: 2, paddingHorizontal: 10}}>
@@ -265,8 +262,7 @@ class SignIn extends Component {
           </View>
         </View>
 
-        <Animatable.View
-          animation="pulse"
+        <View
           easing="ease-out"
           iterationCount="infinite"
           style={{
@@ -282,7 +278,7 @@ class SignIn extends Component {
             }}
             source={Logo}
           />
-        </Animatable.View>
+        </View>
       </ScrollView>
     );
   }

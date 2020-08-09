@@ -7,11 +7,15 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-// import data from '../../utils/Data';
 import {Navigation} from 'react-native-navigation';
 const {width, height} = Dimensions.get('window');
+import {connect} from 'react-redux';
+import {
+  getStoreDetail,
+  getStoreServices,
+} from '../../../redux/storeRedux/action';
 
-export default class Item extends Component {
+class NailItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,7 +91,7 @@ export default class Item extends Component {
 
   render() {
     const {item} = this.props;
-    // console.log(this.state.time);
+
     return (
       <View
         style={{
@@ -130,3 +134,22 @@ const style = StyleSheet.create({
     flexDirection: 'column',
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    stores: state.stores,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onGetStoreDetail: (storeId, token) => {
+      dispatch(getStoreDetail(storeId, token));
+    },
+    // onGetStoresByStar: token => {
+    //   dispatch(getStoreByStar(token));
+    // },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NailItem);
