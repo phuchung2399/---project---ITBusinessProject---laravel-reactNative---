@@ -27,7 +27,7 @@ import NotificationItems from '../screens/Notification/components/NotifyItems';
 import Loading from '../screens/Loading';
 import Card from '../screens/Card';
 import history_icon from '../../assets/images/history_icon.png';
-
+import HistoryOrder from '../screens/HistoryOrder';
 import {Provider} from 'react-redux';
 import store from '../redux/store';
 console.disableYellowBox = true;
@@ -166,6 +166,12 @@ Navigation.registerComponent(
   () => Card,
 );
 
+Navigation.registerComponent(
+  'HistoryOrder',
+  () => ReduxProvider(HistoryOrder),
+  () => HistoryOrder,
+);
+
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
@@ -269,7 +275,7 @@ export const onChangeIntoMainScreen = () => {
                   children: [
                     {
                       component: {
-                        name: 'Booking',
+                        name: 'HistoryOrder',
                       },
                     },
                   ],

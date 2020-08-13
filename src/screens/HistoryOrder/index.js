@@ -23,19 +23,19 @@ import Fonts from '../../themers/Fonts';
 
 var data = [
   {
-    name: 'Mong tay thiet ke tinh xao',
+    name: 'Co van banh mi ga',
     image: 'https://saida-nails.de/images/content/studio5.jpg',
     rating: 3,
     price: '12.000 đ',
   },
   {
-    name: 'Mong tay thiet ke tinh xao',
+    name: 'Nail mai',
     image: 'https://saida-nails.de/images/content/studio5.jpg',
     rating: 5,
     price: '12.000 đ',
   },
   {
-    name: 'Mong tay thiet ke tinh xao',
+    name: 'Huu Tuan Nail',
     image: 'https://saida-nails.de/images/content/studio5.jpg',
     rating: 4,
     price: '12.000 đ',
@@ -137,44 +137,40 @@ class index extends Component {
           <Text style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
             {item.name}
           </Text>
-          <View style={{flexDirection: 'row', marginTop: 10}}>
-            <View
-              style={{
-                backgroundColor: 'white',
-                paddingVertical: 5,
-                paddingHorizontal: 15,
-                borderRadius: 50,
-              }}>
-              <Text style={{color: 'green', fontWeight: 'bold'}}>
-                {item.price}
-              </Text>
-            </View>
-          </View>
+          <Text style={{color: '#5a5555', fontSize: 15}}>{item.name}</Text>
+
+          <Text style={{marginTop: 10, color: 'green', fontWeight: 'bold'}}>
+            {item.price}
+          </Text>
         </View>
-        <TouchableOpacity
-          onPress={() =>
-            this.props.props.navigation.navigate('DetailScreen', {
-              image: item.image,
-              price: item.price,
-              name: item.name,
-            })
-          }
+
+        <View
           style={{
-            width: 30,
+            width: 90,
             height: 30,
-            backgroundColor: 'white',
+            backgroundColor: 'blue',
             borderRadius: 15,
             justifyContent: 'center',
             alignItems: 'center',
+            flexDirection: 'row',
           }}>
-          <AntDesign name="arrowright" color="green" size={15} />
-        </TouchableOpacity>
+          <Text style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
+            Đã giao
+          </Text>
+          <AntDesign name="checkcircleo" color="white" size={20} />
+        </View>
       </LinearGradient>
     );
   };
 
-  backMainScreen = () => {
-    Navigation.dismissModal(this.props.componentId);
+  changScreenSidebar = () => {
+    Navigation.mergeOptions('sideMenu', {
+      sideMenu: {
+        left: {
+          visible: true,
+        },
+      },
+    });
   };
 
   render() {
@@ -190,20 +186,14 @@ class index extends Component {
             <View
               style={{
                 flex: 1,
-                padding: 10,
-                margin: 10,
                 justifyContent: 'center',
-                backgroundColor: 'white',
-                borderRadius: 50,
-                alignItems: 'center',
-                maxHeight: 45,
-                maxWidth: 45,
+                alignContent: 'center',
               }}>
               <Icon
-                name="chevron-left"
-                size={25}
-                color="black"
-                onPress={() => this.backMainScreen()}
+                name="list"
+                size={30}
+                color="white"
+                onPress={() => this.changScreenSidebar()}
               />
             </View>
 
@@ -222,7 +212,7 @@ class index extends Component {
                   fontWeight: 'bold',
                   color: 'white',
                 }}>
-                {t('gio_hang_cua_ban')}
+                {t('lich_su_giao_dich')}
               </Text>
             </View>
             <View
@@ -248,90 +238,18 @@ class index extends Component {
           <View
             style={{
               backgroundColor: 'white',
-              padding: 10,
-              flexDirection: 'row',
-              borderBottomWidth: 10,
-              borderBottomColor: '#eaeaea',
-              borderTopWidth: 10,
-              borderTopColor: '#eaeaea',
-            }}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                paddingHorizontal: 10,
-              }}>
-              <Text
-                style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
-                Tra sua va an vat Loop
-              </Text>
-              <View style={{flexDirection: 'row', marginTop: 6}}>
-                <Text style={{color: '#ababab', fontWeight: 'bold'}}>
-                  14 Chau Thi Vinh Te, Ngu Hanh Sopn, Da Nang
-                </Text>
-              </View>
-            </View>
-            <TouchableOpacity
-              onPress={() =>
-                this.props.props.navigation.navigate('DetailScreen', {})
-              }
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: 'white',
-                borderRadius: 15,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <AntDesign name="arrowright" color="green" size={15} />
-            </TouchableOpacity>
-          </View>
-
-          <View
-            style={{
-              backgroundColor: 'white',
               padding: 12,
-              flexDirection: 'row',
               borderBottomWidth: 5,
               borderBottomColor: '#eaeaea',
             }}>
-            <View
+            <Text
               style={{
-                marginHorizontal: 10,
-                justifyContent: 'center',
-                alignContent: 'center',
+                fontWeight: 'bold',
+                fontSize: 20,
+                fontFamily: Fonts.serif,
               }}>
-              <Image
-                style={{
-                  width: 45,
-                  height: 45,
-                }}
-                source={Logo}
-              />
-            </View>
-            <View
-              style={{
-                marginHorizontal: 10,
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'row',
-              }}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 17,
-                  fontFamily: Fonts.serif,
-                }}>
-                Nguyen Huu Tuan
-              </Text>
-              <Text
-                style={{
-                  fontSize: 17,
-                  marginHorizontal: 5,
-                }}>
-                (ban)
-              </Text>
-            </View>
+              Lịch sử đơn hàng
+            </Text>
           </View>
 
           <View
@@ -350,46 +268,6 @@ class index extends Component {
             />
           </View>
         </ScrollView>
-
-        <View
-          style={{
-            paddingVertical: 15,
-            borderTopWidth: 2,
-            borderTopColor: '#eaeaea',
-            flexDirection: 'row',
-          }}>
-          <View style={{flex: 1, marginHorizontal: 13}}>
-            <Text style={{fontSize: 17}}>{t('tong_tien')}</Text>
-          </View>
-          <View style={{alignItems: 'flex-end', marginHorizontal: 14}}>
-            <Text style={{fontWeight: 'bold', fontSize: 17}}>20.000 d</Text>
-          </View>
-        </View>
-
-        <LinearGradient
-          colors={['#e511e8', '#F99A7C']}
-          start={{x: 0, y: 1}}
-          end={{x: 1, y: 0}}
-          style={{
-            paddingVertical: 10,
-            paddingHorizontal: 110,
-            borderRadius: 5,
-            marginHorizontal: 10,
-            justifyContent: 'center',
-          }}>
-          <TouchableWithoutFeedback onPress={this.onContinued}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                color: 'white',
-                textAlign: 'center',
-                fontFamily: Fonts.serif,
-              }}>
-              Tiếp tục
-            </Text>
-          </TouchableWithoutFeedback>
-        </LinearGradient>
       </View>
     );
   }

@@ -3,6 +3,7 @@ import userSagas from './userRedux/saga';
 import storeSagas from './storeRedux/saga';
 import servicesSagas from './serviceRedux/saga';
 import slidesSagas from './slideRedux/saga';
+import commentSagas from './commentRedux/saga';
 
 function* rootSagas() {
   yield all([
@@ -10,11 +11,7 @@ function* rootSagas() {
     ...storeSagas,
     ...servicesSagas,
     ...slidesSagas,
-    // ...bookSagas,
-    // ...commentSagas,
-    // ...relatedBookSagas,
-    // ...cardSaga,
-    // ...notificationSaga,
+    ...commentSagas,
   ]);
 }
 

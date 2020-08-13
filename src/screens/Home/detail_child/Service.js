@@ -16,6 +16,7 @@ const {width, height} = Dimensions.get('window');
 import {t} from '../../../i18n/t';
 import Fonts from '../../../themers/Fonts';
 import {get, filter} from 'lodash';
+import NoData from '../../../components/NoData';
 
 var data = [
   {
@@ -197,27 +198,7 @@ export default class Service extends React.Component {
         </View>
       );
     } else {
-      return (
-        <View style={styles.container}>
-          <View
-            style={{
-              height: height / 4,
-              marginTop: 10,
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              borderRadius: 10,
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-            }}>
-            <Text
-              style={{fontSize: 20, color: 'gray', fontFamily: Fonts.serif}}>
-              {t('no_answers')}
-            </Text>
-          </View>
-        </View>
-      );
+      return <NoData />;
     }
   }
 }

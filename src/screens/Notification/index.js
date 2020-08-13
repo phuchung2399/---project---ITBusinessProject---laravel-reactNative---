@@ -96,7 +96,6 @@ class index extends Component {
           style={{
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
-            paddingVertical: 20,
             backgroundColor: 'white',
             flex: 1,
           }}>
