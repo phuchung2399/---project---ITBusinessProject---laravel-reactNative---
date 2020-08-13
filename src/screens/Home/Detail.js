@@ -26,6 +26,7 @@ import ScrollableTabView from 'rn-collapsing-tab-bar';
 const {width, height} = Dimensions.get('window');
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
 import {getStoreDetail, getStoreServices} from '../../redux/storeRedux/action';
+import {getAllComments} from '../../redux/commentRedux/action';
 
 class Detail extends React.Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class Detail extends React.Component {
       if (parsedUser) {
         this.setState({token: parsedUser.data.token}, () => {
           this.props.onGetStoreDetail(this.props.store_id, this.state.token);
+          this.props.onGetAllComment(this.props.store_id, this.state.token);
         });
       }
     } catch (error) {
@@ -68,6 +70,8 @@ class Detail extends React.Component {
     for (let i = 0; i < 5 - detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
+
+    console.log('comments', this.props.comments);
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -267,6 +271,7 @@ var styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     stores: state.stores,
+    comments: state.comments,
   };
 };
 
@@ -274,6 +279,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onGetStoreDetail: (storeId, token) => {
       dispatch(getStoreDetail(storeId, token));
+    },
+    onGetAllComment: (storeId, token) => {
+      dispatch(getAllComments(storeId, token));
     },
   };
 };

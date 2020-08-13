@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   image: {
     width: width - 20,
     height: height / 4,
+    shadowOpacity: 0.5,
     borderRadius: 10,
   },
   itemTitle: {

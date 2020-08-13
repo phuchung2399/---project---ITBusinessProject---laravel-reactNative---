@@ -38,6 +38,7 @@ import {getAllSlides} from '../../redux/slideRedux/action';
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
 import {getAllServices} from '../../redux/serviceRedux/action';
 import Service from './detail_child/Service';
+import NoData from '../../components/NoData';
 
 class Home extends Component {
   constructor(props) {
@@ -247,9 +248,9 @@ class Home extends Component {
               </View>
             </LinearGradient>
 
-            <View style={{marginTop: '-25%'}}>
+            {/* <View style={{marginTop: '-25%'}}>
               <Carousel data={dummyData} />
-            </View>
+            </View> */}
             <View style={{padding: 2, paddingBottom: 10}}>
               <View style={styles.category}>
                 <Text style={styles.text}>
@@ -263,25 +264,28 @@ class Home extends Component {
                   {t('xem_het')}
                 </Text>
               </View>
-              <FlatList
-                data={arrNewStores}
-                keyExtractor={(item, index) => `${index}`}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item, index}) => {
-                  return (
-                    <NailItem
-                      item={item}
-                      index={index}
-                      parentFlatList={this}
-                      component={this.props.componentId}
-                    />
-                  );
-                }}
-              />
-              <View
-                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-              />
+              {arrNewStores.length === 0 ? (
+                <NoData />
+              ) : (
+                <FlatList
+                  data={arrNewStores}
+                  keyExtractor={(item, index) => `${index}`}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({item, index}) => {
+                    return (
+                      <NailItem
+                        item={item}
+                        index={index}
+                        parentFlatList={this}
+                        component={this.props.componentId}
+                      />
+                    );
+                  }}
+                />
+              )}
+
+              <View style={styles.divider} />
 
               <View
                 style={{
@@ -305,69 +309,29 @@ class Home extends Component {
                   {t('xem_het')}
                 </Text>
               </View>
-              <FlatList
-                data={arrStoresByStar}
-                keyExtractor={(item, index) => `${index}`}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item, index}) => {
-                  return (
-                    <NailItem
-                      item={item}
-                      index={index}
-                      parentFlatList={this}
-                      component={this.props.componentId}
-                    />
-                  );
-                }}
-              />
 
-              <View
-                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-              />
+              {arrStoresByStar.length === 0 ? (
+                <NoData />
+              ) : (
+                <FlatList
+                  data={arrStoresByStar}
+                  keyExtractor={(item, index) => `${index}`}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({item, index}) => {
+                    return (
+                      <NailItem
+                        item={item}
+                        index={index}
+                        parentFlatList={this}
+                        component={this.props.componentId}
+                      />
+                    );
+                  }}
+                />
+              )}
 
-              <View
-                style={{
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  padding: 10,
-                  justifyContent: 'center',
-                  marginTop: 5,
-                }}>
-                <Text style={styles.text}>
-                  {t('dich_vu_noi_bat')} ({get(arrStoresByStar, 'length')}){' '}
-                </Text>
-                <Text
-                  style={styles.showall}
-                  onPress={() =>
-                    this.changeScreenShowAll(
-                      arrStoresByStar,
-                      'Các dịch vụ nổi bật',
-                    )
-                  }>
-                  {t('xem_het')}
-                </Text>
-              </View>
-              <FlatList
-                data={arrStoresByStar}
-                keyExtractor={(item, index) => `${index}`}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item, index}) => {
-                  return (
-                    <NailItem
-                      item={item}
-                      index={index}
-                      parentFlatList={this}
-                      component={this.props.componentId}
-                    />
-                  );
-                }}
-              />
-
-              <View
-                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-              />
+              <View style={styles.divider} />
               <View style={styles.category}>
                 <Text style={styles.text}>Top 10 khách hàng tốt nhất</Text>
               </View>
@@ -385,9 +349,7 @@ class Home extends Component {
                 keyExtractor={(item, index) => index.toString()}
                 showsHorizontalScrollIndicator={false}
               />
-              <View
-                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-              />
+              <View style={styles.divider} />
               <View style={styles.category}>
                 <Text style={styles.text}>Top 5 người nhận xét nổi bật</Text>
               </View>
@@ -400,9 +362,7 @@ class Home extends Component {
                 keyExtractor={(item, index) => index.toString()}
                 showsHorizontalScrollIndicator={false}
               />
-              <View
-                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
-              />
+              <View style={styles.divider} />
             </View>
           </ScrollView>
 
@@ -471,6 +431,11 @@ const styles = StyleSheet.create({
     color: '#1d9dd8',
     flex: 1,
     fontSize: 15,
+  },
+  divider: {
+    backgroundColor: '#eaeaea',
+    height: 7,
+    marginTop: 10,
   },
 });
 
