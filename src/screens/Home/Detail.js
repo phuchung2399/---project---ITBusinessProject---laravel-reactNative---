@@ -50,7 +50,6 @@ class Detail extends React.Component {
       if (parsedUser) {
         this.setState({token: parsedUser.data.token}, () => {
           this.props.onGetStoreDetail(this.props.store_id, this.state.token);
-          // this.props.onGetStoresByStar(this.state.token);
         });
       }
     } catch (error) {
@@ -59,16 +58,16 @@ class Detail extends React.Component {
   };
 
   render() {
+    const {detailStore} = this.props.stores;
+    const dataServices = detailStore.services;
+
     let star = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="white" />);
     }
-    for (let i = 0; i < 5 - 5; i++) {
+    for (let i = 0; i < 5 - detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
-
-    const storesDetail = this.props.stores.detailStore;
-    console.log('storesDetail', storesDetail);
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -79,6 +78,7 @@ class Detail extends React.Component {
             height: height / 3,
           }}>
           <ImageBackground
+            // source={{uri: detailStore.image}}
             source={ImageDemo}
             style={{flex: 1, resizeMode: 'cover', justifyContent: 'center'}}>
             <View
@@ -113,7 +113,7 @@ class Detail extends React.Component {
           <LinearGradient
             colors={['#f75799', '#F99A7C', '#F99A7C', '#F99A7C']}
             style={{
-              flex: 1,
+              // flex: 1,
               backgroundColor: 'red',
               borderTopLeftRadius: 35,
               borderTopRightRadius: 35,
@@ -126,7 +126,7 @@ class Detail extends React.Component {
                   color: 'black',
                   fontFamily: Fonts.serif,
                 }}>
-                {storesDetail.store_name}
+                {detailStore.store_name}
               </Text>
               <View style={{flexDirection: 'row'}}>{star}</View>
             </View>
@@ -154,7 +154,7 @@ class Detail extends React.Component {
                     color: 'black',
                     fontFamily: Fonts.serif,
                   }}>
-                  {storesDetail.address}
+                  {detailStore.address}
                 </Text>
               </View>
 
@@ -189,7 +189,11 @@ class Detail extends React.Component {
                 tabBarInactiveTextColor="black"
                 tabBarTextStyle={{fontFamily: 'Roboto', fontSize: 20}}
                 borderRadius="20">
-                <Service tabLabel="Dịch vụ" props={this.props} />
+                <Service
+                  tabLabel="Dịch vụ"
+                  props={this.props}
+                  services={dataServices}
+                />
                 <Comment tabLabel=" Bình luận" props={this.props} />
                 <Information tabLabel="Thông tin" props={this.props} />
               </ScrollableTabView>
@@ -271,9 +275,6 @@ const mapDispatchToProps = (dispatch, props) => {
     onGetStoreDetail: (storeId, token) => {
       dispatch(getStoreDetail(storeId, token));
     },
-    // onGetStoresByStar: token => {
-    //   dispatch(getStoreByStar(token));
-    // },
   };
 };
 

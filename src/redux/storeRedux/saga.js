@@ -47,7 +47,7 @@ export function* getStoresByStarSaga({token}) {
 export function* getStoreDetailSaga({storeId, token}) {
   try {
     const response = yield call(getStoreDetail, storeId, token);
-    const storeDetailData = response.data;
+    const storeDetailData = response.data.data;
     yield put(getStoreDetailSuccess(storeDetailData));
   } catch (error) {
     console.log(error);
@@ -58,7 +58,7 @@ export function* getStoreDetailSaga({storeId, token}) {
 export function* getStoreServicesSaga({storeId, token}) {
   try {
     const response = yield call(getStoreServices, storeId, token);
-    const storeServicesData = response.data;
+    const storeServicesData = response.data.data;
     yield put(getStoreServicesSuccess(storeServicesData));
   } catch (error) {
     console.log(error);
