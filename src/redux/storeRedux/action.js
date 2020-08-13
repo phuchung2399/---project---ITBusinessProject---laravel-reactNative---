@@ -42,10 +42,11 @@ export const getStoreByStarFailure = error => {
   };
 };
 
-export const getStoreDetail = idBook => {
+export const getStoreDetail = (storeId, token) => {
   return {
     type: types.GET_STORE_DETAIL,
-    idBook,
+    storeId,
+    token,
   };
 };
 
@@ -59,6 +60,28 @@ export const getStoreDetailSuccess = response => {
 export const getStoreDetailFailure = error => {
   return {
     type: types.GET_STORE_DETAIL_FAILURE,
+    payload: error,
+  };
+};
+
+export const getStoreServices = (storeId, token) => {
+  return {
+    type: types.GET_STORE_SERVICES,
+    storeId,
+    token,
+  };
+};
+
+export const getStoreServicesSuccess = response => {
+  return {
+    type: types.GET_STORE_SERVICES_SUCCESS,
+    payload: response,
+  };
+};
+
+export const getStoreServicesFailure = error => {
+  return {
+    type: types.GET_STORE_SERVICES_FAILURE,
     payload: error,
   };
 };

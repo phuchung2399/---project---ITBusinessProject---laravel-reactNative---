@@ -25,6 +25,7 @@ import noti_Icon from '../../assets/images/noti_icon.png';
 import Notification from '../screens/Notification';
 import NotificationItems from '../screens/Notification/components/NotifyItems';
 import Loading from '../screens/Loading';
+import Card from '../screens/Card';
 import history_icon from '../../assets/images/history_icon.png';
 
 import {Provider} from 'react-redux';
@@ -158,6 +159,13 @@ Navigation.registerComponent(
   () => ReduxProvider(UploadProfile),
   () => UploadProfile,
 );
+
+Navigation.registerComponent(
+  'Card',
+  () => ReduxProvider(Card),
+  () => Card,
+);
+
 export default () => {
   Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({

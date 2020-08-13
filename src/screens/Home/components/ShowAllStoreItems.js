@@ -42,13 +42,13 @@ export default class ShowAllStoreItems extends Component {
     return (
       <View style={{marginHorizontal: 15, marginTop: 10}}>
         <TouchableOpacity onPress={() => this.onPress(item)}>
-          <Image source={{uri: item.imageUrl}} style={style.styleImage} />
+          <Image source={{uri: item.image}} style={style.styleImage} />
         </TouchableOpacity>
-        <Text style={style.styleText}>{item.date.en}</Text>
+        {/* <Text style={style.styleText}>{item.date.en}</Text> */}
         <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>
-          {item.title}
+          {item.name}
         </Text>
-        <Text style={{color: 'gray', fontSize: 15}}>{item.address.en}</Text>
+        <Text style={{color: 'gray', fontSize: 15}}>{item.address}</Text>
       </View>
     );
   }

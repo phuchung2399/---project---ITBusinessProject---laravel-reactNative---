@@ -21,25 +21,53 @@ import Service from './detail_child/Service';
 import Information from './detail_child/Information';
 import Comment from './detail_child/Comment';
 import LinearGradient from 'react-native-linear-gradient';
-
+import {connect} from 'react-redux';
 import ScrollableTabView from 'rn-collapsing-tab-bar';
 const {width, height} = Dimensions.get('window');
+import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import {getStoreDetail, getStoreServices} from '../../redux/storeRedux/action';
 
-export default class Detail extends React.Component {
+class Detail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: '',
+    };
+  }
+
   backMainScreen = () => {
     Navigation.dismissModal(this.props.componentId);
   };
 
+  componentDidMount() {
+    this.onGetUserData();
+  }
+
+  onGetUserData = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({token: parsedUser.data.token}, () => {
+          this.props.onGetStoreDetail(this.props.store_id, this.state.token);
+        });
+      }
+    } catch (error) {
+      // alert(error);
+    }
+  };
+
   render() {
+    const {detailStore} = this.props.stores;
+    const dataServices = detailStore.services;
+
     let star = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="white" />);
     }
-    for (let i = 0; i < 5 - 5; i++) {
+    for (let i = 0; i < 5 - detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
-
-    console.log(this.props.store_id);
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -50,6 +78,7 @@ export default class Detail extends React.Component {
             height: height / 3,
           }}>
           <ImageBackground
+            // source={{uri: detailStore.image}}
             source={ImageDemo}
             style={{flex: 1, resizeMode: 'cover', justifyContent: 'center'}}>
             <View
@@ -84,7 +113,7 @@ export default class Detail extends React.Component {
           <LinearGradient
             colors={['#f75799', '#F99A7C', '#F99A7C', '#F99A7C']}
             style={{
-              flex: 1,
+              // flex: 1,
               backgroundColor: 'red',
               borderTopLeftRadius: 35,
               borderTopRightRadius: 35,
@@ -97,7 +126,7 @@ export default class Detail extends React.Component {
                   color: 'black',
                   fontFamily: Fonts.serif,
                 }}>
-                Ngoc Mai Nail
+                {detailStore.store_name}
               </Text>
               <View style={{flexDirection: 'row'}}>{star}</View>
             </View>
@@ -125,7 +154,7 @@ export default class Detail extends React.Component {
                     color: 'black',
                     fontFamily: Fonts.serif,
                   }}>
-                  101B-22 Le Huu Trac, Da Nang
+                  {detailStore.address}
                 </Text>
               </View>
 
@@ -160,7 +189,11 @@ export default class Detail extends React.Component {
                 tabBarInactiveTextColor="black"
                 tabBarTextStyle={{fontFamily: 'Roboto', fontSize: 20}}
                 borderRadius="20">
-                <Service tabLabel="Dịch vụ" props={this.props} />
+                <Service
+                  tabLabel="Dịch vụ"
+                  props={this.props}
+                  services={dataServices}
+                />
                 <Comment tabLabel=" Bình luận" props={this.props} />
                 <Information tabLabel="Thông tin" props={this.props} />
               </ScrollableTabView>
@@ -230,3 +263,19 @@ var styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    stores: state.stores,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onGetStoreDetail: (storeId, token) => {
+      dispatch(getStoreDetail(storeId, token));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

@@ -4,9 +4,23 @@ import {
   getNewStoreFailure,
   getStoreByStarSuccess,
   getStoreByStarFailure,
+  getStoreDetailSuccess,
+  getStoreServicesSuccess,
+  getStoreDetailFailure,
+  getStoreServicesFailure,
 } from './action';
-import {getNewStore, getStoreByStar} from '../../api/stores';
-import {GET_NEW_STORE, GET_STORE_BY_STAR} from '../constants/actionTypes';
+import {
+  getNewStore,
+  getStoreByStar,
+  getStoreDetail,
+  getStoreServices,
+} from '../../api/stores';
+import {
+  GET_NEW_STORE,
+  GET_STORE_BY_STAR,
+  GET_STORE_DETAIL,
+  GET_STORE_SERVICES,
+} from '../constants/actionTypes';
 
 export function* getNewStoresSaga({token}) {
   try {
@@ -30,17 +44,32 @@ export function* getStoresByStarSaga({token}) {
   }
 }
 
-// export function* getBookDetailSaga({idBook}) {
-//   try {
-//     const response = yield call(getBookDetail, idBook);
-//     const bookDetailData = response.data;
-//     // console.log('bookDetailData', bookDetailData);
-//     yield put(getBookDetailSuccess(bookDetailData));
-//   } catch (error) {}
-// }
+export function* getStoreDetailSaga({storeId, token}) {
+  try {
+    const response = yield call(getStoreDetail, storeId, token);
+    const storeDetailData = response.data.data;
+    yield put(getStoreDetailSuccess(storeDetailData));
+  } catch (error) {
+    console.log(error);
+    yield put({type: getStoreDetailFailure, payload: error});
+  }
+}
+
+export function* getStoreServicesSaga({storeId, token}) {
+  try {
+    const response = yield call(getStoreServices, storeId, token);
+    const storeServicesData = response.data.data;
+    yield put(getStoreServicesSuccess(storeServicesData));
+  } catch (error) {
+    console.log(error);
+    yield put({type: getStoreServicesFailure, payload: error});
+  }
+}
 
 const storeSagas = () => [
   takeLatest(GET_NEW_STORE, getNewStoresSaga),
   takeLatest(GET_STORE_BY_STAR, getStoresByStarSaga),
+  takeLatest(GET_STORE_DETAIL, getStoreDetailSaga),
+  takeLatest(GET_STORE_SERVICES, getStoreServicesSaga),
 ];
 export default storeSagas();

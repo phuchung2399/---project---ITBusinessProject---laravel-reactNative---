@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Card from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import Logo from '../../../assets/images/logo.png';
@@ -23,6 +24,7 @@ import {Navigation} from 'react-native-navigation';
 import {t} from '../../i18n/t';
 import demodata from './../../utils/DemoData';
 import NailItem from './components/NailItems';
+import Services from './components/Services';
 import ReviewData from '../../utils/ReviewData';
 import UserReview from './components/UserReview';
 import {get, filter} from 'lodash';
@@ -32,7 +34,10 @@ const {width, height} = Dimensions.get('window');
 import Loading from '../Loading';
 import {connect} from 'react-redux';
 import {getNewStore, getStoreByStar} from '../../redux/storeRedux/action';
+import {getAllSlides} from '../../redux/slideRedux/action';
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import {getAllServices} from '../../redux/serviceRedux/action';
+import Service from './detail_child/Service';
 
 class Home extends Component {
   constructor(props) {
@@ -114,11 +119,39 @@ class Home extends Component {
         this.setState({token: parsedUser.data.token}, () => {
           this.props.onGetNewStore(this.state.token);
           this.props.onGetStoresByStar(this.state.token);
+          this.props.onGetAllServices(this.state.token);
         });
       }
     } catch (error) {
       // alert(error);
     }
+  };
+
+  changeShopping = (idbasket, token) => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Card',
+              passProps: {
+                // token: token,
+                // idbasket: idbasket,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
   };
 
   render() {
@@ -127,8 +160,20 @@ class Home extends Component {
     const storesData = this.props.stores;
     const newStores = storesData.dataNewStores;
     const storesByStar = storesData.dataStoresByStar;
+    const userToken = this.state.token;
 
-    console.log(newStores);
+    // console.log('services', this.props.services);
+
+    const arrNewStores = Object.keys(newStores).map(key => {
+      newStores[key].id = key;
+      return newStores[key];
+    });
+
+    const arrStoresByStar = Object.keys(storesByStar).map(key => {
+      storesByStar[key].id = key;
+      return storesByStar[key];
+    });
+
     setTimeout(function() {
       that.setState({isLoading: false});
     }, 1000);
@@ -208,18 +253,18 @@ class Home extends Component {
             <View style={{padding: 2, paddingBottom: 10}}>
               <View style={styles.category}>
                 <Text style={styles.text}>
-                  {t('cua_hang_moi_nhat')} ({get(newStores, 'length')})
+                  {t('cua_hang_moi_nhat')} ({get(arrNewStores, 'length')})
                 </Text>
                 <Text
                   style={styles.showall}
                   onPress={() =>
-                    this.changeScreenShowAll(newStores, ' Cửa hàng mới nhất')
+                    this.changeScreenShowAll(arrNewStores, ' Cửa hàng mới nhất')
                   }>
                   {t('xem_het')}
                 </Text>
               </View>
               <FlatList
-                data={newStores}
+                data={arrNewStores}
                 keyExtractor={(item, index) => `${index}`}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -247,22 +292,21 @@ class Home extends Component {
                   marginTop: 5,
                 }}>
                 <Text style={styles.text}>
-                  {t('cua_hang_chat_luong')} ({get(storesByStar, 'length')}){' '}
+                  {t('cua_hang_chat_luong')} ({get(arrStoresByStar, 'length')}){' '}
                 </Text>
                 <Text
                   style={styles.showall}
                   onPress={() =>
                     this.changeScreenShowAll(
-                      storesByStar,
+                      arrStoresByStar,
                       'Cửa hàng order nhiều nhất',
                     )
                   }>
-                  {' '}
                   {t('xem_het')}
                 </Text>
               </View>
               <FlatList
-                data={storesByStar}
+                data={arrStoresByStar}
                 keyExtractor={(item, index) => `${index}`}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -277,6 +321,50 @@ class Home extends Component {
                   );
                 }}
               />
+
+              <View
+                style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
+              />
+
+              <View
+                style={{
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  padding: 10,
+                  justifyContent: 'center',
+                  marginTop: 5,
+                }}>
+                <Text style={styles.text}>
+                  {t('dich_vu_noi_bat')} ({get(arrStoresByStar, 'length')}){' '}
+                </Text>
+                <Text
+                  style={styles.showall}
+                  onPress={() =>
+                    this.changeScreenShowAll(
+                      arrStoresByStar,
+                      'Các dịch vụ nổi bật',
+                    )
+                  }>
+                  {t('xem_het')}
+                </Text>
+              </View>
+              <FlatList
+                data={arrStoresByStar}
+                keyExtractor={(item, index) => `${index}`}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item, index}) => {
+                  return (
+                    <NailItem
+                      item={item}
+                      index={index}
+                      parentFlatList={this}
+                      component={this.props.componentId}
+                    />
+                  );
+                }}
+              />
+
               <View
                 style={{backgroundColor: '#eaeaea', height: 7, marginTop: 10}}
               />
@@ -317,6 +405,47 @@ class Home extends Component {
               />
             </View>
           </ScrollView>
+
+          <View
+            style={{
+              backgroundColor: 'white',
+              borderWidth: 2,
+              borderColor: '#7adaf7',
+
+              alignSelf: 'flex-end',
+              position: 'absolute',
+              bottom: 40,
+              borderRadius: 50,
+              right: 20,
+              overflow: 'hidden',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: width / 6.5,
+              height: height / 12,
+            }}>
+            <View
+              style={{
+                alignSelf: 'flex-end',
+                marginRight: 10,
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  color: 'red',
+                }}>
+                3
+              </Text>
+            </View>
+            <View style={{marginTop: -10}}>
+              <Card
+                name="shoppingcart"
+                size={35}
+                color="#7adaf7"
+                onPress={() => this.changeShopping()}
+              />
+            </View>
+          </View>
         </View>
       );
     }
@@ -348,6 +477,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     stores: state.stores,
+    services: state.services,
+    slices: state.slices,
   };
 };
 
@@ -358,6 +489,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onGetStoresByStar: token => {
       dispatch(getStoreByStar(token));
+    },
+    onGetAllServices: token => {
+      dispatch(getAllServices(token));
+    },
+    onGetAllSlices: token => {
+      dispatch(getAllSlides(token));
     },
   };
 };

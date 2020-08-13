@@ -15,7 +15,7 @@ import {
   getStoreServices,
 } from '../../../redux/storeRedux/action';
 
-class NailItem extends Component {
+class Services extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,4 +152,4 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NailItem);
+export default connect(mapStateToProps, mapDispatchToProps)(Services);

@@ -7,10 +7,15 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+const {width, height} = Dimensions.get('window');
+import {t} from '../../../i18n/t';
+import Fonts from '../../../themers/Fonts';
+import {get, filter} from 'lodash';
 
 var data = [
   {
@@ -48,9 +53,10 @@ var data = [
 export default class Service extends React.Component {
   constructor(props) {
     super(props);
+    this.dataRef = React.createRef();
     this.state = {
       data: data,
-      data_temp: data,
+      data_temp: '',
       search: '',
     };
   }
@@ -77,11 +83,11 @@ export default class Service extends React.Component {
         end={{x: 1, y: 0}}
         style={styles.item}>
         <View style={styles.image_container}>
-          <Image source={item.image} style={styles.image} />
+          <Image source={{uri: item.image}} style={styles.image} />
         </View>
         <View style={styles.content}>
-          <Text style={styles.name}>{item.name}</Text>
-          <View style={styles.rating}>{this._rating(item.rating)}</View>
+          <Text style={styles.name}>{item.service_name}</Text>
+          {/* <View style={styles.rating}>{this._rating(item.rating)}</View> */}
           <View style={styles.price_container}>
             <View style={styles.price}>
               <Text style={styles.textPrice}>{item.price}</Text>
@@ -115,7 +121,7 @@ export default class Service extends React.Component {
 
   _search(text) {
     let data = [];
-    this.state.data_temp.map(function(value) {
+    this.props.service_temp.map(function(value) {
       if (value.name.indexOf(text) > -1) {
         data.push(value);
       }
@@ -126,33 +132,93 @@ export default class Service extends React.Component {
     });
   }
 
+  componentDidMount() {
+    const dataServices = this.props.services;
+    this.setState({
+      data: dataServices,
+    });
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.section}>
-          <TextInput
-            placeholder="Search.."
-            style={{flex: 1, marginLeft: 10}}
-            value={this.state.search}
-            onChangeText={text => this._search(text)}
-          />
-          <TouchableOpacity
-            onPress={() => this._search('')}
-            style={{paddingHorizontal: 10}}>
-            <Ionicons name="ios-close" color="gray" size={20} />
-          </TouchableOpacity>
+    const dataServices = this.props.services;
+    console.log('services', this.state.data);
+
+    if (
+      this.dataRef.current &&
+      this.dataRef.current.isLoading &&
+      get(dataServices, 'length') <= 0
+    ) {
+      return (
+        <View style={styles.container}>
+          <View
+            style={{
+              height: height / 4,
+              marginTop: 10,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              borderRadius: 10,
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+            }}>
+            <Text
+              style={{fontSize: 20, color: 'gray', fontFamily: Fonts.serif}}>
+              {t('loading_message')}
+            </Text>
+          </View>
         </View>
-        <View style={styles.flatList}>
-          <FlatList
-            data={this.state.data}
-            renderItem={this.renderItem}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={this.ItemSeparatorComponent}
-            showsVerticalScrollIndicator={false}
-          />
+      );
+    } else if (get(dataServices, 'length') > 0) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.section}>
+            <TextInput
+              placeholder="Search.."
+              style={{flex: 1, marginLeft: 10}}
+              value={this.state.search}
+              onChangeText={text => this._search(text)}
+            />
+            <TouchableOpacity
+              onPress={() => this._search('')}
+              style={{paddingHorizontal: 10}}>
+              <Ionicons name="ios-close" color="gray" size={20} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.flatList}>
+            <FlatList
+              data={dataServices}
+              renderItem={this.renderItem}
+              keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={this.ItemSeparatorComponent}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         </View>
-      </View>
-    );
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <View
+            style={{
+              height: height / 4,
+              marginTop: 10,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              borderRadius: 10,
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+            }}>
+            <Text
+              style={{fontSize: 20, color: 'gray', fontFamily: Fonts.serif}}>
+              {t('no_answers')}
+            </Text>
+          </View>
+        </View>
+      );
+    }
   }
 }
 
