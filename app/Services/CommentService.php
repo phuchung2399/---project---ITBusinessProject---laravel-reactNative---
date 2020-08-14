@@ -44,7 +44,7 @@ class CommentSerivece
                 }
                 return Response::responseSuccess($data);
             } else {
-                return Response::responseMessage(HttpStatus::BAD_REQUEST,  'Cửa hàng chưa được tạo');
+                return Response::responseSuccess('[]');
             }
         } catch (\Exception $exception) {
             return Response::responseMessage(HttpStatus::BAD_REQUEST, $exception->getMessage());

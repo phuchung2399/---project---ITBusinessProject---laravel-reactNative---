@@ -68,29 +68,52 @@ class OrderService
      */
     function insertOrder($request)
     {
+        $date_now = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now 
+        $date_add_to_week = (Carbon::now('Asia/Ho_Chi_Minh')->addWeek())->toDateString(); // get day now + 7 day
+        $time_now = Carbon::now('Asia/Ho_Chi_Minh')->toTimeString(); // get time now
+        $time_limit = Carbon::now('Asia/Ho_Chi_Minh')->addMinutes(30)->toTimeString(); // get time now
         try {
-            if ($this->coordinateService->checkRealCoordinate($request->address)) {
-                $order =  $this->order;
-                $order->order_id = Uuid::uuid4();
-                $order->address =  $this->storeSevice->hanldeAddress(
-                    $request->address,
-                    ($this->storeRepository->selectStoreById($request->store))->location()->first()['location_id']
-                );
-                $order->order_day = $request->order_day;
-                $order->order_time = $request->order_time;
-                $order->total = $this->hanldeTotalApplyVouvher($request->voucher_name, $request->service);
-                $order->voucher_name = $request->voucher_name;
-                $order->note = Validation::handleSpace($request->note);
-                $order->massage_id = 29; // 'massage' => 'Đơn đang chờ xác nhận'
-                $order->store_id = ($request->store); // $request->store_id;
-                $order->user_id = (Auth::user())->user_id; // get id in token
-                $this->orderRepository->insertOrder($order); // save info order
-                $this->orderServiceService->insertOrderServiceUser($request->service, $order->order_id); // save data service of order
-                $this->orderNotificationToStore((Auth::user())->user_name, 'store', $order->store_id); // save notificaton to database
-                $this->notifyStoreToUserOrder($order->store_id, $order->order_id, (Auth::user())->user_name); // notificaton order for store
-                return  Response::responseMessage(HttpStatus::SUCCESS_CREATED, 'Đặt thành công');
+            if ($request->order_day == $date_now &&  $request->order_time < $time_now) {
+                return  Response::responseMessage(HttpStatus::BAD_REQUEST, 'Thời gian đặt không nhỏ hơn hơn hiện tại');
+            }
+            if ($request->order_day < $date_now) {
+                return  Response::responseMessage(HttpStatus::BAD_REQUEST, 'Ngày đặt không nhỏ hơn hơn hiện tại');
+            }
+            if ($request->order_day > $date_add_to_week) {
+                return  Response::responseMessage(HttpStatus::BAD_REQUEST, 'Thời gian đặt không được quá một tuần');
+            }
+            if (count($request->service) > 3) {
+                return  Response::responseMessage(HttpStatus::BAD_REQUEST, 'Bạn chỉ được đặt 3 dịch vụ cho một lần');
+            }
+            if ($this->hanldeTimeOrderFollowTimeStore($request->store, $request->order_time == false)) {
+                return  Response::responseMessage(HttpStatus::BAD_REQUEST, 'Thời gian đặt không phù hợp với thời mở và đóng cửa của cửa hàng');
+            }
+            if ($request->order_day == $date_now && $request->order_time < $time_limit) {
+                return  Response::responseMessage(HttpStatus::BAD_REQUEST, 'Thời gian đặt phải trước 30 phút');
             } else {
-                return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Vị trí không tồn tại trên các hệ thông bản đồ');
+                if ($this->coordinateService->checkRealCoordinate($request->address)) {
+                    $order =  $this->order;
+                    $order->order_id = Uuid::uuid4();
+                    $order->address =  $this->storeSevice->hanldeAddress(
+                        $request->address,
+                        ($this->storeRepository->selectStoreById($request->store))->location()->first()['location_id']
+                    );
+                    $order->order_day = $request->order_day;
+                    $order->order_time = $request->order_time;
+                    $order->total = $this->hanldeTotalApplyVouvher($request->voucher_name, $request->service);
+                    $order->voucher_name = $request->voucher_name;
+                    $order->note = Validation::handleSpace($request->note);
+                    $order->massage_id = 29; // 'massage' => 'Đơn đang chờ xác nhận'
+                    $order->store_id = ($request->store); // $request->store_id;
+                    $order->user_id = (Auth::user())->user_id; // get id in token
+                    $this->orderRepository->insertOrder($order); // save info order
+                    $this->orderServiceService->insertOrderServiceUser($request->service, $order->order_id); // save data service of order
+                    $this->orderNotificationToStore((Auth::user())->user_name, 'store', $order->store_id); // save notificaton to database
+                    $this->notifyStoreToUserOrder($order->store_id, $order->order_id, (Auth::user())->user_name); // notificaton order for store
+                    return  Response::responseMessage(HttpStatus::SUCCESS_CREATED, 'Đặt thành công');
+                } else {
+                    return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Vị trí không tồn tại trên các hệ thông bản đồ');
+                }
             }
         } catch (\Exception $exception) {
             return Response::responseMessage(HttpStatus::BAD_REQUEST, $exception->getMessage());
