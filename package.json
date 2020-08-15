@@ -33,7 +33,8 @@
     "rn-collapsing-tab-bar": "^0.1.7",
     "uuid": "^8.0.0",
     "yarn": "^1.21.1",
-    "yarn-install": "^1.0.0"
+    "yarn-install": "^1.0.0",
+    "react-native-modalbox": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",

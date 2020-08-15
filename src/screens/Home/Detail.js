@@ -55,13 +55,16 @@ class Detail extends React.Component {
         });
       }
     } catch (error) {
-      // alert(error);
+      console.log(error);
     }
   };
 
   render() {
     const {detailStore} = this.props.stores;
     const dataServices = detailStore.services;
+    const commentsData = this.props.comments.dataComments;
+
+    console.log(detailStore);
 
     let star = [];
     for (let i = 0; i < detailStore.rank; i++) {
@@ -70,8 +73,6 @@ class Detail extends React.Component {
     for (let i = 0; i < 5 - detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
-
-    console.log('comments', this.props.comments);
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -198,55 +199,61 @@ class Detail extends React.Component {
                   props={this.props}
                   services={dataServices}
                 />
-                <Comment tabLabel=" Bình luận" props={this.props} />
-                <Information tabLabel="Thông tin" props={this.props} />
+                <Comment
+                  tabLabel=" Bình luận"
+                  props={this.props}
+                  commentsData={commentsData}
+                />
+                <Information
+                  tabLabel="Thông tin"
+                  props={this.props}
+                  detailStore={detailStore}
+                />
               </ScrollableTabView>
             </View>
           </LinearGradient>
         </ScrollView>
 
-        <SafeAreaView>
+        {/* <View
+          style={{
+            marginHorizontal: 10,
+            padding: 10,
+            flexDirection: 'row',
+            backgroundColor: '#F99A7C',
+          }}>
           <View
             style={{
-              marginHorizontal: 10,
-              padding: 10,
-              flexDirection: 'row',
-              backgroundColor: '#F99A7C',
+              flex: 1,
+              justifyContent: 'center',
+              alignContent: 'center',
             }}>
-            <View
+            <Text
               style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignContent: 'center',
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: 'black',
               }}>
+              Tổng cộng: 40.000 đ
+            </Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <TouchableWithoutFeedback onPress={this.onSignin}>
               <Text
                 style={{
-                  fontSize: 20,
+                  borderRadius: 20,
+                  fontSize: 15,
                   fontWeight: 'bold',
+                  padding: 12,
+                  paddingHorizontal: 30,
+                  textAlign: 'center',
+                  backgroundColor: '#FCB1B6',
                   color: 'black',
                 }}>
-                Tổng cộng: 40.000 đ
+                Đặt ngay
               </Text>
-            </View>
-            <View style={{alignItems: 'flex-end'}}>
-              <TouchableWithoutFeedback onPress={this.onSignin}>
-                <Text
-                  style={{
-                    borderRadius: 20,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    padding: 12,
-                    paddingHorizontal: 30,
-                    textAlign: 'center',
-                    backgroundColor: '#FCB1B6',
-                    color: 'black',
-                  }}>
-                  Đặt ngay
-                </Text>
-              </TouchableWithoutFeedback>
-            </View>
+            </TouchableWithoutFeedback>
           </View>
-        </SafeAreaView>
+        </View>*/}
       </View>
     );
   }

@@ -142,7 +142,6 @@ export default class Service extends React.Component {
 
   render() {
     const dataServices = this.props.services;
-    console.log('services', this.state.data);
 
     if (
       this.dataRef.current &&

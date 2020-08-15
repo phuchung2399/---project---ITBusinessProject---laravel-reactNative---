@@ -105,6 +105,32 @@ class index extends Component {
     );
   };
 
+  onPress = () => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'HistoryOrderDetail',
+              passProps: {
+                // store_id: store_id,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
   renderItem = ({item}) => {
     return (
       <LinearGradient
@@ -121,27 +147,35 @@ class index extends Component {
           borderBottomColor: '#eaeaea',
         }}>
         <View style={{width: 100, height: 90}}>
-          <Image
-            source={{uri: item.image}}
-            style={{
-              width: '100%',
-              height: '100%',
-              borderWidth: 5,
-              borderColor: 'white',
-              borderRadius: 10,
-            }}
-          />
+          <TouchableOpacity onPress={() => this.onPress()}>
+            <Image
+              source={{uri: item.image}}
+              style={{
+                width: '100%',
+                height: '100%',
+                borderWidth: 5,
+                borderColor: 'white',
+                borderRadius: 10,
+              }}
+            />
+          </TouchableOpacity>
         </View>
+
         <View
           style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
-          <Text style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
-            {item.name}
-          </Text>
-          <Text style={{color: '#5a5555', fontSize: 15}}>{item.name}</Text>
+          <TouchableOpacity onPress={() => this.onPress()}>
+            <View>
+              <Text
+                style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
+                {item.name}
+              </Text>
+              <Text style={{color: '#5a5555', fontSize: 15}}>{item.name}</Text>
 
-          <Text style={{marginTop: 10, color: 'green', fontWeight: 'bold'}}>
-            {item.price}
-          </Text>
+              <Text style={{marginTop: 10, color: 'green', fontWeight: 'bold'}}>
+                {item.price}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
 
         <View

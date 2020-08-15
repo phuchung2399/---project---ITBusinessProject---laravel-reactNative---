@@ -163,8 +163,6 @@ class Home extends Component {
     const storesByStar = storesData.dataStoresByStar;
     const userToken = this.state.token;
 
-    // console.log('services', this.props.services);
-
     const arrNewStores = Object.keys(newStores).map(key => {
       newStores[key].id = key;
       return newStores[key];
@@ -177,7 +175,7 @@ class Home extends Component {
 
     setTimeout(function() {
       that.setState({isLoading: false});
-    }, 1000);
+    }, 100);
 
     if (isLoading) {
       return (
