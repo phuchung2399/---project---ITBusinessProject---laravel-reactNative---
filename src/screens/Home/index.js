@@ -121,6 +121,7 @@ class Home extends Component {
           this.props.onGetNewStore(this.state.token);
           this.props.onGetStoresByStar(this.state.token);
           this.props.onGetAllServices(this.state.token);
+          this.props.onGetAllSlices(this.state.token);
         });
       }
     } catch (error) {
@@ -162,8 +163,7 @@ class Home extends Component {
     const newStores = storesData.dataNewStores;
     const storesByStar = storesData.dataStoresByStar;
     const userToken = this.state.token;
-
-    // console.log('services', this.props.services);
+    const slicesData = this.props.slices.slides;
 
     const arrNewStores = Object.keys(newStores).map(key => {
       newStores[key].id = key;
@@ -177,7 +177,7 @@ class Home extends Component {
 
     setTimeout(function() {
       that.setState({isLoading: false});
-    }, 1000);
+    }, 100);
 
     if (isLoading) {
       return (

@@ -28,7 +28,7 @@ export function* getNewStoresSaga({token}) {
     const newStoresData = response.data.data;
     yield put(getNewStoreSuccess(newStoresData));
   } catch (error) {
-    console.log(error);
+    console.log('getNewStoresSaga', error);
     yield put({type: getNewStoreFailure, payload: error});
   }
 }
@@ -39,7 +39,7 @@ export function* getStoresByStarSaga({token}) {
     const storesDataByStar = response.data.data;
     yield put(getStoreByStarSuccess(storesDataByStar));
   } catch (error) {
-    console.log(error);
+    console.log('getStoresByStarSaga', error);
     yield put({type: getStoreByStarFailure, payload: error});
   }
 }
@@ -50,7 +50,7 @@ export function* getStoreDetailSaga({storeId, token}) {
     const storeDetailData = response.data.data;
     yield put(getStoreDetailSuccess(storeDetailData));
   } catch (error) {
-    console.log(error);
+    console.log('getStoreDetailSaga', error);
     yield put({type: getStoreDetailFailure, payload: error});
   }
 }
@@ -61,7 +61,7 @@ export function* getStoreServicesSaga({storeId, token}) {
     const storeServicesData = response.data.data;
     yield put(getStoreServicesSuccess(storeServicesData));
   } catch (error) {
-    console.log(error);
+    console.log('getStoreServicesSaga', error);
     yield put({type: getStoreServicesFailure, payload: error});
   }
 }

@@ -21,8 +21,36 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../../../assets/images/logo.png';
 import NotifyItems from './components/NotifyItems';
 const {width, height} = Dimensions.get('window');
-
+import {connect} from 'react-redux';
+import {getNotificationOfUser} from '../../redux/notificationRedux/action';
+import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import Fonts from '../../themers/Fonts';
 class index extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: '',
+    };
+  }
+
+  componentDidMount() {
+    this.onGetUserData();
+  }
+
+  onGetUserData = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({token: parsedUser.data.token}, () => {
+          this.props.onGetNotification(this.state.token);
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   changScreenSidebar = () => {
     Navigation.mergeOptions('sideMenu', {
       sideMenu: {
@@ -32,9 +60,10 @@ class index extends Component {
       },
     });
   };
-  render() {
+
+  renderHeader = () => {
     return (
-      <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
+      <>
         <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
           <View
             style={{
@@ -91,6 +120,40 @@ class index extends Component {
             </View>
           </View>
         </LinearGradient>
+      </>
+    );
+  };
+  render() {
+    const notificationsData = this.props.notifications.dataNotification;
+
+    if (notificationsData === null) {
+      return (
+        <View style={{flex: 1}}>
+          {this.renderHeader()}
+
+          <View
+            style={{
+              padding: 12,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flex: 1,
+            }}>
+            <Text
+              style={{
+                fontSize: 20,
+                color: 'gray',
+                fontFamily: Fonts.serif,
+              }}>
+              {t('khong_co_thong_bao')}
+            </Text>
+          </View>
+        </View>
+      );
+    }
+
+    return (
+      <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
+        {this.renderHeader()}
 
         <View
           style={{
@@ -153,4 +216,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default index;
+const mapStateToProps = state => {
+  return {
+    notifications: state.notifications,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onGetNotification: token => {
+      dispatch(getNotificationOfUser(token));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(index);
