@@ -62,9 +62,6 @@ class Detail extends React.Component {
   render() {
     const {detailStore} = this.props.stores;
     const dataServices = detailStore.services;
-    const commentsData = this.props.comments.dataComments;
-
-    console.log(detailStore);
 
     let star = [];
     for (let i = 0; i < detailStore.rank; i++) {
@@ -202,7 +199,7 @@ class Detail extends React.Component {
                 <Comment
                   tabLabel=" Bình luận"
                   props={this.props}
-                  commentsData={commentsData}
+                  store_id={detailStore.store_id}
                 />
                 <Information
                   tabLabel="Thông tin"

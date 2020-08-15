@@ -22,6 +22,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Fonts from '../../themers/Fonts';
+import {connect} from 'react-redux';
+import {getOrderDetail} from '../../redux/orderRedux/action';
+import {storageRemove, storageGet} from '../../checkAsyncStorage';
 
 var data = [
   {
@@ -39,6 +42,31 @@ var data = [
 ];
 
 class HistoryOrderDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: '',
+    };
+  }
+
+  componentDidMount() {
+    this.onGetUserData();
+  }
+
+  onGetUserData = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({token: parsedUser.data.token}, () => {
+          this.props.onGetDetailOrder(this.props.order_id, this.state.token);
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   changScreenSidebar = () => {
     Navigation.mergeOptions('sideMenu', {
       sideMenu: {
@@ -93,6 +121,32 @@ class HistoryOrderDetail extends Component {
     alert('ok');
   };
 
+  onNavigateStore = store_id => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Detail',
+              passProps: {
+                store_id: store_id,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
   renderItem = ({item}) => {
     return (
       <View
@@ -125,14 +179,17 @@ class HistoryOrderDetail extends Component {
               fontWeight: 'bold',
               fontSize: 20,
               alignSelf: 'flex-end',
+              fontFamily: Fonts.serif,
+              textTransform: 'capitalize',
             }}>
-            {item.name}
+            {item.service_name}
           </Text>
           <Text
             style={{
               marginTop: 5,
               color: 'green',
               alignSelf: 'flex-end',
+              fontSize: 15,
             }}>
             {item.price}
           </Text>
@@ -141,72 +198,105 @@ class HistoryOrderDetail extends Component {
     );
   };
 
-  render() {
+  renderHeader = () => {
     return (
-      <View style={{flex: 1}}>
-        <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
+      <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
+        <View
+          style={{
+            flexDirection: 'row',
+            padding: 5,
+            height: 80,
+          }}>
           <View
             style={{
-              flexDirection: 'row',
-              padding: 5,
-              height: 80,
+              flex: 1,
+              padding: 10,
+              margin: 10,
+              justifyContent: 'center',
+              backgroundColor: 'white',
+              borderRadius: 50,
+              alignItems: 'center',
+              maxHeight: 45,
+              maxWidth: 45,
             }}>
-            <View
-              style={{
-                flex: 1,
-                padding: 10,
-                margin: 10,
-                justifyContent: 'center',
-                backgroundColor: 'white',
-                borderRadius: 50,
-                alignItems: 'center',
-                maxHeight: 45,
-                maxWidth: 45,
-              }}>
-              <Icon
-                name="chevron-left"
-                size={25}
-                color="black"
-                onPress={() => this.backMainScreen()}
-              />
-            </View>
-
-            <View
-              style={{
-                flex: 6,
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-                marginTop: 20,
-              }}>
-              <Text
-                animation="zoomInUp"
-                style={{
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  color: 'white',
-                }}>
-                Đơn hàng #8535495
-              </Text>
-            </View>
-            <View
-              style={{
-                alignItems: 'flex-end',
-                flex: 1,
-                justifyContent: 'center',
-                alignContent: 'center',
-                marginTop: -5,
-              }}>
-              <Image
-                style={{
-                  width: 50,
-                  height: 50,
-                }}
-                source={Logo}
-              />
-            </View>
+            <Icon
+              name="chevron-left"
+              size={25}
+              color="black"
+              onPress={() => this.backMainScreen()}
+            />
           </View>
-        </LinearGradient>
+
+          <View
+            style={{
+              flex: 6,
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              marginTop: 20,
+            }}>
+            <Text
+              animation="zoomInUp"
+              style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: 'white',
+              }}>
+              {t('don_hang_cua_ban')}
+            </Text>
+          </View>
+          <View
+            style={{
+              alignItems: 'flex-end',
+              flex: 1,
+              justifyContent: 'center',
+              alignContent: 'center',
+              marginTop: -5,
+            }}>
+            <Image
+              style={{
+                width: 50,
+                height: 50,
+              }}
+              source={Logo}
+            />
+          </View>
+        </View>
+      </LinearGradient>
+    );
+  };
+
+  render() {
+    const dataOrderDetail = this.props.orders.dataOrderDetail;
+    console.log(dataOrderDetail);
+
+    if (dataOrderDetail.length === 0) {
+      return (
+        <View style={{flex: 1}}>
+          {this.renderHeader()}
+
+          <View
+            style={{
+              padding: 12,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flex: 1,
+            }}>
+            <Text
+              style={{
+                fontSize: 20,
+                color: 'gray',
+                fontFamily: Fonts.serif,
+              }}>
+              {t('Loading')}
+            </Text>
+          </View>
+        </View>
+      );
+    }
+    return (
+      <View style={{flex: 1}}>
+        {this.renderHeader()}
 
         <ScrollView>
           <View
@@ -234,7 +324,7 @@ class HistoryOrderDetail extends Component {
                 fontSize: 15,
                 fontFamily: Fonts.serif,
               }}>
-              {t('da_den_tay_nguoi_nhan')}
+              {dataOrderDetail.status[0].massage}
             </Text>
           </View>
 
@@ -242,7 +332,7 @@ class HistoryOrderDetail extends Component {
             style={{
               backgroundColor: 'white',
               padding: 12,
-              height: 120,
+              // height: 120,
               borderBottomWidth: 8,
               borderBottomColor: '#eaeaea',
             }}>
@@ -266,8 +356,9 @@ class HistoryOrderDetail extends Component {
                   fontSize: 15,
                   fontFamily: Fonts.serif,
                   alignItems: 'flex-end',
-                }}>
-                4532532532353
+                }}
+                numberOfLines={1}>
+                {dataOrderDetail.order_id}
               </Text>
             </View>
 
@@ -292,7 +383,7 @@ class HistoryOrderDetail extends Component {
                   fontSize: 15,
                   fontFamily: Fonts.serif,
                 }}>
-                12-12-1212
+                {dataOrderDetail.order_time} {dataOrderDetail.order_day}
               </Text>
             </View>
 
@@ -317,7 +408,7 @@ class HistoryOrderDetail extends Component {
                   fontSize: 15,
                   fontFamily: Fonts.serif,
                 }}>
-                100.000 đ
+                {dataOrderDetail.total}  đ
               </Text>
             </View>
           </View>
@@ -348,14 +439,14 @@ class HistoryOrderDetail extends Component {
                   fontWeight: 'bold',
                   fontFamily: Fonts.serif,
                 }}>
-                Dieu Nail
+                {dataOrderDetail.store.store_name}
               </Text>
               <Text
                 style={{
                   fontSize: 15,
                   fontFamily: Fonts.serif,
                 }}>
-                198 Nguyen Cong Tru, Da Nang Cong Tru, Da Nang
+                {dataOrderDetail.store.address}
               </Text>
 
               <View
@@ -375,13 +466,16 @@ class HistoryOrderDetail extends Component {
                     fontSize: 15,
                     fontFamily: Fonts.serif,
                   }}>
-                  0909090909
+                  {dataOrderDetail.store.phone}
                 </Text>
               </View>
             </View>
 
             <View style={{alignContent: 'flex-end', flexDirection: 'row'}}>
-              <TouchableWithoutFeedback onPress={this.onStoreDetail}>
+              <TouchableWithoutFeedback
+                onPress={() =>
+                  this.onNavigateStore(dataOrderDetail.store.store_id)
+                }>
                 <Text
                   style={{
                     color: 'blue',
@@ -420,7 +514,7 @@ class HistoryOrderDetail extends Component {
                   fontSize: 15,
                   fontFamily: Fonts.serif,
                 }}>
-                51 Le Huu Trac, Da Nang
+                {dataOrderDetail.address}
               </Text>
 
               <View
@@ -440,7 +534,7 @@ class HistoryOrderDetail extends Component {
                     fontSize: 15,
                     fontFamily: Fonts.serif,
                   }}>
-                  Nguyen Huu Tuan
+                  {dataOrderDetail.user[0].user_name}
                 </Text>
               </View>
 
@@ -461,7 +555,7 @@ class HistoryOrderDetail extends Component {
                     fontSize: 15,
                     fontFamily: Fonts.serif,
                   }}>
-                  0909090909
+                  {dataOrderDetail.user[0].phone}
                 </Text>
               </View>
             </View>
@@ -490,7 +584,7 @@ class HistoryOrderDetail extends Component {
               flex: 1,
             }}>
             <FlatList
-              data={data}
+              data={dataOrderDetail.services}
               renderItem={this.renderItem}
               keyExtractor={(item, index) => index.toString()}
               showsVerticalScrollIndicator={false}
@@ -656,4 +750,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HistoryOrderDetail;
+const mapStateToProps = state => {
+  return {
+    orders: state.orders,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onGetDetailOrder: (order_id, token) => {
+      dispatch(getOrderDetail(order_id, token));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryOrderDetail);

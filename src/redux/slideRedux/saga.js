@@ -7,6 +7,7 @@ export function* getAllSlicesSaga({token}) {
   try {
     const response = yield call(getAllSlide, token);
     const dataSlices = response.data.data;
+    // console.log('dataSlices ', dataSlices);
     yield put(getAllSlidesSuccess(dataSlices));
   } catch (error) {
     console.log(error);

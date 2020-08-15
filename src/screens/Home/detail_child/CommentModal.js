@@ -12,11 +12,13 @@ import {
   TouchableWithoutFeedback,
   AsyncStorage,
 } from 'react-native';
-
+import {storageRemove, storageGet} from '../../../checkAsyncStorage';
 import Modal from 'react-native-modalbox';
-import Icon from 'react-native-vector-icons/thebook-appicon';
-import {onSignIn} from '../../navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+// import {onSignIn} from '../../navigation';
 import {connect} from 'react-redux';
+import {Navigation} from 'react-native-navigation';
+import {createComment} from '../../../redux/commentRedux/action';
 
 var screen = Dimensions.get('window');
 
@@ -31,7 +33,7 @@ class CommentModal extends Component {
       star5: false,
       rank: '0',
       comment: '',
-      userId: '',
+      token: '',
     };
   }
 
@@ -98,51 +100,50 @@ class CommentModal extends Component {
   };
 
   onSubmit = () => {
-    let {userId, comment, rank} = this.state;
-    let IdBook = this.props.IdBook;
+    let {comment, rank} = this.state;
+    let store_id = this.props.store_id;
+    let token = this.state.token;
+
     if (comment === '') {
       alert('Nhập nội dung đánh giá');
     } else {
       var commentData = {
-        BookId: IdBook,
-        UserId: userId,
-        Content: comment,
-        StarRating: rank,
+        store_id,
+        title: comment,
+        star: rank,
       };
-      this.props.onSubmitComment(commentData);
-      this.props.parentFlatList.refreshCommentList();
-      this.refs.myModal.close();
+      this.props.onSubmitComment(commentData, token);
+      this.backMainScreen();
     }
   };
 
-  onCheck = async () => {
+  backMainScreen = () => {
+    Navigation.dismissModal(this.props.componentId);
+  };
+
+  onGetUserData = async () => {
     try {
-      let user = await AsyncStorage.getItem('user');
-      let parsed = JSON.parse(user);
-      if (parsed) {
-        let UserId = parsed.Data.Id;
-        await this.setState({
-          userId: UserId,
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({
+          token: parsedUser.data.token,
         });
       }
     } catch (error) {
-      // alert(error);
+      console.log('comment add ', error);
     }
   };
 
   componentDidMount() {
-    this.onCheck();
+    this.onGetUserData();
   }
 
   render() {
     const {star1, star2, star3, star4, star5} = this.state;
 
     return (
-      <Modal
-        ref={'myModal'}
-        style={style.styleModal}
-        position="center"
-        backdrop={true}>
+      <View style={style.styleModal}>
         <Text style={style.styleTitle}>Đánh giá</Text>
 
         <View style={style.rank}>
@@ -221,7 +222,11 @@ class CommentModal extends Component {
         <TouchableWithoutFeedback onPress={this.onSubmit}>
           <Text style={style.styleButtonAdd}>Gửi nhận xét</Text>
         </TouchableWithoutFeedback>
-      </Modal>
+
+        <TouchableWithoutFeedback onPress={this.backMainScreen}>
+          <Text style={style.styleButtonAdd}>back xét</Text>
+        </TouchableWithoutFeedback>
+      </View>
     );
   }
 }
@@ -269,4 +274,12 @@ const style = StyleSheet.create({
   },
 });
 
-export default CommentModal;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onSubmitComment: (data, token) => {
+      dispatch(createComment(data, token));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CommentModal);

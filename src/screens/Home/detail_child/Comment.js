@@ -13,8 +13,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Success from 'react-native-vector-icons/AntDesign';
 import Fonts from '../../../themers/Fonts';
 import {get, find, take} from 'lodash';
+import {Navigation} from 'react-native-navigation';
+import {connect} from 'react-redux';
+import _ from 'lodash';
 
-export default class Comment extends React.Component {
+class Comment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,12 +79,36 @@ export default class Comment extends React.Component {
   };
 
   onShowForm = () => {
-    this.refs.addModal.showAddModal();
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'CommentModal',
+              passProps: {
+                store_id: this.props.store_id,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
   };
 
   render() {
-    const commentsData = this.props.commentsData;
+    const commentsData = this.props.comments.dataComments;
+
     console.log(commentsData);
+
     if (commentsData === '[]') {
       return (
         <View style={styles.viewNodata}>
@@ -89,13 +116,16 @@ export default class Comment extends React.Component {
         </View>
       );
     } else {
+      const sortDataComments = _.orderBy(commentsData, 'updated_at', 'desc');
+
       return (
         <View style={styles.container}>
           <FlatList
+            ref={'FlatList'}
             // data={commentsData}
             data={take(
-              commentsData,
-              this.state.isShowAllComment ? commentsData.length : 2,
+              sortDataComments,
+              this.state.isShowAllComment ? sortDataComments.length : 2,
             )}
             renderItem={this.renderItem}
             ItemSeparatorComponent={this.ItemSeparatorComponent}
@@ -209,3 +239,11 @@ var styles = StyleSheet.create({
     color: Colors.darkGray,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    comments: state.comments,
+  };
+};
+
+export default connect(mapStateToProps, null)(Comment);

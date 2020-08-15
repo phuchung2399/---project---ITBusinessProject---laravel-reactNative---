@@ -121,6 +121,7 @@ class Home extends Component {
           this.props.onGetNewStore(this.state.token);
           this.props.onGetStoresByStar(this.state.token);
           this.props.onGetAllServices(this.state.token);
+          this.props.onGetAllSlices(this.state.token);
         });
       }
     } catch (error) {
@@ -162,6 +163,7 @@ class Home extends Component {
     const newStores = storesData.dataNewStores;
     const storesByStar = storesData.dataStoresByStar;
     const userToken = this.state.token;
+    const slicesData = this.props.slices.slides;
 
     const arrNewStores = Object.keys(newStores).map(key => {
       newStores[key].id = key;

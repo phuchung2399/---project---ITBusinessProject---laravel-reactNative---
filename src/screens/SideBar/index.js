@@ -128,7 +128,7 @@ class SideBarMenu extends Component {
 
   render() {
     const userInfor = this.state.user;
-    console.log(this.props.userData);
+
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <LinearGradient colors={['#FC5895', '#F99A7C']}>

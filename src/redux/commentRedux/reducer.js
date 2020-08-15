@@ -2,6 +2,7 @@ import * as types from '../constants/actionTypes';
 
 const initState = {
   dataComments: {},
+  messageSuccess: [],
   error: {},
   loading: false,
 };
@@ -14,6 +15,19 @@ const commentReducer = (state = initState, action) => {
       return {...state, dataComments: action.payload, loading: false};
 
     case types.GET_ALL_COMMENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+
+    case types.CREATE_COMMENT:
+      return {...state, loading: true};
+
+    case types.CREATE_COMMENT_SUCCESS:
+      return {...state, messageSuccess: action.payload, loading: false};
+
+    case types.CREATE_COMMENT_FAILURE:
       return {
         ...state,
         error: action.payload,

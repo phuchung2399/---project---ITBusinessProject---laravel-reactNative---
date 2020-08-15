@@ -4,6 +4,8 @@ import stores from './storeRedux/reducer';
 import services from './serviceRedux/reducer';
 import slices from './slideRedux/reducer';
 import comments from './commentRedux/reducer';
+import orders from './orderRedux/reducer';
+import notifications from './notificationRedux/reducer';
 
 const myReducer = combineReducers({
   user: userReducer,
@@ -11,6 +13,8 @@ const myReducer = combineReducers({
   services,
   slices,
   comments,
+  orders,
+  notifications,
 });
 
 export default myReducer;

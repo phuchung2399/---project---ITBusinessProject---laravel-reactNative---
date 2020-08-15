@@ -29,6 +29,7 @@ import Card from '../screens/Card';
 import history_icon from '../../assets/images/history_icon.png';
 import HistoryOrder from '../screens/HistoryOrder';
 import HistoryOrderDetail from '../screens/HistoryOrder/historyOrderDetail';
+import CommentModal from '../screens/Home/detail_child/CommentModal';
 import {Provider} from 'react-redux';
 import store from '../redux/store';
 console.disableYellowBox = true;
@@ -177,6 +178,12 @@ Navigation.registerComponent(
   'HistoryOrderDetail',
   () => ReduxProvider(HistoryOrderDetail),
   () => HistoryOrderDetail,
+);
+
+Navigation.registerComponent(
+  'CommentModal',
+  () => ReduxProvider(CommentModal),
+  () => CommentModal,
 );
 
 export default () => {
