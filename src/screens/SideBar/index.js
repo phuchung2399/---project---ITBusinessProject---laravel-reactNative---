@@ -22,8 +22,7 @@ import Profile from '../../../assets/images/profile.png';
 import {connect} from 'react-redux';
 import {logOut} from '../../redux/userRedux/action';
 import {onSignIn} from '../../navigation';
-import {storageRemove, storageGet} from '../../checkAsyncStorage';
-import Button from '../../components/Button';
+import {storageGet, removeItemValue} from '../../checkAsyncStorage';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 class SideBarMenu extends Component {
@@ -73,22 +72,6 @@ class SideBarMenu extends Component {
     });
   };
 
-  onSignOut = async () => {
-    let token = this.state.token;
-    // this.showAlert();
-    this.props.onLogOutUser(token);
-    onSignIn();
-  };
-
-  removeEverything = async () => {
-    try {
-      await AsyncStorage.clear();
-      alert('Log out successfully!');
-    } catch (e) {
-      alert('Logout failed');
-    }
-  };
-
   onClose = () => {
     Navigation.mergeOptions('sideMenu', {
       sideMenu: {
@@ -107,9 +90,24 @@ class SideBarMenu extends Component {
     });
   };
 
+  onSignOut = async () => {
+    let token = this.state.token;
+    this.props.onLogOutUser(token);
+    this.removeUser();
+    // onSignIn();
+  };
+
   componentDidMount() {
     this.onCheckUserSignedIn();
   }
+
+  removeUser = async () => {
+    try {
+      await removeItemValue('user');
+    } catch (e) {
+      console.log('Logout failed', e);
+    }
+  };
 
   onCheckUserSignedIn = async () => {
     try {

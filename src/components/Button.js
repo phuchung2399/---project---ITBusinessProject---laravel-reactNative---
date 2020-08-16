@@ -28,33 +28,29 @@ class index extends Component {
 
   onHandle = () => {
     alert('pk');
-  }
+  };
 
   render() {
     return (
-
-         <AwesomeAlert
-          show={this.props.showAlert}
-          showProgress={false}
-          title="Bạn cần đăng nhập để thực hiện thao tác này?"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          cancelButtonColor="#8be4cb"
-          showConfirmButton={true}
-          cancelText="Để sau"
-          confirmText="Đăng nhập"
-          confirmButtonColor="#1d9dd8"
-          onCancelPressed={() => {
-            this.hideAlert();
-          }}
-          onConfirmPressed={() => {
-            onHandle();
-          }}
-        />
-
-
-
+      <AwesomeAlert
+        show={this.props.showAlert}
+        showProgress={false}
+        title="Bạn cần đăng nhập để thực hiện thao tác này?"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showCancelButton={true}
+        cancelButtonColor="#8be4cb"
+        showConfirmButton={true}
+        cancelText="Để sau"
+        confirmText="Đăng nhập"
+        confirmButtonColor="#1d9dd8"
+        onCancelPressed={() => {
+          this.hideAlert();
+        }}
+        onConfirmPressed={() => {
+          onHandle();
+        }}
+      />
     );
   }
 }

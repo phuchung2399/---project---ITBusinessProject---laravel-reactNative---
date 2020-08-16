@@ -4,9 +4,15 @@ import {
   getAllOrdersFailure,
   getOrderDetailSuccess,
   getOrderDetailFailure,
+  createOrderSuccess,
+  createOrderFailure,
 } from './action';
 import {getOrdersOfUser, getOrderDetail} from '../../api/order';
-import {GET_ALL_ORDER, GET_ORDER_DETAIL} from '../constants/actionTypes';
+import {
+  GET_ALL_ORDER,
+  GET_ORDER_DETAIL,
+  CREATE_ORDER,
+} from '../constants/actionTypes';
 
 export function* getAllOrdersSaga({token}) {
   try {
@@ -30,10 +36,21 @@ export function* getOrderDetailSaga({order_id, token}) {
   }
 }
 
+export function* createOrderSaga({data, token}) {
+  try {
+    const response = yield call(getOrderDetail, data, token);
+    const messageCreateSuccess = response;
+    console.log(messageCreateSuccess);
+    // yield put(createOrderSuccess(messageCreateSuccess));
+  } catch (error) {
+    console.log('createOrderSaga', error);
+    yield put({type: createOrderFailure, payload: error});
+  }
+}
+
 const orderSagas = () => [
   takeLatest(GET_ALL_ORDER, getAllOrdersSaga),
   takeLatest(GET_ORDER_DETAIL, getOrderDetailSaga),
-  // takeLatest(GET_STORE_DETAIL, getStoreDetailSaga),
-  // takeLatest(GET_STORE_SERVICES, getStoreServicesSaga),
+  takeLatest(CREATE_ORDER, createOrderSaga),
 ];
 export default orderSagas();

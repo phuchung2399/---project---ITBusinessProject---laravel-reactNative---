@@ -44,3 +44,26 @@ export const getOrderDetailFailure = error => {
     payload: error,
   };
 };
+
+//Create order
+export const createOrder = (data, token) => {
+  return {
+    type: types.CREATE_ORDER,
+    data,
+    token,
+  };
+};
+
+export const createOrderSuccess = response => {
+  return {
+    type: types.CREATE_ORDER_SUCCESS,
+    payload: response,
+  };
+};
+
+export const createOrderFailure = error => {
+  return {
+    type: types.CREATE_ORDER_FAILURE,
+    payload: error,
+  };
+};

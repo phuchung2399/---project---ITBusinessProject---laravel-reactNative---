@@ -53,6 +53,7 @@ i18next.init({
         khong_co_don_hang: 'Hiện tại bạn chưa có đơn hàng',
         don_hang_cua_ban: 'Đơn hàng của bạn',
         khong_co_thong_bao: 'Hiện tại không có thông báo!',
+        dia_chi: 'Địa chỉ',
       },
     },
   },

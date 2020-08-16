@@ -11,6 +11,7 @@ import {
   TextInput,
   FlatList,
   Dimensions,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -22,7 +23,6 @@ import Carousel from '../../components/Carousel';
 import {dummyData} from '../../utils/index';
 import {Navigation} from 'react-native-navigation';
 import {t} from '../../i18n/t';
-import demodata from './../../utils/DemoData';
 import NailItem from './components/NailItems';
 import Services from './components/Services';
 import ReviewData from '../../utils/ReviewData';
@@ -35,10 +35,11 @@ import Loading from '../Loading';
 import {connect} from 'react-redux';
 import {getNewStore, getStoreByStar} from '../../redux/storeRedux/action';
 import {getAllSlides} from '../../redux/slideRedux/action';
-import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import {storageGet} from '../../checkAsyncStorage';
 import {getAllServices} from '../../redux/serviceRedux/action';
 import Service from './detail_child/Service';
 import NoData from '../../components/NoData';
+import CartComponent from '../../components/CartComponent';
 
 class Home extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class Home extends Component {
       isShowInfor: false,
       showAlert: false,
       token: '',
+      items: 1,
     };
   }
 
@@ -116,6 +118,7 @@ class Home extends Component {
     try {
       let getUserAccount = await storageGet('user');
       let parsedUser = JSON.parse(getUserAccount);
+      console.log(parsedUser);
       if (parsedUser) {
         this.setState({token: parsedUser.data.token}, () => {
           this.props.onGetNewStore(this.state.token);
@@ -135,7 +138,7 @@ class Home extends Component {
         children: [
           {
             component: {
-              name: 'Card',
+              name: 'Cart',
               passProps: {
                 // token: token,
                 // idbasket: idbasket,
@@ -177,7 +180,7 @@ class Home extends Component {
 
     setTimeout(function() {
       that.setState({isLoading: false});
-    }, 100);
+    }, 10);
 
     if (isLoading) {
       return (
@@ -251,6 +254,7 @@ class Home extends Component {
             {/* <View style={{marginTop: '-25%'}}>
               <Carousel data={dummyData} />
             </View> */}
+
             <View style={{padding: 2, paddingBottom: 10}}>
               <View style={styles.category}>
                 <Text style={styles.text}>
@@ -366,46 +370,9 @@ class Home extends Component {
             </View>
           </ScrollView>
 
-          <View
-            style={{
-              backgroundColor: 'white',
-              borderWidth: 2,
-              borderColor: '#7adaf7',
-
-              alignSelf: 'flex-end',
-              position: 'absolute',
-              bottom: 40,
-              borderRadius: 50,
-              right: 20,
-              overflow: 'hidden',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: width / 6.5,
-              height: height / 12,
-            }}>
-            <View
-              style={{
-                alignSelf: 'flex-end',
-                marginRight: 10,
-              }}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  color: 'red',
-                }}>
-                3
-              </Text>
-            </View>
-            <View style={{marginTop: -10}}>
-              <Card
-                name="shoppingcart"
-                size={35}
-                color="#7adaf7"
-                onPress={() => this.changeShopping()}
-              />
-            </View>
-          </View>
+          {this.state.items === 0 ? null : (
+            <CartComponent changeShopping={this.changeShopping} />
+          )}
         </View>
       );
     }
@@ -436,6 +403,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#eaeaea',
     height: 7,
     marginTop: 10,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconContainer: {
+    paddingLeft: 20,
+    paddingTop: 10,
+    marginRight: 5,
   },
 });
 

@@ -25,7 +25,7 @@ import noti_Icon from '../../assets/images/noti_icon.png';
 import Notification from '../screens/Notification';
 import NotificationItems from '../screens/Notification/components/NotifyItems';
 import Loading from '../screens/Loading';
-import Card from '../screens/Card';
+import Cart from '../screens/Cart';
 import history_icon from '../../assets/images/history_icon.png';
 import HistoryOrder from '../screens/HistoryOrder';
 import HistoryOrderDetail from '../screens/HistoryOrder/historyOrderDetail';
@@ -163,9 +163,9 @@ Navigation.registerComponent(
 );
 
 Navigation.registerComponent(
-  'Card',
-  () => ReduxProvider(Card),
-  () => Card,
+  'Cart',
+  () => ReduxProvider(Cart),
+  () => Cart,
 );
 
 Navigation.registerComponent(
@@ -191,7 +191,7 @@ export default () => {
     Navigation.setRoot({
       root: {
         component: {
-          name: 'App',
+          name: 'Booking',
         },
       },
     });

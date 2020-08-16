@@ -42,6 +42,7 @@ class Detail extends React.Component {
 
   componentDidMount() {
     this.onGetUserData();
+    this.onGetCartData();
   }
 
   onGetUserData = async () => {
@@ -57,6 +58,47 @@ class Detail extends React.Component {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  onGetCartData = async () => {
+    try {
+      let getCartData = await storageGet('cartItems');
+
+      if (getCartData) {
+        let parsedCart = JSON.parse(getCartData);
+        console.log(parsedCart);
+      }
+      console.log('no data cart');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  changeShopping = (idbasket, token) => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Cart',
+              passProps: {
+                // token: token,
+                // idbasket: idbasket,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
   };
 
   render() {
@@ -195,6 +237,7 @@ class Detail extends React.Component {
                   tabLabel="Dịch vụ"
                   props={this.props}
                   services={dataServices}
+                  store_id={detailStore.store_id}
                 />
                 <Comment
                   tabLabel=" Bình luận"
@@ -234,7 +277,7 @@ class Detail extends React.Component {
             </Text>
           </View>
           <View style={{alignItems: 'flex-end'}}>
-            <TouchableWithoutFeedback onPress={this.onSignin}>
+            <TouchableWithoutFeedback onPress={this.changeShopping}>
               <Text
                 style={{
                   borderRadius: 20,
@@ -250,7 +293,7 @@ class Detail extends React.Component {
               </Text>
             </TouchableWithoutFeedback>
           </View>
-        </View>*/}
+        </View> */}
       </View>
     );
   }

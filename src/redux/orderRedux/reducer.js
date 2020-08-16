@@ -3,6 +3,7 @@ import * as types from '../constants/actionTypes';
 const initState = {
   dataOrders: {},
   dataOrderDetail: [],
+  messageOrderSuccess: [],
   error: {},
   loading: false,
 };
@@ -33,6 +34,19 @@ const orderReducer = (state = initState, action) => {
       return {...state, dataOrderDetail: action.payload, loading: false};
 
     case types.GET_ORDER_DETAIL_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+
+    case types.CREATE_ORDER:
+      return {...state, loading: true};
+
+    case types.CREATE_ORDER_SUCCESS:
+      return {...state, messageOrderSuccess: action.payload, loading: false};
+
+    case types.CREATE_ORDER_FAILURE:
       return {
         ...state,
         error: action.payload,
