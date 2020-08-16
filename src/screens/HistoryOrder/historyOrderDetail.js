@@ -151,44 +151,47 @@ class HistoryOrderDetail extends Component {
     return (
       <View
         style={{
-          flex: 1,
           paddingVertical: 10,
           paddingHorizontal: 10,
           flexDirection: 'row',
           borderBottomWidth: 2,
           borderBottomColor: '#eaeaea',
+          marginHorizontal: 10,
         }}>
-        <View style={{flex: 1}}>
-          <Image
-            source={{uri: item.image}}
-            style={{
-              width: 60,
-              height: 50,
-              borderRadius: 10,
-            }}
-          />
-        </View>
+        <Image
+          source={{uri: item.image}}
+          style={{
+            width: 60,
+            height: 50,
+            borderRadius: 10,
+          }}
+        />
 
         <View
           style={{
-            alignContent: 'flex-end',
+            marginHorizontal: 10,
+            marginRight: 15,
           }}>
           <Text
             style={{
               color: '#5a5555',
               fontWeight: 'bold',
-              fontSize: 20,
+              fontSize: 16,
               alignSelf: 'flex-end',
               fontFamily: Fonts.serif,
+              marginHorizontal: 20,
               textTransform: 'capitalize',
             }}>
             {item.service_name}
           </Text>
           <Text
             style={{
+              paddingHorizontal: 20,
+              marginHorizontal: 20,
               marginTop: 5,
               color: 'green',
               alignSelf: 'flex-end',
+              fontFamily: Fonts.serif,
               fontSize: 15,
             }}>
             {item.price}
@@ -264,6 +267,10 @@ class HistoryOrderDetail extends Component {
         </View>
       </LinearGradient>
     );
+  };
+
+  onCancelOrder = () => {
+    alert('huy');
   };
 
   render() {
@@ -669,34 +676,65 @@ class HistoryOrderDetail extends Component {
             height: 70,
             justifyContent: 'center',
           }}>
-          <LinearGradient
-            colors={['#e511e8', '#F99A7C']}
-            start={{x: 0, y: 1}}
-            end={{x: 1, y: 0}}
-            style={{
-              paddingVertical: 10,
-              paddingHorizontal: 110,
-              borderRadius: 10,
-              marginHorizontal: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            <Success name="reload1" size={20} color="white" />
-            <TouchableWithoutFeedback onPress={this.onContinued}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  color: 'white',
-                  textAlign: 'center',
-                  fontFamily: Fonts.serif,
-                  marginLeft: 10,
-                }}>
-                Tiếp tục
-              </Text>
-            </TouchableWithoutFeedback>
-          </LinearGradient>
+          {dataOrderDetail.status[0].massage === 'Đơn đang chờ xác nhận' ? (
+            <LinearGradient
+              colors={['red', '#F99A7C']}
+              start={{x: 0, y: 1}}
+              end={{x: 1, y: 0}}
+              style={{
+                paddingVertical: 10,
+                paddingHorizontal: 110,
+                borderRadius: 10,
+                marginHorizontal: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <Success name="minuscircleo" size={20} color="white" />
+              <TouchableWithoutFeedback onPress={this.onCancelOrder}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                    color: 'white',
+                    textAlign: 'center',
+                    fontFamily: Fonts.serif,
+                    marginLeft: 10,
+                  }}>
+                  Huỷ đơn
+                </Text>
+              </TouchableWithoutFeedback>
+            </LinearGradient>
+          ) : (
+            <LinearGradient
+              colors={['#e511e8', '#F99A7C']}
+              start={{x: 0, y: 1}}
+              end={{x: 1, y: 0}}
+              style={{
+                paddingVertical: 10,
+                paddingHorizontal: 110,
+                borderRadius: 10,
+                marginHorizontal: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <Success name="reload1" size={20} color="white" />
+              <TouchableWithoutFeedback onPress={this.onContinued}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                    color: 'white',
+                    textAlign: 'center',
+                    fontFamily: Fonts.serif,
+                    marginLeft: 10,
+                  }}>
+                  Tiếp tục
+                </Text>
+              </TouchableWithoutFeedback>
+            </LinearGradient>
+          )}
         </View>
       </View>
     );

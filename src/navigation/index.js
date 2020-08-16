@@ -191,7 +191,7 @@ export default () => {
     Navigation.setRoot({
       root: {
         component: {
-          name: 'Booking',
+          name: 'App',
         },
       },
     });

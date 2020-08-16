@@ -21,6 +21,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Fonts from '../../themers/Fonts';
 import {storageGet} from '../../checkAsyncStorage';
+import {connect} from 'react-redux';
+import {getStoreDetail} from '../../redux/storeRedux/action';
 
 var data = [
   {
@@ -45,6 +47,7 @@ class index extends Component {
       dataCartitems: [],
       userData: null,
       total: 0,
+      token: '',
     };
   }
 
@@ -58,7 +61,12 @@ class index extends Component {
       let parsedUser = JSON.parse(getUserAccount);
       // console.log(parsedUser.data);
       if (parsedUser) {
-        this.setState({userData: parsedUser.data}, () => {});
+        this.setState(
+          {userData: parsedUser.data, token: parsedUser.data.token},
+          () => {
+            this.props.onGetStoreDetail(this.props.store_id, this.state.token);
+          },
+        );
       }
     } catch (error) {
       // alert(error);
@@ -320,48 +328,53 @@ class index extends Component {
   };
 
   renderStoreData = () => {
-    return (
-      <View
-        style={{
-          backgroundColor: 'white',
-          padding: 10,
-          flexDirection: 'row',
-          borderBottomWidth: 10,
-          borderBottomColor: '#eaeaea',
-          borderTopWidth: 10,
-          borderTopColor: '#eaeaea',
-        }}>
+    const storeData = this.props.stores.detailStore;
+
+    if (storeData != '') {
+      return (
         <View
           style={{
-            flex: 1,
-            justifyContent: 'center',
-            paddingHorizontal: 10,
-          }}>
-          <Text style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
-            Tra sua va an vat Loop
-          </Text>
-          <View style={{flexDirection: 'row', marginTop: 6}}>
-            <Text style={{color: '#ababab', fontWeight: 'bold'}}>
-              14 Chau Thi Vinh Te, Ngu Hanh Sopn, Da Nang
-            </Text>
-          </View>
-        </View>
-        <TouchableOpacity
-          onPress={() =>
-            this.props.props.navigation.navigate('DetailScreen', {})
-          }
-          style={{
-            width: 30,
-            height: 30,
             backgroundColor: 'white',
-            borderRadius: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
+            padding: 10,
+            flexDirection: 'row',
+            borderBottomWidth: 10,
+            borderBottomColor: '#eaeaea',
+            borderTopWidth: 10,
+            borderTopColor: '#eaeaea',
           }}>
-          <AntDesign name="arrowright" color="green" size={15} />
-        </TouchableOpacity>
-      </View>
-    );
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              paddingHorizontal: 10,
+            }}>
+            <Text style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
+              {storeData.store_name}
+            </Text>
+            <View style={{flexDirection: 'row', marginTop: 6}}>
+              <Text style={{color: '#ababab', fontWeight: 'bold'}}>
+                {storeData.address}
+              </Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            onPress={() =>
+              this.props.props.navigation.navigate('DetailScreen', {})
+            }
+            style={{
+              width: 30,
+              height: 30,
+              backgroundColor: 'white',
+              borderRadius: 15,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <AntDesign name="arrowright" color="green" size={15} />
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return null;
   };
 
   renderListCarts = () => {
@@ -507,4 +520,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default index;
+const mapStateToProps = state => {
+  return {
+    stores: state.stores,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onGetStoreDetail: (storeId, token) => {
+      dispatch(getStoreDetail(storeId, token));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(index);

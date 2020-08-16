@@ -7,7 +7,7 @@ import {
   createOrderSuccess,
   createOrderFailure,
 } from './action';
-import {getOrdersOfUser, getOrderDetail} from '../../api/order';
+import {getOrdersOfUser, getOrderDetail, createOrder} from '../../api/order';
 import {
   GET_ALL_ORDER,
   GET_ORDER_DETAIL,
@@ -35,13 +35,17 @@ export function* getOrderDetailSaga({order_id, token}) {
     yield put({type: getOrderDetailFailure, payload: error});
   }
 }
-
 export function* createOrderSaga({data, token}) {
   try {
-    const response = yield call(getOrderDetail, data, token);
-    const messageCreateSuccess = response;
-    console.log(messageCreateSuccess);
-    // yield put(createOrderSuccess(messageCreateSuccess));
+    const response = yield call(createOrder, JSON.stringify(data), token);
+    const messageCreateSuccess = response.data.message;
+    alert(messageCreateSuccess);
+    // console.log('messageCreateSuccess, ', messageCreateSuccess);
+    yield put(createOrderSuccess(messageCreateSuccess));
+
+    const reGetOrders = yield call(getOrdersOfUser, token);
+    const ordersData = reGetOrders.data.data;
+    yield put(getAllOrdersSuccess(ordersData));
   } catch (error) {
     console.log('createOrderSaga', error);
     yield put({type: createOrderFailure, payload: error});

@@ -15,6 +15,7 @@ import {
   TextInput,
   Switch,
 } from 'react-native';
+import {connect} from 'react-redux';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -26,18 +27,21 @@ import Fonts from '../../themers/Fonts';
 import {t} from '../../i18n/t';
 import Input from './components/TextInput';
 import DatePicker from 'react-native-datepicker';
+import {createOrder} from '../../redux/orderRedux/action';
 
-export default class Booking extends Component {
+class Booking extends Component {
   constructor(props) {
     super(props);
     this.state = {
       text: '',
       colorFalseSwitchIsOn: true,
-      note: '',
-      address: '',
+      note: 'Tôi rất thích làm nail',
+      address: 'Sài gòn, Việt Nam',
       order_day: '',
-      order_time: '',
-      total: '',
+      order_time: '17:00:00',
+      total: 4000000.0,
+      token: '',
+      voucher_name: '',
     };
   }
 
@@ -373,10 +377,44 @@ export default class Booking extends Component {
     );
   };
 
+  componentDidMount() {
+    const {userData} = this.props;
+    this.setState({
+      token: userData.token,
+    });
+  }
+
+  onBooking = async () => {
+    const {arrayServicesSelected, store_id} = this.props;
+    const {
+      note,
+      address,
+      order_day,
+      order_time,
+      total,
+      token,
+      voucher_name,
+    } = this.state;
+
+    const data = {
+      address,
+      total,
+      note,
+      voucher_name,
+      store: store_id,
+      order_time,
+      order_day,
+      service: arrayServicesSelected,
+    };
+    console.log(data);
+    await this.props.onCreateOrder(data, token);
+  };
+
   render() {
     const {arrayServicesSelected, store_id, userData} = this.props;
-    console.log(this.state.address);
-    console.log(this.state.note);
+    const minDate = new Date();
+    const maxDate = new Date();
+    maxDate.setDate(maxDate.getDate() + 7);
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -413,19 +451,21 @@ export default class Booking extends Component {
                     backgroundColor: '#E8E8E8',
                     borderRadius: 50,
                   }}
-                  date={this.state.date}
+                  date={this.state.order_day}
+                  minDate={minDate}
+                  maxDate={maxDate}
                   mode="date"
                   placeholder="Select date"
-                  format="DD-MM-YYYY"
+                  format="YYYY-MM-DD"
                   confirmBtnText="Confirm"
                   cancelBtnText="Cancel"
                   onDateChange={date => {
-                    this.setState({date: date});
+                    this.setState({order_day: date});
                   }}
                 />
               </View>
 
-              <View
+              {/* <View
                 style={{
                   marginLeft: 10,
                 }}>
@@ -454,7 +494,7 @@ export default class Booking extends Component {
                     this.setState({date: date});
                   }}
                 />
-              </View>
+              </View> */}
             </View>
 
             <View style={{flex: 5, marginHorizontal: 20}}>
@@ -580,3 +620,19 @@ const styles = StyleSheet.create({
     height: 200,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    orders: state.orders,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onCreateOrder: (data, token) => {
+      dispatch(createOrder(data, token));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Booking);
