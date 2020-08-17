@@ -2,7 +2,6 @@ import axios from 'axios';
 import * as config from './config';
 
 export default function callApi(endpoint, method, body, Token) {
-  console.log(body);
   return axios({
     method: method,
     url: `${config.API_URL}${endpoint}`,
@@ -10,6 +9,7 @@ export default function callApi(endpoint, method, body, Token) {
     headers: {
       Authorization: 'Bearer ' + Token,
       'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
   });
 }

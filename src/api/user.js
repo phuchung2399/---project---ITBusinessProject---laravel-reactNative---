@@ -2,7 +2,7 @@ import callApi from './utils';
 import uploadProfile from './uploadProfile';
 
 export const register = data => {
-  return callApi('/api/v1/user/register', 'POST', data);
+  return uploadProfile('/api/v1/user/register', 'POST', data, '');
 };
 
 export const login = data => {

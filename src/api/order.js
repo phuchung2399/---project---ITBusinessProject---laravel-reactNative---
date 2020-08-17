@@ -2,6 +2,7 @@ import callApi from './utils';
 
 //Create order - booking service
 export const createOrder = (data, token) => {
+  console.log(data, token);
   return callApi('/api/v1/order', 'POST', data, token);
 };
 
@@ -13,4 +14,9 @@ export const getOrdersOfUser = token => {
 //Get order detail
 export const getOrderDetail = (order_id, token) => {
   return callApi(`/api/v1/order-detail/${order_id}`, 'GET', '', token);
+};
+
+//Cancel order from user
+export const cancelOrder = (order_id, token) => {
+  return callApi(`/api/v1/order-cancel/${order_id}`, 'POST', '', token);
 };

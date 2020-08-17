@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 const initState = {
   dataNewStores: {},
   dataStoresByStar: {},
-  detailStore: {},
+  detailStore: [],
   storeServices: {},
   error: {},
   loading: false,

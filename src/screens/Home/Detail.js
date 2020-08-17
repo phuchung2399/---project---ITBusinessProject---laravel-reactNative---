@@ -27,6 +27,7 @@ const {width, height} = Dimensions.get('window');
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
 import {getStoreDetail, getStoreServices} from '../../redux/storeRedux/action';
 import {getAllComments} from '../../redux/commentRedux/action';
+import CartComponent from '../../components/CartComponent';
 
 class Detail extends React.Component {
   constructor(props) {
@@ -59,9 +60,37 @@ class Detail extends React.Component {
     }
   };
 
+  changeShopping = (idbasket, token) => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Cart',
+              passProps: {
+                // token: token,
+                // idbasket: idbasket,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
   render() {
     const {detailStore} = this.props.stores;
     const dataServices = detailStore.services;
+    console.log('orders', this.props.orders);
 
     let star = [];
     for (let i = 0; i < detailStore.rank; i++) {
@@ -195,6 +224,7 @@ class Detail extends React.Component {
                   tabLabel="Dịch vụ"
                   props={this.props}
                   services={dataServices}
+                  store_id={detailStore.store_id}
                 />
                 <Comment
                   tabLabel=" Bình luận"
@@ -210,6 +240,13 @@ class Detail extends React.Component {
             </View>
           </LinearGradient>
         </ScrollView>
+
+        {this.props.orders.cartItems.length <= 0 ? null : (
+          <CartComponent
+            changeShopping={this.changeShopping}
+            size={this.props.orders.cartItems.length}
+          />
+        )}
 
         {/* <View
           style={{
@@ -234,7 +271,7 @@ class Detail extends React.Component {
             </Text>
           </View>
           <View style={{alignItems: 'flex-end'}}>
-            <TouchableWithoutFeedback onPress={this.onSignin}>
+            <TouchableWithoutFeedback onPress={this.changeShopping}>
               <Text
                 style={{
                   borderRadius: 20,
@@ -250,7 +287,7 @@ class Detail extends React.Component {
               </Text>
             </TouchableWithoutFeedback>
           </View>
-        </View>*/}
+        </View> */}
       </View>
     );
   }
@@ -276,6 +313,7 @@ const mapStateToProps = state => {
   return {
     stores: state.stores,
     comments: state.comments,
+    orders: state.orders,
   };
 };
 

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  Picker,
   TouchableWithoutFeedback,
 } from 'react-native';
 import {t} from '../../../i18n/t';
@@ -22,6 +23,7 @@ class Comment extends React.Component {
     super(props);
     this.state = {
       isShowAllComment: false,
+      menu: '',
     };
   }
 

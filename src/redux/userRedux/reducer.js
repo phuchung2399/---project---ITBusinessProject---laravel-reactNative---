@@ -8,18 +8,18 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case types.ADD_USER:
-    //   return {...state, loading: true};
+    case types.ADD_USER:
+      return {...state, loading: true};
 
-    // case types.ADD_USER_SUCCESS:
-    //   return {...state, data: action.payload, loading: false};
+    case types.ADD_USER_SUCCESS:
+      return {...state, data: action.payload, loading: false};
 
-    // case types.ADD_USER_FAILURE:
-    //   return {
-    //     ...state,
-    //     error: action.payload,
-    //     loading: false,
-    //   };
+    case types.ADD_USER_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
 
     case types.LOG_IN:
       return {...state, loading: true};

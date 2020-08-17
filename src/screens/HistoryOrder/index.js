@@ -21,23 +21,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Fonts from '../../themers/Fonts';
 import {connect} from 'react-redux';
-import {getAllOrders} from '../../redux/orderRedux/action';
+import {getAllOrders, cancelOrder} from '../../redux/orderRedux/action';
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
-
-var data = [
-  {
-    name: 'Co van banh mi ga',
-    image: 'https://saida-nails.de/images/content/studio5.jpg',
-    rating: 3,
-    price: '12.000 đ',
-  },
-  {
-    name: 'Nail mai',
-    image: 'https://saida-nails.de/images/content/studio5.jpg',
-    rating: 5,
-    price: '12.000 đ',
-  },
-];
 
 class index extends Component {
   constructor(props) {
@@ -137,6 +122,10 @@ class index extends Component {
     });
   };
 
+  onCancelOrder = order_id => {
+    this.props.onCancelOrder(order_id, this.state.token);
+  };
+
   renderItem = ({item}) => {
     return (
       <LinearGradient
@@ -199,21 +188,43 @@ class index extends Component {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            width: 90,
-            height: 30,
-            backgroundColor: 'blue',
-            borderRadius: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}>
-          <Text style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
-            Đã giao
-          </Text>
-          <AntDesign name="checkcircleo" color="white" size={20} />
-        </View>
+        {item.status[0].massage === 'Đơn đang chờ xác nhận' ? (
+          <View
+            style={{
+              width: 90,
+              height: 30,
+              backgroundColor: 'red',
+              borderRadius: 15,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}>
+            <TouchableOpacity onPress={() => this.onCancelOrder(item.order_id)}>
+              <Text
+                style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
+                {t('huy_don')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View
+            style={{
+              width: 90,
+              height: 30,
+              backgroundColor: 'blue',
+              borderRadius: 15,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}>
+            <TouchableOpacity onPress={() => this.onCancelOrder(item.order_id)}>
+              <Text
+                style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
+                {t('dat_lai')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </LinearGradient>
     );
   };
@@ -437,6 +448,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onGetAllOrders: token => {
       dispatch(getAllOrders(token));
+    },
+    onCancelOrder: (order_id, token) => {
+      dispatch(cancelOrder(order_id, token));
     },
   };
 };

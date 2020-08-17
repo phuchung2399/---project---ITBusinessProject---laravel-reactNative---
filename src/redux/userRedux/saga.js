@@ -9,12 +9,13 @@ import {ADD_USER, LOG_IN, LOGOUT_SUCCESS} from '../constants/actionTypes';
 import {login, logout, register} from '../../api/user';
 import {onChangeIntoMainScreen, onSignIn} from '../../navigation';
 import {AsyncStorage} from 'react-native';
+import {storageSet} from '../../checkAsyncStorage';
 
-export function* registerSaga(action) {
+export function* registerSaga({data}) {
   try {
-    const response = yield call(register, action.data);
+    const response = yield call(register, data);
     console.log('user data:', response);
-    // yield put(addUserSuccess(data));
+    // yield put(addUserSuccess(response));
     // AsyncStorage.setItem('user', JSON.stringify(data));
     // onChangeIntoMainScreen();
   } catch (error) {
@@ -29,7 +30,12 @@ export function* loginSaga({data}) {
     if (getData.message) {
       yield put(logInFailure(getData.message));
     } else {
-      AsyncStorage.setItem('user', JSON.stringify(getData));
+      try {
+        storageSet('user', JSON.stringify(getData));
+      } catch (e) {
+        console.log('Login failed', e);
+      }
+      // AsyncStorage.setItem('user', JSON.stringify(getData));
       yield put(logInSuccess(getData));
       onChangeIntoMainScreen();
     }
@@ -42,12 +48,10 @@ export function* logOutSaga({token}) {
   try {
     const response = yield call(logout, token);
     alert(response.data.message);
-    // onSignIn();
-    AsyncStorage.clear();
+    onSignIn();
+    // AsyncStorage.clear();
   } catch (error) {
-    AsyncStorage.clear();
-
-    console.log('error', error.toJSON());
+    console.log('errorLogout', error.toJSON());
   }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   TextInput,
   Dimensions,
+  Picker,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -17,6 +19,14 @@ import {t} from '../../../i18n/t';
 import Fonts from '../../../themers/Fonts';
 import {get, filter} from 'lodash';
 import NoData from '../../../components/NoData';
+import {storageSet} from '../../../checkAsyncStorage';
+import {Navigation} from 'react-native-navigation';
+import {
+  addCart,
+  deleteCart,
+  addStoreId,
+} from '../../../redux/orderRedux/action';
+import {connect} from 'react-redux';
 
 var data = [
   {
@@ -51,7 +61,7 @@ var data = [
   },
 ];
 
-export default class Service extends React.Component {
+class Service extends React.Component {
   constructor(props) {
     super(props);
     this.dataRef = React.createRef();
@@ -59,11 +69,15 @@ export default class Service extends React.Component {
       data: data,
       data_temp: '',
       search: '',
+      isChangeIcon: false,
+      menu: '',
+      arrayServicesSelected: [],
     };
   }
 
   _rating(item) {
     let rating = [];
+    let i = 0;
     for (i = 0; i < item; i++) {
       rating.push(
         <Image
@@ -76,7 +90,73 @@ export default class Service extends React.Component {
     return rating;
   }
 
+  onAddToCart = item => {
+    // this.setState({
+    //   isChangeIcon: !this.state.isChangeIcon,
+    // });
+    // this.setState({
+    //   isChangeIcon: !this.state.isChangeIcon,
+    // });
+
+    const {arrayServicesSelected} = this.state;
+
+    const recent_store_id = this.props.orders.store_id;
+    const store_id_clicked = this.props.store_id;
+
+    if (store_id_clicked === recent_store_id || recent_store_id === '') {
+      const dataItem = {
+        service_id: item.service_id,
+        service_name: item.service_name,
+        description: item.description,
+        price: item.price,
+        image: item.image,
+        store_id: item.store_id,
+      };
+      this.props.onAddCart(dataItem);
+      this.props.onAddStoreId(this.props.store_id);
+    } else {
+      alert('o dc add');
+    }
+
+    // arrayServicesSelected.push(dataItem);
+    // this.setState({
+    //   arrayServicesSelected,
+    // });
+  };
+
+  onDeleteCart = service_id => {
+    this.props.onDeleteCartItem(service_id);
+  };
+
+  changeShopping = () => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Cart',
+              passProps: {
+                // arrayServicesSelected,
+                // store_id,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
   renderItem = ({item}) => {
+    // console.log(item);
     return (
       <LinearGradient
         colors={['#b5b1b1', '#e2d5d5']}
@@ -96,15 +176,33 @@ export default class Service extends React.Component {
           </View>
         </View>
         <TouchableOpacity
-          onPress={() =>
-            this.props.props.navigation.navigate('DetailScreen', {
-              image: item.image,
-              price: item.price,
-              name: item.name,
-            })
-          }
-          style={styles.button}>
-          <AntDesign name="arrowright" color="green" size={15} />
+          onPress={() => this.onAddToCart(item)}
+          style={{
+            width: 30,
+            height: 30,
+            backgroundColor: !this.state.isChangeIcon ? '#FC5895' : 'green',
+            borderRadius: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <AntDesign
+            name={!this.state.isChangeIcon ? 'plus' : 'check'}
+            color="white"
+            size={15}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => this.onDeleteCart(item.service_id)}
+          style={{
+            width: 30,
+            height: 30,
+            backgroundColor: !this.state.isChangeIcon ? 'blue' : 'green',
+            borderRadius: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <AntDesign name="check" color="white" size={15} />
         </TouchableOpacity>
       </LinearGradient>
     );
@@ -140,8 +238,26 @@ export default class Service extends React.Component {
     });
   }
 
+  renderListService = dataServices => {
+    return (
+      <View style={styles.flatList}>
+        <FlatList
+          data={dataServices}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          ItemSeparatorComponent={this.ItemSeparatorComponent}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+    );
+  };
+
   render() {
     const dataServices = this.props.services;
+    const store_id = this.props.store_id;
+    console.log('cua hang', this.props.orders);
+
+    const arrayServicesSelected = this.state.arrayServicesSelected;
 
     if (
       this.dataRef.current &&
@@ -185,14 +301,47 @@ export default class Service extends React.Component {
               <Ionicons name="ios-close" color="gray" size={20} />
             </TouchableOpacity>
           </View>
-          <View style={styles.flatList}>
-            <FlatList
-              data={dataServices}
-              renderItem={this.renderItem}
-              keyExtractor={(item, index) => index.toString()}
-              ItemSeparatorComponent={this.ItemSeparatorComponent}
-              showsVerticalScrollIndicator={false}
-            />
+
+          {this.renderListService(dataServices)}
+          <View
+            style={{
+              marginHorizontal: 10,
+              padding: 10,
+              flexDirection: 'row',
+              backgroundColor: '#F99A7C',
+            }}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  color: 'black',
+                }}>
+                Tổng cộng: 40.000 đ
+              </Text>
+            </View>
+            <View style={{alignItems: 'flex-end'}}>
+              <TouchableWithoutFeedback onPress={() => this.changeShopping()}>
+                <Text
+                  style={{
+                    borderRadius: 20,
+                    fontSize: 15,
+                    fontWeight: 'bold',
+                    padding: 12,
+                    paddingHorizontal: 30,
+                    textAlign: 'center',
+                    backgroundColor: '#FCB1B6',
+                    color: 'black',
+                  }}>
+                  Đặt ngay
+                </Text>
+              </TouchableWithoutFeedback>
+            </View>
           </View>
         </View>
       );
@@ -278,3 +427,25 @@ var styles = StyleSheet.create({
     marginTop: -10,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    orders: state.orders,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onAddCart: cartItem => {
+      dispatch(addCart(cartItem));
+    },
+    onAddStoreId: store_id => {
+      dispatch(addStoreId(store_id));
+    },
+    onDeleteCartItem: id => {
+      dispatch(deleteCart(id));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Service);
