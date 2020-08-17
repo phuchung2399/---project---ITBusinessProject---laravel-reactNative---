@@ -17,11 +17,12 @@ class CartComponent extends React.Component {
   };
 
   render() {
+    const {size} = this.props;
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => this.changeShopping()}>
           <View style={styles.viewNumberItem}>
-            <Text style={styles.text}>5</Text>
+            <Text style={styles.text}>{size}</Text>
           </View>
 
           <CardIcon

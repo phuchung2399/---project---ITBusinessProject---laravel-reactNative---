@@ -23,6 +23,7 @@ import Fonts from '../../themers/Fonts';
 import {storageGet} from '../../checkAsyncStorage';
 import {connect} from 'react-redux';
 import {getStoreDetail} from '../../redux/storeRedux/action';
+import {deleteCart} from '../../redux/orderRedux/action';
 
 var data = [
   {
@@ -64,7 +65,10 @@ class index extends Component {
         this.setState(
           {userData: parsedUser.data, token: parsedUser.data.token},
           () => {
-            this.props.onGetStoreDetail(this.props.store_id, this.state.token);
+            this.props.onGetStoreDetail(
+              this.props.orders.store_id,
+              this.state.token,
+            );
           },
         );
       }
@@ -83,7 +87,7 @@ class index extends Component {
     });
   };
 
-  onContinued = (arrayServicesSelected, store_id, userData) => {
+  onContinued = userData => {
     Navigation.showModal({
       stack: {
         children: [
@@ -91,8 +95,8 @@ class index extends Component {
             component: {
               name: 'Booking',
               passProps: {
-                arrayServicesSelected,
-                store_id,
+                // arrayServicesSelected,
+                // store_id,
                 userData,
               },
               options: {
@@ -175,13 +179,7 @@ class index extends Component {
           </View>
         </View>
         <TouchableOpacity
-          onPress={() =>
-            this.props.props.navigation.navigate('DetailScreen', {
-              image: item.image,
-              price: item.price,
-              name: item.name,
-            })
-          }
+          onPress={() => this.onDeleteCart(item.service_id)}
           style={{
             width: 30,
             height: 30,
@@ -190,7 +188,7 @@ class index extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <AntDesign name="arrowright" color="green" size={15} />
+          <AntDesign name="minuscircleo" color="green" size={18} />
         </TouchableOpacity>
       </LinearGradient>
     );
@@ -198,6 +196,10 @@ class index extends Component {
 
   backMainScreen = () => {
     Navigation.dismissModal(this.props.componentId);
+  };
+
+  onDeleteCart = service_id => {
+    this.props.onDeleteCartItem(service_id);
   };
 
   renderDataUser = () => {
@@ -378,7 +380,7 @@ class index extends Component {
   };
 
   renderListCarts = () => {
-    const dataCarts = this.props.arrayServicesSelected;
+    const dataCarts = this.props.orders.cartItems;
     console.log(dataCarts);
     if (dataCarts.length > 0) {
       return (
@@ -413,7 +415,7 @@ class index extends Component {
             color: 'gray',
             fontFamily: Fonts.serif,
           }}>
-          {t('Loading')}
+          {t('khong_co_du_lieu')}
         </Text>
       </View>
     );
@@ -458,10 +460,7 @@ class index extends Component {
             marginHorizontal: 10,
             justifyContent: 'center',
           }}>
-          <TouchableWithoutFeedback
-            onPress={() =>
-              this.onContinued(arrayServicesSelected, store_id, userData)
-            }>
+          <TouchableWithoutFeedback onPress={() => this.onContinued(userData)}>
             <Text
               style={{
                 fontSize: 20,
@@ -523,6 +522,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     stores: state.stores,
+    orders: state.orders,
   };
 };
 
@@ -530,6 +530,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onGetStoreDetail: (storeId, token) => {
       dispatch(getStoreDetail(storeId, token));
+    },
+    onDeleteCartItem: id => {
+      dispatch(deleteCart(id));
     },
   };
 };

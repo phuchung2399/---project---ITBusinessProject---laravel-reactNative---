@@ -27,6 +27,7 @@ const {width, height} = Dimensions.get('window');
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
 import {getStoreDetail, getStoreServices} from '../../redux/storeRedux/action';
 import {getAllComments} from '../../redux/commentRedux/action';
+import CartComponent from '../../components/CartComponent';
 
 class Detail extends React.Component {
   constructor(props) {
@@ -42,7 +43,6 @@ class Detail extends React.Component {
 
   componentDidMount() {
     this.onGetUserData();
-    this.onGetCartData();
   }
 
   onGetUserData = async () => {
@@ -55,20 +55,6 @@ class Detail extends React.Component {
           this.props.onGetAllComment(this.props.store_id, this.state.token);
         });
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  onGetCartData = async () => {
-    try {
-      let getCartData = await storageGet('cartItems');
-
-      if (getCartData) {
-        let parsedCart = JSON.parse(getCartData);
-        console.log(parsedCart);
-      }
-      console.log('no data cart');
     } catch (error) {
       console.log(error);
     }
@@ -104,6 +90,7 @@ class Detail extends React.Component {
   render() {
     const {detailStore} = this.props.stores;
     const dataServices = detailStore.services;
+    console.log('orders', this.props.orders);
 
     let star = [];
     for (let i = 0; i < detailStore.rank; i++) {
@@ -254,6 +241,13 @@ class Detail extends React.Component {
           </LinearGradient>
         </ScrollView>
 
+        {this.props.orders.cartItems.length <= 0 ? null : (
+          <CartComponent
+            changeShopping={this.changeShopping}
+            size={this.props.orders.cartItems.length}
+          />
+        )}
+
         {/* <View
           style={{
             marginHorizontal: 10,
@@ -319,6 +313,7 @@ const mapStateToProps = state => {
   return {
     stores: state.stores,
     comments: state.comments,
+    orders: state.orders,
   };
 };
 

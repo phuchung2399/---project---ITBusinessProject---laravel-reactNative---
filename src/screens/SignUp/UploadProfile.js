@@ -54,30 +54,31 @@ class UploadProfile extends Component {
     });
   };
 
-  handleUploadPhoto = () => {
+  handleUploadPhoto = async event => {
+    event.preventDefault();
+
     const {imageProfile} = this.state;
     const {user_name, email, phone, password} = this.props.data;
 
-    const data = new FormData();
-
-    data.append('photo', {
+    const profile_pic = {
       name: imageProfile.fileName,
       type: imageProfile.type,
       uri:
         Platform.OS === 'android'
           ? imageProfile.uri
           : imageProfile.uri.replace('file://', ''),
-    });
-
-    const userInfor = {
-      avatar: '',
-      user_name,
-      email,
-      phone,
-      password,
-      confirm_password: password,
     };
-    this.props.onRegister(userInfor);
+
+    let data = new FormData();
+
+    data.append('avatar', profile_pic);
+    data.append('user_name', user_name);
+    data.append('email', email);
+    data.append('phone', phone);
+    data.append('password', password);
+    data.append('confirm_password', password);
+
+    await this.props.onRegister(data);
   };
 
   render() {

@@ -1,4 +1,6 @@
 import * as types from '../constants/actionTypes';
+import store from '../store';
+import _ from 'lodash';
 
 //Get all orders of users
 export const getAllOrders = token => {
@@ -88,5 +90,29 @@ export const cancelOrderFailure = error => {
   return {
     type: types.CANCEL_ORDER_FAILURE,
     payload: error,
+  };
+};
+
+export const addCart = newCart => {
+  const cartItems = store.getState().orders.cartItems;
+  return {
+    type: types.ADD_CART,
+    payload: [...cartItems, newCart],
+  };
+};
+
+export const addStoreId = store_id => {
+  return {
+    type: types.ADD_STORE_ID,
+    payload: store_id,
+  };
+};
+
+export const deleteCart = id => {
+  const cartItems = store.getState().orders.cartItems;
+  const newArr = _.filter(cartItems, item => item.service_id !== id);
+  return {
+    type: types.DELETE_CART,
+    payload: newArr,
   };
 };

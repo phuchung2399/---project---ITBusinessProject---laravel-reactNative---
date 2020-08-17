@@ -35,8 +35,8 @@ class Booking extends Component {
     this.state = {
       text: '',
       colorFalseSwitchIsOn: true,
-      note: 'Tôi rất thích làm nail',
-      address: 'Sài gòn, Việt Nam',
+      note: '',
+      address: '',
       order_day: '',
       order_time: '17:00:00',
       total: 4000000.0,
@@ -167,41 +167,6 @@ class Booking extends Component {
                 {userData.user.phone}
               </Text>
             </View>
-            {/* <View
-              style={{
-                flexDirection: 'row',
-                marginBottom: 10,
-                alignItems: 'center',
-              }}>
-              <AntDesign name="clockcircleo" size={20} color="#3AEB76" />
-
-              <View
-                style={{
-                  backgroundColor: '#E8E8E8',
-                  borderRadius: 50,
-                  marginHorizontal: 10,
-                }}>
-                <Text
-                  style={{
-                    marginHorizontal: 10,
-                    fontSize: 15,
-                    paddingVertical: 10,
-                  }}>
-                  8:00 Sáng
-                </Text>
-              </View>
-              <View
-                style={{
-                  backgroundColor: '#E8E8E8',
-                  marginHorizontal: 10,
-                  paddingVertical: 10,
-                  borderRadius: 50,
-                }}>
-                <Text style={{marginHorizontal: 10, fontSize: 15}}>
-                  25/06/2020
-                </Text>
-              </View>
-            </View> */}
           </View>
         </View>
       );
@@ -252,14 +217,6 @@ class Booking extends Component {
             <View style={{flexDirection: 'row', marginHorizontal: 10}}>
               <View style={{flex: 1}}>
                 <Text>{item.price} đ</Text>
-              </View>
-              <View>
-                <AntDesign
-                  name="minuscircleo"
-                  size={25}
-                  color="black"
-                  onPress={() => this.backMainScreen()}
-                />
               </View>
             </View>
           </View>
@@ -385,7 +342,7 @@ class Booking extends Component {
   }
 
   onBooking = async () => {
-    const {arrayServicesSelected, store_id} = this.props;
+    const {cartItems, store_id} = this.props.orders;
     const {
       note,
       address,
@@ -404,17 +361,19 @@ class Booking extends Component {
       store: store_id,
       order_time,
       order_day,
-      service: arrayServicesSelected,
+      service: cartItems,
     };
-    console.log(data);
+    console.log(cartItems);
     await this.props.onCreateOrder(data, token);
   };
 
   render() {
-    const {arrayServicesSelected, store_id, userData} = this.props;
+    const {userData} = this.props;
     const minDate = new Date();
     const maxDate = new Date();
     maxDate.setDate(maxDate.getDate() + 7);
+
+    const cartItems = this.props.orders.cartItems;
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -427,7 +386,7 @@ class Booking extends Component {
               borderBottomColor: '#FC959C',
             }}>
             <FlatList
-              data={arrayServicesSelected}
+              data={cartItems}
               renderItem={this.renderItem}
               keyExtractor={(item, index) => index.toString()}
               showsVerticalScrollIndicator={false}

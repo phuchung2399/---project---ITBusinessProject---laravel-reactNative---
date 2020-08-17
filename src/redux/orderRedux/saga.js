@@ -49,6 +49,8 @@ export function* createOrderSaga({data, token}) {
     const response = yield call(createOrder, JSON.stringify(data), token);
     const messageCreateSuccess = response.data.message;
     alert(messageCreateSuccess);
+
+    console.log(response);
     // console.log('messageCreateSuccess, ', messageCreateSuccess);
     yield put(createOrderSuccess(messageCreateSuccess));
 
@@ -64,8 +66,17 @@ export function* createOrderSaga({data, token}) {
 export function* cancelOrderSaga({order_id, token}) {
   try {
     const response = yield call(cancelOrder, order_id, token);
-    const message = response;
+    const message = response.data.status.massage;
+    alert('Đơn hàng đã được huỷ');
     yield put(cancelOrderSuccess(message));
+
+    const regetAllOrder = yield call(getOrdersOfUser, token);
+    const ordersData = regetAllOrder.data.data;
+    yield put(getAllOrdersSuccess(ordersData));
+
+    const reGetOrderDetail = yield call(getOrderDetail, order_id, token);
+    const orderDetailData = reGetOrderDetail.data.data;
+    yield put(getOrderDetailSuccess(orderDetailData));
   } catch (error) {
     console.log('cancelOrderSaga', error);
     yield put({type: cancelOrderFailure, payload: error});

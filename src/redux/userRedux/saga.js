@@ -11,11 +11,11 @@ import {onChangeIntoMainScreen, onSignIn} from '../../navigation';
 import {AsyncStorage} from 'react-native';
 import {storageSet} from '../../checkAsyncStorage';
 
-export function* registerSaga(action) {
+export function* registerSaga({data}) {
   try {
-    const response = yield call(register, action.data);
+    const response = yield call(register, data);
     console.log('user data:', response);
-    // yield put(addUserSuccess(data));
+    // yield put(addUserSuccess(response));
     // AsyncStorage.setItem('user', JSON.stringify(data));
     // onChangeIntoMainScreen();
   } catch (error) {

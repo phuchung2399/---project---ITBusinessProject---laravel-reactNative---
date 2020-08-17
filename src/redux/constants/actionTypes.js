@@ -87,3 +87,8 @@ export const CREATE_ORDER_FAILURE = 'CREATE_ORDER_FAILURE';
 export const CANCEL_ORDER = 'CANCEL_ORDER';
 export const CANCEL_ORDER_SUCCESS = 'CANCEL_ORDER_SUCCESS';
 export const CANCEL_ORDER_FAILURE = 'CANCEL_ORDER_FAILURE';
+
+// Add cart item
+export const ADD_CART = 'ADD_CART';
+export const DELETE_CART = 'DELETE_CART';
+export const ADD_STORE_ID = 'ADD_STORE_ID';

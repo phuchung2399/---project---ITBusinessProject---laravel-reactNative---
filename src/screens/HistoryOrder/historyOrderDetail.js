@@ -23,23 +23,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Fonts from '../../themers/Fonts';
 import {connect} from 'react-redux';
-import {getOrderDetail} from '../../redux/orderRedux/action';
+import {getOrderDetail, cancelOrder} from '../../redux/orderRedux/action';
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
-
-var data = [
-  {
-    name: 'Co van banh mi ga',
-    image: 'https://saida-nails.de/images/content/studio5.jpg',
-    rating: 3,
-    price: '12.000 đ',
-  },
-  {
-    name: 'Nail mai',
-    image: 'https://saida-nails.de/images/content/studio5.jpg',
-    rating: 5,
-    price: '12.000 đ',
-  },
-];
 
 class HistoryOrderDetail extends Component {
   constructor(props) {
@@ -170,6 +155,7 @@ class HistoryOrderDetail extends Component {
         <View
           style={{
             marginHorizontal: 10,
+            alignSelf: 'flex-end',
             marginRight: 15,
           }}>
           <Text
@@ -270,7 +256,33 @@ class HistoryOrderDetail extends Component {
   };
 
   onCancelOrder = () => {
-    alert('huy');
+    this.props.onCancelOrder(this.props.order_id, this.state.token);
+  };
+
+  onShowFormComment = store_id => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'CommentModal',
+              passProps: {
+                store_id,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
   };
 
   render() {
@@ -330,6 +342,7 @@ class HistoryOrderDetail extends Component {
                 fontWeight: 'bold',
                 fontSize: 15,
                 fontFamily: Fonts.serif,
+                textTransform: 'capitalize',
               }}>
               {dataOrderDetail.status[0].massage}
             </Text>
@@ -603,6 +616,36 @@ class HistoryOrderDetail extends Component {
             style={{
               backgroundColor: 'white',
               padding: 12,
+              borderBottomWidth: 10,
+              borderBottomColor: '#eaeaea',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <TouchableOpacity
+              style={{
+                padding: 15,
+                borderColor: 'gray',
+                width: 250,
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 40,
+                backgroundColor: '#eaeaea',
+                borderRadius: 30,
+              }}
+              onPress={() =>
+                this.onShowFormComment(dataOrderDetail.store.store_id)
+              }>
+              <Text
+                style={{fontSize: 14, textAlign: 'center', fontWeight: 'bold'}}>
+                {t('danh_gia')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 12,
             }}>
             <Text
               style={{
@@ -690,7 +733,6 @@ class HistoryOrderDetail extends Component {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <Success name="minuscircleo" size={20} color="white" />
               <TouchableWithoutFeedback onPress={this.onCancelOrder}>
                 <Text
                   style={{
@@ -701,13 +743,13 @@ class HistoryOrderDetail extends Component {
                     fontFamily: Fonts.serif,
                     marginLeft: 10,
                   }}>
-                  Huỷ đơn
+                  {t('huy_don')}
                 </Text>
               </TouchableWithoutFeedback>
             </LinearGradient>
           ) : (
             <LinearGradient
-              colors={['#e511e8', '#F99A7C']}
+              colors={['blue', '#767fef']}
               start={{x: 0, y: 1}}
               end={{x: 1, y: 0}}
               style={{
@@ -719,8 +761,7 @@ class HistoryOrderDetail extends Component {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <Success name="reload1" size={20} color="white" />
-              <TouchableWithoutFeedback onPress={this.onContinued}>
+              <TouchableWithoutFeedback onPress={this.onCancelOrder}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -730,7 +771,7 @@ class HistoryOrderDetail extends Component {
                     fontFamily: Fonts.serif,
                     marginLeft: 10,
                   }}>
-                  Tiếp tục
+                  {t('dat_lai')}
                 </Text>
               </TouchableWithoutFeedback>
             </LinearGradient>
@@ -798,6 +839,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onGetDetailOrder: (order_id, token) => {
       dispatch(getOrderDetail(order_id, token));
+    },
+    onCancelOrder: (order_id, token) => {
+      dispatch(cancelOrder(order_id, token));
     },
   };
 };

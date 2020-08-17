@@ -251,9 +251,9 @@ class Home extends Component {
               </View>
             </LinearGradient>
 
-            <View style={{marginTop: '-25%'}}>
+            {/* <View style={{marginTop: '-25%'}}>
               <Carousel data={dummyData} />
-            </View>
+            </View> */}
 
             <View style={{padding: 2, paddingBottom: 10}}>
               <View style={styles.category}>
@@ -370,8 +370,11 @@ class Home extends Component {
             </View>
           </ScrollView>
 
-          {this.state.items === 0 ? null : (
-            <CartComponent changeShopping={this.changeShopping} />
+          {this.props.orders.cartItems.length <= 0 ? null : (
+            <CartComponent
+              changeShopping={this.changeShopping}
+              size={this.props.orders.cartItems.length}
+            />
           )}
         </View>
       );
@@ -421,6 +424,7 @@ const mapStateToProps = state => {
     stores: state.stores,
     services: state.services,
     slices: state.slices,
+    orders: state.orders,
   };
 };
 

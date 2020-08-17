@@ -6,6 +6,8 @@ const initState = {
   messageOrderSuccess: [],
   messageCancelOrderSuccess: [],
   error: {},
+  cartItems: [],
+  store_id: '',
   loading: false,
 };
 const orderReducer = (state = initState, action) => {
@@ -70,6 +72,24 @@ const orderReducer = (state = initState, action) => {
         error: action.payload,
         loading: false,
       };
+
+    case types.ADD_CART:
+      return {
+        ...state,
+        cartItems: action.payload,
+        loading: false,
+      };
+
+    case types.ADD_STORE_ID:
+      return {
+        ...state,
+        store_id: action.payload,
+        loading: false,
+      };
+
+    case types.DELETE_CART:
+      return {...state, cartItems: action.payload};
+
     default:
       return state;
   }

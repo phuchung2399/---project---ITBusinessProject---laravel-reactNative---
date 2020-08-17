@@ -21,6 +21,12 @@ import {get, filter} from 'lodash';
 import NoData from '../../../components/NoData';
 import {storageSet} from '../../../checkAsyncStorage';
 import {Navigation} from 'react-native-navigation';
+import {
+  addCart,
+  deleteCart,
+  addStoreId,
+} from '../../../redux/orderRedux/action';
+import {connect} from 'react-redux';
 
 var data = [
   {
@@ -55,7 +61,7 @@ var data = [
   },
 ];
 
-export default class Service extends React.Component {
+class Service extends React.Component {
   constructor(props) {
     super(props);
     this.dataRef = React.createRef();
@@ -84,7 +90,7 @@ export default class Service extends React.Component {
     return rating;
   }
 
-  onAddToCart = (index, item) => {
+  onAddToCart = item => {
     // this.setState({
     //   isChangeIcon: !this.state.isChangeIcon,
     // });
@@ -94,22 +100,35 @@ export default class Service extends React.Component {
 
     const {arrayServicesSelected} = this.state;
 
-    const dataItem = {
-      service_id: item.service_id,
-      service_name: item.service_name,
-      description: item.description,
-      price: item.price,
-      image: item.image,
-      store_id: item.store_id,
-    };
+    const recent_store_id = this.props.orders.store_id;
+    const store_id_clicked = this.props.store_id;
 
-    arrayServicesSelected.push(dataItem);
-    this.setState({
-      arrayServicesSelected,
-    });
+    if (store_id_clicked === recent_store_id || recent_store_id === '') {
+      const dataItem = {
+        service_id: item.service_id,
+        service_name: item.service_name,
+        description: item.description,
+        price: item.price,
+        image: item.image,
+        store_id: item.store_id,
+      };
+      this.props.onAddCart(dataItem);
+      this.props.onAddStoreId(this.props.store_id);
+    } else {
+      alert('o dc add');
+    }
+
+    // arrayServicesSelected.push(dataItem);
+    // this.setState({
+    //   arrayServicesSelected,
+    // });
   };
 
-  changeShopping = (arrayServicesSelected, store_id) => {
+  onDeleteCart = service_id => {
+    this.props.onDeleteCartItem(service_id);
+  };
+
+  changeShopping = () => {
     Navigation.showModal({
       stack: {
         children: [
@@ -117,8 +136,8 @@ export default class Service extends React.Component {
             component: {
               name: 'Cart',
               passProps: {
-                arrayServicesSelected,
-                store_id,
+                // arrayServicesSelected,
+                // store_id,
               },
               options: {
                 topBar: {
@@ -136,15 +155,8 @@ export default class Service extends React.Component {
     });
   };
 
-  onAddItems = async items => {
-    try {
-      await storageSet('cartItems', items);
-    } catch (error) {
-      console.log('add card item failed ', error);
-    }
-  };
-
-  renderItem = ({index, item}) => {
+  renderItem = ({item}) => {
+    // console.log(item);
     return (
       <LinearGradient
         colors={['#b5b1b1', '#e2d5d5']}
@@ -164,7 +176,7 @@ export default class Service extends React.Component {
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => this.onAddToCart(index, item)}
+          onPress={() => this.onAddToCart(item)}
           style={{
             width: 30,
             height: 30,
@@ -178,6 +190,19 @@ export default class Service extends React.Component {
             color="white"
             size={15}
           />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => this.onDeleteCart(item.service_id)}
+          style={{
+            width: 30,
+            height: 30,
+            backgroundColor: !this.state.isChangeIcon ? 'blue' : 'green',
+            borderRadius: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <AntDesign name="check" color="white" size={15} />
         </TouchableOpacity>
       </LinearGradient>
     );
@@ -230,6 +255,7 @@ export default class Service extends React.Component {
   render() {
     const dataServices = this.props.services;
     const store_id = this.props.store_id;
+    console.log('cua hang', this.props.orders);
 
     const arrayServicesSelected = this.state.arrayServicesSelected;
 
@@ -300,10 +326,7 @@ export default class Service extends React.Component {
               </Text>
             </View>
             <View style={{alignItems: 'flex-end'}}>
-              <TouchableWithoutFeedback
-                onPress={() =>
-                  this.changeShopping(arrayServicesSelected, store_id)
-                }>
+              <TouchableWithoutFeedback onPress={() => this.changeShopping()}>
                 <Text
                   style={{
                     borderRadius: 20,
@@ -404,3 +427,25 @@ var styles = StyleSheet.create({
     marginTop: -10,
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    orders: state.orders,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onAddCart: cartItem => {
+      dispatch(addCart(cartItem));
+    },
+    onAddStoreId: store_id => {
+      dispatch(addStoreId(store_id));
+    },
+    onDeleteCartItem: id => {
+      dispatch(deleteCart(id));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Service);
