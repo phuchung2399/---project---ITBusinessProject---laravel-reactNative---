@@ -251,9 +251,9 @@ class Home extends Component {
               </View>
             </LinearGradient>
 
-            {/* <View style={{marginTop: '-25%'}}>
+            <View style={{marginTop: '-25%'}}>
               <Carousel data={dummyData} />
-            </View> */}
+            </View>
 
             <View style={{padding: 2, paddingBottom: 10}}>
               <View style={styles.category}>

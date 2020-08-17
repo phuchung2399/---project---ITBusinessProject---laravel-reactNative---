@@ -67,3 +67,26 @@ export const createOrderFailure = error => {
     payload: error,
   };
 };
+
+// Cancel order
+export const cancelOrder = (order_id, token) => {
+  return {
+    type: types.CANCEL_ORDER,
+    order_id,
+    token,
+  };
+};
+
+export const cancelOrderSuccess = response => {
+  return {
+    type: types.CANCEL_ORDER_SUCCESS,
+    payload: response,
+  };
+};
+
+export const cancelOrderFailure = error => {
+  return {
+    type: types.CANCEL_ORDER_FAILURE,
+    payload: error,
+  };
+};

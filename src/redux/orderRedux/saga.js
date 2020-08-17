@@ -6,12 +6,20 @@ import {
   getOrderDetailFailure,
   createOrderSuccess,
   createOrderFailure,
+  cancelOrderSuccess,
+  cancelOrderFailure,
 } from './action';
-import {getOrdersOfUser, getOrderDetail, createOrder} from '../../api/order';
+import {
+  getOrdersOfUser,
+  getOrderDetail,
+  createOrder,
+  cancelOrder,
+} from '../../api/order';
 import {
   GET_ALL_ORDER,
   GET_ORDER_DETAIL,
   CREATE_ORDER,
+  CANCEL_ORDER,
 } from '../constants/actionTypes';
 
 export function* getAllOrdersSaga({token}) {
@@ -35,6 +43,7 @@ export function* getOrderDetailSaga({order_id, token}) {
     yield put({type: getOrderDetailFailure, payload: error});
   }
 }
+
 export function* createOrderSaga({data, token}) {
   try {
     const response = yield call(createOrder, JSON.stringify(data), token);
@@ -52,9 +61,21 @@ export function* createOrderSaga({data, token}) {
   }
 }
 
+export function* cancelOrderSaga({order_id, token}) {
+  try {
+    const response = yield call(cancelOrder, order_id, token);
+    const message = response;
+    yield put(cancelOrderSuccess(message));
+  } catch (error) {
+    console.log('cancelOrderSaga', error);
+    yield put({type: cancelOrderFailure, payload: error});
+  }
+}
+
 const orderSagas = () => [
   takeLatest(GET_ALL_ORDER, getAllOrdersSaga),
   takeLatest(GET_ORDER_DETAIL, getOrderDetailSaga),
   takeLatest(CREATE_ORDER, createOrderSaga),
+  takeLatest(CANCEL_ORDER, cancelOrderSaga),
 ];
 export default orderSagas();
