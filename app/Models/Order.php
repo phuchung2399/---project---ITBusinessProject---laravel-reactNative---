@@ -8,7 +8,7 @@ class Order extends Model
 {
     protected $table = 'orders';
     protected $primaryKey = 'order_id';
-    protected $fillable = ['order_id', 'address', 'total', 'order_time', 'order_day', 'note', 'store_id', 'user_id', 'order_services_id', 'massage_id'];
+    protected $fillable = ['order_id', 'address', 'at_home', 'total', 'order_time', 'order_day', 'note', 'store_id', 'user_id', 'order_services_id', 'massage_id'];
     public $timestamps = true;
     /**
      * Indicates if the IDs are auto-incrementing.

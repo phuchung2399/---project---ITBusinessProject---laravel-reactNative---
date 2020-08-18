@@ -15,7 +15,6 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('order_id')->unique();
-            $table->string('address', 500)->nullable();
             $table->time('order_time')->format('H:i');
             $table->date('order_day')->format('dd-mm-YYYY');
             $table->decimal('total', 10, 2);
@@ -27,6 +26,8 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->integer('massage_id')->unsigned();
             $table->foreign('massage_id')->references('massage_id')->on('massages');
+            $table->string('address', 500)->nullable();
+            $table->boolean('at_home')->nullable();
             $table->timestamps();
         });
     }

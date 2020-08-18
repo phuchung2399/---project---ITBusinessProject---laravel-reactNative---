@@ -68,10 +68,12 @@ class OrderService
      */
     function insertOrder($request)
     {
+        var_dump(strlen($request->address));
+        $order =  $this->order;
         $date_now = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now 
         $date_add_to_week = (Carbon::now('Asia/Ho_Chi_Minh')->addWeek())->toDateString(); // get day now + 7 day
         $time_now = Carbon::now('Asia/Ho_Chi_Minh')->toTimeString(); // get time now
-        $time_limit = Carbon::now('Asia/Ho_Chi_Minh')->addMinutes(30)->toTimeString(); // get time now
+        $time_limit = Carbon::now('Asia/Ho_Chi_Minh')->addMinutes(30)->toTimeString(); // get time now        
         try {
             if ($request->order_day == $date_now &&  $request->order_time < $time_now) {
                 return  Response::responseMessage(HttpStatus::BAD_REQUEST, 'Thời gian đặt không nhỏ hơn hơn hiện tại');
@@ -91,33 +93,59 @@ class OrderService
             if ($request->order_day == $date_now && $request->order_time < $time_limit) {
                 return  Response::responseMessage(HttpStatus::BAD_REQUEST, 'Thời gian đặt phải trước 30 phút');
             } else {
-                if ($this->coordinateService->checkRealCoordinate($request->address)) {
-                    $order =  $this->order;
-                    $order->order_id = Uuid::uuid4();
-                    $order->address =  $this->storeSevice->hanldeAddress(
-                        $request->address,
-                        ($this->storeRepository->selectStoreById($request->store))->location()->first()['location_id']
-                    );
-                    $order->order_day = $request->order_day;
-                    $order->order_time = $request->order_time;
-                    $order->total = $this->hanldeTotalApplyVouvher($request->voucher_name, $request->service);
-                    $order->voucher_name = $request->voucher_name;
-                    $order->note = Validation::handleSpace($request->note);
-                    $order->massage_id = 29; // 'massage' => 'Đơn đang chờ xác nhận'
-                    $order->store_id = ($request->store); // $request->store_id;
-                    $order->user_id = (Auth::user())->user_id; // get id in token
-                    $this->orderRepository->insertOrder($order); // save info order
-                    $this->orderServiceService->insertOrderServiceUser($request->service, $order->order_id); // save data service of order
-                    $this->orderNotificationToStore((Auth::user())->user_name, 'store', $order->store_id); // save notificaton to database
-                    $this->notifyStoreToUserOrder($order->store_id, $order->order_id, (Auth::user())->user_name); // notificaton order for store
-                    return  Response::responseMessage(HttpStatus::SUCCESS_CREATED, 'Đặt thành công');
+                if (!$this->orderRepository->selectOrderByTime($request->order_day, $request->order_time)) {
+                    if ($request->at_home == '1') {
+                        if ($this->coordinateService->checkRealCoordinate($request->address)) {
+                            if (strlen($request->address) != 0) {
+                                $order->address =  $this->storeSevice->hanldeAddress(
+                                    $request->address,
+                                    ($this->storeRepository->selectStoreById($request->store))->location()->first()['location_id']
+                                );
+                                $order->at_home = '1';
+                                $order = $this->requestData($order, $request);
+                                return Response::responseMessage(HttpStatus::SUCCESS_CREATED, 'Đặt thành công');
+                            } else {
+                                return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Bạn chưa nhập địa chỉ');
+                            }
+                        } else {
+                            return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Vị trí không tồn tại trên các hệ thông bản đồ');
+                        }
+                    } else {
+                        $order->at_home = '0';
+                        $order = $this->requestData($order, $request);
+                        return Response::responseMessage(HttpStatus::SUCCESS_CREATED, 'Đặt thành công');
+                    }
                 } else {
-                    return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Vị trí không tồn tại trên các hệ thông bản đồ');
+                    return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Thời gian đã có người đặt và cửa hàng đã xác nhận');
                 }
             }
         } catch (\Exception $exception) {
             return Response::responseMessage(HttpStatus::BAD_REQUEST, $exception->getMessage());
         }
+    }
+
+    /**
+     * requestData
+     * @param order
+     * @param request
+     * @return array
+     **/
+    function requestData($order, $request)
+    {
+        $order->order_id = Uuid::uuid4();
+        $order->order_day = $request->order_day;
+        $order->order_time = $request->order_time;
+        $order->total = $this->hanldeTotalApplyVouvher($request->voucher_name, $request->service);
+        $order->voucher_name = $request->voucher_name;
+        $order->note = Validation::handleSpace($request->note);
+        $order->massage_id = 29; // 'massage' => 'Đơn đang chờ xác nhận'
+        $order->store_id = ($request->store); // $request->store_id;
+        $order->user_id = (Auth::user())->user_id; // get id in token
+        $this->orderRepository->insertOrder($order); // save info order
+        $this->orderServiceService->insertOrderServiceUser($request->service, $order->order_id); // save data service of order
+        $this->orderNotificationToStore((Auth::user())->user_name, 'store', $order->store_id); // save notificaton to database
+        $this->notifyStoreToUserOrder($order->store_id, $order->order_id, (Auth::user())->user_name); // notificaton order for store
+        return $order;
     }
 
     /**
@@ -274,7 +302,10 @@ class OrderService
     function hanldeDataDetailResponse($order)
     {
         $data['order_id'] = $order->order_id;
-        $data['address'] = $order->address;
+        if ($order->address != null) {
+            $data['address'] = $order->address;
+        }
+        $data['at_home'] = $this->handleStatusMakeNailAtHomeRespons($order->at_home);
         $data['order_time'] = $order->order_time;
         $data['order_day'] = $order->order_day;
         $data['voucher_name'] = $order->voucher_name;
@@ -283,6 +314,20 @@ class OrderService
         $data['user'] =  $order->user()->get();
         $data['status'] =  $order->massage()->get();
         return $data;
+    }
+
+    /**
+     * handleStatusMakeNailAtHome
+     * @param status *status of at_home
+     **/
+    function handleStatusMakeNailAtHomeRespons($status)
+    {
+        if ($status == 1) {
+            return 'Làm tại nhà';
+        }
+        if ($status == 0) {
+            return 'Làm tại của hàng';
+        }
     }
 
     /**
@@ -479,6 +524,7 @@ class OrderService
             foreach ($data as $value) {
                 $order['order_id'] =   $value->order_id;
                 $order['address'] =   $value->address;
+                $order['at_home'] =   $this->handleStatusMakeNailAtHomeRespons($value->at_home);
                 $order['order_time'] =   $value->order_time;
                 $order['order_day'] =   $value->order_day;
                 $order['total'] =  $value->total;

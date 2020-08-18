@@ -9,9 +9,10 @@ use Illuminate\Foundation\Http\FormRequest;
 use Waavi\Sanitizer\Laravel\SanitizesInput;
 use Illuminate\Http\JsonResponse;
 
-class OrderInsertRequest extends FormRequest
+class AddressOrderRequest extends FormRequest
 {
     use SanitizesInput;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -30,13 +31,7 @@ class OrderInsertRequest extends FormRequest
     public function rules()
     {
         return [
-            'address'    => ['string'],
-            'order_day'  => ['required', 'regex:/(\d{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$)+/'],
-            'order_time' => ['required', 'regex:/(^(0[0-1]?[0-9]|1[0-1]?[0-9]|2[0-3]):([0-5][0-9]:([0-5][0-9]))$)+/'],
-            'total'      => ['required', 'numeric'],
-            'note'       => ['regex:/([^!@#$%^&*()_+\-=\[\]{};:"\\|<>\?]+$)+/'],
-            'store'      => ['required'],
-            'service'    => ['required'],
+            'address'    => ['string', 'min:6', 'max:250', 'regex:/([^!@#$%^&*()_+\-=\[\]{};:"\\|<>\?]+$)+/'],
         ];
     }
 
@@ -49,16 +44,8 @@ class OrderInsertRequest extends FormRequest
     {
         return [
             'address.string'      => 'Địa chỉ không hợp lệ',
-            'address.regex'       => 'Địa chỉ có chứa các kí tự đặt biệt',
-            'order_day.required'  => 'Vui lòng nhập ngày',
-            'order_day.regex'     => 'Ngày không hợp lệ',
-            'order_time.required' => 'Vui lòng nhập giờ',
-            'order_time.regex'    => 'Giờ không hợp lệ',
-            'total.required'      => 'Tổng giá không chưa được tính',
-            'total.numeric'       => 'Tổng giá không hợp lệ',
-            'note.regex'          => 'Ghi chú có chứa kí tự đặc biệt',
-            'store.required'      => 'Hệ thống đang bảo trì, vui lòng đặt đơn của hàng khác',
-            'service.required'    =>  'Bạn chưa chọn dịch vụ',
+            'address.max'         => 'Địa chỉ quá dài',
+            'address.min'         => 'Địa chỉ quá ngắn',
         ];
     }
 
@@ -71,10 +58,6 @@ class OrderInsertRequest extends FormRequest
     {
         return [
             'address'      => 'trim',
-            'order_day'    => 'trim',
-            'order_time'   => 'trim',
-            'note'         => 'trim',
-            'voucher_name' => 'trim|uppercase|strip_tags',
         ];
     }
 

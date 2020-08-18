@@ -39,6 +39,11 @@ class OrderRepository
         return $this->order::find($id);
     }
 
+    function selectOrderByTime($order_day, $order_time)
+    {
+        return $this->order::where([['order_day', '=', $order_day], ['order_time', '=', $order_time], ['massage_id', '=', 16]])->exists();
+    }
+
     function checkOrderById($id)
     {
         return $this->order::where('order_id', $id)->exists();
