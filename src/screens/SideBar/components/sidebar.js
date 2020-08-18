@@ -9,8 +9,8 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 
 export default class sidebar extends Component {
-  onPress = data => {
-    alert(data);
+  onPress = () => {
+    this.props.onPress();
   };
 
   render() {
@@ -21,7 +21,7 @@ export default class sidebar extends Component {
           <Icon name={icon} size={25} color="#4290ea" />
         </View>
         <View style={{flex: 5}}>
-          <TouchableOpacity onPress={() => this.onPress(data)}>
+          <TouchableOpacity onPress={() => this.onPress()}>
             <Text style={styles.titleOption}>{lable}</Text>
           </TouchableOpacity>
         </View>

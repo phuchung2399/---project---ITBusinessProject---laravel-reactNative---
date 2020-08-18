@@ -1,7 +1,16 @@
 import React, {Component} from 'react';
-import {Text, View, Dimensions, Image, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  Dimensions,
+  Image,
+  ScrollView,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from 'react-native';
 import {storageGet} from '../../checkAsyncStorage';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 const {width, height} = Dimensions.get('window');
 import {Navigation} from 'react-native-navigation';
 import Logo from '../../../assets/images/logo.png';
@@ -49,7 +58,6 @@ export default class Profile extends Component {
               padding: 10,
               flexDirection: 'row',
               height: height / 5,
-              // backgroundColor: 'red',
             }}>
             <View
               style={{
@@ -104,13 +112,12 @@ export default class Profile extends Component {
             borderTopRightRadius: 50,
             borderBottomLeftRadius: 50,
             borderBottomRightRadius: 50,
-            paddingHorizontal: 5,
-            paddingVertical: 25,
             backgroundColor: 'white',
             margin: 20,
             flex: 1,
           }}>
-          <View style={{alignItems: 'center', marginTop: '-23%'}}>
+          <View
+            style={{alignItems: 'center', marginTop: '-17%', marginBottom: 12}}>
             <Image
               style={{
                 width: 150,
@@ -122,78 +129,209 @@ export default class Profile extends Component {
               source={{uri: userInfor.avatar}}
             />
           </View>
+
           <View
             style={{
-              marginHorizontal: 20,
-              padding: 10,
-              borderBottomWidth: 1,
-              borderBottomColor: Colors.darkGray,
-              marginTop: 10,
+              borderTopWidth: 5,
+              borderTopColor: '#eaeaea',
+              backgroundColor: 'white',
+              padding: 12,
+              borderBottomWidth: 10,
+              borderBottomColor: '#eaeaea',
             }}>
-            <Text
+            <View
               style={{
-                fontSize: 22,
-                color: '#827d7d',
-                fontFamily: Fonts.serif,
+                flexDirection: 'row',
+                marginTop: 5,
+                marginBottom: 5,
               }}>
-              Tên
-            </Text>
-            <Text
+              <Text
+                style={{
+                  flex: 1,
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                  fontFamily: Fonts.serif,
+                }}>
+                {t('thong_tin_ca_nhan')}
+              </Text>
+
+              <View style={{alignContent: 'flex-end', flexDirection: 'row'}}>
+                <TouchableWithoutFeedback
+                  onPress={() => this.onNavigateStore()}>
+                  <Text
+                    style={{
+                      color: 'green',
+                      fontSize: 14,
+                      // textDecorationLine: 'underline',
+                    }}>
+                    {t('thay_doi')}
+                  </Text>
+                </TouchableWithoutFeedback>
+              </View>
+            </View>
+
+            <View
               style={{
-                fontSize: 20,
-                fontFamily: Fonts.serif,
+                flexDirection: 'row',
+                marginTop: 7,
               }}>
-              {userInfor.user_name}
-            </Text>
-          </View>
-          <View
-            style={{
-              marginHorizontal: 20,
-              padding: 10,
-              borderBottomWidth: 1,
-              marginTop: 10,
-              borderBottomColor: Colors.darkGray,
-            }}>
-            <Text
+              <AntDesign
+                name="user"
+                size={22}
+                color="black"
+                onPress={() => this.backMainScreen()}
+              />
+              <Text
+                style={{
+                  marginLeft: 10,
+                  alignItems: 'flex-end',
+                  fontSize: 15,
+                  fontFamily: Fonts.serif,
+                }}>
+                {userInfor.user_name}
+              </Text>
+            </View>
+
+            <View
               style={{
-                fontSize: 22,
-                color: '#827d7d',
-                fontFamily: Fonts.serif,
+                flexDirection: 'row',
+                marginTop: 8,
               }}>
-              Số điện thoại
-            </Text>
-            <Text
+              <AntDesign
+                name="mail"
+                size={20}
+                color="black"
+                onPress={() => this.backMainScreen()}
+              />
+              <Text
+                style={{
+                  marginLeft: 10,
+                  alignItems: 'flex-end',
+                  fontSize: 15,
+                  fontFamily: Fonts.serif,
+                }}>
+                {userInfor.email}
+              </Text>
+            </View>
+
+            <View
               style={{
-                fontSize: 20,
-                fontFamily: Fonts.serif,
+                flexDirection: 'row',
+                marginTop: 8,
               }}>
-              {userInfor.phone}
-            </Text>
+              <AntDesign
+                name="profile"
+                size={20}
+                color="black"
+                onPress={() => this.backMainScreen()}
+              />
+              <Text
+                style={{
+                  marginLeft: 10,
+                  alignItems: 'flex-end',
+                  fontSize: 15,
+                  fontFamily: Fonts.serif,
+                  color: '#827d7d',
+                }}>
+                {t('chua_cap_nhat')}
+              </Text>
+            </View>
           </View>
 
           <View
             style={{
-              marginHorizontal: 20,
-              padding: 10,
-              borderBottomWidth: 1,
-              marginTop: 10,
-              borderBottomColor: Colors.darkGray,
+              backgroundColor: 'white',
+              padding: 12,
+              borderBottomWidth: 7,
+              borderBottomColor: '#eaeaea',
             }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 5,
+                marginBottom: 5,
+              }}>
+              <Text
+                style={{
+                  flex: 1,
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                  fontFamily: Fonts.serif,
+                }}>
+                {t('phone_title')}
+              </Text>
+
+              <View style={{alignContent: 'flex-end', flexDirection: 'row'}}>
+                <TouchableWithoutFeedback
+                  onPress={() => this.onNavigateStore()}>
+                  <Text
+                    style={{
+                      color: 'green',
+                      fontSize: 14,
+                      // textDecorationLine: 'underline',
+                    }}>
+                    {t('thay_doi')}
+                  </Text>
+                </TouchableWithoutFeedback>
+              </View>
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 10,
+              }}>
+              <AntDesign
+                name="phone"
+                size={20}
+                color="black"
+                onPress={() => this.backMainScreen()}
+              />
+              <Text
+                style={{
+                  marginLeft: 10,
+                  alignItems: 'flex-end',
+                  fontSize: 15,
+                  fontFamily: Fonts.serif,
+                }}>
+                {userInfor.phone}
+              </Text>
+            </View>
+          </View>
+
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 12,
+              borderBottomWidth: 7,
+              borderBottomColor: '#eaeaea',
+              flexDirection: 'row',
+              marginTop: 5,
+            }}>
+            <AntDesign
+              name="lock1"
+              size={20}
+              color="black"
+              onPress={() => this.backMainScreen()}
+            />
+
             <Text
               style={{
-                fontSize: 22,
-                color: '#827d7d',
+                marginLeft: 10,
+                flex: 1,
+                alignItems: 'flex-end',
+                fontSize: 15,
                 fontFamily: Fonts.serif,
               }}>
-              Email
+              {t('doi_mat_khau')}
             </Text>
-            <Text
-              style={{
-                fontSize: 20,
-                fontFamily: Fonts.serif,
-              }}>
-              {userInfor.email}
-            </Text>
+
+            <AntDesign
+              name="right"
+              size={22}
+              color="black"
+              onPress={() => this.backMainScreen()}
+            />
           </View>
         </View>
 

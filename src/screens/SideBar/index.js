@@ -123,6 +123,37 @@ class SideBarMenu extends Component {
       // alert(error);
     }
   };
+  onVoucher = () => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Voucher',
+
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
+  onBooking = () => {
+    alert('bk');
+  };
+
+  onVoucherUnike = () => {
+    alert('uddq');
+  };
 
   render() {
     const userInfor = this.state.user;
@@ -183,15 +214,91 @@ class SideBarMenu extends Component {
           </SafeAreaView>
         </LinearGradient>
 
-        <View style={styles.container}>
-          <SideBar lable={'Ưu đãi'} icon={'switcher'} data={'Ưu đãi'} />
-          <SideBar lable={'Book ngay'} icon={'form'} data={'Book ngay'} />
-          <SideBar
-            lable={'Ưu đãi độc quyền'}
-            icon={'alipay-circle'}
-            data={'Ưu đãi độc quyền'}
-          />
+        <View
+          style={{
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+            paddingHorizontal: 5,
+            paddingVertical: 25,
+            backgroundColor: 'white',
+            flex: 1,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              borderBottomWidth: 1,
+              height: 70,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              borderBottomColor: '#b3acac',
+            }}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Icon name="switcher" size={25} color="#4290ea" />
+            </View>
+            <View style={{flex: 5, justifyContent: 'center'}}>
+              <TouchableOpacity onPress={() => this.onVoucher()}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: 'gray',
+                  }}>
+                  Ưu đãi
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              borderBottomWidth: 1,
+              height: 70,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              borderBottomColor: '#b3acac',
+            }}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Icon name="form" size={25} color="#4290ea" />
+            </View>
+            <View style={{flex: 5, justifyContent: 'center'}}>
+              <TouchableOpacity onPress={() => this.onBooking()}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: 'gray',
+                  }}>
+                  Book ngay
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              borderBottomWidth: 1,
+              height: 70,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              borderBottomColor: '#b3acac',
+            }}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Icon name="alipay-circle" size={25} color="#4290ea" />
+            </View>
+            <View style={{flex: 5, justifyContent: 'center'}}>
+              <TouchableOpacity onPress={() => this.onVoucherUnike()}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: 'gray',
+                  }}>
+                  Ưu đãi độc quyền
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
+
         <View style={{backgroundColor: '#f0f0f3'}}>
           <View style={{flexDirection: 'row', marginHorizontal: 15}}>
             <View
@@ -296,9 +403,7 @@ const styles = StyleSheet.create({
   titleOption: {
     fontSize: 20,
     marginTop: 4,
-    borderBottomWidth: 1,
     marginVertical: 17,
-    borderBottomColor: 'gray',
     color: 'gray',
   },
 
@@ -316,6 +421,18 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     width: 200,
     height: 200,
+  },
+  viewRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    height: 70,
+    marginHorizontal: 20,
+    alignItems: 'center',
+    borderBottomColor: '#b3acac',
+  },
+  viewIcon: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 
