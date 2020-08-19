@@ -30,7 +30,6 @@ class OrderInsertRequest extends FormRequest
     public function rules()
     {
         return [
-            'address'    => ['string'],
             'order_day'  => ['required', 'regex:/(\d{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$)+/'],
             'order_time' => ['required', 'regex:/(^(0[0-1]?[0-9]|1[0-1]?[0-9]|2[0-3]):([0-5][0-9]:([0-5][0-9]))$)+/'],
             'total'      => ['required', 'numeric'],
@@ -48,8 +47,6 @@ class OrderInsertRequest extends FormRequest
     public function messages()
     {
         return [
-            'address.string'      => 'Địa chỉ không hợp lệ',
-            'address.regex'       => 'Địa chỉ có chứa các kí tự đặt biệt',
             'order_day.required'  => 'Vui lòng nhập ngày',
             'order_day.regex'     => 'Ngày không hợp lệ',
             'order_time.required' => 'Vui lòng nhập giờ',

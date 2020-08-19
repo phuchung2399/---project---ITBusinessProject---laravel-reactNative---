@@ -106,6 +106,6 @@ class VoucherRepository
      **/
     function selectVoucherByName($string)
     {
-        return $this->voucher::where('voucher_name', 'LIKE', $string)->get();
+        return $this->voucher::where('voucher_name', '=', $string)->get();
     }
 }

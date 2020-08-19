@@ -77,6 +77,7 @@ class VoucherService
     {
         try {
             $voucher = $this->voucherRepository->selectVoucherByName($request->voucher_name);
+            var_dump($voucher);
             if (count($voucher) == 0) {
                 return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Mã không tồn tại');
             }
