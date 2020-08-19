@@ -6,6 +6,7 @@ import slices from './slideRedux/reducer';
 import comments from './commentRedux/reducer';
 import orders from './orderRedux/reducer';
 import notifications from './notificationRedux/reducer';
+import vouchers from './voucherRedux/reducer';
 
 const myReducer = combineReducers({
   user: userReducer,
@@ -15,6 +16,7 @@ const myReducer = combineReducers({
   comments,
   orders,
   notifications,
+  vouchers,
 });
 
 export default myReducer;

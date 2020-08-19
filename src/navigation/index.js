@@ -4,6 +4,7 @@ import Home from '../screens/Home';
 import Order from '../screens/Order';
 import Love from '../screens/Love';
 import Profile from '../screens/Profile';
+import Contact from '../screens/Contact';
 import Booking from '../screens/Home/Booking';
 import Search from '../screens/Home/Search';
 import Detail from '../screens/Home/Detail';
@@ -30,6 +31,7 @@ import history_icon from '../../assets/images/history_icon.png';
 import HistoryOrder from '../screens/HistoryOrder';
 import HistoryOrderDetail from '../screens/HistoryOrder/historyOrderDetail';
 import CommentModal from '../screens/Home/detail_child/CommentModal';
+import Voucher from '../screens/Voucher';
 import {Provider} from 'react-redux';
 import store from '../redux/store';
 console.disableYellowBox = true;
@@ -116,8 +118,8 @@ Navigation.registerComponent(
 
 Navigation.registerComponent(
   'Search',
-  () => ReduxProvider(Announcement),
-  () => Announcement,
+  () => ReduxProvider(Search),
+  () => Search,
 );
 
 Navigation.registerComponent(
@@ -184,6 +186,18 @@ Navigation.registerComponent(
   'CommentModal',
   () => ReduxProvider(CommentModal),
   () => CommentModal,
+);
+
+Navigation.registerComponent(
+  'Voucher',
+  () => ReduxProvider(Voucher),
+  () => Voucher,
+);
+
+Navigation.registerComponent(
+  'Contact',
+  () => ReduxProvider(Contact),
+  () => Contact,
 );
 
 export default () => {

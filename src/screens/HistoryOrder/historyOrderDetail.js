@@ -143,40 +143,37 @@ class HistoryOrderDetail extends Component {
           borderBottomColor: '#eaeaea',
           marginHorizontal: 10,
         }}>
-        <Image
-          source={{uri: item.image}}
-          style={{
-            width: 60,
-            height: 50,
-            borderRadius: 10,
-          }}
-        />
-
         <View
           style={{
-            marginHorizontal: 10,
-            alignSelf: 'flex-end',
-            marginRight: 15,
+            flex: 1,
           }}>
+          <Image
+            source={{uri: item.image}}
+            style={{
+              width: 60,
+              height: 50,
+              borderRadius: 10,
+            }}
+          />
+        </View>
+
+        <View>
           <Text
             style={{
+              alignSelf: 'flex-end',
               color: '#5a5555',
               fontWeight: 'bold',
               fontSize: 16,
-              alignSelf: 'flex-end',
               fontFamily: Fonts.serif,
-              marginHorizontal: 20,
               textTransform: 'capitalize',
             }}>
-            {item.service_name}
+            {item.service_name.substring(0, 30)}
           </Text>
           <Text
             style={{
-              paddingHorizontal: 20,
-              marginHorizontal: 20,
+              alignSelf: 'flex-end',
               marginTop: 5,
               color: 'green',
-              alignSelf: 'flex-end',
               fontFamily: Fonts.serif,
               fontSize: 15,
             }}>
@@ -529,13 +526,16 @@ class HistoryOrderDetail extends Component {
                 }}>
                 {t('khach_hang_title')}
               </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  fontFamily: Fonts.serif,
-                }}>
-                {dataOrderDetail.address}
-              </Text>
+
+              {dataOrderDetail.address === null ? null : (
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontFamily: Fonts.serif,
+                  }}>
+                  {dataOrderDetail.address}
+                </Text>
+              )}
 
               <View
                 style={{
@@ -578,6 +578,45 @@ class HistoryOrderDetail extends Component {
                   {dataOrderDetail.user[0].phone}
                 </Text>
               </View>
+            </View>
+          </View>
+
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 12,
+              borderBottomWidth: 8,
+              borderBottomColor: '#eaeaea',
+            }}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 20,
+                fontFamily: Fonts.serif,
+              }}>
+              {t('trang_thai')}
+            </Text>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 7,
+              }}>
+              {dataOrderDetail.at_home === 'Làm tại của hàng' ? (
+                <Icon name="motorcycle" size={22} color="black" />
+              ) : (
+                <AntDesign name="home" size={22} color="black" />
+              )}
+
+              <Text
+                style={{
+                  marginLeft: 13,
+                  alignItems: 'flex-end',
+                  fontSize: 16,
+                  fontFamily: Fonts.serif,
+                }}>
+                {dataOrderDetail.at_home}
+              </Text>
             </View>
           </View>
 

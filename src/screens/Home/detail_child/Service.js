@@ -303,7 +303,7 @@ class Service extends React.Component {
           </View>
 
           {this.renderListService(dataServices)}
-          <View
+          {/* <View
             style={{
               marginHorizontal: 10,
               padding: 10,
@@ -342,7 +342,7 @@ class Service extends React.Component {
                 </Text>
               </TouchableWithoutFeedback>
             </View>
-          </View>
+          </View> */}
         </View>
       );
     } else {

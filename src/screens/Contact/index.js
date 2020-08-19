@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {storageGet} from '../../checkAsyncStorage';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const {width, height} = Dimensions.get('window');
 import {Navigation} from 'react-native-navigation';
@@ -19,7 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
 
-export default class Profile extends Component {
+export default class index extends Component {
   constructor() {
     super();
     this.state = {
@@ -48,7 +49,6 @@ export default class Profile extends Component {
   };
 
   render() {
-    console.log(this.state.user);
     const userInfor = this.state.user;
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -57,7 +57,7 @@ export default class Profile extends Component {
             style={{
               padding: 10,
               flexDirection: 'row',
-              height: height / 5,
+              height: 80,
             }}>
             <View
               style={{
@@ -88,11 +88,12 @@ export default class Profile extends Component {
               <Text
                 animation="zoomInUp"
                 style={{
-                  fontSize: 30,
+                  fontSize: 23,
                   fontWeight: 'bold',
                   color: 'white',
+                  fontFamily: Fonts.serif,
                 }}>
-                {t('trang_ca_nhan')}
+                {t('lien_he_app')}
               </Text>
             </View>
             <View style={{alignItems: 'flex-end', flex: 1}}>
@@ -106,6 +107,7 @@ export default class Profile extends Component {
             </View>
           </View>
         </LinearGradient>
+
         <View
           style={{
             borderTopLeftRadius: 50,
@@ -113,11 +115,10 @@ export default class Profile extends Component {
             borderBottomLeftRadius: 50,
             borderBottomRightRadius: 50,
             backgroundColor: 'white',
-            margin: 20,
+            margin: 15,
             flex: 1,
           }}>
-          <View
-            style={{alignItems: 'center', marginTop: '-17%', marginBottom: 12}}>
+          <View style={{alignItems: 'center', marginTop: 13, marginBottom: 12}}>
             <Image
               style={{
                 width: 150,
@@ -126,7 +127,7 @@ export default class Profile extends Component {
                 borderColor: 'pink',
                 borderRadius: 80,
               }}
-              source={{uri: userInfor.avatar}}
+              source={Logo}
             />
           </View>
 
@@ -136,9 +137,25 @@ export default class Profile extends Component {
               borderTopColor: '#eaeaea',
               backgroundColor: 'white',
               padding: 12,
-              borderBottomWidth: 10,
+              borderBottomWidth: 5,
               borderBottomColor: '#eaeaea',
             }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 5,
+                marginBottom: 5,
+              }}>
+              <Text
+                style={{
+                  flex: 1,
+                  fontSize: 15,
+                  fontFamily: Fonts.serif,
+                }}>
+                {t('des')}
+              </Text>
+            </View>
+
             <View
               style={{
                 flexDirection: 'row',
@@ -152,31 +169,17 @@ export default class Profile extends Component {
                   fontWeight: 'bold',
                   fontFamily: Fonts.serif,
                 }}>
-                {t('thong_tin_ca_nhan')}
+                {t('tong_dai_txt')}
               </Text>
-
-              <View style={{alignContent: 'flex-end', flexDirection: 'row'}}>
-                <TouchableWithoutFeedback
-                  onPress={() => this.onNavigateStore()}>
-                  <Text
-                    style={{
-                      color: 'green',
-                      fontSize: 14,
-                      // textDecorationLine: 'underline',
-                    }}>
-                    {t('thay_doi')}
-                  </Text>
-                </TouchableWithoutFeedback>
-              </View>
             </View>
 
             <View
               style={{
                 flexDirection: 'row',
-                marginTop: 7,
+                marginTop: 5,
               }}>
-              <AntDesign
-                name="user"
+              <Feather
+                name="phone-call"
                 size={22}
                 color="black"
                 onPress={() => this.backMainScreen()}
@@ -186,16 +189,17 @@ export default class Profile extends Component {
                   marginLeft: 10,
                   alignItems: 'flex-end',
                   fontSize: 15,
+                  color: 'blue',
                   fontFamily: Fonts.serif,
                 }}>
-                {userInfor.user_name}
+                1900.909.980
               </Text>
             </View>
 
             <View
               style={{
                 flexDirection: 'row',
-                marginTop: 8,
+                marginTop: 5,
               }}>
               <AntDesign
                 name="mail"
@@ -209,15 +213,16 @@ export default class Profile extends Component {
                   alignItems: 'flex-end',
                   fontSize: 15,
                   fontFamily: Fonts.serif,
+                  color: 'blue',
                 }}>
-                {userInfor.email}
+                hotrothenail@beauty.vn
               </Text>
             </View>
 
             <View
               style={{
                 flexDirection: 'row',
-                marginTop: 8,
+                marginTop: 5,
               }}>
               <AntDesign
                 name="profile"
@@ -231,9 +236,9 @@ export default class Profile extends Component {
                   alignItems: 'flex-end',
                   fontSize: 15,
                   fontFamily: Fonts.serif,
-                  color: '#827d7d',
+                  color: 'blue',
                 }}>
-                {t('chua_cap_nhat')}
+                https://www.facebook.com/TheNailVN
               </Text>
             </View>
           </View>
@@ -248,8 +253,6 @@ export default class Profile extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                marginTop: 5,
-                marginBottom: 5,
               }}>
               <Text
                 style={{
@@ -258,43 +261,25 @@ export default class Profile extends Component {
                   fontWeight: 'bold',
                   fontFamily: Fonts.serif,
                 }}>
-                {t('phone_title')}
+                {t('tong_dai_ho_tro')}
               </Text>
-
-              <View style={{alignContent: 'flex-end', flexDirection: 'row'}}>
-                <TouchableWithoutFeedback
-                  onPress={() => this.onNavigateStore()}>
-                  <Text
-                    style={{
-                      color: 'green',
-                      fontSize: 14,
-                      // textDecorationLine: 'underline',
-                    }}>
-                    {t('thay_doi')}
-                  </Text>
-                </TouchableWithoutFeedback>
-              </View>
             </View>
 
             <View
               style={{
                 flexDirection: 'row',
-                marginTop: 10,
+                marginTop: 5,
               }}>
-              <AntDesign
-                name="phone"
-                size={20}
-                color="black"
-                onPress={() => this.backMainScreen()}
-              />
+              <Feather name="phone-call" size={20} color="black" />
               <Text
                 style={{
                   marginLeft: 10,
                   alignItems: 'flex-end',
                   fontSize: 15,
                   fontFamily: Fonts.serif,
+                  color: 'blue',
                 }}>
-                {userInfor.phone}
+                1900.678.098
               </Text>
             </View>
           </View>
@@ -305,34 +290,51 @@ export default class Profile extends Component {
               padding: 12,
               borderBottomWidth: 7,
               borderBottomColor: '#eaeaea',
-              flexDirection: 'row',
-              marginTop: 5,
             }}>
-            <AntDesign
-              name="lock1"
-              size={20}
-              color="black"
-              onPress={() => this.backMainScreen()}
-            />
-
-            <Text
+            <View
               style={{
-                marginLeft: 10,
-                flex: 1,
-                alignItems: 'flex-end',
-                fontSize: 15,
-                fontFamily: Fonts.serif,
+                flexDirection: 'row',
               }}>
-              {t('doi_mat_khau')}
-            </Text>
+              <Text
+                style={{
+                  flex: 1,
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                  fontFamily: Fonts.serif,
+                }}>
+                {t('tong_dai_support_store')}
+              </Text>
+            </View>
 
-            <AntDesign
-              name="right"
-              size={22}
-              color="black"
-              onPress={() => this.backMainScreen()}
-            />
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 10,
+              }}>
+              <Feather name="phone-call" size={20} color="black" />
+              <Text
+                style={{
+                  marginLeft: 10,
+                  alignItems: 'flex-end',
+                  fontSize: 15,
+                  fontFamily: Fonts.serif,
+                  color: 'blue',
+                }}>
+                1900.678.098
+              </Text>
+            </View>
           </View>
+
+          <Text
+            style={{
+              fontSize: 14,
+              colo: 'gray',
+              textAlign: 'center',
+              fontFamily: Fonts.serif,
+              marginTop: 17,
+            }}>
+            Xin cảm ơn!
+          </Text>
         </View>
 
         <LinearGradient colors={['#F99A7C', '#FC5895']}>
@@ -340,7 +342,7 @@ export default class Profile extends Component {
             style={{
               padding: 10,
               flexDirection: 'row',
-              height: height / 11,
+              height: 30,
             }}
           />
         </LinearGradient>

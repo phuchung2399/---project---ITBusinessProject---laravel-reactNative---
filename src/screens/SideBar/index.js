@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
 import SideBar from './components/sidebar';
 import LinearGradient from 'react-native-linear-gradient';
 import Profile from '../../../assets/images/profile.png';
@@ -24,6 +25,7 @@ import {logOut} from '../../redux/userRedux/action';
 import {onSignIn} from '../../navigation';
 import {storageGet, removeItemValue} from '../../checkAsyncStorage';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import Fonts from '../../themers/Fonts';
 
 class SideBarMenu extends Component {
   constructor(props) {
@@ -124,6 +126,62 @@ class SideBarMenu extends Component {
     }
   };
 
+  onVoucher = () => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Voucher',
+
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
+  onContactApp = () => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Contact',
+
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
+  onBooking = () => {
+    alert('bk');
+  };
+
+  onVoucherUnike = () => {
+    alert('uddq');
+  };
+
   render() {
     const userInfor = this.state.user;
 
@@ -174,6 +232,7 @@ class SideBarMenu extends Component {
                       fontWeight: 'bold',
                       marginVertical: 8,
                       color: 'white',
+                      fontFamily: Fonts.serif,
                     }}>
                     {userInfor.user_name}
                   </Text>
@@ -183,15 +242,116 @@ class SideBarMenu extends Component {
           </SafeAreaView>
         </LinearGradient>
 
-        <View style={styles.container}>
-          <SideBar lable={'Ưu đãi'} icon={'switcher'} data={'Ưu đãi'} />
-          <SideBar lable={'Book ngay'} icon={'form'} data={'Book ngay'} />
-          <SideBar
-            lable={'Ưu đãi độc quyền'}
-            icon={'alipay-circle'}
-            data={'Ưu đãi độc quyền'}
-          />
+        <View
+          style={{
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+            paddingHorizontal: 5,
+            paddingVertical: 25,
+            backgroundColor: 'white',
+            flex: 1,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              borderBottomWidth: 1,
+              height: 50,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              borderBottomColor: '#b3acac',
+            }}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Icon name="switcher" size={22} color="#4290ea" />
+            </View>
+            <View style={{flex: 5, justifyContent: 'center'}}>
+              <TouchableOpacity onPress={() => this.onVoucher()}>
+                <Text
+                  style={{
+                    fontFamily: Fonts.serif,
+                    fontSize: 18,
+                  }}>
+                  Ưu đãi
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              borderBottomWidth: 1,
+              height: 50,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              borderBottomColor: '#b3acac',
+            }}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Icon name="form" size={22} color="#4290ea" />
+            </View>
+            <View style={{flex: 5, justifyContent: 'center'}}>
+              <TouchableOpacity onPress={() => this.onBooking()}>
+                <Text
+                  style={{
+                    fontFamily: Fonts.serif,
+                    fontSize: 18,
+                  }}>
+                  Book ngay
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              borderBottomWidth: 1,
+              height: 70,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              borderBottomColor: '#b3acac',
+            }}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Icon name="alipay-circle" size={22} color="#4290ea" />
+            </View>
+            <View style={{flex: 5, justifyContent: 'center'}}>
+              <TouchableOpacity onPress={() => this.onVoucherUnike()}>
+                <Text
+                  style={{
+                    fontFamily: Fonts.serif,
+                    fontSize: 18,
+                  }}>
+                  Ưu đãi độc quyền
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              borderBottomWidth: 1,
+              height: 50,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              borderBottomColor: '#b3acac',
+            }}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Feather name="phone-call" size={22} color="#4290ea" />
+            </View>
+            <View style={{flex: 5, justifyContent: 'center'}}>
+              <TouchableOpacity onPress={() => this.onContactApp()}>
+                <Text
+                  style={{
+                    fontFamily: Fonts.serif,
+                    fontSize: 18,
+                  }}>
+                  Liên hệ với The Nail
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
+
         <View style={{backgroundColor: '#f0f0f3'}}>
           <View style={{flexDirection: 'row', marginHorizontal: 15}}>
             <View
@@ -296,9 +456,7 @@ const styles = StyleSheet.create({
   titleOption: {
     fontSize: 20,
     marginTop: 4,
-    borderBottomWidth: 1,
     marginVertical: 17,
-    borderBottomColor: 'gray',
     color: 'gray',
   },
 
@@ -316,6 +474,18 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     width: 200,
     height: 200,
+  },
+  viewRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    height: 70,
+    marginHorizontal: 20,
+    alignItems: 'center',
+    borderBottomColor: '#b3acac',
+  },
+  viewIcon: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 
