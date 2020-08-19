@@ -1,0 +1,4429 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API APP",
+        "description": "This is API for Nail App",
+        "contact": {
+            "email": "your-email@domain.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/admin/login": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Login admin",
+                "operationId": "admin_login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "phone": "0967258205",
+                                    "password": "123456789"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/register": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Register admin",
+                "operationId": "admin_register",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "admin_name": {
+                                        "type": "integer"
+                                    },
+                                    "email": {
+                                        "type": "integer"
+                                    },
+                                    "phone": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "integer"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "admin_name": "Qoách Thị Dẹo",
+                                    "email": "deo@gmail.com",
+                                    "phone": "0912345678",
+                                    "password": "123456789",
+                                    "confirm_password": "123456789"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/change-password": {
+            "put": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Change password admin",
+                "operationId": "change_password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "old_password": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "confirm_password": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "old_password": "0967258205",
+                                    "password": "123456789",
+                                    "confirm_password": "123456789"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/me": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Send token on serve and return data admin",
+                "operationId": "admin_detail",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/logout": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Logout admin",
+                "operationId": "admin_logout",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Delete admin ",
+                "operationId": "admin_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/comment-store/{id}": {
+            "get": {
+                "tags": [
+                    "comment"
+                ],
+                "summary": "Get add comment of a store",
+                "operationId": "get_comment_store",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/comment": {
+            "post": {
+                "tags": [
+                    "comment"
+                ],
+                "summary": "Create comment",
+                "operationId": "post_comment_store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "star": {
+                                        "type": "interger"
+                                    },
+                                    "store_id": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "Good",
+                                    "star": "5",
+                                    "store_id": "22222220"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/comment/{id}": {
+            "put": {
+                "tags": [
+                    "comment"
+                ],
+                "summary": "update comment",
+                "operationId": "put_comment_store",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "star": {
+                                        "type": "interger"
+                                    },
+                                    "store_id": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "Good",
+                                    "star": "5",
+                                    "store_id": "22222220"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "comment"
+                ],
+                "summary": "delete comment",
+                "operationId": "delete_comment_store",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/location": {
+            "get": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "get all location",
+                "operationId": "location_get",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Create location",
+                "operationId": "location_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "location_name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "location_name": "Quy Nhơn"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/location/{id}": {
+            "get": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "get location by id",
+                "operationId": "admin_get_by_id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Update location",
+                "operationId": "location_put",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "location_name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "location_name": "Quy Nhơn"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Delete location ",
+                "operationId": "location_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/notification/send-notification-store": {
+            "post": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "admin send notification store",
+                "operationId": "send_notification_store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "massage": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "massage": "Null",
+                                    "description": "Null"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/notification/send-notification-user": {
+            "post": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "admin send notification user",
+                "operationId": "send_notification_user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "massage": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "massage": "Null",
+                                    "description": "Null"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/notification/user": {
+            "get": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "get notifications of user",
+                "operationId": "get_notifications_user",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/notification/store": {
+            "get": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "get notifications of store",
+                "operationId": "get_notifications_store",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/notification/mark-at-read/{id}": {
+            "post": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "mark at read to notification",
+                "operationId": "mark_at_read",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/order": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Create order - booking service",
+                "operationId": "post_order",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "order_day": {
+                                        "type": "interger"
+                                    },
+                                    "order_time": {
+                                        "type": "interger"
+                                    },
+                                    "total": {
+                                        "type": "interger"
+                                    },
+                                    "note": {
+                                        "type": "interger"
+                                    },
+                                    "store": {
+                                        "type": "string"
+                                    },
+                                    "service": {
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "address": "101b le huu trac",
+                                    "total": 150000,
+                                    "note": "không biết nói gì",
+                                    "voucher_name": "",
+                                    "store": 22222224,
+                                    "order_time": "19:59:00",
+                                    "order_day": "2020-06-27",
+                                    "service": [
+                                        {
+                                            "service_id": "3891672d-1362-49a6-b986-81eaead53b46",
+                                            "service_name": "nail mạ vàng mã",
+                                            "description": "đính vàng mà",
+                                            "price": 10000000,
+                                            "image": "https://drive.google.com/uc?export=view&id=15PxcuUtA6hXhJm3IMDIN56MN7tDT-2LW",
+                                            "store_id": "22222224"
+                                        },
+                                        {
+                                            "service_id": "3891672d-1362-49a6-b986-81eaead53b46",
+                                            "service_name": "nail mạ vàng mã",
+                                            "description": "đính vàng mà",
+                                            "price": 10000000,
+                                            "image": "https://drive.google.com/uc?export=view&id=15PxcuUtA6hXhJm3IMDIN56MN7tDT-2LW",
+                                            "store_id": "22222224"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/order-detail/{id}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "get detail order of store",
+                "operationId": "get_order_store_by_id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/order-store": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "get all order of store",
+                "operationId": "get_order_store",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/order-user": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "get all arder of user",
+                "operationId": "get_order_user",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/order-confirm/{id}": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "confirm order of user",
+                "operationId": "confirm_order",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/order-cancel/{id}": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "cancel order from user",
+                "operationId": "cancel_order",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/order-refuse/{id}": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "refuse order from store",
+                "operationId": "refuse_order",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/order-finish/{id}": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "finish order from store",
+                "operationId": "finish_order",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services": {
+            "get": {
+                "tags": [
+                    "service"
+                ],
+                "summary": "get all service - support for function search",
+                "operationId": "get_services",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/service-store/{id}": {
+            "get": {
+                "tags": [
+                    "service"
+                ],
+                "summary": "get all service by store",
+                "operationId": "get_services_by_store",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/service-search": {
+            "post": {
+                "tags": [
+                    "service"
+                ],
+                "summary": "Search service for service store",
+                "operationId": "service_search",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "key": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "key": "nail"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/service": {
+            "post": {
+                "tags": [
+                    "service"
+                ],
+                "summary": "Create service",
+                "operationId": "service_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "service_name": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "file"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "interger"
+                                    },
+                                    "reduced_price": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/service/{id}": {
+            "post": {
+                "tags": [
+                    "service"
+                ],
+                "summary": "Update service",
+                "operationId": "service_put",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "service_name": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "file"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "interger"
+                                    },
+                                    "reduced_price": {
+                                        "type": "interger"
+                                    },
+                                    "_method": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "service"
+                ],
+                "summary": "Delete service",
+                "operationId": "service_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/slide": {
+            "get": {
+                "tags": [
+                    "slide"
+                ],
+                "summary": "get all slide",
+                "operationId": "slide_get",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "slide"
+                ],
+                "summary": "Create slide",
+                "operationId": "slide_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "Ngày hội nail app"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/slide/{id}": {
+            "get": {
+                "tags": [
+                    "slide"
+                ],
+                "summary": "get slide by id",
+                "operationId": "slide_get_by_id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "slide"
+                ],
+                "summary": "Update silde",
+                "operationId": "slide_put",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "file"
+                                    },
+                                    "_method": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "slide"
+                ],
+                "summary": "Delete slide",
+                "operationId": "slide_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/login": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Login store",
+                "operationId": "store_login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "phone": "0967258111",
+                                    "password": "123456789"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/v1/store/register": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Store register",
+                "operationId": "store_register",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "type": "file"
+                                    },
+                                    "store_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "integer"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "open_time": {
+                                        "type": "string"
+                                    },
+                                    "close_time": {
+                                        "type": "string"
+                                    },
+                                    "location_id": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/v1/store/password": {
+            "put": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Store password change ",
+                "operationId": "store_password_change",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "old_password": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "old_password": "0967258205",
+                                    "password": "123456789",
+                                    "confirm_password": "123456789"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/me": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Send token on server and return data store",
+                "operationId": "store_detail",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/logout": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Store logout",
+                "operationId": "logout_store",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/mail-reset-password": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "send email reset password store",
+                "operationId": "store_mail_reset_password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "abc@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/store-detail/{id}": {
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Get Store by id",
+                "operationId": "get_store_by_id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/store-all": {
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Get all store",
+                "operationId": "get_all_store",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/store-search": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Search store",
+                "operationId": "store_search",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "key": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "key": "nail"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/store-search-star": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Search store by star",
+                "operationId": "store_search_star",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "star": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "star": "5"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/store-point-search/{id}": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Update point search for store",
+                "operationId": "update_point_search_store",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "point_search": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "point_search": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/store-sort-star-home": {
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "API show store for home page - show the stores by star",
+                "operationId": "store_sort_star_home",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/store-new-home": {
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "API show store for home page - show the new stores",
+                "operationId": "store_new_home",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/update-image_store": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "update image store",
+                "operationId": "update_image_store",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "type": "file"
+                                    },
+                                    "_method": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/mail-confirm-update-email": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Send email confirm update new email",
+                "operationId": "mail_confirm_update_email",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "abc@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/update-phone-store": {
+            "put": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Update phone store",
+                "operationId": "update_phone_store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "phone": "0967000000"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/update-store-name": {
+            "put": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Update store name",
+                "operationId": "update_store_name",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "store_name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "store_name": "ahihi"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/update-store-address": {
+            "put": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Update store address",
+                "operationId": "update_store_address",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "address": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "address": "ahihi"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/update-time-open-close-store": {
+            "put": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Update open time - close time of store",
+                "operationId": "update_time_open_close_store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "open_time": {
+                                        "type": "string"
+                                    },
+                                    "close_time": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "open_time": "05:00:00",
+                                    "close_time": "21:00:00"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store/update-location-store": {
+            "put": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Update location of store",
+                "operationId": "update_location_store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "location_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "location_id": "3891672d-1362-49a6-b986-81eaead53b47"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "User login",
+                "operationId": "user_login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "phone": "0967258205",
+                                    "password": "123456789"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/v1/user/register": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "User register",
+                "operationId": "user_register",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "avatar": {
+                                        "type": "file"
+                                    },
+                                    "user_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/v1/user/password": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "User password change ",
+                "operationId": "user_password_change",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "old_password": {
+                                        "type": "integer"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "old_password": "0967258205",
+                                    "password": "123456789",
+                                    "confirm_password": "123456789"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/me": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Send token on server and return data user",
+                "operationId": "user_detail",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/logout": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "user logout",
+                "operationId": "user_logout",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/mail-reset-password": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "send email reset password user",
+                "operationId": "user_mail_reset_password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "abc@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/update-user-image": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "update image user",
+                "operationId": "update_image_user",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "avatar": {
+                                        "type": "file"
+                                    },
+                                    "_method": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/mail-confirm-update-email": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "send email confirm change email",
+                "operationId": "mail_confirm_update_email",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "abc@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/update-user-phone": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "update phone user",
+                "operationId": "update_phone_user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "phone": "0967258205"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/update-user-name": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "update user name",
+                "operationId": "update_user_name",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "user_name": "Mèo con dễ thương"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/voucher": {
+            "get": {
+                "tags": [
+                    "voucher"
+                ],
+                "summary": "get all voucher",
+                "operationId": "voucher_get",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "voucher"
+                ],
+                "summary": "Create voucher",
+                "operationId": "voucher_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "voucher_name": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "interger"
+                                    },
+                                    "quantity": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "voucher_name": "ILOVEYOU",
+                                    "price": "5000",
+                                    "quantity": "500"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/voucher-to-user": {
+            "get": {
+                "tags": [
+                    "voucher"
+                ],
+                "summary": "get all voucher to user application",
+                "operationId": "voucher_get_to_user_app",
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/voucher/{id}": {
+            "get": {
+                "tags": [
+                    "voucher"
+                ],
+                "summary": "get voucher by id",
+                "operationId": "voucher_get_by_id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "voucher"
+                ],
+                "summary": "Update voucher",
+                "operationId": "voucher_put",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "voucher_name": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "interger"
+                                    },
+                                    "quantity": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "voucher_name": "ILOVEYOU",
+                                    "price": "5000",
+                                    "quantity": "500"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "voucher"
+                ],
+                "summary": "Delete voucher ",
+                "operationId": "voucher_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/total-by-voucher": {
+            "post": {
+                "tags": [
+                    "voucher"
+                ],
+                "summary": "Total apply voucher",
+                "operationId": "total_by_voucher",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "voucher_name": {
+                                        "type": "string"
+                                    },
+                                    "total": {
+                                        "type": "interger"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "voucher_name": "ILOVEYOU",
+                                    "total": "500000"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "201": {
+                        "description": "Successful Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized "
+                    },
+                    "403": {
+                        "description": "Forbidden "
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "passport": {
+                "type": "http",
+                "description": "Bearer Token.",
+                "in": "header",
+                "scheme": "bearer",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://localhost/oauth/authorize",
+                        "tokenUrl": "http://localhost/oauth/token",
+                        "refreshUrl": "http://localhost/token/refresh",
+                        "scopes": []
+                    }
+                }
+            }
+        }
+    }
+}
