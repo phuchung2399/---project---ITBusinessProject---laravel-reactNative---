@@ -4,6 +4,7 @@ import Home from '../screens/Home';
 import Order from '../screens/Order';
 import Love from '../screens/Love';
 import Profile from '../screens/Profile';
+import Contact from '../screens/Contact';
 import Booking from '../screens/Home/Booking';
 import Search from '../screens/Home/Search';
 import Detail from '../screens/Home/Detail';
@@ -117,8 +118,8 @@ Navigation.registerComponent(
 
 Navigation.registerComponent(
   'Search',
-  () => ReduxProvider(Announcement),
-  () => Announcement,
+  () => ReduxProvider(Search),
+  () => Search,
 );
 
 Navigation.registerComponent(
@@ -191,6 +192,12 @@ Navigation.registerComponent(
   'Voucher',
   () => ReduxProvider(Voucher),
   () => Voucher,
+);
+
+Navigation.registerComponent(
+  'Contact',
+  () => ReduxProvider(Contact),
+  () => Contact,
 );
 
 export default () => {

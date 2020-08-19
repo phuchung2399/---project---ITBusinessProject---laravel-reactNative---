@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  Alert,
   Clipboard,
 } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
@@ -21,6 +22,7 @@ import {getAllVouchers} from '../../redux/voucherRedux/action';
 import Fonts from '../../themers/Fonts';
 const window = Dimensions.get('window');
 import moment from 'moment';
+import Colors from '../../themers/Colors';
 
 class index extends Component {
   constructor(props) {
@@ -197,7 +199,6 @@ class index extends Component {
   };
 
   renderItem = ({item}) => {
-    console.log(item);
     return (
       <LinearGradient
         colors={['#fdf6f6', 'white']}
@@ -261,7 +262,7 @@ class index extends Component {
           style={{
             width: 90,
             height: 30,
-            backgroundColor: 'red',
+            backgroundColor: Colors.darkGray,
             borderRadius: 15,
             justifyContent: 'center',
             alignItems: 'center',
@@ -269,7 +270,7 @@ class index extends Component {
           }}>
           <TouchableOpacity onPress={() => this.onApply(item.voucher_name)}>
             <Text style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
-              {t('ap_dung')}
+              {t('copy_ngay')}
             </Text>
           </TouchableOpacity>
         </View>

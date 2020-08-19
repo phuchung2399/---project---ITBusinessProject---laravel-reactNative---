@@ -7,10 +7,13 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
   ScrollView,
+  TouchableOpacity,
   SafeAreaView,
   TextInput,
   Image,
 } from 'react-native';
+import CardIcon from 'react-native-vector-icons/AntDesign';
+
 import Fonts from '../../themers/Fonts';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -111,7 +114,13 @@ class Detail extends React.Component {
           <ImageBackground
             // source={{uri: detailStore.image}}
             source={ImageDemo}
-            style={{flex: 1, resizeMode: 'cover', justifyContent: 'center'}}>
+            style={{
+              flex: 1,
+              resizeMode: 'cover',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              height: height / 3,
+            }}>
             <View
               style={{
                 flex: 1,
@@ -137,6 +146,72 @@ class Detail extends React.Component {
                 flex: 1,
               }}
             />
+
+            {this.props.orders.cartItems.length <= 0 ? (
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignContent: 'flex-end',
+                  marginTop: 5,
+                  alignItems: 'center',
+                  paddingRight: 10,
+                  paddingTop: 7,
+                  marginRight: 5,
+                  width: 50,
+                  height: 50,
+                }}>
+                <Image
+                  style={{
+                    width: 50,
+                    height: 50,
+                  }}
+                  source={Logo}
+                />
+              </View>
+            ) : (
+              <View
+                style={{
+                  margin: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: 'white',
+                  borderRadius: 50,
+                  borderWidth: 2,
+                  borderColor: '#7adaf7',
+                  paddingRight: 10,
+                  paddingTop: 7,
+                  marginRight: 5,
+                  width: 50,
+                  height: 50,
+                }}>
+                <TouchableOpacity onPress={() => this.changeShopping()}>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      height: 20,
+                      width: 20,
+                      borderRadius: 15,
+                      backgroundColor: 'rgba(95,197,123,0.8)',
+                      right: -5,
+                      bottom: 20,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      zIndex: 2000,
+                    }}>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>
+                      {this.props.orders.cartItems.length}
+                    </Text>
+                  </View>
+
+                  <CardIcon
+                    name="shoppingcart"
+                    size={35}
+                    color="#7adaf7"
+                    onPress={() => this.changeShopping()}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
           </ImageBackground>
         </View>
 
@@ -242,52 +317,47 @@ class Detail extends React.Component {
         </ScrollView>
 
         {this.props.orders.cartItems.length <= 0 ? null : (
-          <CartComponent
-            changeShopping={this.changeShopping}
-            size={this.props.orders.cartItems.length}
-          />
-        )}
-
-        {/* <View
-          style={{
-            marginHorizontal: 10,
-            padding: 10,
-            flexDirection: 'row',
-            backgroundColor: '#F99A7C',
-          }}>
           <View
             style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignContent: 'center',
+              marginHorizontal: 10,
+              padding: 10,
+              flexDirection: 'row',
+              backgroundColor: '#F99A7C',
             }}>
-            <Text
+            <View
               style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                color: 'black',
+                flex: 1,
+                justifyContent: 'center',
+                alignContent: 'center',
               }}>
-              Tổng cộng: 40.000 đ
-            </Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <TouchableWithoutFeedback onPress={this.changeShopping}>
               <Text
                 style={{
-                  borderRadius: 20,
-                  fontSize: 15,
+                  fontSize: 20,
                   fontWeight: 'bold',
-                  padding: 12,
-                  paddingHorizontal: 30,
-                  textAlign: 'center',
-                  backgroundColor: '#FCB1B6',
                   color: 'black',
                 }}>
-                Đặt ngay
+                Tổng cộng: 40.000 đ
               </Text>
-            </TouchableWithoutFeedback>
+            </View>
+            <View style={{alignItems: 'flex-end'}}>
+              <TouchableWithoutFeedback onPress={this.changeShopping}>
+                <Text
+                  style={{
+                    borderRadius: 20,
+                    fontSize: 15,
+                    fontWeight: 'bold',
+                    padding: 12,
+                    paddingHorizontal: 30,
+                    textAlign: 'center',
+                    backgroundColor: '#FCB1B6',
+                    color: 'black',
+                  }}>
+                  Đặt ngay
+                </Text>
+              </TouchableWithoutFeedback>
+            </View>
           </View>
-        </View> */}
+        )}
       </View>
     );
   }

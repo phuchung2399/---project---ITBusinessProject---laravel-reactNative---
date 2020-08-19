@@ -28,13 +28,14 @@ import {t} from '../../i18n/t';
 import Input from './components/TextInput';
 import DatePicker from 'react-native-datepicker';
 import {createOrder} from '../../redux/orderRedux/action';
+import {applyVoucher} from '../../redux/voucherRedux/action';
 
 class Booking extends Component {
   constructor(props) {
     super(props);
     this.state = {
       text: '',
-      colorFalseSwitchIsOn: true,
+      at_home: false,
       note: '',
       address: '',
       order_day: '',
@@ -52,7 +53,7 @@ class Booking extends Component {
   };
 
   changeSwitch = value => {
-    this.setState({colorFalseSwitchIsOn: value ? true : false});
+    this.setState({at_home: value ? true : false});
   };
 
   backMainScreen = () => {
@@ -225,6 +226,17 @@ class Booking extends Component {
     );
   };
 
+  applyVoucher = async () => {
+    const {voucher_name, total, token} = this.state;
+
+    const data = {
+      voucher_name,
+      total,
+    };
+
+    await this.props.onApplyVoucher(data, token);
+  };
+
   renderVoucher = () => {
     return (
       <View
@@ -243,18 +255,23 @@ class Booking extends Component {
                 alignContent: 'center',
                 marginHorizontal: 10,
               }}>
-              <TextInput
-                style={{
-                  height: 40,
-                  borderColor: '#E8E8E8',
-                  borderWidth: 1,
-                  borderRadius: 10,
-                }}
+              <Input
+                underlineColorAndroid="transparent"
                 placeholder="Nhập mã giảm giá"
+                placeholderTextColor="grey"
+                borderColor="#E8E8E8"
+                height={40}
+                title={''}
+                getData={e => this.getData('voucher_name', e)}
               />
             </View>
-            <View style={{alignItems: 'flex-end'}}>
-              <TouchableWithoutFeedback onPress={this.onSignin}>
+            <View
+              style={{
+                // alignItems: 'flex-end',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <TouchableWithoutFeedback onPress={this.applyVoucher}>
                 <Text
                   style={{
                     borderRadius: 20,
@@ -315,7 +332,7 @@ class Booking extends Component {
       <View
         style={{
           flexDirection: 'row',
-          marginVertical: 10,
+          marginVertical: 15,
           marginHorizontal: 10,
         }}>
         <Text>{t('dat_lam_tai_nha')}</Text>
@@ -324,10 +341,10 @@ class Booking extends Component {
             this.changeSwitch(value);
           }}
           style={{marginBottom: 10}}
-          tintColor="#ff0000"
-          value={this.state.colorFalseSwitchIsOn}
+          tintColor="#767577"
+          value={this.state.at_home}
           trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={this.state.colorFalseSwitchIsOn ? '#00ff00' : '#0000ff'}
+          thumbColor={this.state.at_home ? '#00ff00' : 'pink'}
           ios_backgroundColor="#3e3e3e"
         />
       </View>
@@ -351,8 +368,16 @@ class Booking extends Component {
       total,
       token,
       voucher_name,
+      at_home,
     } = this.state;
 
+    let status = 0;
+
+    if (at_home) {
+      status = 1;
+    } else {
+      status = 0;
+    }
     const data = {
       address,
       total,
@@ -361,9 +386,11 @@ class Booking extends Component {
       store: store_id,
       order_time,
       order_day,
+      at_home: status,
       service: cartItems,
     };
-    console.log(cartItems);
+
+    // console.log(data);
     await this.props.onCreateOrder(data, token);
   };
 
@@ -374,6 +401,8 @@ class Booking extends Component {
     maxDate.setDate(maxDate.getDate() + 7);
 
     const cartItems = this.props.orders.cartItems;
+
+    const status_atHome = this.state.at_home;
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -459,17 +488,6 @@ class Booking extends Component {
             <View style={{flex: 5, marginHorizontal: 20}}>
               <Input
                 underlineColorAndroid="transparent"
-                placeholder="Nhập điạ chỉ"
-                placeholderTextColor="grey"
-                numberOfLines={2}
-                multiline={true}
-                height={50}
-                title={t('dia_chi')}
-                getData={e => this.getData('address', e)}
-              />
-
-              <Input
-                underlineColorAndroid="transparent"
                 placeholder="Thêm nhận xét của bạn"
                 placeholderTextColor="grey"
                 numberOfLines={2}
@@ -478,6 +496,19 @@ class Booking extends Component {
                 title={t('ghi_chu')}
                 getData={e => this.getData('note', e)}
               />
+
+              {status_atHome ? (
+                <Input
+                  underlineColorAndroid="transparent"
+                  placeholder="Nhập điạ chỉ"
+                  placeholderTextColor="grey"
+                  numberOfLines={2}
+                  multiline={true}
+                  height={50}
+                  title={t('dia_chi')}
+                  getData={e => this.getData('address', e)}
+                />
+              ) : null}
 
               {this.renderRadioButton()}
             </View>
@@ -590,6 +621,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onCreateOrder: (data, token) => {
       dispatch(createOrder(data, token));
+    },
+    onApplyVoucher: (data, token) => {
+      dispatch(applyVoucher(data, token));
     },
   };
 };

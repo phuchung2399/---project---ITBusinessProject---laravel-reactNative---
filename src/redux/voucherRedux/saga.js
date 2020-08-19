@@ -1,7 +1,12 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import {getAllVouchersSuccess, getAllVouchersFailure} from './action';
-import {getAllVouchers} from '../../api/voucher';
-import {GET_ALL_VOUCHERS} from '../constants/actionTypes';
+import {
+  getAllVouchersSuccess,
+  getAllVouchersFailure,
+  applyVoucherSuccess,
+  applyVoucherFailure,
+} from './action';
+import {getAllVouchers, totalApplyVouchers} from '../../api/voucher';
+import {GET_ALL_VOUCHERS, APPLY_VOUCHER} from '../constants/actionTypes';
 
 export function* getAllVouchersSaga({token}) {
   try {
@@ -15,8 +20,21 @@ export function* getAllVouchersSaga({token}) {
   }
 }
 
+export function* totalApplyVouchersSaga({data, token}) {
+  try {
+    const response = yield call(totalApplyVouchers, data, token);
+
+    const reducePrice = response.data;
+    console.log(reducePrice);
+    // yield put(applyVoucherSuccess(reducePrice));
+  } catch (error) {
+    console.log('applyVoucherSaga', error);
+    yield put({type: applyVoucherFailure, payload: error});
+  }
+}
+
 const voucherSagas = () => [
   takeLatest(GET_ALL_VOUCHERS, getAllVouchersSaga),
-  // takeLatest(GET_STORE_BY_STAR, getStoresByStarSaga),
+  takeLatest(APPLY_VOUCHER, totalApplyVouchersSaga),
 ];
 export default voucherSagas();

@@ -21,9 +21,12 @@ class Input extends Component {
         style={{
           marginTop: 10,
         }}>
-        <Text style={{fontSize: 25, fontFamily: Fonts.serif}}>
-          {this.props.title}
-        </Text>
+        {this.props.title === '' ? null : (
+          <Text style={{fontSize: 25, fontFamily: Fonts.serif}}>
+            {this.props.title}
+          </Text>
+        )}
+
         <View
           style={{
             borderColor: '#E8E8E8',

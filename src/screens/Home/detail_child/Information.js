@@ -5,19 +5,34 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  Linking,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 import Fonts from '../../../themers/Fonts';
 import Colors from '../../../themers/Colors';
 import {t} from '../../../i18n/t';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 export default class Information extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  onCallToStore = storePhoneNumber => {
+    // alert(storePhoneNumber);
+
+    let phoneNumber = '';
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${storePhoneNumber}`;
+    } else {
+      phoneNumber = `telprompt:${storePhoneNumber}`;
+    }
+    Linking.openURL(phoneNumber);
+  };
 
   renderHeader = detailStore => {
     return (
@@ -71,11 +86,12 @@ export default class Information extends React.Component {
           </Text>
 
           <View style={{alignContent: 'flex-end', flexDirection: 'row'}}>
-            <TouchableWithoutFeedback onPress={() => this.onNavigateStore()}>
+            <TouchableWithoutFeedback
+              onPress={() => this.onCallToStore(detailStore.phone)}>
               <Text
                 style={{
                   color: 'green',
-                  fontSize: 14,
+                  fontSize: 16,
                   // textDecorationLine: 'underline',
                 }}>
                 {t('goi_ngay')}
@@ -90,8 +106,8 @@ export default class Information extends React.Component {
             marginTop: 7,
             marginBottom: 5,
           }}>
-          <AntDesign
-            name="phone"
+          <Feather
+            name="phone-call"
             size={20}
             color="black"
             onPress={() => this.backMainScreen()}
@@ -228,7 +244,7 @@ export default class Information extends React.Component {
           }}>
           <Entypo
             name="back-in-time"
-            size={20}
+            size={22}
             color="black"
             onPress={() => this.backMainScreen()}
           />
