@@ -21,11 +21,16 @@ export function* getAllVouchersSaga({token}) {
 }
 
 export function* totalApplyVouchersSaga({data, token}) {
+  console.log(data);
   try {
-    const response = yield call(totalApplyVouchers, data, token);
-
-    const reducePrice = response.data;
-    console.log(reducePrice);
+    const response = yield call(
+      totalApplyVouchers,
+      data.voucher_name,
+      data.total,
+      token,
+    );
+    // const reducePrice = response.data;
+    console.log(response);
     // yield put(applyVoucherSuccess(reducePrice));
   } catch (error) {
     console.log('applyVoucherSaga', error);

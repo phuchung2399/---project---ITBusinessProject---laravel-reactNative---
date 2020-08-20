@@ -39,8 +39,8 @@ class Booking extends Component {
       note: '',
       address: '',
       order_day: '',
-      order_time: '17:00:00',
-      total: 4000000.0,
+      order_time: '10:00:00',
+      total: '',
       token: '',
       voucher_name: '',
     };
@@ -352,9 +352,10 @@ class Booking extends Component {
   };
 
   componentDidMount() {
-    const {userData} = this.props;
+    const {userData, total} = this.props;
     this.setState({
       token: userData.token,
+      total,
     });
   }
 
@@ -399,6 +400,7 @@ class Booking extends Component {
     const minDate = new Date();
     const maxDate = new Date();
     maxDate.setDate(maxDate.getDate() + 7);
+    const total = this.state.total;
 
     const cartItems = this.props.orders.cartItems;
 
@@ -538,7 +540,7 @@ class Booking extends Component {
                   fontWeight: 'bold',
                   color: 'black',
                 }}>
-                Tổng cộng: 40.000 đ
+                {total} đ
               </Text>
             </View>
             <View style={{alignItems: 'flex-end'}}>

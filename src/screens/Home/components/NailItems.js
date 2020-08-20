@@ -101,13 +101,15 @@ class NailItem extends Component {
         <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
           <Image source={{uri: item.image}} style={style.styleImage} />
         </TouchableOpacity>
-        <Text style={style.styleText}>{this.state.status}</Text>
-        <Text style={{color: '#353638', fontWeight: 'bold', fontSize: 20}}>
-          {item.store_name}
-        </Text>
-        <Text style={{color: 'gray', fontSize: 15}} numberOfLines={1}>
-          {item.address}
-        </Text>
+        <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
+          <Text style={style.styleText}>{this.state.status}</Text>
+          <Text style={{color: '#353638', fontWeight: 'bold', fontSize: 20}}>
+            {item.store_name}
+          </Text>
+          <Text style={{color: 'gray', fontSize: 15}} numberOfLines={1}>
+            {item.address}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }

@@ -7,6 +7,7 @@ import comments from './commentRedux/reducer';
 import orders from './orderRedux/reducer';
 import notifications from './notificationRedux/reducer';
 import vouchers from './voucherRedux/reducer';
+import searchDatas from './searchRedux/reducer';
 
 const myReducer = combineReducers({
   user: userReducer,
@@ -17,6 +18,7 @@ const myReducer = combineReducers({
   orders,
   notifications,
   vouchers,
+  searchDatas,
 });
 
 export default myReducer;

@@ -25,6 +25,7 @@ import Fonts from '../../themers/Fonts';
 import {connect} from 'react-redux';
 import {getOrderDetail, cancelOrder} from '../../redux/orderRedux/action';
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import Loading from '../Loading';
 
 class HistoryOrderDetail extends Component {
   constructor(props) {
@@ -298,14 +299,15 @@ class HistoryOrderDetail extends Component {
               alignItems: 'center',
               flex: 1,
             }}>
-            <Text
+            <Loading loadingText="Loading..." />
+            {/* <Text
               style={{
                 fontSize: 20,
                 color: 'gray',
                 fontFamily: Fonts.serif,
               }}>
               {t('Loading')}
-            </Text>
+            </Text> */}
           </View>
         </View>
       );
@@ -375,7 +377,7 @@ class HistoryOrderDetail extends Component {
                   alignItems: 'flex-end',
                 }}
                 numberOfLines={1}>
-                {dataOrderDetail.order_id}
+                {dataOrderDetail.order_id.substring(0, 30)}
               </Text>
             </View>
 

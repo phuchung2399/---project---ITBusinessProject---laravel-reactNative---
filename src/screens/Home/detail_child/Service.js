@@ -98,8 +98,6 @@ class Service extends React.Component {
     //   isChangeIcon: !this.state.isChangeIcon,
     // });
 
-    const {arrayServicesSelected} = this.state;
-
     const recent_store_id = this.props.orders.store_id;
     const store_id_clicked = this.props.store_id;
 
@@ -168,7 +166,6 @@ class Service extends React.Component {
         </View>
         <View style={styles.content}>
           <Text style={styles.name}>{item.service_name}</Text>
-          {/* <View style={styles.rating}>{this._rating(item.rating)}</View> */}
           <View style={styles.price_container}>
             <View style={styles.price}>
               <Text style={styles.textPrice}>{item.price}</Text>
@@ -303,46 +300,6 @@ class Service extends React.Component {
           </View>
 
           {this.renderListService(dataServices)}
-          {/* <View
-            style={{
-              marginHorizontal: 10,
-              padding: 10,
-              flexDirection: 'row',
-              backgroundColor: '#F99A7C',
-            }}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignContent: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  color: 'black',
-                }}>
-                Tổng cộng: 40.000 đ
-              </Text>
-            </View>
-            <View style={{alignItems: 'flex-end'}}>
-              <TouchableWithoutFeedback onPress={() => this.changeShopping()}>
-                <Text
-                  style={{
-                    borderRadius: 20,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    padding: 12,
-                    paddingHorizontal: 30,
-                    textAlign: 'center',
-                    backgroundColor: '#FCB1B6',
-                    color: 'black',
-                  }}>
-                  Đặt ngay
-                </Text>
-              </TouchableWithoutFeedback>
-            </View>
-          </View> */}
         </View>
       );
     } else {
@@ -369,6 +326,11 @@ var styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: 'row',
     borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0.5, height: 0.5},
+    shadowOpacity: 0.5,
+    shadowRadius: 9,
+    elevation: 5,
   },
   image_container: {
     width: 100,

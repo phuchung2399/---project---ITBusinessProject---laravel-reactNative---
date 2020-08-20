@@ -37,6 +37,7 @@ class Detail extends React.Component {
     super(props);
     this.state = {
       token: '',
+      price: '',
     };
   }
 
@@ -90,9 +91,20 @@ class Detail extends React.Component {
     });
   };
 
+  sumTotalPrice = () => {
+    const dataServices = this.props.orders.cartItems;
+    if (dataServices.length > 0) {
+      var totalPrice = dataServices.reduce(function(prev, cur) {
+        return prev + parseInt(cur.price);
+      }, 0);
+    }
+    return totalPrice;
+  };
+
   render() {
     const {detailStore} = this.props.stores;
     const dataServices = detailStore.services;
+    const price = this.state.price;
     console.log('orders', this.props.orders);
 
     let star = [];
@@ -336,7 +348,7 @@ class Detail extends React.Component {
                   fontWeight: 'bold',
                   color: 'black',
                 }}>
-                Tổng cộng: 40.000 đ
+                {this.sumTotalPrice()} đ
               </Text>
             </View>
             <View style={{alignItems: 'flex-end'}}>

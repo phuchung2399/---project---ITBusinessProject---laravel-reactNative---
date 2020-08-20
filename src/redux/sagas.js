@@ -7,6 +7,7 @@ import commentSagas from './commentRedux/saga';
 import ordersSagas from './orderRedux/saga';
 import notificationsSagas from './notificationRedux/saga';
 import voucherSagas from './voucherRedux/saga';
+import searchSagas from './searchRedux/saga';
 
 function* rootSagas() {
   yield all([
@@ -18,6 +19,7 @@ function* rootSagas() {
     ...ordersSagas,
     ...notificationsSagas,
     ...voucherSagas,
+    ...searchSagas,
   ]);
 }
 
