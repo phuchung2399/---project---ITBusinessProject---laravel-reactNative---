@@ -87,7 +87,7 @@ class index extends Component {
     });
   };
 
-  onContinued = userData => {
+  onContinued = (userData, dataCarts, total) => {
     Navigation.showModal({
       stack: {
         children: [
@@ -98,6 +98,8 @@ class index extends Component {
                 // arrayServicesSelected,
                 // store_id,
                 userData,
+                dataCarts,
+                total,
               },
               options: {
                 topBar: {
@@ -421,9 +423,21 @@ class index extends Component {
     );
   };
 
+  sumTotalPrice = () => {
+    const dataServices = this.props.orders.cartItems;
+    if (dataServices.length > 0) {
+      var totalPrice = dataServices.reduce(function(prev, cur) {
+        return prev + parseInt(cur.price);
+      }, 0);
+    }
+    return totalPrice;
+  };
+
   render() {
     const {arrayServicesSelected, store_id} = this.props;
     const userData = this.state.userData;
+    const dataServices = this.props.orders.cartItems;
+    const dataCarts = this.props.orders.cartItems;
 
     return (
       <View style={{flex: 1}}>
@@ -445,7 +459,12 @@ class index extends Component {
             <Text style={{fontSize: 17}}>{t('tong_tien')}</Text>
           </View>
           <View style={{alignItems: 'flex-end', marginHorizontal: 14}}>
-            <Text style={{fontWeight: 'bold', fontSize: 17}}>20.000 d</Text>
+            {dataServices.length > 0 ? (
+              <Text style={{fontWeight: 'bold', fontSize: 17}}>
+                {' '}
+                {this.sumTotalPrice()} đ
+              </Text>
+            ) : null}
           </View>
         </View>
 
@@ -460,7 +479,10 @@ class index extends Component {
             marginHorizontal: 10,
             justifyContent: 'center',
           }}>
-          <TouchableWithoutFeedback onPress={() => this.onContinued(userData)}>
+          <TouchableWithoutFeedback
+            onPress={() =>
+              this.onContinued(userData, dataCarts, this.sumTotalPrice())
+            }>
             <Text
               style={{
                 fontSize: 20,

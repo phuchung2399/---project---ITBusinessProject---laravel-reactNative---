@@ -23,12 +23,14 @@ import Fonts from '../../themers/Fonts';
 const window = Dimensions.get('window');
 import moment from 'moment';
 import Colors from '../../themers/Colors';
+import Loading from '../Loading';
 
 class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       token: '',
+      isLoading: true,
     };
   }
   componentDidMount() {
@@ -122,60 +124,53 @@ class index extends Component {
   };
 
   renderBody = () => {
+    const that = this;
     const dataVouchers = this.props.vouchers.dataAllVouchers;
-    console.log(dataVouchers.length);
-    if (dataVouchers.length === 0) {
+    const isLoading = this.state.isLoading;
+
+    setTimeout(function() {
+      that.setState({isLoading: false});
+    }, 100);
+
+    if (isLoading) {
       return (
         <View style={{flex: 1}}>
-          <View
-            style={{
-              padding: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
-            }}>
-            <Text
-              style={{
-                fontSize: 20,
-                color: 'gray',
-                fontFamily: Fonts.serif,
-              }}>
-              {t('khong_co_ma')}
-            </Text>
-          </View>
+          <Loading loadingText="Loading..." />
         </View>
       );
-    }
+    } else {
+      if (dataVouchers.length === 0) {
+        return (
+          <View style={{flex: 1}}>
+            <View
+              style={{
+                padding: 12,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: 'gray',
+                  fontFamily: Fonts.serif,
+                }}>
+                {t('khong_co_ma')}
+              </Text>
+            </View>
+          </View>
+        );
+      }
 
-    if (dataVouchers.length < 0) {
+      const arrDataVouchers = Object.keys(dataVouchers).map(key => {
+        dataVouchers[key].id = key;
+        return dataVouchers[key];
+      });
+
       return (
-        <View style={{flex: 1}}>
-          <View
-            style={{
-              padding: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
-            }}>
-            <Text
-              style={{
-                fontSize: 20,
-                color: 'gray',
-                fontFamily: Fonts.serif,
-              }}>
-              {t('loading')}
-            </Text>
-          </View>
-        </View>
+        <ScrollView>{this.renderListVouchers(arrDataVouchers)}</ScrollView>
       );
     }
-
-    const arrDataVouchers = Object.keys(dataVouchers).map(key => {
-      dataVouchers[key].id = key;
-      return dataVouchers[key];
-    });
-
-    return <ScrollView>{this.renderListVouchers(arrDataVouchers)}</ScrollView>;
   };
 
   renderListVouchers = arrDataVouchers => {
