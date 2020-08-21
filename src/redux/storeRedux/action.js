@@ -85,3 +85,24 @@ export const getStoreServicesFailure = error => {
     payload: error,
   };
 };
+
+export const getAllStores = token => {
+  return {
+    type: types.GET_ALL_STORE,
+    token,
+  };
+};
+
+export const getAllStoresSuccess = response => {
+  return {
+    type: types.GET_ALL_STORE_SUCCESS,
+    payload: response,
+  };
+};
+
+export const getAllStoresFailure = error => {
+  return {
+    type: types.GET_ALL_STORE_FAILURE,
+    payload: error,
+  };
+};

@@ -20,13 +20,8 @@ export const getStoreServices = (store_id, token) => {
   return callApi(`/api/v1/service-store/${store_id}`, 'GET', '', token);
 };
 
-//Search store
-export const searchStores = (key, token) => {
-  return callApi('/api/v1/store/store-search', 'POST', key, token);
-};
-
 //Get all stores
-export const getAllStores = (key, token) => {
+export const getAllStores = token => {
   return callApi('/api/v1/store/store-all', 'GET', '', token);
 };
 

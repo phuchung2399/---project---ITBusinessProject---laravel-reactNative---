@@ -26,6 +26,7 @@ import {connect} from 'react-redux';
 import {getOrderDetail, cancelOrder} from '../../redux/orderRedux/action';
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
 import Loading from '../Loading';
+import {addCart, deleteCart, addStoreId} from '../../redux/orderRedux/action';
 
 class HistoryOrderDetail extends Component {
   constructor(props) {
@@ -267,6 +268,44 @@ class HistoryOrderDetail extends Component {
               passProps: {
                 store_id,
               },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
+  onReOrder = () => {
+    const dataOrderDetail = this.props.orders.dataOrderDetail;
+    const recent_store_id = this.props.orders.store_id;
+    const store_id_clicked = dataOrderDetail.store.store_id;
+    if (store_id_clicked === recent_store_id || recent_store_id === '') {
+      const dataItem = dataOrderDetail.services;
+      this.props.onAddCart(dataItem);
+      this.props.onAddStoreId(store_id_clicked);
+      this.changeShopping();
+    } else {
+      alert('o dc add');
+    }
+  };
+
+  changeShopping = () => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Cart',
+              passProps: {},
               options: {
                 topBar: {
                   title: {
@@ -802,7 +841,7 @@ class HistoryOrderDetail extends Component {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <TouchableWithoutFeedback onPress={this.onCancelOrder}>
+              <TouchableWithoutFeedback onPress={() => this.onReOrder()}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -883,6 +922,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onCancelOrder: (order_id, token) => {
       dispatch(cancelOrder(order_id, token));
+    },
+    onAddCart: cartItem => {
+      dispatch(addCart(cartItem));
+    },
+    onAddStoreId: store_id => {
+      dispatch(addStoreId(store_id));
     },
   };
 };

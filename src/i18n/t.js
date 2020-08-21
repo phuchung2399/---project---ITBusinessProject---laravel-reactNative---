@@ -7,7 +7,7 @@ i18next.init({
   resources: {
     en: {
       translation: {
-        brand_name: 'Nail',
+        brand_name: 'The Nail',
         txtLogin: 'Đăng nhập',
         txtSignUp: 'Đăng kí',
         Loading: 'Loading ...',

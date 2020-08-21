@@ -61,15 +61,15 @@ class UploadProfile extends Component {
     const {user_name, email, phone, password} = this.props.data;
 
     const profile_pic = {
-      name: imageProfile.fileName,
-      type: imageProfile.type,
       uri:
         Platform.OS === 'android'
           ? imageProfile.uri
           : imageProfile.uri.replace('file://', ''),
+      name: imageProfile.fileName,
+      type: imageProfile.type,
     };
 
-    let data = new FormData();
+    var data = new FormData();
 
     data.append('avatar', profile_pic);
     data.append('user_name', user_name);

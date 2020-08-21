@@ -111,3 +111,8 @@ export const SEARCH_STORE_FAILURE = 'SEARCH_STORE_FAILURE';
 // Add cart item
 export const ADD_KEY = 'ADD_KEY';
 export const DELETE_KEY = 'DELETE_KEY';
+
+// Get all stores exist
+export const GET_ALL_STORE = 'GET_ALL_STORE';
+export const GET_ALL_STORE_SUCCESS = 'GET_ALL_STORE_SUCCESS';
+export const GET_ALL_STORE_FAILURE = 'GET_ALL_STORE_FAILURE';

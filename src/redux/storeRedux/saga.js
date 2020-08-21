@@ -8,18 +8,22 @@ import {
   getStoreServicesSuccess,
   getStoreDetailFailure,
   getStoreServicesFailure,
+  getAllStoresSuccess,
+  getAllStoresFailure,
 } from './action';
 import {
   getNewStore,
   getStoreByStar,
   getStoreDetail,
   getStoreServices,
+  getAllStores,
 } from '../../api/stores';
 import {
   GET_NEW_STORE,
   GET_STORE_BY_STAR,
   GET_STORE_DETAIL,
   GET_STORE_SERVICES,
+  GET_ALL_STORE,
 } from '../constants/actionTypes';
 
 export function* getNewStoresSaga({token}) {
@@ -66,10 +70,22 @@ export function* getStoreServicesSaga({storeId, token}) {
   }
 }
 
+export function* getAllStoresSaga({token}) {
+  try {
+    const response = yield call(getAllStores, token);
+    const storeServicesData = response.data.data;
+    yield put(getAllStoresSuccess(storeServicesData));
+  } catch (error) {
+    console.log('getAllStoresSaga', error);
+    yield put({type: getAllStoresFailure, payload: error});
+  }
+}
+
 const storeSagas = () => [
   takeLatest(GET_NEW_STORE, getNewStoresSaga),
   takeLatest(GET_STORE_BY_STAR, getStoresByStarSaga),
   takeLatest(GET_STORE_DETAIL, getStoreDetailSaga),
   takeLatest(GET_STORE_SERVICES, getStoreServicesSaga),
+  takeLatest(GET_ALL_STORE, getAllStoresSaga),
 ];
 export default storeSagas();
