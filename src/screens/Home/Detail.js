@@ -119,13 +119,11 @@ class Detail extends React.Component {
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <View
           style={{
-            // padding: 10,
             flexDirection: 'row',
             height: height / 3,
           }}>
           <ImageBackground
-            // source={{uri: detailStore.image}}
-            source={ImageDemo}
+            source={{uri: detailStore.image}}
             style={{
               flex: 1,
               resizeMode: 'cover',

@@ -45,23 +45,6 @@ class Search extends Component {
       key: '',
       data: [],
       isShowRecentSearch: true,
-      searchData: [
-        {
-          name: 'Mai Nail Store',
-          image:
-            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
-        },
-        {
-          name: 'Tuan Spa',
-          image:
-            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
-        },
-        {
-          name: 'Dieu Qouch',
-          image:
-            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
-        },
-      ],
     };
   }
 
@@ -300,7 +283,7 @@ class Search extends Component {
     });
   };
 
-  renderItem = ({item}) => {
+  renderItem = ({index, item}) => {
     let star = [];
 
     for (let i = 0; i < item.rank; i++) {
@@ -343,10 +326,28 @@ class Search extends Component {
           style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
           <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
             <View>
-              <Text
-                style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
-                {item.store_name}
-              </Text>
+              <View
+                style={{
+                  flex: 1,
+
+                  flexDirection: 'row',
+                }}>
+                <Text
+                  style={{
+                    color: '#5a5555',
+                    fontWeight: 'bold',
+                    fontSize: 18,
+                    flex: 1,
+                  }}>
+                  {item.store_name}
+                </Text>
+                {index < 5 ? (
+                  <Text
+                    style={{color: 'red', fontWeight: 'bold', fontSize: 15}}>
+                    Ad
+                  </Text>
+                ) : null}
+              </View>
 
               <Text style={{color: 'gray'}}>{item.address}</Text>
 

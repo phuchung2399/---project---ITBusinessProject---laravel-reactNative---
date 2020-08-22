@@ -7,10 +7,12 @@ import {
   Image,
   Picker,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native';
 import {t} from '../../../i18n/t';
 import Colors from '../../../themers/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Success from 'react-native-vector-icons/AntDesign';
 import Fonts from '../../../themers/Fonts';
 import {get, find, take} from 'lodash';
@@ -18,6 +20,8 @@ import {Navigation} from 'react-native-navigation';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import NoComment from '../../../components/NoComment';
+import Avatar from 'react-avatar';
+import {storageRemove, storageGet} from '../../../checkAsyncStorage';
 
 class Comment extends React.Component {
   constructor(props) {
@@ -25,8 +29,25 @@ class Comment extends React.Component {
     this.state = {
       isShowAllComment: false,
       menu: '',
+      user_id: '',
     };
   }
+
+  componentDidMount() {
+    this.onGetUserData();
+  }
+
+  onGetUserData = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({user_id: parsedUser.data.user.user_id});
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   onShowAllComment = () => {
     this.setState({
@@ -50,6 +71,8 @@ class Comment extends React.Component {
   }
 
   renderItem = ({item}) => {
+    const user_id = this.state.user_id;
+    console.log(item.user_id);
     return (
       <View
         style={{
@@ -61,10 +84,10 @@ class Comment extends React.Component {
           borderBottomColor: '#eaeaea',
           marginVertical: -10,
         }}>
-        <View style={{flex: 1, justifyContent: 'center', marginTop: 5}}>
+        <View style={{marginLeft: 20, justifyContent: 'center', marginTop: 5}}>
           <Image source={{uri: item.user[0].avatar}} style={styles.image} />
         </View>
-        <View style={{flex: 3, justifyContent: 'center'}}>
+        <View style={{marginLeft: 20, flex: 1, justifyContent: 'center'}}>
           <Text numberOfLines={1} style={styles.name}>
             {item.user[0].user_name}
           </Text>
@@ -73,8 +96,48 @@ class Comment extends React.Component {
             {item.title}
           </Text>
         </View>
+        {user_id === item.user_id ? (
+          <View style={{justifyContent: 'center', flexDirection: 'row'}}>
+            <View style={{justifyContent: 'center', marginHorizontal: 13}}>
+              <AntDesign
+                name="edit"
+                size={25}
+                color="green"
+                onPress={() => this.onEditComment(item.comment_id, item.title)}
+              />
+            </View>
+          </View>
+        ) : null}
       </View>
     );
+  };
+
+  onEditComment = (comment_id, title) => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'UpdateCommentModal',
+              passProps: {
+                store_id: this.props.store_id,
+                comment_id,
+                title,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
   };
 
   ItemSeparatorComponent = () => {
@@ -110,12 +173,13 @@ class Comment extends React.Component {
   render() {
     const commentsData = this.props.comments.dataComments;
 
-    console.log(commentsData);
+    console.log(this.state.user_id);
 
     if (commentsData === '[]') {
-      return <NoComment />;
+      return <NoComment onShowForm={this.onShowForm} />;
     } else {
       const sortDataComments = _.orderBy(commentsData, 'updated_at', 'desc');
+      console.log(sortDataComments);
 
       return (
         <View style={styles.container}>
@@ -123,7 +187,7 @@ class Comment extends React.Component {
             ref={'FlatList'}
             data={take(
               sortDataComments,
-              this.state.isShowAllComment ? sortDataComments.length : 2,
+              this.state.isShowAllComment ? sortDataComments.length : 5,
             )}
             renderItem={this.renderItem}
             ItemSeparatorComponent={this.ItemSeparatorComponent}
@@ -141,7 +205,7 @@ class Comment extends React.Component {
               alignItems: 'center',
             }}>
             <View style={{width: 150}}>
-              <TouchableWithoutFeedback onPress={this.onShowAllComment}>
+              <TouchableOpacity onPress={this.onShowAllComment}>
                 <Text
                   style={{
                     borderRadius: 20,
@@ -158,11 +222,11 @@ class Comment extends React.Component {
                   }}>
                   {this.state.isShowAllComment ? 'Thu gon' : 'Xem them'}
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
 
             <View style={{width: 150}}>
-              <TouchableWithoutFeedback onPress={this.onShowForm}>
+              <TouchableOpacity onPress={this.onShowForm}>
                 <Text
                   style={{
                     borderRadius: 20,
@@ -177,7 +241,7 @@ class Comment extends React.Component {
                   }}>
                   Binh Luan
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -211,10 +275,11 @@ var styles = StyleSheet.create({
   name: {
     color: 'green',
     fontWeight: 'bold',
+    fontSize: 17,
   },
   comment: {
     fontStyle: 'italic',
-    // marginTop: 5,
+    marginTop: 5,
   },
   viewNodata: {
     flex: 1,

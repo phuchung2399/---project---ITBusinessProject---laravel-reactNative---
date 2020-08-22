@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Image, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 const {width, height} = Dimensions.get('window');
 import UpdateDataImage from '../../assets/images/updatedata.jpg';
 import Colors from '../themers/Colors';
@@ -8,6 +15,10 @@ import Fonts from '../themers/Fonts';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class NoComment extends Component {
+  onShowForm = () => {
+    this.props.onShowForm();
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -18,6 +29,24 @@ class NoComment extends Component {
           onPress={() => this.backMainScreen()}
         />
         <Text style={styles.styleText}>{t('no_data')}</Text>
+        <View style={{width: 150, marginTop: 15}}>
+          <TouchableOpacity onPress={this.onShowForm}>
+            <Text
+              style={{
+                borderRadius: 20,
+                fontSize: 15,
+                fontWeight: 'bold',
+                marginLeft: 10,
+                padding: 12,
+                paddingHorizontal: 30,
+                textAlign: 'center',
+                backgroundColor: '#FCB1B6',
+                color: 'black',
+              }}>
+              Bình luận
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

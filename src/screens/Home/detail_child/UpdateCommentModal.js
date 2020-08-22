@@ -8,12 +8,12 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
-  Alert,
   Textarea,
   ScrollView,
+  Alert,
   TouchableWithoutFeedback,
-  TouchableHighlight,
   AsyncStorage,
+  TouchableHighlight,
 } from 'react-native';
 import {storageRemove, storageGet} from '../../../checkAsyncStorage';
 import Modal from 'react-native-modalbox';
@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // import {onSignIn} from '../../navigation';
 import {connect} from 'react-redux';
 import {Navigation} from 'react-native-navigation';
-import {createComment} from '../../../redux/commentRedux/action';
+import {editComment} from '../../../redux/commentRedux/action';
 import {getStoreDetail} from '../../../redux/storeRedux/action';
 import LinearGradient from 'react-native-linear-gradient';
 const {width, height} = Dimensions.get('window');
@@ -31,7 +31,7 @@ import Colors from '../../../themers/Colors';
 import Fonts from '../../../themers/Fonts';
 import Logo from '../../../../assets/images/logo.png';
 
-class CommentModal extends Component {
+class UpdateCommentModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -109,56 +109,20 @@ class CommentModal extends Component {
   };
 
   onSubmit = () => {
+    Alert.alert('Thông báo', 'Cập nhật bình luận thành công!');
+
     let {comment, rank} = this.state;
-    let store_id = this.props.store_id;
+    const {store_id, comment_id} = this.props;
+
     let token = this.state.token;
 
     var commentData = {
-      store_id,
-      title: comment,
       star: rank,
+      title: comment,
+      store_id,
     };
-    this.props.onSubmitComment(commentData, token);
+    this.props.onUpdateComment(comment_id, commentData, token);
     this.backMainScreen();
-  };
-
-  backMainScreen = () => {
-    Navigation.dismissModal(this.props.componentId);
-  };
-
-  onGetUserData = async () => {
-    try {
-      let getUserAccount = await storageGet('user');
-      let parsedUser = JSON.parse(getUserAccount);
-      if (parsedUser) {
-        this.setState({token: parsedUser.data.token}, () => {
-          this.props.onGetStoreDetail(this.props.store_id, this.state.token);
-        });
-      }
-    } catch (error) {
-      console.log('comment add ', error);
-    }
-  };
-
-  componentDidMount() {
-    this.onGetUserData();
-  }
-
-  onVerify = () => {
-    Alert.alert(
-      'Xác nhận',
-      'Bạn có chắc muốn bình luận không?',
-      [
-        {
-          text: 'Quay lại',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => this.onSubmit()},
-        ,
-      ],
-      {cancelable: false},
-    );
   };
 
   onCheck = () => {
@@ -173,10 +137,55 @@ class CommentModal extends Component {
     }
   };
 
+  onVerify = () => {
+    Alert.alert(
+      'Xác nhận',
+      'Bạn có chắc muốn thay đổi bình luận không?',
+      [
+        {
+          text: 'Quay lại',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.onSubmit()},
+        ,
+      ],
+      {cancelable: false},
+    );
+  };
+
+  backMainScreen = () => {
+    Navigation.dismissModal(this.props.componentId);
+  };
+
+  onGetUserData = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState(
+          {token: parsedUser.data.token, comment: this.props.title},
+          () => {
+            this.props.onGetStoreDetail(this.props.store_id, this.state.token);
+          },
+        );
+      }
+    } catch (error) {
+      console.log('comment add ', error);
+    }
+  };
+
+  componentDidMount() {
+    this.onGetUserData();
+  }
+
   render() {
     const {star1, star2, star3, star4, star5} = this.state;
     const {detailStore} = this.props.stores;
-    console.log('detailStore', detailStore);
+
+    const {store_id, comment_id, title} = this.props;
+
+    console.log('detailStore', this.state.comment, this.state.rank);
 
     return (
       <ScrollView>
@@ -355,7 +364,7 @@ class CommentModal extends Component {
               </View>
 
               <TouchableHighlight onPress={this.onCheck}>
-                <Text style={style.styleButtonAdd}>Gửi nhận xét</Text>
+                <Text style={style.styleButtonAdd}>Thay đổi nhận xét</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -430,8 +439,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onSubmitComment: (data, token) => {
-      dispatch(createComment(data, token));
+    onUpdateComment: (comment_id, data, token) => {
+      dispatch(editComment(comment_id, data, token));
     },
     onGetStoreDetail: (storeId, token) => {
       dispatch(getStoreDetail(storeId, token));
@@ -439,4 +448,4 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentModal);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateCommentModal);

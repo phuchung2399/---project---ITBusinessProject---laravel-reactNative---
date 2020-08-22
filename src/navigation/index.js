@@ -31,6 +31,7 @@ import history_icon from '../../assets/images/history_icon.png';
 import HistoryOrder from '../screens/HistoryOrder';
 import HistoryOrderDetail from '../screens/HistoryOrder/historyOrderDetail';
 import CommentModal from '../screens/Home/detail_child/CommentModal';
+import UpdateCommentModal from '../screens/Home/detail_child/UpdateCommentModal';
 import Voucher from '../screens/Voucher';
 import {Provider} from 'react-redux';
 import store from '../redux/store';
@@ -186,6 +187,12 @@ Navigation.registerComponent(
   'CommentModal',
   () => ReduxProvider(CommentModal),
   () => CommentModal,
+);
+
+Navigation.registerComponent(
+  'UpdateCommentModal',
+  () => ReduxProvider(UpdateCommentModal),
+  () => UpdateCommentModal,
 );
 
 Navigation.registerComponent(

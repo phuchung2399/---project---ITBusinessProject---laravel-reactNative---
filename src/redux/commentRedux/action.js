@@ -45,3 +45,27 @@ export const createCommentFailure = error => {
     payload: error,
   };
 };
+
+// Edit comment
+export const editComment = (comment_id, data, token) => {
+  return {
+    type: types.UPDATE_COMMENT,
+    comment_id,
+    data,
+    token,
+  };
+};
+
+export const editCommentSuccess = data => {
+  return {
+    type: types.UPDATE_COMMENT_SUCCESS,
+    payload: data,
+  };
+};
+
+export const editCommentFailure = error => {
+  return {
+    type: types.UPDATE_COMMENT_FAILURE,
+    payload: error,
+  };
+};

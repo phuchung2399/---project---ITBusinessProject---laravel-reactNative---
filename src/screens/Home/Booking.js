@@ -13,6 +13,7 @@ import {
   AsyncStorage,
   TouchableWithoutFeedback,
   TextInput,
+  Alert,
   Switch,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -233,11 +234,6 @@ class Booking extends Component {
   applyVoucher = async () => {
     const {voucher_name, total, token} = this.state;
 
-    // const data = {
-    //   voucher_name,
-    //   total,
-    // };
-
     return fetch(
       `http://13.124.107.54/api/v1/total-by-voucher?voucher_name=${voucher_name}&total=${total}`,
       {
@@ -254,14 +250,11 @@ class Booking extends Component {
       .then(responseData => {
         const responeTotal = responseData;
         if (responeTotal.status === 400) {
-          alert(responeTotal.message);
-          console.log(responeTotal);
+          Alert.alert('Thông báo', responeTotal.message);
         } else if (responeTotal.status === 404) {
-          console.log(responeTotal);
-          alert(responeTotal.message);
+          Alert.alert('Thông báo', responeTotal.message);
         } else {
-          console.log(responeTotal);
-          alert('Thành công!');
+          Alert.alert('Thông báo', 'Thành công!');
           this.setState({
             discountPrice: responeTotal.data,
             totalDiscount: total - responeTotal.data,
@@ -479,36 +472,46 @@ class Booking extends Component {
       discountPrice,
     } = this.state;
 
-    let status = 0;
-
-    if (at_home) {
-      status = 1;
+    if (order_day === '') {
+      Alert.alert('Thông báo', 'Vui lòng chọn ngày giao dịch!');
+    } else if (order_time === '') {
+      Alert.alert('Thông báo', 'Vui lòng chọn giờ giao dịch!');
+    } else if (note === '') {
+      Alert.alert('Thông báo', 'Vui lòng nhập ghi chú!');
     } else {
-      status = 0;
+      let status = 0;
+
+      if (at_home) {
+        status = 1;
+        if (address === '') {
+          Alert.alert('Thông báo', 'Vui lòng nhập địa chỉ của bạn!');
+        }
+      } else {
+        status = 0;
+      }
+
+      let totalPrice = 0;
+
+      if (discountPrice === 0) {
+        totalPrice = total;
+      } else {
+        totalPrice = discountPrice;
+      }
+
+      const data = {
+        address,
+        total: totalPrice,
+        note,
+        voucher_name,
+        store: store_id,
+        order_time,
+        order_day,
+        at_home: status,
+        service: cartItems,
+      };
+
+      await this.props.onCreateOrder(data, token);
     }
-
-    let totalPrice = 0;
-
-    if (discountPrice === 0) {
-      totalPrice = total;
-    } else {
-      totalPrice = discountPrice;
-    }
-
-    const data = {
-      address,
-      total: totalPrice,
-      note,
-      voucher_name,
-      store: store_id,
-      order_time,
-      order_day,
-      at_home: status,
-      service: cartItems,
-    };
-
-    console.log(data);
-    await this.props.onCreateOrder(data, token);
   };
 
   render() {
@@ -523,7 +526,6 @@ class Booking extends Component {
     const status_atHome = this.state.at_home;
 
     const totalApplyVoucher = this.props.vouchers.finalPrice;
-    console.log(totalApplyVoucher);
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
