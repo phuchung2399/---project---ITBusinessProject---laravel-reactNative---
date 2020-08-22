@@ -5,21 +5,19 @@ import UpdateDataImage from '../../assets/images/updatedata.jpg';
 import Colors from '../themers/Colors';
 import {t} from '../i18n/t';
 import Fonts from '../themers/Fonts';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-class NoData extends Component {
+class NoComment extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={UpdateDataImage} style={styles.styleImage} />
-        {/* <AntDesign
-          name="barchart"
+        <Icon
+          name="comments-o"
           size={50}
           color="gray"
           onPress={() => this.backMainScreen()}
-        /> */}
-        <Text style={styles.styleText}>{t('du_lieu_thi_cong')}</Text>
-        <Text style={styles.styleText}>{t('du_lieu_cap_nhat_som')}</Text>
+        />
+        <Text style={styles.styleText}>{t('no_data')}</Text>
       </View>
     );
   }
@@ -54,7 +52,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: Colors.darkGray,
     fontFamily: Fonts.serif,
+    marginTop: 20,
   },
 });
 
-export default NoData;
+export default NoComment;

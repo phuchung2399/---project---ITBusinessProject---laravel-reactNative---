@@ -79,6 +79,7 @@ i18next.init({
         tong_dai_ho_tro: 'Tổng đài hỗ trợ Chiến binh The Nail',
         tong_dai_support_store: 'Tổng đài hỗ trợ đối tác cửa hàng',
         khong_co_ket_qua: 'Không có kết quả',
+        gia_giam: 'Giá giảm:',
       },
     },
   },

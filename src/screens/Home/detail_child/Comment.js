@@ -17,6 +17,7 @@ import {get, find, take} from 'lodash';
 import {Navigation} from 'react-native-navigation';
 import {connect} from 'react-redux';
 import _ from 'lodash';
+import NoComment from '../../../components/NoComment';
 
 class Comment extends React.Component {
   constructor(props) {
@@ -112,11 +113,7 @@ class Comment extends React.Component {
     console.log(commentsData);
 
     if (commentsData === '[]') {
-      return (
-        <View style={styles.viewNodata}>
-          <Text style={styles.textNoData}>{t('no_data')}</Text>
-        </View>
-      );
+      return <NoComment />;
     } else {
       const sortDataComments = _.orderBy(commentsData, 'updated_at', 'desc');
 
@@ -124,7 +121,6 @@ class Comment extends React.Component {
         <View style={styles.container}>
           <FlatList
             ref={'FlatList'}
-            // data={commentsData}
             data={take(
               sortDataComments,
               this.state.isShowAllComment ? sortDataComments.length : 2,

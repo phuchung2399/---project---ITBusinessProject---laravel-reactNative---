@@ -33,6 +33,7 @@ class HistoryOrderDetail extends Component {
     super(props);
     this.state = {
       token: '',
+      discountPrice: 0,
     };
   }
 
@@ -322,6 +323,17 @@ class HistoryOrderDetail extends Component {
     });
   };
 
+  sumTotalPrice = () => {
+    const dataOrderServices = this.props.orders.dataOrderDetail.services;
+
+    if (dataOrderServices.length > 0) {
+      var totalPrice = dataOrderServices.reduce(function(prev, cur) {
+        return prev + parseInt(cur.price);
+      }, 0);
+    }
+    return totalPrice;
+  };
+
   render() {
     const dataOrderDetail = this.props.orders.dataOrderDetail;
     console.log(dataOrderDetail);
@@ -467,6 +479,33 @@ class HistoryOrderDetail extends Component {
                   fontFamily: Fonts.serif,
                 }}>
                 {dataOrderDetail.total}  đ
+              </Text>
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 5,
+              }}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                  flex: 1,
+                  fontFamily: Fonts.serif,
+                }}>
+                {t('gia_giam')}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  alignItems: 'flex-end',
+                  fontSize: 15,
+                  color: 'red',
+                  textDecorationLine: 'line-through',
+                  fontFamily: Fonts.serif,
+                }}>
+                {this.sumTotalPrice() - dataOrderDetail.total} đ
               </Text>
             </View>
           </View>
@@ -813,7 +852,7 @@ class HistoryOrderDetail extends Component {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <TouchableWithoutFeedback onPress={this.onCancelOrder}>
+              <TouchableOpacity onPress={this.onCancelOrder}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -825,7 +864,7 @@ class HistoryOrderDetail extends Component {
                   }}>
                   {t('huy_don')}
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </LinearGradient>
           ) : (
             <LinearGradient
@@ -841,7 +880,7 @@ class HistoryOrderDetail extends Component {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <TouchableWithoutFeedback onPress={() => this.onReOrder()}>
+              <TouchableOpacity onPress={() => this.onReOrder()}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -853,7 +892,7 @@ class HistoryOrderDetail extends Component {
                   }}>
                   {t('dat_lai')}
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </LinearGradient>
           )}
         </View>

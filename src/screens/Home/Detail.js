@@ -344,15 +344,15 @@ class Detail extends React.Component {
               }}>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: 'bold',
                   color: 'black',
                 }}>
-                {this.sumTotalPrice()} đ
+                Tổng cộng: {this.sumTotalPrice()} đ
               </Text>
             </View>
             <View style={{alignItems: 'flex-end'}}>
-              <TouchableWithoutFeedback onPress={this.changeShopping}>
+              <TouchableOpacity onPress={this.changeShopping}>
                 <Text
                   style={{
                     borderRadius: 20,
@@ -366,7 +366,7 @@ class Detail extends React.Component {
                   }}>
                   Đặt ngay
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
           </View>
         )}

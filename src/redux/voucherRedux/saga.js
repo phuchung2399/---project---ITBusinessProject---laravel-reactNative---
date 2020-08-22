@@ -12,7 +12,6 @@ export function* getAllVouchersSaga({token}) {
   try {
     const response = yield call(getAllVouchers, token);
     const vouchersData = response.data.data;
-    console.log(vouchersData);
     yield put(getAllVouchersSuccess(vouchersData));
   } catch (error) {
     console.log('getStoresByStarSaga', error);
@@ -21,7 +20,6 @@ export function* getAllVouchersSaga({token}) {
 }
 
 export function* totalApplyVouchersSaga({data, token}) {
-  console.log(data);
   try {
     const response = yield call(
       totalApplyVouchers,
@@ -29,9 +27,9 @@ export function* totalApplyVouchersSaga({data, token}) {
       data.total,
       token,
     );
-    // const reducePrice = response.data;
-    console.log(response);
-    // yield put(applyVoucherSuccess(reducePrice));
+    const reducePrice = response.data.data;
+    console.log(reducePrice);
+    yield put(applyVoucherSuccess(reducePrice));
   } catch (error) {
     console.log('applyVoucherSaga', error);
     yield put({type: applyVoucherFailure, payload: error});
