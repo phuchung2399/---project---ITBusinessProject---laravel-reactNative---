@@ -48,7 +48,7 @@ export function* createOrderSaga({data, token}) {
   try {
     const response = yield call(createOrder, JSON.stringify(data), token);
     const messageCreateSuccess = response.data.message;
-    alert(messageCreateSuccess);
+    // alert(messageCreateSuccess);
 
     console.log(response);
     // console.log('messageCreateSuccess, ', messageCreateSuccess);

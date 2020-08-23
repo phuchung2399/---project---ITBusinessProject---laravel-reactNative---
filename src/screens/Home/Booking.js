@@ -34,6 +34,8 @@ import DatePicker from 'react-native-datepicker';
 import {createOrder} from '../../redux/orderRedux/action';
 import {applyVoucher} from '../../redux/voucherRedux/action';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {deleteAllCarts, deleteStoreId} from '../../redux/orderRedux/action';
+import {onChangeIntoMainScreen} from '../../navigation';
 
 class Booking extends Component {
   constructor(props) {
@@ -516,7 +518,31 @@ class Booking extends Component {
       };
 
       await this.props.onCreateOrder(data, token);
+      this.onVerify();
     }
+  };
+
+  onBackHome = () => {
+    this.props.onDeleteAllCart();
+    this.props.onDeleteStoreId();
+    onChangeIntoMainScreen();
+  };
+
+  onVerify = () => {
+    Alert.alert(
+      'Thông báo',
+      'Đơn hàng của bạn đã được đặt thành công!',
+      [
+        {
+          text: 'Quay lại',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Quay về  trang chủ', onPress: () => this.onBackHome()},
+        ,
+      ],
+      {cancelable: false},
+    );
   };
 
   render() {
@@ -784,6 +810,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onApplyVoucher: (data, token) => {
       dispatch(applyVoucher(data, token));
+    },
+    onDeleteAllCart: () => {
+      dispatch(deleteAllCarts());
+    },
+    onDeleteStoreId: () => {
+      dispatch(deleteStoreId());
     },
   };
 };

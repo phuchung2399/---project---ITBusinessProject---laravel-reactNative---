@@ -216,52 +216,139 @@
 
 // export default App;
 
+// import React, {Component} from 'react';
+// import {TouchableOpacity, Platform, Text, View} from 'react-native';
+// import DateTimePicker from '@react-native-community/datetimepicker';
+// import moment from 'moment';
+
+// export default class DatePicker extends Component {
+//   constructor(props) {
+//     super(props);
+
+//     this.state = {
+//       date: new Date(),
+//     };
+//   }
+
+//   getTime = () => {
+//     const {date} = this.state;
+//     var hours = date.getHours(); //Current Hours
+//     var min = date.getMinutes(); //Current Minutes
+//     var sec = date.getSeconds(); //Current Seconds
+//     console.log(hours + ':' + min + ':' + sec);
+//   };
+
+//   render() {
+//     const {date} = this.state;
+//     return (
+//       <View>
+//         <Text
+//           style={{
+//             fontSize: 20,
+//             marginBottom: 10,
+//             borderBottomWidth: 2,
+//             borderBottomColor: 'gray',
+//           }}>
+//           Chon ngay
+//         </Text>
+//         <DateTimePicker
+//           isVisible={false}
+//           value={date}
+//           mode="time"
+//           display="spinner"
+//           confirmBtnText="Confirm"
+//           cancelBtnText="Cancel"
+//           onChange={(e, d) => {
+//             this.setState({date: d});
+//             this.setState({date: d}, () => {
+//               this.getTime();
+//             });
+//           }}
+//           style={{backgroundColor: 'white'}}
+//         />
+//       </View>
+//     );
+//   }
+// }
+
 import React, {useState} from 'react';
-import {View, Button, Platform} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import {
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 
-export const App = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
+const DATA = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+];
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
+const Item = ({item, onPress, style, show}) => (
+  <View>
+    <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
+      <Text style={styles.title}>{item.title}</Text>
+    </TouchableOpacity>
 
-  const showMode = currentMode => {
-    setShow(true);
-    setMode(currentMode);
-  };
+    {show === true ? <Text style={[styles.item]}>ok</Text> : null}
+  </View>
+);
 
-  const showDatepicker = () => {
-    showMode('date');
-  };
+const App = () => {
+  const [selectedId, setSelectedId] = useState(null);
 
-  const showTimepicker = () => {
-    showMode('time');
+  const renderItem = ({item}) => {
+    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
+    const show = item.id === selectedId ? true : false;
+
+    return (
+      <Item
+        item={item}
+        onPress={() => setSelectedId(item.id)}
+        style={{backgroundColor}}
+        show={{show}}
+      />
+    );
   };
 
   return (
-    <View>
-      <View>
-        <Button onPress={showDatepicker} title="Show date picker!" />
-      </View>
-      <View>
-        <Button onPress={showTimepicker} title="Show time picker!" />
-      </View>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
-    </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        extraData={selectedId}
+      />
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
+});
+
+export default App;

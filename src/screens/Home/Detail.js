@@ -156,10 +156,12 @@ class Detail extends React.Component {
     for (let i = 0; i < 5 - detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
+    if (detailStore.length <= 0) {
+      return this.renderLoading();
+    }
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
-        {!detailStore && this.renderLoading()}
         <View
           style={{
             flexDirection: 'row',

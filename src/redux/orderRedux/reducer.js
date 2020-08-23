@@ -80,6 +80,20 @@ const orderReducer = (state = initState, action) => {
         loading: false,
       };
 
+    case types.DELETE_ALL_CART:
+      return {
+        ...state,
+        cartItems: action.payload,
+        loading: false,
+      };
+
+    case types.DELETE_STORE_ID:
+      return {
+        ...state,
+        store_id: action.payload,
+        loading: false,
+      };
+
     case types.ADD_STORE_ID:
       return {
         ...state,

@@ -8,6 +8,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  Alert,
   TouchableWithoutFeedback,
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -255,8 +256,25 @@ class HistoryOrderDetail extends Component {
     );
   };
 
-  onCancelOrder = () => {
+  onConfirm = () => {
     this.props.onCancelOrder(this.props.order_id, this.state.token);
+  };
+
+  onCancelOrder = () => {
+    Alert.alert(
+      'Thông báo',
+      'Bạn có chắc muốn huỷ giao dịch này không?',
+      [
+        {
+          text: 'Quay lại',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Huỷ', onPress: () => this.onConfirm()},
+        ,
+      ],
+      {cancelable: false},
+    );
   };
 
   onShowFormComment = store_id => {
@@ -290,13 +308,37 @@ class HistoryOrderDetail extends Component {
     const recent_store_id = this.props.orders.store_id;
     const store_id_clicked = dataOrderDetail.store.store_id;
     if (store_id_clicked === recent_store_id || recent_store_id === '') {
-      const dataItem = dataOrderDetail.services;
-      this.props.onAddCart(dataItem);
-      this.props.onAddStoreId(store_id_clicked);
-      this.changeShopping();
+      this.onVerify();
     } else {
-      alert('o dc add');
+      Alert.alert('Thông Báo', 'Giỏ hàng của bạn hiệ tại đang có sản phẩm');
     }
+  };
+
+  onConfitm = () => {
+    const dataOrderDetail = this.props.orders.dataOrderDetail;
+    const store_id_clicked = dataOrderDetail.store.store_id;
+
+    const dataItems = dataOrderDetail.services;
+    dataItems.forEach(service => this.props.onAddCart(service));
+    this.props.onAddStoreId(store_id_clicked);
+    this.changeShopping();
+  };
+
+  onVerify = () => {
+    Alert.alert(
+      'Thông báo',
+      'Bạn có chắc muốn giao dịch lại không?',
+      [
+        {
+          text: 'Quay lại',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.onConfitm()},
+        ,
+      ],
+      {cancelable: false},
+    );
   };
 
   changeShopping = () => {
@@ -336,7 +378,8 @@ class HistoryOrderDetail extends Component {
 
   render() {
     const dataOrderDetail = this.props.orders.dataOrderDetail;
-    console.log(dataOrderDetail);
+    // console.log(dataOrderDetail);
+    console.log(this.props.orders.cartItems);
 
     if (dataOrderDetail.length === 0) {
       return (

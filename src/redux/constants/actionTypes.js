@@ -85,8 +85,10 @@ export const CANCEL_ORDER_FAILURE = 'CANCEL_ORDER_FAILURE';
 
 // Add cart item
 export const ADD_CART = 'ADD_CART';
+export const DELETE_ALL_CART = 'DELETE_ALL_CART';
 export const DELETE_CART = 'DELETE_CART';
 export const ADD_STORE_ID = 'ADD_STORE_ID';
+export const DELETE_STORE_ID = 'DELETE_STORE_ID';
 
 // Get all vouchers
 export const GET_ALL_VOUCHERS = 'GET_ALL_VOUCHERS';

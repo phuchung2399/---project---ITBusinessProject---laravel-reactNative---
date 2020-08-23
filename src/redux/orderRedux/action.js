@@ -108,6 +108,20 @@ export const addStoreId = store_id => {
   };
 };
 
+export const deleteAllCarts = () => {
+  return {
+    type: types.DELETE_ALL_CART,
+    payload: [],
+  };
+};
+
+export const deleteStoreId = () => {
+  return {
+    type: types.DELETE_STORE_ID,
+    payload: '',
+  };
+};
+
 export const deleteCart = id => {
   const cartItems = store.getState().orders.cartItems;
   const newArr = _.filter(cartItems, item => item.service_id !== id);

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  Alert,
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
@@ -122,8 +123,25 @@ class index extends Component {
     });
   };
 
-  onCancelOrder = order_id => {
+  onConfirm = order_id => {
     this.props.onCancelOrder(order_id, this.state.token);
+  };
+
+  onCancelOrder = order_id => {
+    Alert.alert(
+      'Thông báo',
+      'Bạn có chắc muốn huỷ giao dịch này không?',
+      [
+        {
+          text: 'Quay lại',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Huỷ', onPress: () => this.onConfirm(order_id)},
+        ,
+      ],
+      {cancelable: false},
+    );
   };
 
   renderItem = ({item}) => {
