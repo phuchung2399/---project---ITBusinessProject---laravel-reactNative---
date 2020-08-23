@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  StyleSheet,
   Clipboard,
 } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
@@ -24,6 +25,8 @@ const window = Dimensions.get('window');
 import moment from 'moment';
 import Colors from '../../themers/Colors';
 import Loading from '../Loading';
+import Swipeout from 'react-native-swipeout';
+const {width} = Dimensions.get('window');
 
 class index extends Component {
   constructor(props) {
@@ -31,6 +34,9 @@ class index extends Component {
     this.state = {
       token: '',
       isLoading: true,
+      activeRowKey: null,
+      numberOfRefresh: 0,
+      isChecked: false,
     };
   }
   componentDidMount() {
@@ -194,87 +200,98 @@ class index extends Component {
   };
 
   renderItem = ({item}) => {
+    const swipeSettings = {
+      autoClose: true,
+      onClose: (secId, rowId, direction) => {
+        this.setState({activeRowKey: null});
+      },
+      right: [
+        {
+          onPress: () => {
+            this.onApply(item.voucher_name);
+          },
+          component: (
+            <View style={styles.item}>
+              <View style={[styles.inItem, {backgroundColor: '#fd0799'}]}>
+                <Icon
+                  name="copyright"
+                  style={[styles.icon, {color: 'white'}]}
+                />
+              </View>
+            </View>
+          ),
+          backgroundColor: 'white',
+        },
+      ],
+    };
+
     return (
-      <LinearGradient
-        colors={['#fdf6f6', 'white']}
-        start={{x: 0, y: 1}}
-        end={{x: 1, y: 0}}
-        style={{
-          flex: 1,
-          paddingVertical: 10,
-          paddingHorizontal: 10,
-          flexDirection: 'row',
-          borderRadius: 10,
-          borderBottomWidth: 2,
-          borderBottomColor: '#eaeaea',
-        }}>
-        <View style={{width: 100, height: 90}}>
-          <TouchableOpacity onPress={() => this.onPress()}>
-            <Image
-              source={Logo}
-              style={{
-                width: '100%',
-                height: '100%',
-                borderWidth: 5,
-                borderColor: 'white',
-                borderRadius: 10,
-              }}
-            />
-          </TouchableOpacity>
-        </View>
+      <Swipeout {...swipeSettings} backgroundColor="white">
+        <LinearGradient
+          colors={['#fdf6f6', 'white']}
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          style={{
+            flex: 1,
+            paddingVertical: 10,
+            paddingHorizontal: 10,
+            flexDirection: 'row',
+            borderRadius: 10,
+            borderBottomWidth: 2,
+            borderBottomColor: '#eaeaea',
+          }}>
+          <View style={{width: 100, height: 90}}>
+            <TouchableOpacity onPress={() => this.onPress()}>
+              <Image
+                source={Logo}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderWidth: 5,
+                  borderColor: 'white',
+                  borderRadius: 10,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
 
-        <View
-          style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
-          <TouchableOpacity onPress={() => this.onPress()}>
-            <View>
-              <Text
-                style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
-                {t('ma_giam_gia_title')}
-              </Text>
-
-              <Text style={{color: 'gray', fontSize: 18, color: 'red'}}>
-                {item.voucher_name}
-              </Text>
-
-              <View style={{flexDirection: 'row', marginTop: 5}}>
-                <Text style={{fontWeight: 'bold', fontSize: 16}}>
-                  {t('so_tien_giam')}
+          <View
+            style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
+            <TouchableOpacity onPress={() => this.onPress()}>
+              <View>
+                <Text
+                  style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
+                  {t('ma_giam_gia_title')}
                 </Text>
 
-                <Text style={{marginLeft: 7, fontWeight: 'bold', fontSize: 16}}>
-                  {item.price} đ
+                <Text style={{color: 'gray', fontSize: 18, color: 'red'}}>
+                  {item.voucher_name}
+                </Text>
+
+                <View style={{flexDirection: 'row', marginTop: 5}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                    {t('so_tien_giam')}
+                  </Text>
+
+                  <Text
+                    style={{marginLeft: 7, fontWeight: 'bold', fontSize: 16}}>
+                    {item.price} đ
+                  </Text>
+                </View>
+                <Text style={{marginTop: 7, color: 'gray', fontWeight: 'bold'}}>
+                  {/* {item.created_at} */}
+                  {moment(item.created_at).calendar()}
                 </Text>
               </View>
-              <Text style={{marginTop: 7, color: 'gray', fontWeight: 'bold'}}>
-                {/* {item.created_at} */}
-                {moment(item.created_at).calendar()}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            width: 90,
-            height: 30,
-            backgroundColor: Colors.darkGray,
-            borderRadius: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}>
-          <TouchableOpacity onPress={() => this.onApply(item.voucher_name)}>
-            <Text style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
-              {t('copy_ngay')}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        </LinearGradient>
+      </Swipeout>
     );
   };
 
   onApply = voucher_name => {
-    alert('Đã copy');
+    Alert.alert(' Thông báo', 'Đã copy');
     Clipboard.setString(voucher_name);
   };
 
@@ -287,6 +304,31 @@ class index extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  item: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100,
+  },
+  inItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  icon: {
+    fontSize: (width * 6) / 100,
+  },
+});
 
 const mapStateToProps = state => {
   return {

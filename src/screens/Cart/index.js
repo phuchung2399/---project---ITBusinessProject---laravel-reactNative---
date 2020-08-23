@@ -479,7 +479,7 @@ class index extends Component {
             marginHorizontal: 10,
             justifyContent: 'center',
           }}>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             onPress={() =>
               this.onContinued(userData, dataCarts, this.sumTotalPrice())
             }>
@@ -493,7 +493,7 @@ class index extends Component {
               }}>
               Tiếp tục
             </Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </LinearGradient>
       </View>
     );

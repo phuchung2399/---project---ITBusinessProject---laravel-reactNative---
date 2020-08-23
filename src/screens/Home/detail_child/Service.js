@@ -9,6 +9,7 @@ import {
   TextInput,
   Dimensions,
   Picker,
+  Alert,
   TouchableWithoutFeedback,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,7 +18,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const {width, height} = Dimensions.get('window');
 import {t} from '../../../i18n/t';
 import Fonts from '../../../themers/Fonts';
-import {get, filter} from 'lodash';
+import {get, filter, find, take} from 'lodash';
 import NoData from '../../../components/NoData';
 import {storageSet} from '../../../checkAsyncStorage';
 import {Navigation} from 'react-native-navigation';
@@ -25,6 +26,8 @@ import {
   addCart,
   deleteCart,
   addStoreId,
+  deleteAllCarts,
+  deleteStoreId,
 } from '../../../redux/orderRedux/action';
 import {connect} from 'react-redux';
 
@@ -91,35 +94,62 @@ class Service extends React.Component {
   }
 
   onAddToCart = item => {
-    // this.setState({
-    //   isChangeIcon: !this.state.isChangeIcon,
-    // });
-    // this.setState({
-    //   isChangeIcon: !this.state.isChangeIcon,
-    // });
-
     const recent_store_id = this.props.orders.store_id;
+    const cartitems = this.props.orders.cartItems;
+
     const store_id_clicked = this.props.store_id;
 
     if (store_id_clicked === recent_store_id || recent_store_id === '') {
-      const dataItem = {
-        service_id: item.service_id,
-        service_name: item.service_name,
-        description: item.description,
-        price: item.price,
-        image: item.image,
-        store_id: item.store_id,
-      };
-      this.props.onAddCart(dataItem);
-      this.props.onAddStoreId(this.props.store_id);
+      if (cartitems.length < 3) {
+        const results = find(cartitems, ['service_id', item.service_id]);
+        if (results === undefined) {
+          const dataItem = {
+            service_id: item.service_id,
+            service_name: item.service_name,
+            description: item.description,
+            price: item.price,
+            image: item.image,
+            store_id: item.store_id,
+          };
+          this.props.onAddCart(dataItem);
+          this.props.onAddStoreId(this.props.store_id);
+        } else {
+          Alert.alert('Thông báo', 'Bạn đã thêm dịch vụ này vào giỏ hàng');
+        }
+      } else {
+        Alert.alert('Thông báo', 'Bạn chỉ được chọn 3 dịch vụ');
+      }
     } else {
-      alert('o dc add');
+      this.onVerify();
     }
 
     // arrayServicesSelected.push(dataItem);
     // this.setState({
     //   arrayServicesSelected,
     // });
+  };
+
+  onVerify = () => {
+    Alert.alert(
+      'Xác nhận',
+      'Hiện tại giỏ hàng của bạn đang có dịch vụ của cửa hàng khác, bạn có muốn xoá giỏ hàng không?',
+      [
+        {
+          text: 'Quay lại',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.onDeleteCartItems()},
+        ,
+      ],
+      {cancelable: false},
+    );
+  };
+
+  onDeleteCartItems = () => {
+    this.props.onDeleteAllCart();
+    this.props.onDeleteStoreId();
+    Alert.alert('Thông báo', 'Xoá thành công');
   };
 
   onDeleteCart = service_id => {
@@ -154,7 +184,6 @@ class Service extends React.Component {
   };
 
   renderItem = ({item}) => {
-    // console.log(item);
     return (
       <LinearGradient
         colors={['#b5b1b1', '#e2d5d5']}
@@ -187,19 +216,6 @@ class Service extends React.Component {
             color="white"
             size={15}
           />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => this.onDeleteCart(item.service_id)}
-          style={{
-            width: 30,
-            height: 30,
-            backgroundColor: !this.state.isChangeIcon ? 'blue' : 'green',
-            borderRadius: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <AntDesign name="check" color="white" size={15} />
         </TouchableOpacity>
       </LinearGradient>
     );
@@ -406,6 +422,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onDeleteCartItem: id => {
       dispatch(deleteCart(id));
+    },
+    onDeleteAllCart: () => {
+      dispatch(deleteAllCarts());
+    },
+    onDeleteStoreId: () => {
+      dispatch(deleteStoreId());
     },
   };
 };

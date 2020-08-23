@@ -29,7 +29,7 @@ class CartComponent extends React.Component {
             name="shoppingcart"
             size={35}
             color="#7adaf7"
-            onPress={() => this.changeShopping()}
+            // onPress={() => this.changeShopping()}
           />
         </TouchableOpacity>
       </View>

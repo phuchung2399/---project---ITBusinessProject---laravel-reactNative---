@@ -3,6 +3,7 @@ import * as types from '../constants/actionTypes';
 const initState = {
   dataComments: {},
   messageSuccess: [],
+  messageEditCommentSuccess: [],
   error: {},
   loading: false,
 };
@@ -28,6 +29,23 @@ const commentReducer = (state = initState, action) => {
       return {...state, messageSuccess: action.payload, loading: false};
 
     case types.CREATE_COMMENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+
+    case types.UPDATE_COMMENT:
+      return {...state, loading: true};
+
+    case types.UPDATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        messageEditCommentSuccess: action.payload,
+        loading: false,
+      };
+
+    case types.UPDATE_COMMENT_FAILURE:
       return {
         ...state,
         error: action.payload,

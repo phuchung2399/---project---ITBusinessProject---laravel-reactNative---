@@ -30,6 +30,7 @@ import Fonts from '../../themers/Fonts';
 import Location from 'react-native-vector-icons/Entypo';
 import SearchItems from './components/SearchItems';
 import {searchStore, addKey, deleteKey} from '../../redux/searchRedux/action';
+import {getAllStores} from '../../redux/storeRedux/action';
 import {connect} from 'react-redux';
 import {t} from '../../i18n/t';
 import Loading from '../Loading';
@@ -42,24 +43,8 @@ class Search extends Component {
       text: '',
       colorFalseSwitchIsOn: true,
       key: '',
+      data: [],
       isShowRecentSearch: true,
-      searchData: [
-        {
-          name: 'Mai Nail Store',
-          image:
-            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
-        },
-        {
-          name: 'Tuan Spa',
-          image:
-            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
-        },
-        {
-          name: 'Dieu Qouch',
-          image:
-            'https://pbs.twimg.com/profile_images/680010220324712449/yoz5DV8l_400x400.jpg',
-        },
-      ],
     };
   }
 
@@ -72,10 +57,12 @@ class Search extends Component {
       let getUserAccount = await storageGet('user');
       let parsedUser = JSON.parse(getUserAccount);
       if (parsedUser) {
-        this.setState({token: parsedUser.data.token});
+        this.setState({token: parsedUser.data.token}, () => {
+          this.props.onGetAllStores(this.state.token);
+        });
       }
     } catch (error) {
-      // alert(error);
+      console.log(error);
     }
   };
 
@@ -108,7 +95,6 @@ class Search extends Component {
   };
 
   _renderItem = ({item}) => {
-    console.log(item.uri);
     return (
       <View
         style={{
@@ -127,6 +113,7 @@ class Search extends Component {
           <TouchableOpacity onPress={() => this.onRecentSearch(item.key)}>
             <Text resizeMode="cover" style={{fontSize: 15, marginLeft: 10}}>
               {item.key}
+              {/* {item.store_name} */}
             </Text>
           </TouchableOpacity>
         </View>
@@ -153,22 +140,24 @@ class Search extends Component {
     this.props.onDeleteKey(key);
   };
 
-  _search(text) {
-    // let data = [];
-    // this.state.data_temp.map(function(value) {
-    //   if (value.name.indexOf(text) > -1) {
-    //     data.push(value);
-    //   }
-    // });
-    // this.setState({
-    //   data: data,
-    //   search: text,
-    // });
-
+  _search = text => {
     this.setState({
       key: text,
     });
-  }
+
+    // const dataStore = this.props.stores.dataAllStores;
+
+    // const newData = dataStore.filter(item => {
+    //   const itemData = `${item.store_name.toUpperCase()}
+    //   ${item.store_name.first.toUpperCase()} ${item.store_name.last.toUpperCase()}`;
+
+    //   const textData = text;
+
+    //   return itemData.indexOf(textData) > -1;
+    //});
+
+    // this.setState({data: newData});
+  };
 
   onRestart = () => {
     this.setState({
@@ -294,7 +283,7 @@ class Search extends Component {
     });
   };
 
-  renderItem = ({item}) => {
+  renderItem = ({index, item}) => {
     let star = [];
 
     for (let i = 0; i < item.rank; i++) {
@@ -337,10 +326,28 @@ class Search extends Component {
           style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
           <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
             <View>
-              <Text
-                style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
-                {item.store_name}
-              </Text>
+              <View
+                style={{
+                  flex: 1,
+
+                  flexDirection: 'row',
+                }}>
+                <Text
+                  style={{
+                    color: '#5a5555',
+                    fontWeight: 'bold',
+                    fontSize: 18,
+                    flex: 1,
+                  }}>
+                  {item.store_name}
+                </Text>
+                {index < 5 ? (
+                  <Text
+                    style={{color: 'red', fontWeight: 'bold', fontSize: 15}}>
+                    Ad
+                  </Text>
+                ) : null}
+              </View>
 
               <Text style={{color: 'gray'}}>{item.address}</Text>
 
@@ -372,7 +379,8 @@ class Search extends Component {
 
   renderRecentSearch = () => {
     const keys = this.props.dataSearch.recentSearchData;
-    console.log(keys);
+    const dataStore = this.props.stores.dataAllStores;
+
     return (
       <View
         style={{
@@ -460,6 +468,9 @@ class Search extends Component {
     const seachData = this.props.dataSearch.dataStoresSearch;
     const isShowRecentSearch = this.state.isShowRecentSearch;
 
+    const dataStore = this.props.stores.dataAllStores;
+    console.log('dataStore', dataStore);
+
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         {this.renderHeader()}
@@ -535,6 +546,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     dataSearch: state.searchDatas,
+    stores: state.stores,
   };
 };
 
@@ -548,6 +560,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onAddKey: key => {
       dispatch(addKey(key));
+    },
+    onGetAllStores: token => {
+      dispatch(getAllStores(token));
     },
   };
 };

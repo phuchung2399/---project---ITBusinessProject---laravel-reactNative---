@@ -1,21 +1,15 @@
 import axios from 'axios';
 import * as config from './config';
 
-export default function uploadImage(endpoint, method, data, Token) {
-  // console.log(body);
-
+export default function uploadImage(endpoint, method, body, Token) {
   return axios({
     method: method,
     url: `${config.API_URL}${endpoint}`,
-    data,
-    // headers: {
-    //   'Content-Type': 'multipart/form-data',
-    //   Authorization: 'Bearer ' + Token,
-    // },
-
+    data: body,
     headers: {
+      Authorization: 'Bearer ' + Token,
+      'Content-Type': 'application/json',
       Accept: 'application/json',
-      'Content-Type': 'multipart/form-data',
     },
   })
     .then(response => {

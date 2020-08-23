@@ -13,12 +13,16 @@ import {
   AsyncStorage,
   TouchableWithoutFeedback,
   TextInput,
+  Alert,
+  Platform,
   Switch,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../../../assets/images/logo.png';
 import Img from '../../../assets/images/service-img.jpg';
@@ -29,6 +33,9 @@ import Input from './components/TextInput';
 import DatePicker from 'react-native-datepicker';
 import {createOrder} from '../../redux/orderRedux/action';
 import {applyVoucher} from '../../redux/voucherRedux/action';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {deleteAllCarts, deleteStoreId} from '../../redux/orderRedux/action';
+import {onChangeIntoMainScreen} from '../../navigation';
 
 class Booking extends Component {
   constructor(props) {
@@ -43,6 +50,11 @@ class Booking extends Component {
       total: '',
       token: '',
       voucher_name: '',
+      totalDiscount: 0,
+      discountPrice: 0,
+
+      dateTimePickerVisible: false,
+      dateOrTimeValue: new Date(),
     };
   }
 
@@ -229,12 +241,36 @@ class Booking extends Component {
   applyVoucher = async () => {
     const {voucher_name, total, token} = this.state;
 
-    const data = {
-      voucher_name,
-      total,
-    };
-
-    await this.props.onApplyVoucher(data, token);
+    return fetch(
+      `http://13.124.107.54/api/v1/total-by-voucher?voucher_name=${voucher_name}&total=${total}`,
+      {
+        method: 'POST',
+        body: '',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+      .then(response => response.json())
+      .then(responseData => {
+        const responeTotal = responseData;
+        if (responeTotal.status === 400) {
+          Alert.alert('Thông báo', responeTotal.message);
+        } else if (responeTotal.status === 404) {
+          Alert.alert('Thông báo', responeTotal.message);
+        } else {
+          Alert.alert('Thông báo', 'Thành công!');
+          this.setState({
+            discountPrice: responeTotal.data,
+            totalDiscount: total - responeTotal.data,
+          });
+        }
+      })
+      .catch(error => {
+        console.log('Error');
+      });
   };
 
   renderVoucher = () => {
@@ -271,7 +307,7 @@ class Booking extends Component {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <TouchableWithoutFeedback onPress={this.applyVoucher}>
+              <TouchableOpacity onPress={this.applyVoucher}>
                 <Text
                   style={{
                     borderRadius: 20,
@@ -285,7 +321,7 @@ class Booking extends Component {
                   }}>
                   Áp dụng
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -322,6 +358,76 @@ class Booking extends Component {
               <AntDesign name="edit" size={25} color="#3e3e3e" />
             </View>
           </View>
+        </View>
+      </View>
+    );
+  };
+
+  renderShowPrice = () => {
+    return (
+      <View
+        style={{
+          borderBottomWidth: 2,
+          borderBottomColor: '#FC959C',
+          marginBottom: 50,
+        }}>
+        <View
+          style={{
+            marginHorizontal: 20,
+            flexDirection: 'row',
+            marginVertical: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <FontAwesome name="money" size={20} color="#3e3e3e" />
+          <View style={{marginLeft: 10, flex: 1}}>
+            <TouchableWithoutFeedback onPress={this.onSignUp}>
+              <Text
+                style={{
+                  color: 'black',
+                  fontSize: 16,
+                }}>
+                Tổng cộng
+              </Text>
+            </TouchableWithoutFeedback>
+          </View>
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 16,
+            }}>
+            {this.state.total} đ
+          </Text>
+        </View>
+
+        <View
+          style={{
+            marginHorizontal: 20,
+            flexDirection: 'row',
+            marginBottom: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Entypo name="price-ribbon" size={20} color="#3e3e3e" />
+          <View style={{marginLeft: 10, flex: 1}}>
+            <TouchableWithoutFeedback onPress={this.onSignUp}>
+              <Text
+                style={{
+                  color: 'black',
+                  fontSize: 16,
+                }}>
+                Giảm giá
+              </Text>
+            </TouchableWithoutFeedback>
+          </View>
+          <Text
+            style={{
+              color: 'gray',
+              fontSize: 16,
+              textDecorationLine: 'line-through',
+            }}>
+            {this.state.totalDiscount} đ
+          </Text>
         </View>
       </View>
     );
@@ -370,29 +476,73 @@ class Booking extends Component {
       token,
       voucher_name,
       at_home,
+      discountPrice,
     } = this.state;
 
-    let status = 0;
-
-    if (at_home) {
-      status = 1;
+    if (order_day === '') {
+      Alert.alert('Thông báo', 'Vui lòng chọn ngày giao dịch!');
+    } else if (order_time === '') {
+      Alert.alert('Thông báo', 'Vui lòng chọn giờ giao dịch!');
+    } else if (note === '') {
+      Alert.alert('Thông báo', 'Vui lòng nhập ghi chú!');
     } else {
-      status = 0;
-    }
-    const data = {
-      address,
-      total,
-      note,
-      voucher_name,
-      store: store_id,
-      order_time,
-      order_day,
-      at_home: status,
-      service: cartItems,
-    };
+      let status = 0;
 
-    // console.log(data);
-    await this.props.onCreateOrder(data, token);
+      if (at_home) {
+        status = 1;
+        if (address === '') {
+          Alert.alert('Thông báo', 'Vui lòng nhập địa chỉ của bạn!');
+        }
+      } else {
+        status = 0;
+      }
+
+      let totalPrice = 0;
+
+      if (discountPrice === 0) {
+        totalPrice = total;
+      } else {
+        totalPrice = discountPrice;
+      }
+
+      const data = {
+        address,
+        total: totalPrice,
+        note,
+        voucher_name,
+        store: store_id,
+        order_time,
+        order_day,
+        at_home: status,
+        service: cartItems,
+      };
+
+      await this.props.onCreateOrder(data, token);
+      this.onVerify();
+    }
+  };
+
+  onBackHome = () => {
+    this.props.onDeleteAllCart();
+    this.props.onDeleteStoreId();
+    onChangeIntoMainScreen();
+  };
+
+  onVerify = () => {
+    Alert.alert(
+      'Thông báo',
+      'Đơn hàng của bạn đã được đặt thành công!',
+      [
+        {
+          text: 'Quay lại',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Quay về  trang chủ', onPress: () => this.onBackHome()},
+        ,
+      ],
+      {cancelable: false},
+    );
   };
 
   render() {
@@ -405,6 +555,8 @@ class Booking extends Component {
     const cartItems = this.props.orders.cartItems;
 
     const status_atHome = this.state.at_home;
+
+    const totalApplyVoucher = this.props.vouchers.finalPrice;
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
@@ -453,6 +605,18 @@ class Booking extends Component {
                     this.setState({order_day: date});
                   }}
                 />
+              </View>
+
+              <View>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    marginBottom: 10,
+                    borderBottomWidth: 2,
+                    borderBottomColor: 'gray',
+                  }}>
+                  Chon ngay
+                </Text>
               </View>
 
               {/* <View
@@ -518,16 +682,32 @@ class Booking extends Component {
 
           {this.renderMethodToPay()}
           {this.renderVoucher()}
+          {this.renderShowPrice()}
         </ScrollView>
 
         <SafeAreaView>
           <View
             style={{
-              marginHorizontal: 10,
+              marginHorizontal: 5,
               padding: 10,
               flexDirection: 'row',
               backgroundColor: '#F99A7C',
             }}>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  color: 'black',
+                }}>
+                Tổng cộng:
+              </Text>
+            </View>
+
             <View
               style={{
                 flex: 1,
@@ -540,11 +720,14 @@ class Booking extends Component {
                   fontWeight: 'bold',
                   color: 'black',
                 }}>
-                {total} đ
+                {this.state.discountPrice === 0
+                  ? total
+                  : this.state.discountPrice}
+                đ{/* {total} đ */}
               </Text>
             </View>
             <View style={{alignItems: 'flex-end'}}>
-              <TouchableWithoutFeedback onPress={this.onBooking}>
+              <TouchableOpacity onPress={this.onBooking}>
                 <Text
                   style={{
                     borderRadius: 20,
@@ -558,7 +741,7 @@ class Booking extends Component {
                   }}>
                   Đặt ngay
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
           </View>
         </SafeAreaView>
@@ -616,6 +799,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     orders: state.orders,
+    vouchers: state.vouchers,
   };
 };
 
@@ -626,6 +810,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onApplyVoucher: (data, token) => {
       dispatch(applyVoucher(data, token));
+    },
+    onDeleteAllCart: () => {
+      dispatch(deleteAllCarts());
+    },
+    onDeleteStoreId: () => {
+      dispatch(deleteStoreId());
     },
   };
 };

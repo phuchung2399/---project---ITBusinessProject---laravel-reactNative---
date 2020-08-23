@@ -13,7 +13,7 @@ import {
   Image,
 } from 'react-native';
 import CardIcon from 'react-native-vector-icons/AntDesign';
-
+import Loading from '../../screens/Loading';
 import Fonts from '../../themers/Fonts';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -38,6 +38,8 @@ class Detail extends React.Component {
     this.state = {
       token: '',
       price: '',
+      status: '',
+      timeNow: '',
     };
   }
 
@@ -47,7 +49,34 @@ class Detail extends React.Component {
 
   componentDidMount() {
     this.onGetUserData();
+    this.getCurrentTime();
   }
+
+  getCurrentTime = () => {
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    this.setState({timeNow: hours + ':' + min + ':' + sec}, () => {
+      this.compareTime();
+    });
+  };
+
+  compareTime = () => {
+    const {detailStore} = this.props.stores;
+
+    const {open_time, close_time} = detailStore;
+    const timeNow = this.state.timeNow;
+
+    if (timeNow > open_time && timeNow < close_time) {
+      this.setState({
+        status: 'Đang mở cửa',
+      });
+    } else {
+      this.setState({
+        status: 'Đã đóng cửa',
+      });
+    }
+  };
 
   onGetUserData = async () => {
     try {
@@ -101,11 +130,24 @@ class Detail extends React.Component {
     return totalPrice;
   };
 
+  renderLoading = () => {
+    return (
+      <View
+        style={{
+          padding: 12,
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+        }}>
+        <Loading loadingText="Loading..." />
+      </View>
+    );
+  };
+
   render() {
     const {detailStore} = this.props.stores;
     const dataServices = detailStore.services;
     const price = this.state.price;
-    console.log('orders', this.props.orders);
 
     let star = [];
     for (let i = 0; i < detailStore.rank; i++) {
@@ -114,18 +156,19 @@ class Detail extends React.Component {
     for (let i = 0; i < 5 - detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
+    if (detailStore.length <= 0) {
+      return this.renderLoading();
+    }
 
     return (
       <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
         <View
           style={{
-            // padding: 10,
             flexDirection: 'row',
             height: height / 3,
           }}>
           <ImageBackground
-            // source={{uri: detailStore.image}}
-            source={ImageDemo}
+            source={{uri: detailStore.image}}
             style={{
               flex: 1,
               resizeMode: 'cover',
@@ -252,6 +295,7 @@ class Detail extends React.Component {
             <View
               style={{
                 marginHorizontal: 20,
+                justifyContent: 'center',
                 marginVertical: 10,
               }}>
               <View
@@ -259,15 +303,10 @@ class Detail extends React.Component {
                   alignItems: 'center',
                   flexDirection: 'row',
                 }}>
-                <Entypo
-                  name="location-pin"
-                  size={25}
-                  color="white"
-                  onPress={() => this.backMainScreen()}
-                />
+                <Entypo name="location-pin" size={25} color="white" />
                 <Text
                   style={{
-                    marginHorizontal: 20,
+                    marginHorizontal: 18,
                     fontSize: 20,
                     color: 'black',
                     fontFamily: Fonts.serif,
@@ -291,10 +330,10 @@ class Detail extends React.Component {
                   style={{
                     fontSize: 20,
                     marginHorizontal: 20,
-                    color: 'black',
+                    color: 'white',
                     fontFamily: Fonts.serif,
                   }}>
-                  8:00 - 20:00
+                  {this.state.status}
                 </Text>
               </View>
             </View>
@@ -344,15 +383,15 @@ class Detail extends React.Component {
               }}>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: 'bold',
                   color: 'black',
                 }}>
-                {this.sumTotalPrice()} đ
+                Tổng cộng: {this.sumTotalPrice()} đ
               </Text>
             </View>
             <View style={{alignItems: 'flex-end'}}>
-              <TouchableWithoutFeedback onPress={this.changeShopping}>
+              <TouchableOpacity onPress={this.changeShopping}>
                 <Text
                   style={{
                     borderRadius: 20,
@@ -366,7 +405,7 @@ class Detail extends React.Component {
                   }}>
                   Đặt ngay
                 </Text>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
           </View>
         )}

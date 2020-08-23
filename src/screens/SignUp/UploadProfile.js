@@ -45,8 +45,14 @@ class UploadProfile extends Component {
 
   handleChoosePhoto = () => {
     const options = {
-      noData: true,
+      title: 'Select Avatar',
+      customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
     };
+
     ImagePicker.showImagePicker(options, response => {
       if (response.uri) {
         this.setState({imageProfile: response, disableButton: false});
@@ -60,25 +66,37 @@ class UploadProfile extends Component {
     const {imageProfile} = this.state;
     const {user_name, email, phone, password} = this.props.data;
 
-    const profile_pic = {
-      name: imageProfile.fileName,
-      type: imageProfile.type,
-      uri:
-        Platform.OS === 'android'
-          ? imageProfile.uri
-          : imageProfile.uri.replace('file://', ''),
-    };
+    console.log(imageProfile);
+    var data = new FormData();
 
-    let data = new FormData();
+    // data.append('avatar', 'data:image/jpeg;base64,' + imageProfile.data);
 
-    data.append('avatar', profile_pic);
+    data.append('photo', {
+      uri: imageProfile.uri,
+      type: 'image/jpeg',
+      name: 'testPhotoName',
+    });
     data.append('user_name', user_name);
     data.append('email', email);
     data.append('phone', phone);
     data.append('password', password);
     data.append('confirm_password', password);
 
-    await this.props.onRegister(data);
+    return fetch('http://13.124.107.54/api/v1/user/register', {
+      method: 'POST',
+      body: data,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('responeTotal', responseData);
+      })
+      .catch(error => {
+        console.log('Error', error);
+      });
   };
 
   render() {

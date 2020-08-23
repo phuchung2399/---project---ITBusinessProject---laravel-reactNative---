@@ -58,11 +58,6 @@ export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS';
 export const UPDATE_COMMENT_FAILURE = 'UPDATE_COMMENT_FAILURE';
 
-// Delete comment
-export const DELETE_COMMENT = 'DELETE_COMMENT';
-export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
-export const DELETE_COMMENT_FAILURE = 'DELETE_COMMENT_FAILURE';
-
 // Get notifications of user
 export const GET_NOTIFICATION = 'GET_NOTIFICATION';
 export const GET_NOTIFICATION_SUCCESS = 'GET_NOTIFICATION_SUCCESS';
@@ -90,8 +85,10 @@ export const CANCEL_ORDER_FAILURE = 'CANCEL_ORDER_FAILURE';
 
 // Add cart item
 export const ADD_CART = 'ADD_CART';
+export const DELETE_ALL_CART = 'DELETE_ALL_CART';
 export const DELETE_CART = 'DELETE_CART';
 export const ADD_STORE_ID = 'ADD_STORE_ID';
+export const DELETE_STORE_ID = 'DELETE_STORE_ID';
 
 // Get all vouchers
 export const GET_ALL_VOUCHERS = 'GET_ALL_VOUCHERS';
@@ -111,3 +108,8 @@ export const SEARCH_STORE_FAILURE = 'SEARCH_STORE_FAILURE';
 // Add cart item
 export const ADD_KEY = 'ADD_KEY';
 export const DELETE_KEY = 'DELETE_KEY';
+
+// Get all stores exist
+export const GET_ALL_STORE = 'GET_ALL_STORE';
+export const GET_ALL_STORE_SUCCESS = 'GET_ALL_STORE_SUCCESS';
+export const GET_ALL_STORE_FAILURE = 'GET_ALL_STORE_FAILURE';

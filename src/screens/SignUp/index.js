@@ -13,8 +13,6 @@ import {
 import {Navigation} from 'react-native-navigation';
 import Input from '../../components/Input';
 import {onSignIn} from '../../navigation';
-// import IconLogin from '../../../assets/images/login_image.png';
-// import {connect} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../../../assets/images/logo.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -29,7 +27,7 @@ class SignUp extends Component {
     this.state = {
       user_name: 'Huu Tuan',
       email: 'tuan.nguyenhuunguy.106902@gmail.com',
-      phone: '0779763016',
+      phone: '0973138947',
       password: 'tuannui123',
       confirmPass: 'tuannui123',
       errorName: '',
@@ -104,6 +102,16 @@ class SignUp extends Component {
     console.log(key, value);
   };
 
+  renderHeader = () => {
+    return (
+      <LinearGradient colors={['#FC5895', '#F99A7C', '#F99A7C']}>
+        <View style={style.headerView}>
+          <Text style={style.txtBrandName}>{t('brand_name')}</Text>
+        </View>
+      </LinearGradient>
+    );
+  };
+
   render() {
     var {
       errorName,
@@ -115,28 +123,7 @@ class SignUp extends Component {
 
     return (
       <ScrollView style={{flex: 1, backgroundColor: '#F99A7C'}}>
-        <LinearGradient colors={['#FC5895', '#F99A7C', '#F99A7C']}>
-          <SafeAreaView
-            style={{
-              height: height / 4,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: 50,
-                  fontWeight: 'bold',
-                  marginTop: 20,
-                  color: 'white',
-                }}>
-                {t('brand_name')}
-              </Text>
-            </View>
-          </SafeAreaView>
-        </LinearGradient>
+        {this.renderHeader()}
 
         <View
           style={{
@@ -268,64 +255,16 @@ class SignUp extends Component {
 }
 
 const style = StyleSheet.create({
-  styleViewButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  headerView: {
     flex: 1,
-    flexDirection: 'row',
-  },
-  styleViewText: {
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    marginBottom: 50,
-    marginHorizontal: 20,
+    height: height / 4,
   },
-  styleTextBottom: {
-    fontSize: 17,
-    color: 'gray',
-    textAlign: 'center',
-  },
-  styleButtonCommit: {
-    color: '#2bb6f9',
+  txtBrandName: {
+    fontSize: 50,
     fontWeight: 'bold',
-    fontSize: 17,
-  },
-  container: {
-    justifyContent: 'center',
-    marginTop: 40,
-  },
-  textBottom: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  styleSignUpButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    flexDirection: 'row',
-  },
-  button: {
-    borderWidth: 1.5,
-    borderRadius: 12,
-    fontSize: 24,
-    fontWeight: 'bold',
-    padding: 12,
-    textAlign: 'center',
-    backgroundColor: '#2bb6f9',
-    borderColor: 'blue',
+    marginTop: 20,
     color: 'white',
-    flex: 1,
-    margin: 10,
-  },
-  styleViewImage: {
-    flex: 2,
-    margin: 3,
-  },
-  styleImage: {
-    width: '100%',
-    height: 300,
   },
 });
 

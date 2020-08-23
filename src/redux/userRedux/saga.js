@@ -4,6 +4,7 @@ import {
   logInFailure,
   addUserSuccess,
   addUserFailure,
+  Alert,
 } from './action';
 import {ADD_USER, LOG_IN, LOGOUT_SUCCESS} from '../constants/actionTypes';
 import {login, logout, register} from '../../api/user';
@@ -47,7 +48,7 @@ export function* loginSaga({data}) {
 export function* logOutSaga({token}) {
   try {
     const response = yield call(logout, token);
-    alert(response.data.message);
+    Alert.alert('Thông báo', response.data.message);
     onSignIn();
     // AsyncStorage.clear();
   } catch (error) {
