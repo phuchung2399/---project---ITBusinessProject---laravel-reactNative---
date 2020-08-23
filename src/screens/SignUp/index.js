@@ -27,7 +27,7 @@ class SignUp extends Component {
     this.state = {
       user_name: 'Huu Tuan',
       email: 'tuan.nguyenhuunguy.106902@gmail.com',
-      phone: '0779763016',
+      phone: '0973138947',
       password: 'tuannui123',
       confirmPass: 'tuannui123',
       errorName: '',

@@ -11,9 +11,18 @@ import {
 import {Navigation} from 'react-native-navigation';
 const {width, height} = Dimensions.get('window');
 import Fonts from '../../../themers/Fonts';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class ShowAllStoreItems extends Component {
-  onPress = item => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timeNow: '',
+      status: '',
+    };
+  }
+
+  onPress = store_id => {
     Navigation.showModal({
       stack: {
         children: [
@@ -21,12 +30,12 @@ export default class ShowAllStoreItems extends Component {
             component: {
               name: 'Detail',
               passProps: {
-                data: item,
+                store_id,
               },
               options: {
                 topBar: {
                   title: {
-                    text: item.title,
+                    text: '',
                     alignment: 'center',
                   },
                   visible: false,
@@ -39,8 +48,42 @@ export default class ShowAllStoreItems extends Component {
     });
   };
 
+  componentDidMount() {
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    this.setState({timeNow: hours + ':' + min + ':' + sec}, () => {
+      this.compareTime();
+    });
+  }
+
+  compareTime = () => {
+    const {open_time, close_time} = this.props.item;
+    const timeNow = this.state.timeNow;
+
+    if (timeNow > open_time && timeNow < close_time) {
+      this.setState({
+        status: 'Đang mở cửa',
+      });
+    } else {
+      this.setState({
+        status: 'Đã đóng cửa',
+      });
+    }
+  };
+
   render() {
     const {item} = this.props;
+    let star = [];
+
+    for (let i = 0; i < item.rank; i++) {
+      star.push(<Icon name="star" size={20} color="#ffa600" />);
+    }
+    for (let i = 0; i < 5 - item.rank; i++) {
+      star.push(<Icon name="star" size={20} color="#c3c1c1" />);
+    }
+    console.log(item);
+
     return (
       <View
         style={{
@@ -57,15 +100,28 @@ export default class ShowAllStoreItems extends Component {
           shadowRadius: 3,
           elevation: 5,
         }}>
-        <TouchableOpacity onPress={() => this.onPress(item)}>
+        <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
           <Image source={{uri: item.image}} style={style.styleImage} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.onPress(item)}>
+        <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: 10,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View style={{flexDirection: 'row'}}>{star}</View>
+          </View>
+
           <View
             style={{
               flexDirection: 'row',
               marginTop: 7,
               marginHorizontal: 20,
+              justifyContent: 'center',
+              alignContent: 'center',
             }}>
             <Text
               style={{
@@ -77,7 +133,7 @@ export default class ShowAllStoreItems extends Component {
               }}>
               {item.store_name.substring(0, 60)}
             </Text>
-            <Text style={style.styleText}>dang hoat dong</Text>
+            <Text style={style.styleText}>{this.state.status}</Text>
           </View>
 
           <Text

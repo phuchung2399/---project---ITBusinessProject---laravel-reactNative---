@@ -20,7 +20,7 @@ import Loading from '../Loading';
 
 export default class ShowAllStores extends Component {
   componentDidMount() {
-    console.log(this.props.data);
+    // console.log(this.props.data);
   }
 
   backMainScreen = () => {
