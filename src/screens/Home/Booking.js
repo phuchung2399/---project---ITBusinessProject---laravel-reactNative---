@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   Alert,
+  Platform,
   Switch,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -32,6 +33,7 @@ import Input from './components/TextInput';
 import DatePicker from 'react-native-datepicker';
 import {createOrder} from '../../redux/orderRedux/action';
 import {applyVoucher} from '../../redux/voucherRedux/action';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 class Booking extends Component {
   constructor(props) {
@@ -48,6 +50,9 @@ class Booking extends Component {
       voucher_name: '',
       totalDiscount: 0,
       discountPrice: 0,
+
+      dateTimePickerVisible: false,
+      dateOrTimeValue: new Date(),
     };
   }
 
@@ -574,6 +579,18 @@ class Booking extends Component {
                     this.setState({order_day: date});
                   }}
                 />
+              </View>
+
+              <View>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    marginBottom: 10,
+                    borderBottomWidth: 2,
+                    borderBottomColor: 'gray',
+                  }}>
+                  Chon ngay
+                </Text>
               </View>
 
               {/* <View

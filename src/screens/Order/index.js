@@ -157,61 +157,111 @@
 
 // export default App;
 
+// import React, {useState} from 'react';
+// import {View, StyleSheet, Button, Alert} from 'react-native';
+
+// const App = () => {
+//   const createTwoButtonAlert = () =>
+//     Alert.alert(
+//       'Thong bao',
+//       'Ban co chac muon thay doi comment chua?',
+//       [
+//         {
+//           text: 'Quay lai',
+//           onPress: () => console.log('Cancel Pressed'),
+//           style: 'cancel',
+//         },
+//         {text: 'OK', onPress: () => console.log('OK Pressed')},
+//         ,
+//       ],
+//       {cancelable: false},
+//     );
+
+//   const createThreeButtonAlert = () =>
+//     Alert.alert(
+//       'Alert Title',
+//       'My Alert Msg',
+//       [
+//         {
+//           text: 'Ask me later',
+//           onPress: () => console.log('Ask me later pressed'),
+//         },
+//         {
+//           text: 'Cancel',
+//           onPress: () => console.log('Cancel Pressed'),
+//           style: 'cancel',
+//         },
+//         {text: 'OK', onPress: () => console.log('OK Pressed')},
+//         ,
+//       ],
+//       {cancelable: false},
+//     );
+
+//   return (
+//     <View style={styles.container}>
+//       <Button title={'2-Button Alert'} onPress={createTwoButtonAlert} />
+
+//       <Button title={'3-Button Alert'} onPress={createThreeButtonAlert} />
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'space-around',
+//     alignItems: 'center',
+//   },
+// });
+
+// export default App;
+
 import React, {useState} from 'react';
-import {View, StyleSheet, Button, Alert} from 'react-native';
+import {View, Button, Platform} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-const App = () => {
-  const createTwoButtonAlert = () =>
-    Alert.alert(
-      'Thong bao',
-      'Ban co chac muon thay doi comment chua?',
-      [
-        {
-          text: 'Quay lai',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ,
-      ],
-      {cancelable: false},
-    );
+export const App = () => {
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
 
-  const createThreeButtonAlert = () =>
-    Alert.alert(
-      'Alert Title',
-      'My Alert Msg',
-      [
-        {
-          text: 'Ask me later',
-          onPress: () => console.log('Ask me later pressed'),
-        },
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ,
-      ],
-      {cancelable: false},
-    );
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = currentMode => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
 
   return (
-    <View style={styles.container}>
-      <Button title={'2-Button Alert'} onPress={createTwoButtonAlert} />
-
-      <Button title={'3-Button Alert'} onPress={createThreeButtonAlert} />
+    <View>
+      <View>
+        <Button onPress={showDatepicker} title="Show date picker!" />
+      </View>
+      <View>
+        <Button onPress={showTimepicker} title="Show time picker!" />
+      </View>
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-});
-
-export default App;

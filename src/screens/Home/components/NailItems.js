@@ -63,15 +63,7 @@ class NailItem extends Component {
     const {open_time, close_time} = this.props.item;
     const timeNow = this.state.timeNow;
 
-    var regex = new RegExp(':', 'g'),
-      timeStr1 = timeNow,
-      timeStr2 = close_time;
-    if (
-      parseInt(timeStr1.replace(regex, ''), 10) <
-        parseInt(timeNow.replace(regex, ''), 10) &&
-      parseInt(timeNow.replace(regex, ''), 10) <
-        parseInt(timeStr2.replace(regex, ''), 10)
-    ) {
+    if (timeNow > open_time && timeNow < close_time) {
       this.setState({
         status: 'Đang mở cửa',
       });
@@ -81,6 +73,7 @@ class NailItem extends Component {
       });
     }
   };
+
   changScreenSearch = () => {
     Navigation.showModal({
       component: {
