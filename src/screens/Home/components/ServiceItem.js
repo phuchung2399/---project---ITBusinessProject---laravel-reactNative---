@@ -10,8 +10,10 @@ import {
 import iconProfile from '../../../../assets/images/profile_icon.png';
 const {width, height} = Dimensions.get('window');
 import {Navigation} from 'react-native-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import ServiceModal from '../components/ServiceModal';
 
-class UserReview extends Component {
+class ServiceItem extends Component {
   onPress = idBook => {
     Navigation.showModal({
       stack: {
@@ -50,13 +52,21 @@ class UserReview extends Component {
 
     return (
       <View style={styles.showflast}>
-        {showImage}
-        <Text style={styles.name} numberOfLines={1}>
-          {name}
-        </Text>
-        <Text style={styles.infor}>
-          {orderCount} {extraInfor}
-        </Text>
+        <TouchableOpacity onPress={() => this.onPress()}>
+          {showImage}
+          <Text style={styles.name} numberOfLines={1}>
+            {name}
+          </Text>
+          <Text style={styles.infor}>
+            {orderCount} {extraInfor}
+          </Text>
+        </TouchableOpacity>
+        <ServiceModal
+          ref={'addModal'}
+          parentFlatList={this}
+          // IdBook={bookDetail.Id}
+          onSubmitComment={this.onSubmitComment}
+        />
       </View>
     );
   }
@@ -84,4 +94,4 @@ const styles = StyleSheet.create({
     borderRadius: 150,
   },
 });
-export default UserReview;
+export default ServiceItem;

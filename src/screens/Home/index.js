@@ -26,7 +26,7 @@ import {t} from '../../i18n/t';
 import NailItem from './components/NailItems';
 import Services from './components/Services';
 import ReviewData from '../../utils/ReviewData';
-import UserReview from './components/UserReview';
+import ServiceItem from './components/ServiceItem';
 import {get, filter} from 'lodash';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
@@ -40,6 +40,7 @@ import {getAllServices} from '../../redux/serviceRedux/action';
 import Service from './detail_child/Service';
 import NoData from '../../components/NoData';
 import CartComponent from '../../components/CartComponent';
+import ServiceModal from './components/ServiceModal';
 
 class Home extends Component {
   constructor(props) {
@@ -157,6 +158,10 @@ class Home extends Component {
         ],
       },
     });
+  };
+
+  onShowService = () => {
+    this.refs.addModal.showAddModal();
   };
 
   render() {
@@ -342,25 +347,12 @@ class Home extends Component {
               <FlatList
                 data={ReviewData}
                 renderItem={({item}) => (
-                  <UserReview
+                  <ServiceItem
                     image={item.image}
                     name={item.name}
                     orderCount={item.orderCount}
                     extraInfor={'lượt order'}
                   />
-                )}
-                horizontal={true}
-                keyExtractor={(item, index) => index.toString()}
-                showsHorizontalScrollIndicator={false}
-              />
-              <View style={styles.divider} />
-              <View style={styles.category}>
-                <Text style={styles.text}>Top 5 người nhận xét nổi bật</Text>
-              </View>
-              <FlatList
-                data={ReviewData}
-                renderItem={({item}) => (
-                  <UserReview image={item.image} name={item.name} />
                 )}
                 horizontal={true}
                 keyExtractor={(item, index) => index.toString()}

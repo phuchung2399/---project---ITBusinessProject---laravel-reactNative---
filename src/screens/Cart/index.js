@@ -8,7 +8,9 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  Modal,
   TouchableWithoutFeedback,
+  TouchableHighlight,
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Navigation} from 'react-native-navigation';
@@ -49,6 +51,7 @@ class index extends Component {
       userData: null,
       total: 0,
       token: '',
+      modalVisible: false,
     };
   }
 
@@ -88,6 +91,17 @@ class index extends Component {
   };
 
   onContinued = (userData, dataCarts, total) => {
+    const carts = this.props.orders.cartItems;
+    if (carts.length <= 0) {
+      this.setState({
+        modalVisible: !this.state.modalVisible,
+      });
+    } else {
+      this.onChangeBooking(userData, dataCarts, total);
+    }
+  };
+
+  onChangeBooking = (userData, dataCarts, total) => {
     Navigation.showModal({
       stack: {
         children: [
@@ -495,6 +509,92 @@ class index extends Component {
             </Text>
           </TouchableOpacity>
         </LinearGradient>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 22,
+              height: 100,
+            }}>
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: 'white',
+                borderRadius: 20,
+                padding: 35,
+                alignItems: 'center',
+                shadowColor: '#000',
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+                width: 300,
+                height: 220,
+              }}>
+              <Text
+                style={{
+                  marginBottom: 18,
+                  flex: 1,
+                  textAlign: 'center',
+                  fontSize: 18,
+                }}>
+                {t('notify_null_cart')}
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#F194FF',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.setState({
+                      modalVisible: !this.state.modalVisible,
+                    });
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Đã hiểu
+                  </Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#2196F3',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.backMainScreen();
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Quay lại
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }

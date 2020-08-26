@@ -22,6 +22,8 @@ import {
   CANCEL_ORDER,
 } from '../constants/actionTypes';
 
+import {Alert} from 'react-native';
+
 export function* getAllOrdersSaga({token}) {
   try {
     const response = yield call(getOrdersOfUser, token);
@@ -48,10 +50,6 @@ export function* createOrderSaga({data, token}) {
   try {
     const response = yield call(createOrder, JSON.stringify(data), token);
     const messageCreateSuccess = response.data.message;
-    // alert(messageCreateSuccess);
-
-    console.log(response);
-    // console.log('messageCreateSuccess, ', messageCreateSuccess);
     yield put(createOrderSuccess(messageCreateSuccess));
 
     const reGetOrders = yield call(getOrdersOfUser, token);
@@ -67,7 +65,7 @@ export function* cancelOrderSaga({order_id, token}) {
   try {
     const response = yield call(cancelOrder, order_id, token);
     const message = response.data.status.massage;
-    alert('Đơn hàng đã được huỷ');
+    Alert.alert('Thông báo!', 'Đơn hàng đã được huỷ');
     yield put(cancelOrderSuccess(message));
 
     const regetAllOrder = yield call(getOrdersOfUser, token);

@@ -9,6 +9,8 @@ import {
   Image,
   ScrollView,
   Alert,
+  Modal,
+  TouchableHighlight,
   TouchableWithoutFeedback,
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -35,6 +37,8 @@ class HistoryOrderDetail extends Component {
     this.state = {
       token: '',
       discountPrice: 0,
+      modalVisible: false,
+      modalReorder: false,
     };
   }
 
@@ -258,23 +262,15 @@ class HistoryOrderDetail extends Component {
 
   onConfirm = () => {
     this.props.onCancelOrder(this.props.order_id, this.state.token);
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
   };
 
   onCancelOrder = () => {
-    Alert.alert(
-      'Thông báo',
-      'Bạn có chắc muốn huỷ giao dịch này không?',
-      [
-        {
-          text: 'Quay lại',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'Huỷ', onPress: () => this.onConfirm()},
-        ,
-      ],
-      {cancelable: false},
-    );
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
   };
 
   onShowFormComment = store_id => {
@@ -308,13 +304,15 @@ class HistoryOrderDetail extends Component {
     const recent_store_id = this.props.orders.store_id;
     const store_id_clicked = dataOrderDetail.store.store_id;
     if (store_id_clicked === recent_store_id || recent_store_id === '') {
-      this.onVerify();
+      this.setState({
+        modalReorder: !this.state.modalReorder,
+      });
     } else {
       Alert.alert('Thông Báo', 'Giỏ hàng của bạn hiệ tại đang có sản phẩm');
     }
   };
 
-  onConfitm = () => {
+  onConfirmReorder = () => {
     const dataOrderDetail = this.props.orders.dataOrderDetail;
     const store_id_clicked = dataOrderDetail.store.store_id;
 
@@ -322,23 +320,6 @@ class HistoryOrderDetail extends Component {
     dataItems.forEach(service => this.props.onAddCart(service));
     this.props.onAddStoreId(store_id_clicked);
     this.changeShopping();
-  };
-
-  onVerify = () => {
-    Alert.alert(
-      'Thông báo',
-      'Bạn có chắc muốn giao dịch lại không?',
-      [
-        {
-          text: 'Quay lại',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => this.onConfitm()},
-        ,
-      ],
-      {cancelable: false},
-    );
   };
 
   changeShopping = () => {
@@ -939,6 +920,180 @@ class HistoryOrderDetail extends Component {
             </LinearGradient>
           )}
         </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 22,
+              height: 100,
+            }}>
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: 'white',
+                borderRadius: 20,
+                padding: 35,
+                alignItems: 'center',
+                shadowColor: '#000',
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+                width: 300,
+                height: 200,
+              }}>
+              <Text
+                style={{
+                  marginBottom: 18,
+                  flex: 1,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  color: '#797777',
+                }}>
+                Bạn có chắc muốn huỷ giao dịch này không?
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#F194FF',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.setState({
+                      modalVisible: !this.state.modalVisible,
+                    });
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Quay lại
+                  </Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#2196F3',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.onConfirm();
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Huỷ bỏ
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalReorder}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 22,
+              height: 100,
+            }}>
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: 'white',
+                borderRadius: 20,
+                padding: 35,
+                alignItems: 'center',
+                shadowColor: '#000',
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+                width: 300,
+                height: 200,
+              }}>
+              <Text
+                style={{
+                  marginBottom: 18,
+                  flex: 1,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  color: '#797777',
+                }}>
+                Bạn có chắc muốn giao dịch lại không?
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#F194FF',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.setState({
+                      modalReorder: !this.state.modalReorder,
+                    });
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Quay lại
+                  </Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#2196F3',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.onConfirmReorder();
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Xác nhận
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }

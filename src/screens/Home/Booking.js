@@ -36,6 +36,7 @@ import {applyVoucher} from '../../redux/voucherRedux/action';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {deleteAllCarts, deleteStoreId} from '../../redux/orderRedux/action';
 import {onChangeIntoMainScreen} from '../../navigation';
+import TimePicker from 'react-native-24h-timepicker';
 
 class Booking extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class Booking extends Component {
       note: '',
       address: '',
       order_day: '',
-      order_time: '10:00:00',
+      order_time: '1:10:10',
       total: '',
       token: '',
       voucher_name: '',
@@ -465,6 +466,32 @@ class Booking extends Component {
     });
   }
 
+  onChangeNotifyScreen = store_id => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'ConfirmOrder',
+              passProps: {
+                store_id,
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: '',
+                    alignment: 'center',
+                  },
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  };
+
   onBooking = async () => {
     const {cartItems, store_id} = this.props.orders;
     const {
@@ -483,16 +510,11 @@ class Booking extends Component {
       Alert.alert('Thông báo', 'Vui lòng chọn ngày giao dịch!');
     } else if (order_time === '') {
       Alert.alert('Thông báo', 'Vui lòng chọn giờ giao dịch!');
-    } else if (note === '') {
-      Alert.alert('Thông báo', 'Vui lòng nhập ghi chú!');
     } else {
       let status = 0;
 
       if (at_home) {
         status = 1;
-        if (address === '') {
-          Alert.alert('Thông báo', 'Vui lòng nhập địa chỉ của bạn!');
-        }
       } else {
         status = 0;
       }
@@ -517,8 +539,32 @@ class Booking extends Component {
         service: cartItems,
       };
 
-      await this.props.onCreateOrder(data, token);
-      this.onVerify();
+      return fetch('http://13.124.107.54/api/v1/order', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(responseData => {
+          if (responseData.status === 201) {
+            this.onChangeNotifyScreen(store_id);
+          } else if (responseData.status === 400) {
+            Alert.alert('Thông báo', responseData.message);
+          } else {
+            Alert.alert('Thông báo', 'Giờ không hợp lệ');
+          }
+          console.log(responseData);
+        })
+        .catch(error => {
+          console.log('Error');
+        });
+
+      // await this.props.onCreateOrder(data, token);
+      // this.onVerify();
     }
   };
 
@@ -544,6 +590,15 @@ class Booking extends Component {
       {cancelable: false},
     );
   };
+
+  onCancel() {
+    this.TimePicker.close();
+  }
+
+  onConfirm(hour, minute) {
+    this.setState({order_time: `${hour}:${minute}` + ':00'});
+    this.TimePicker.close();
+  }
 
   render() {
     const {userData} = this.props;
@@ -576,22 +631,25 @@ class Booking extends Component {
               ItemSeparatorComponent={this.ItemSeparatorComponent}
             />
 
-            <View style={{marginHorizontal: 20, flexDirection: 'row'}}>
+            <View
+              style={{
+                marginHorizontal: 20,
+                flexDirection: 'row',
+                borderTopWidth: 2,
+                borderTopColor: 'gray',
+              }}>
               <View>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 18,
                     marginBottom: 10,
-                    borderBottomWidth: 2,
-                    borderBottomColor: 'gray',
+                    marginTop: 10,
                   }}>
-                  Chon ngay
+                  Chọn ngày
                 </Text>
                 <DatePicker
                   style={{
-                    width: 200,
-                    backgroundColor: '#E8E8E8',
-                    borderRadius: 50,
+                    width: 180,
                   }}
                   date={this.state.order_day}
                   minDate={minDate}
@@ -607,48 +665,49 @@ class Booking extends Component {
                 />
               </View>
 
-              <View>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    marginBottom: 10,
-                    borderBottomWidth: 2,
-                    borderBottomColor: 'gray',
-                  }}>
-                  Chon ngay
-                </Text>
-              </View>
-
-              {/* <View
+              <View
                 style={{
+                  marginTop: 10,
                   marginLeft: 10,
                 }}>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 18,
                     marginBottom: 10,
-                    borderBottomWidth: 2,
-                    borderBottomColor: 'gray',
                   }}>
-                  Chon gio
+                  Chọn thời gian
                 </Text>
-                <DatePicker
+                <View
                   style={{
-                    width: 150,
-                    backgroundColor: '#E8E8E8',
-                    borderRadius: 50,
-                  }}
-                  date={this.state.date}
-                  mode="date"
-                  placeholder="Select date"
-                  format="DD-MM-YYYY"
-                  confirmBtnText="Confirm"
-                  cancelBtnText="Cancel"
-                  onDateChange={date => {
-                    this.setState({date: date});
-                  }}
-                />
-              </View> */}
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    height: 40,
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => this.TimePicker.open()}
+                    style={styles.button}>
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontSize: 16,
+                        fontWeight: '600',
+                      }}>
+                      {this.state.order_time}
+                    </Text>
+                  </TouchableOpacity>
+
+                  <TimePicker
+                    ref={ref => {
+                      this.TimePicker = ref;
+                    }}
+                    onCancel={() => this.onCancel()}
+                    onConfirm={(hour, minute, second) =>
+                      this.onConfirm(hour, minute, second)
+                    }
+                  />
+                </View>
+              </View>
             </View>
 
             <View style={{flex: 5, marginHorizontal: 20}}>

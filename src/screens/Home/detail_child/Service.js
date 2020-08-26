@@ -10,6 +10,8 @@ import {
   Dimensions,
   Picker,
   Alert,
+  TouchableHighlight,
+  Modal,
   TouchableWithoutFeedback,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -75,6 +77,7 @@ class Service extends React.Component {
       isChangeIcon: false,
       menu: '',
       arrayServicesSelected: [],
+      modalVisible: false,
     };
   }
 
@@ -122,34 +125,21 @@ class Service extends React.Component {
     } else {
       this.onVerify();
     }
-
-    // arrayServicesSelected.push(dataItem);
-    // this.setState({
-    //   arrayServicesSelected,
-    // });
   };
 
   onVerify = () => {
-    Alert.alert(
-      'Xác nhận',
-      'Hiện tại giỏ hàng của bạn đang có dịch vụ của cửa hàng khác, bạn có muốn xoá giỏ hàng không?',
-      [
-        {
-          text: 'Quay lại',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => this.onDeleteCartItems()},
-        ,
-      ],
-      {cancelable: false},
-    );
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
   };
 
   onDeleteCartItems = () => {
     this.props.onDeleteAllCart();
     this.props.onDeleteStoreId();
     Alert.alert('Thông báo', 'Xoá thành công');
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
   };
 
   onDeleteCart = service_id => {
@@ -163,10 +153,7 @@ class Service extends React.Component {
           {
             component: {
               name: 'Cart',
-              passProps: {
-                // arrayServicesSelected,
-                // store_id,
-              },
+              passProps: {},
               options: {
                 topBar: {
                   title: {
@@ -204,17 +191,17 @@ class Service extends React.Component {
         <TouchableOpacity
           onPress={() => this.onAddToCart(item)}
           style={{
-            width: 30,
-            height: 30,
+            width: 35,
+            height: 35,
             backgroundColor: !this.state.isChangeIcon ? '#FC5895' : 'green',
-            borderRadius: 15,
+            borderRadius: 30,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
           <AntDesign
             name={!this.state.isChangeIcon ? 'plus' : 'check'}
             color="white"
-            size={15}
+            size={18}
           />
         </TouchableOpacity>
       </LinearGradient>
@@ -316,6 +303,94 @@ class Service extends React.Component {
           </View>
 
           {this.renderListService(dataServices)}
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.modalVisible}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 22,
+                height: 100,
+              }}>
+              <View
+                style={{
+                  margin: 20,
+                  backgroundColor: 'white',
+                  borderRadius: 20,
+                  padding: 35,
+                  alignItems: 'center',
+                  shadowColor: '#000',
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                  width: 300,
+                  height: 240,
+                }}>
+                <Text
+                  style={{
+                    marginBottom: 18,
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: 16,
+                    color: '#797777',
+                  }}>
+                  Hiện tại giỏ hàng của bạn đang có dịch vụ của cửa hàng khác,
+                  bạn có muốn xoá giỏ hàng không?
+                </Text>
+                <View style={{flexDirection: 'row'}}>
+                  <TouchableHighlight
+                    style={{
+                      backgroundColor: '#F194FF',
+                      borderRadius: 20,
+                      padding: 10,
+                      elevation: 2,
+                      width: 100,
+                      marginHorizontal: 20,
+                    }}
+                    onPress={() => {
+                      this.setState({
+                        modalVisible: !this.state.modalVisible,
+                      });
+                    }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                      }}>
+                      Đã hiểu
+                    </Text>
+                  </TouchableHighlight>
+
+                  <TouchableHighlight
+                    style={{
+                      backgroundColor: '#2196F3',
+                      borderRadius: 20,
+                      padding: 10,
+                      elevation: 2,
+                      width: 100,
+                      marginHorizontal: 20,
+                    }}
+                    onPress={() => {
+                      this.onDeleteCartItems();
+                    }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                      }}>
+                      Huỷ bỏ
+                    </Text>
+                  </TouchableHighlight>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </View>
       );
     } else {
