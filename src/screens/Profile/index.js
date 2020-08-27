@@ -18,6 +18,7 @@ import {t} from '../../i18n/t';
 import LinearGradient from 'react-native-linear-gradient';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
+import Avatar from 'react-avatar';
 
 export default class Profile extends Component {
   constructor() {
@@ -118,16 +119,22 @@ export default class Profile extends Component {
           }}>
           <View
             style={{alignItems: 'center', marginTop: '-17%', marginBottom: 12}}>
-            <Image
-              style={{
-                width: 150,
-                height: 150,
-                borderWidth: 2,
-                borderColor: 'pink',
-                borderRadius: 80,
-              }}
-              source={{uri: userInfor.avatar}}
-            />
+            {userInfor.avatar && (
+              <Image
+                style={{
+                  width: 150,
+                  height: 150,
+                  borderWidth: 2,
+                  borderColor: 'pink',
+                  borderRadius: 80,
+                }}
+                source={{uri: userInfor.avatar}}
+              />
+            )}
+
+            {/* {!userInfor.avatar && (
+              <Avatar githubHandle="sitebase" size={150} round="20px" />
+            )} */}
           </View>
 
           <View

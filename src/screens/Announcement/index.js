@@ -21,6 +21,7 @@ import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import dl_Appstore from '../../../assets/images/dl_Appstore.png';
+import {onSignIn} from '../../navigation';
 
 class Announcement extends Component {
   constructor(props) {
@@ -31,7 +32,12 @@ class Announcement extends Component {
     alert('0k');
   };
 
+  onSignin = () => {
+    onSignIn();
+  };
+
   render() {
+    const dataUser = this.props.data;
     return (
       <LinearGradient colors={['#FC5895', '#F99A7C']}>
         <ScrollView style={{height: '100%'}}>
@@ -90,12 +96,11 @@ class Announcement extends Component {
                 fontWeight: 'bold',
                 color: 'white',
               }}>
-              Hello Hung,
+              Xin chào
             </Text>
           </View>
           <View
             style={{
-              // alignItems: 'center',
               flex: 1,
               marginHorizontal: 25,
               justifyContent: 'center',
@@ -104,12 +109,12 @@ class Announcement extends Component {
             <Text
               animation="zoomInUp"
               style={{
-                fontSize: 18,
+                fontSize: 22,
                 fontWeight: 'bold',
                 color: 'white',
                 textAlign: 'center',
               }}>
-              Our Nails App welcome you to come with us. We 'd love to see you.
+              {/* {dataUser.user_name} */}
             </Text>
           </View>
           <View
@@ -128,7 +133,7 @@ class Announcement extends Component {
                 color: 'white',
                 textAlign: 'center',
               }}>
-              We have another Nails store and Salon Nail to serve you.
+              Vui lòng xác nhận tại khoản tại email bạn vừa đăng kí
             </Text>
           </View>
           <View
@@ -151,7 +156,7 @@ class Announcement extends Component {
                   borderColor: 'white',
                   color: 'white',
                 }}>
-                Booking now
+                Đăng nhập ngay
               </Text>
             </TouchableWithoutFeedback>
           </View>

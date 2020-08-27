@@ -23,11 +23,10 @@ const {width, height} = Dimensions.get('window');
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.myRef = React.createRef();
     this.state = {
       user_name: 'Huu Tuan',
-      email: 'tuan.nguyenhuunguy.106902@gmail.com',
-      phone: '0973138947',
+      email: 'tuan.nguyendev14@gmail.com',
+      phone: '0779763016',
       password: 'tuannui123',
       confirmPass: 'tuannui123',
       errorName: '',
@@ -52,13 +51,15 @@ class SignUp extends Component {
     onSignIn();
   };
 
-  onContinued = event => {
+  onSignUp = event => {
     var {user_name, email, phone, password, confirmPass} = this.state;
 
     this.onRestart();
 
     if (user_name === '') {
       this.setState({errorName: 'Nhập tên!'});
+    } else if (email === '') {
+      this.setState({errorEmail: 'Nhập email!'});
     } else if (phone === '') {
       this.setState({errorPhoneNumber: 'Nhập số điện thoại!'});
     } else if (isNaN(phone)) {
@@ -79,15 +80,55 @@ class SignUp extends Component {
         email,
         phone,
         password,
+        confirm_password: password,
       };
-      this.onChangeUploadScreen(data);
+      // this.onChangeUploadScreen(data);
+      this.onHandleSignUp(data);
     }
+  };
+
+  onHandleSignUp = async dataUser => {
+    var data = new FormData();
+
+    data.append('user_name', dataUser.user_name);
+    data.append('email', dataUser.email);
+    data.append('phone', dataUser.phone);
+    data.append('password', dataUser.password);
+    data.append('confirm_password', dataUser.password);
+
+    return fetch('http://13.124.107.54/api/v1/user/register', {
+      method: 'POST',
+      body: data,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        if (responseData.message) {
+          this.onChangeUploadScreen(dataUser);
+        } else if (responseData.errors.email) {
+          this.setState({
+            errorEmail: responseData.errors.email[0],
+          });
+        } else if (responseData.errors.phone) {
+          this.setState({
+            errorPhoneNumber: responseData.errors.phone[0],
+          });
+        }
+
+        console.log('responeTotal', responseData);
+      })
+      .catch(error => {
+        console.log('Error', error);
+      });
   };
 
   onChangeUploadScreen = data => {
     Navigation.showModal({
       component: {
-        name: 'UploadProfile',
+        name: 'Announcement',
         passProps: {
           data: data,
         },
@@ -195,7 +236,7 @@ class SignUp extends Component {
               paddingHorizontal: 10,
               borderRadius: 25,
             }}>
-            <TouchableWithoutFeedback onPress={this.onContinued}>
+            <TouchableWithoutFeedback onPress={this.onSignUp}>
               <Text
                 style={{
                   fontSize: 24,
@@ -205,7 +246,7 @@ class SignUp extends Component {
                   flex: 1,
                   margin: 7,
                 }}>
-                Tiếp tục
+                {t('txtSignUp')}
               </Text>
             </TouchableWithoutFeedback>
           </LinearGradient>

@@ -308,7 +308,7 @@ class HistoryOrderDetail extends Component {
         modalReorder: !this.state.modalReorder,
       });
     } else {
-      Alert.alert('Thông Báo', 'Giỏ hàng của bạn hiệ tại đang có sản phẩm');
+      Alert.alert('Thông Báo', 'Giỏ hàng của bạn hiện tại đang có sản phẩm');
     }
   };
 
