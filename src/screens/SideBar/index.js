@@ -2,17 +2,13 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
   Image,
   TouchableOpacity,
-  BackHandler,
-  Picker,
-  ScrollView,
   SafeAreaView,
-  AsyncStorage,
   TouchableWithoutFeedback,
-  TextInput,
+  TouchableHighlight,
+  Modal,
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -26,6 +22,7 @@ import {onSignIn} from '../../navigation';
 import {storageGet, removeItemValue} from '../../checkAsyncStorage';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import Fonts from '../../themers/Fonts';
+import {t} from '../../i18n/t';
 
 class SideBarMenu extends Component {
   constructor(props) {
@@ -35,6 +32,7 @@ class SideBarMenu extends Component {
       token: '',
       isShowInfor: false,
       showAlert: false,
+      modalVisible: false,
     };
   }
 
@@ -92,7 +90,13 @@ class SideBarMenu extends Component {
     });
   };
 
-  onSignOut = async () => {
+  onSignOut = () => {
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
+  };
+
+  onVerify = async () => {
     let token = this.state.token;
     this.props.onLogOutUser(token);
     this.removeUser();
@@ -408,25 +412,92 @@ class SideBarMenu extends Component {
           </View>
         </View>
 
-        <AwesomeAlert
-          show={this.state.showAlert}
-          showProgress={false}
-          title="Bạn cần đăng nhập để thực hiện thao tác này?"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          cancelButtonColor="#8be4cb"
-          showConfirmButton={true}
-          cancelText="Để sau"
-          confirmText="Đăng nhập"
-          confirmButtonColor="#1d9dd8"
-          onCancelPressed={() => {
-            this.hideAlert();
-          }}
-          onConfirmPressed={() => {
-            onHandle();
-          }}
-        />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 22,
+              height: 100,
+            }}>
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: 'white',
+                borderRadius: 20,
+                padding: 35,
+                alignItems: 'center',
+                shadowColor: '#000',
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+                width: 300,
+                height: 200,
+              }}>
+              <Text
+                style={{
+                  marginBottom: 18,
+                  flex: 1,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  color: '#797777',
+                }}>
+                {t('confirm_text_singout')}
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#F194FF',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.setState({
+                      modalVisible: !this.state.modalVisible,
+                    });
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Quay lại
+                  </Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#2196F3',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.onVerify();
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Đăng xuất
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }

@@ -16,6 +16,7 @@ import {
   Switch,
   Dimensions,
 } from 'react-native';
+import {get, filter, find, take} from 'lodash';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {storageGet} from '../../checkAsyncStorage';
 import {Navigation} from 'react-native-navigation';
@@ -77,14 +78,21 @@ class Search extends Component {
   searchSubmit = () => {
     const {key, token} = this.state;
     if (key != '') {
-      const keyword = {
-        key,
-      };
       this.setState({isShowRecentSearch: false}, () => {
         this.props.onSearchStore(key, token);
-        this.props.onAddKey(keyword);
-        // this.onRestart();
+        this.onAddKeyWord(key);
       });
+    }
+  };
+
+  onAddKeyWord = keyword => {
+    const keys = this.props.dataSearch.recentSearchData;
+    const results = find(keys, ['key', keyword]);
+    if (results === undefined) {
+      const key = {
+        key: keyword,
+      };
+      this.props.onAddKey(key);
     }
   };
 
@@ -379,8 +387,9 @@ class Search extends Component {
 
   renderRecentSearch = () => {
     const keys = this.props.dataSearch.recentSearchData;
-    const dataStore = this.props.stores.dataAllStores;
+    console.log(keys);
 
+    const dataStore = this.props.stores.dataAllStores;
     return (
       <View
         style={{

@@ -28,7 +28,7 @@ export const addKey = key => {
   const keys = store.getState().searchDatas.recentSearchData;
   return {
     type: types.ADD_KEY,
-    payload: [...keys, key],
+    payload: [key, ...keys],
   };
 };
 

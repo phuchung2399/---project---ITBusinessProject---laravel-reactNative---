@@ -557,7 +557,7 @@ class Booking extends Component {
           } else {
             Alert.alert('Thông báo', 'Giờ không hợp lệ');
           }
-          console.log(responseData);
+          console.log('order', responseData);
         })
         .catch(error => {
           console.log('Error');

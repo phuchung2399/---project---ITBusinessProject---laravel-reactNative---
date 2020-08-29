@@ -6,19 +6,15 @@ const initState = {
   loading: false,
   recentSearchData: [
     {
-      time: '14-03-2020',
       key: 'Mai Nail Store',
     },
     {
-      time: '15-03-2020',
       key: 'Tuấn Tảo Spa',
     },
     {
-      time: '16-03-2020',
       key: 'Spa Phương Nam',
     },
     {
-      time: '18-03-2020',
       key: 'HP Nail',
     },
   ],

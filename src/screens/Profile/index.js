@@ -18,7 +18,7 @@ import {t} from '../../i18n/t';
 import LinearGradient from 'react-native-linear-gradient';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
-import Avatar from 'react-avatar';
+import {Avatar, Accessory} from 'react-native-elements';
 
 export default class Profile extends Component {
   constructor() {
@@ -132,9 +132,15 @@ export default class Profile extends Component {
               />
             )}
 
-            {/* {!userInfor.avatar && (
-              <Avatar githubHandle="sitebase" size={150} round="20px" />
-            )} */}
+            {!userInfor.avatar && (
+              <Avatar
+                size="xlarge"
+                rounded
+                title="CR"
+                onPress={() => console.log('Works!')}
+                activeOpacity={0.7}
+              />
+            )}
           </View>
 
           <View
