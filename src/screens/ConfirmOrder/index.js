@@ -71,13 +71,15 @@ class HistoryOrderDetail extends Component {
     }
   };
 
-  onContinued = () => {
+  onHistoryOrder = () => {
+    this.props.onDeleteAllCart();
+    this.props.onDeleteStoreId();
     Navigation.showModal({
       stack: {
         children: [
           {
             component: {
-              name: 'Booking',
+              name: 'HistoryOrder',
               // passProps: {
               //   IdStore: idStore,
               // },
@@ -98,6 +100,8 @@ class HistoryOrderDetail extends Component {
   };
 
   onNavigateStore = store_id => {
+    this.props.onDeleteAllCart();
+    this.props.onDeleteStoreId();
     Navigation.showModal({
       stack: {
         children: [
@@ -336,7 +340,7 @@ class HistoryOrderDetail extends Component {
                 borderWidth: 2,
                 borderColor: '#FC5895',
               }}>
-              <TouchableOpacity onPress={this.onCancelOrder}>
+              <TouchableOpacity onPress={this.onHistoryOrder}>
                 <Text
                   style={{
                     fontSize: 20,

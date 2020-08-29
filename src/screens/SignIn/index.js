@@ -14,6 +14,7 @@ import {
   SafeAreaView,
   TextInput,
   Dimensions,
+  TouchableHighlight,
 } from 'react-native';
 import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
@@ -153,7 +154,7 @@ class SignIn extends Component {
               // value={this.state.password}
             />
 
-            <TouchableWithoutFeedback onPress={this.onSignin}>
+            <TouchableOpacity onPress={this.onSignin}>
               <Text
                 style={{
                   ...style.button,
@@ -163,7 +164,7 @@ class SignIn extends Component {
                 }}>
                 Đăng nhập
               </Text>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -173,7 +174,7 @@ class SignIn extends Component {
               marginTop: 10,
               flexDirection: 'row',
             }}>
-            <TouchableWithoutFeedback onPress={this.onSignUp}>
+            <TouchableOpacity onPress={this.onSignUp}>
               <Text
                 style={{
                   color: 'blue',
@@ -185,8 +186,8 @@ class SignIn extends Component {
                 }}>
                 Đăng kí
               </Text>
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={this.onSignUp}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onSignUp}>
               <Text
                 style={{
                   color: 'blue',
@@ -197,7 +198,7 @@ class SignIn extends Component {
                 }}>
                 Quên mật khẩu?
               </Text>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
 
           <View

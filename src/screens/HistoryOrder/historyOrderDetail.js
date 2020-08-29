@@ -29,7 +29,12 @@ import {connect} from 'react-redux';
 import {getOrderDetail, cancelOrder} from '../../redux/orderRedux/action';
 import {storageRemove, storageGet} from '../../checkAsyncStorage';
 import Loading from '../Loading';
-import {addCart, deleteCart, addStoreId} from '../../redux/orderRedux/action';
+import {
+  addCart,
+  addStoreId,
+  deleteAllCarts,
+  deleteStoreId,
+} from '../../redux/orderRedux/action';
 
 class HistoryOrderDetail extends Component {
   constructor(props) {
@@ -39,6 +44,7 @@ class HistoryOrderDetail extends Component {
       discountPrice: 0,
       modalVisible: false,
       modalReorder: false,
+      modalDeleteCart: false,
     };
   }
 
@@ -308,8 +314,14 @@ class HistoryOrderDetail extends Component {
         modalReorder: !this.state.modalReorder,
       });
     } else {
-      Alert.alert('Thông Báo', 'Giỏ hàng của bạn hiệ tại đang có sản phẩm');
+      this.onVerify();
     }
+  };
+
+  onVerify = () => {
+    this.setState({
+      modalDeleteCart: !this.state.modalDeleteCart,
+    });
   };
 
   onConfirmReorder = () => {
@@ -357,16 +369,65 @@ class HistoryOrderDetail extends Component {
     return totalPrice;
   };
 
+  onDeleteCartItems = () => {
+    this.props.onDeleteAllCart();
+    this.props.onDeleteStoreId();
+    Alert.alert('Thông báo', 'Xoá thành công');
+    this.setState({modalDeleteCart: !this.state.modalDeleteCart});
+  };
+
+  renderStatusIcon = dataOrderDetail => {
+    if (dataOrderDetail.status[0].massage === 'Đơn đang chờ xác nhận') {
+      return (
+        <Success
+          name="hourglass"
+          size={40}
+          color="#57f307"
+          onPress={() => this.backMainScreen()}
+        />
+      );
+    } else if (dataOrderDetail.status[0].massage === 'Đã hủy') {
+      return (
+        <Success
+          name="minuscircleo"
+          size={40}
+          color="#57f307"
+          onPress={() => this.backMainScreen()}
+        />
+      );
+    } else {
+      return (
+        <Success
+          name="checkcircleo"
+          size={40}
+          color="#57f307"
+          onPress={() => this.backMainScreen()}
+        />
+      );
+    }
+  };
+
+  renderStatus = dataOrderDetail => {
+    return (
+      <Text
+        style={{
+          marginTop: 10,
+          fontWeight: 'bold',
+          fontSize: 15,
+          fontFamily: Fonts.serif,
+          textTransform: 'capitalize',
+        }}>
+        {dataOrderDetail.status[0].massage}
+      </Text>
+    );
+  };
+
   render() {
     const dataOrderDetail = this.props.orders.dataOrderDetail;
-    // console.log(dataOrderDetail);
-    console.log(this.props.orders.cartItems);
-
     if (dataOrderDetail.length === 0) {
       return (
         <View style={{flex: 1}}>
           {this.renderHeader()}
-
           <View
             style={{
               padding: 12,
@@ -375,14 +436,6 @@ class HistoryOrderDetail extends Component {
               flex: 1,
             }}>
             <Loading loadingText="Loading..." />
-            {/* <Text
-              style={{
-                fontSize: 20,
-                color: 'gray',
-                fontFamily: Fonts.serif,
-              }}>
-              {t('Loading')}
-            </Text> */}
           </View>
         </View>
       );
@@ -390,7 +443,6 @@ class HistoryOrderDetail extends Component {
     return (
       <View style={{flex: 1}}>
         {this.renderHeader()}
-
         <ScrollView>
           <View
             style={{
@@ -404,22 +456,8 @@ class HistoryOrderDetail extends Component {
               justifyContent: 'center',
               height: 120,
             }}>
-            <Success
-              name="checkcircleo"
-              size={40}
-              color="#57f307"
-              onPress={() => this.backMainScreen()}
-            />
-            <Text
-              style={{
-                marginTop: 10,
-                fontWeight: 'bold',
-                fontSize: 15,
-                fontFamily: Fonts.serif,
-                textTransform: 'capitalize',
-              }}>
-              {dataOrderDetail.status[0].massage}
-            </Text>
+            {this.renderStatusIcon(dataOrderDetail)}
+            {this.renderStatus(dataOrderDetail)}
           </View>
 
           <View
@@ -1094,6 +1132,94 @@ class HistoryOrderDetail extends Component {
             </View>
           </View>
         </Modal>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalDeleteCart}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 22,
+              height: 100,
+            }}>
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: 'white',
+                borderRadius: 20,
+                padding: 35,
+                alignItems: 'center',
+                shadowColor: '#000',
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+                width: 300,
+                height: 240,
+              }}>
+              <Text
+                style={{
+                  marginBottom: 18,
+                  flex: 1,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  color: '#797777',
+                }}>
+                Hiện tại giỏ hàng của bạn đang có dịch vụ của cửa hàng khác, bạn
+                có muốn xoá giỏ hàng không?
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#F194FF',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.setState({
+                      modalVisible: !this.state.modalVisible,
+                    });
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Đã hiểu
+                  </Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#2196F3',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.onDeleteCartItems();
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Huỷ bỏ
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -1165,6 +1291,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onAddStoreId: store_id => {
       dispatch(addStoreId(store_id));
+    },
+    onDeleteAllCart: () => {
+      dispatch(deleteAllCarts());
+    },
+    onDeleteStoreId: () => {
+      dispatch(deleteStoreId());
     },
   };
 };

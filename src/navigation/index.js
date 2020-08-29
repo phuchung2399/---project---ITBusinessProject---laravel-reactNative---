@@ -300,25 +300,25 @@ export const onChangeIntoMainScreen = () => {
                   },
                 },
               },
-              {
-                stack: {
-                  children: [
-                    {
-                      component: {
-                        name: 'Announcement',
-                      },
-                    },
-                  ],
-                  options: {
-                    topBar: {visible: false},
-                    bottomTab: {
-                      text: 'Yêu thích',
-                      icon: love_Icon,
-                      testID: 'THIRST_TAB_BAR_BUTTON',
-                    },
-                  },
-                },
-              },
+              // {
+              //   stack: {
+              //     children: [
+              //       {
+              //         component: {
+              //           name: 'Announcement',
+              //         },
+              //       },
+              //     ],
+              //     options: {
+              //       topBar: {visible: false},
+              //       bottomTab: {
+              //         text: 'Yêu thích',
+              //         icon: love_Icon,
+              //         testID: 'THIRST_TAB_BAR_BUTTON',
+              //       },
+              //     },
+              //   },
+              // },
               {
                 stack: {
                   children: [

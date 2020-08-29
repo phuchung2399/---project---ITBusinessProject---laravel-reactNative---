@@ -21,6 +21,8 @@ import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import dl_Appstore from '../../../assets/images/dl_Appstore.png';
+import {onSignIn} from '../../navigation';
+import {t} from '../../i18n/t';
 
 class Announcement extends Component {
   constructor(props) {
@@ -31,7 +33,12 @@ class Announcement extends Component {
     alert('0k');
   };
 
+  onSignin = () => {
+    onSignIn();
+  };
+
   render() {
+    const dataUser = this.props.data;
     return (
       <LinearGradient colors={['#FC5895', '#F99A7C']}>
         <ScrollView style={{height: '100%'}}>
@@ -48,7 +55,7 @@ class Announcement extends Component {
                 marginTop: 20,
                 color: 'white',
               }}>
-              Nails
+              {t('brand_name')}
             </Animatable.Text>
             <Text
               animation="zoomInUp"
@@ -90,27 +97,28 @@ class Announcement extends Component {
                 fontWeight: 'bold',
                 color: 'white',
               }}>
-              Hello Hung,
+              Xin chào
             </Text>
           </View>
           <View
             style={{
-              // alignItems: 'center',
               flex: 1,
               marginHorizontal: 25,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text
-              animation="zoomInUp"
-              style={{
-                fontSize: 18,
-                fontWeight: 'bold',
-                color: 'white',
-                textAlign: 'center',
-              }}>
-              Our Nails App welcome you to come with us. We 'd love to see you.
-            </Text>
+            {dataUser && (
+              <Text
+                animation="zoomInUp"
+                style={{
+                  fontSize: 22,
+                  fontWeight: 'bold',
+                  color: 'white',
+                  textAlign: 'center',
+                }}>
+                {dataUser.user_name}
+              </Text>
+            )}
           </View>
           <View
             style={{
@@ -128,7 +136,7 @@ class Announcement extends Component {
                 color: 'white',
                 textAlign: 'center',
               }}>
-              We have another Nails store and Salon Nail to serve you.
+              Vui lòng xác nhận tại khoản tại email vừa đăng kí
             </Text>
           </View>
           <View
@@ -138,7 +146,7 @@ class Announcement extends Component {
               paddingHorizontal: '20%',
               paddingVertical: 15,
             }}>
-            <TouchableWithoutFeedback onPress={this.onSignin}>
+            <TouchableOpacity onPress={this.onSignin}>
               <Text
                 style={{
                   borderWidth: 1,
@@ -148,30 +156,12 @@ class Announcement extends Component {
                   padding: 12,
                   textAlign: 'center',
                   backgroundColor: '#FC5895',
-                  borderColor: 'white',
+                  borderColor: 'pink',
                   color: 'white',
                 }}>
-                Booking now
+                Đăng nhập ngay
               </Text>
-            </TouchableWithoutFeedback>
-          </View>
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              flex: 1,
-            }}>
-            <TouchableWithoutFeedback onPress={this.onSignUp}>
-              <Text
-                style={{
-                  color: 'white',
-                  marginHorizontal: 12,
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                }}>
-                Or join with us
-              </Text>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
 
           <View
@@ -183,7 +173,7 @@ class Announcement extends Component {
               marginVertical: '5%',
             }}>
             <View>
-              <TouchableOpacity onPress={() => this.onPress()}>
+              <TouchableOpacity>
                 <Image
                   source={require('../../../assets/images/dl_Appstore.png')}
                   style={{
@@ -197,7 +187,7 @@ class Announcement extends Component {
             </View>
 
             <View>
-              <TouchableOpacity onPress={() => this.onPress()}>
+              <TouchableOpacity>
                 <Image
                   source={require('../../../assets/images/dl-gg.png')}
                   style={{

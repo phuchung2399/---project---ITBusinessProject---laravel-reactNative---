@@ -18,6 +18,7 @@ import {t} from '../../i18n/t';
 import LinearGradient from 'react-native-linear-gradient';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
+import {Avatar, Accessory} from 'react-native-elements';
 
 export default class Profile extends Component {
   constructor() {
@@ -45,6 +46,13 @@ export default class Profile extends Component {
 
   backMainScreen = () => {
     Navigation.dismissModal(this.props.componentId);
+  };
+
+  getAvatarDefault = user_name => {
+    var getUpperCase = user_name.replace(/[a-z]/g, '');
+    let removeSpace = getUpperCase.split(' ').join('');
+    var getLastLetters = removeSpace.slice(-2);
+    return getLastLetters;
   };
 
   render() {
@@ -118,16 +126,42 @@ export default class Profile extends Component {
           }}>
           <View
             style={{alignItems: 'center', marginTop: '-17%', marginBottom: 12}}>
-            <Image
-              style={{
-                width: 150,
-                height: 150,
-                borderWidth: 2,
-                borderColor: 'pink',
-                borderRadius: 80,
-              }}
-              source={{uri: userInfor.avatar}}
-            />
+            {userInfor.avatar && (
+              <Image
+                style={{
+                  width: 150,
+                  height: 150,
+                  borderWidth: 2,
+                  borderColor: 'pink',
+                  borderRadius: 80,
+                }}
+                source={{uri: userInfor.avatar}}
+              />
+            )}
+
+            {!userInfor.avatar && (
+              <View
+                style={{
+                  width: 150,
+                  height: 150,
+                  borderWidth: 2,
+                  borderColor: 'pink',
+                  borderRadius: 80,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: Colors.darkGray,
+                }}>
+                {userInfor.user_name && (
+                  <Text
+                    style={{
+                      fontSize: 40,
+                      color: 'white',
+                    }}>
+                    {this.getAvatarDefault(userInfor.user_name)}
+                  </Text>
+                )}
+              </View>
+            )}
           </View>
 
           <View

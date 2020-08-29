@@ -82,8 +82,10 @@ i18next.init({
         gia_giam: 'Giá giảm:',
         man_hinh_chinh: 'Màn hình chính',
         xem_chi_tiet: 'Xem chi tiết',
+        chua_cap_nhat: 'Chưa cập nhật',
         notify_null_cart:
           'Giỏ hàng của bạn hiện tại đang trống, vui lòng thêm dịch vụ vào giỏ hàng',
+        confirm_text_singout: 'Bạn có chắc muốn đăng xuất không?',
       },
     },
   },

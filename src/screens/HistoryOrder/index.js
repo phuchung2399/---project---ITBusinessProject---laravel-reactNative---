@@ -10,6 +10,8 @@ import {
   Alert,
   ScrollView,
   TouchableWithoutFeedback,
+  Modal,
+  TouchableHighlight,
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Navigation} from 'react-native-navigation';
@@ -30,6 +32,8 @@ class index extends Component {
     super(props);
     this.state = {
       token: '',
+      modalVisible: false,
+      order_id: '',
     };
   }
 
@@ -125,23 +129,17 @@ class index extends Component {
 
   onConfirm = order_id => {
     this.props.onCancelOrder(order_id, this.state.token);
+    this.setState({
+      order_id: '',
+      modalVisible: !this.state.modalVisible,
+    });
   };
 
   onCancelOrder = order_id => {
-    Alert.alert(
-      'Thông báo',
-      'Bạn có chắc muốn huỷ giao dịch này không?',
-      [
-        {
-          text: 'Quay lại',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'Huỷ', onPress: () => this.onConfirm(order_id)},
-        ,
-      ],
-      {cancelable: false},
-    );
+    this.setState({
+      order_id,
+      modalVisible: !this.state.modalVisible,
+    });
   };
 
   renderItem = ({item}) => {
@@ -235,7 +233,7 @@ class index extends Component {
               alignItems: 'center',
               flexDirection: 'row',
             }}>
-            <TouchableOpacity onPress={() => this.onCancelOrder(item.order_id)}>
+            <TouchableOpacity onPress={() => this.onPress(item.order_id)}>
               <Text
                 style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
                 {t('dat_lai')}
@@ -321,6 +319,7 @@ class index extends Component {
 
   render() {
     const ordersData = this.props.orders.dataOrders;
+    console.log('data', this.state.order_id);
 
     if (ordersData.length === 0) {
       return (
@@ -372,6 +371,7 @@ class index extends Component {
       ordersData[key].id = key;
       return ordersData[key];
     });
+    console.log(arrOrderList);
 
     return (
       <View style={{flex: 1}}>
@@ -410,6 +410,93 @@ class index extends Component {
             />
           </View>
         </ScrollView>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 22,
+              height: 100,
+            }}>
+            <View
+              style={{
+                margin: 20,
+                backgroundColor: 'white',
+                borderRadius: 20,
+                padding: 35,
+                alignItems: 'center',
+                shadowColor: '#000',
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+                width: 300,
+                height: 200,
+              }}>
+              <Text
+                style={{
+                  marginBottom: 18,
+                  flex: 1,
+                  textAlign: 'center',
+                  fontSize: 16,
+                  color: '#797777',
+                }}>
+                Bạn có chắc muốn huỷ giao dịch này không?
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#F194FF',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.setState({
+                      modalVisible: !this.state.modalVisible,
+                    });
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Quay lại
+                  </Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: '#2196F3',
+                    borderRadius: 20,
+                    padding: 10,
+                    elevation: 2,
+                    width: 100,
+                    marginHorizontal: 20,
+                  }}
+                  onPress={() => {
+                    this.onConfirm(this.state.order_id);
+                  }}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    Huỷ bỏ
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }

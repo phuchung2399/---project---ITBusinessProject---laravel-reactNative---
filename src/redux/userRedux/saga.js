@@ -4,12 +4,11 @@ import {
   logInFailure,
   addUserSuccess,
   addUserFailure,
-  Alert,
 } from './action';
 import {ADD_USER, LOG_IN, LOGOUT_SUCCESS} from '../constants/actionTypes';
 import {login, logout, register} from '../../api/user';
 import {onChangeIntoMainScreen, onSignIn} from '../../navigation';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, Alert} from 'react-native';
 import {storageSet} from '../../checkAsyncStorage';
 
 export function* registerSaga({data}) {
@@ -50,17 +49,15 @@ export function* logOutSaga({token}) {
     const response = yield call(logout, token);
     Alert.alert('Thông báo', response.data.message);
     onSignIn();
-    // AsyncStorage.clear();
   } catch (error) {
-    console.log('errorLogout', error.toJSON());
+    console.log('errorLogout', error);
   }
 }
 
 const userSagas = () => [
   takeLatest(ADD_USER, registerSaga),
-  takeLatest(LOG_IN, loginSaga),
   takeLatest(LOGOUT_SUCCESS, logOutSaga),
-  // takeLatest(GET_BEST_USERS, getBestUsersSaga),
+  takeLatest(LOG_IN, loginSaga),
 ];
 
 export default userSagas();
