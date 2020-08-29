@@ -129,7 +129,7 @@ class Home extends Component {
         });
       }
     } catch (error) {
-      // alert(error);
+      console.log(error);
     }
   };
 
@@ -140,10 +140,7 @@ class Home extends Component {
           {
             component: {
               name: 'Cart',
-              passProps: {
-                // token: token,
-                // idbasket: idbasket,
-              },
+              passProps: {},
               options: {
                 topBar: {
                   title: {
@@ -172,7 +169,8 @@ class Home extends Component {
     const storesByStar = storesData.dataStoresByStar;
     const userToken = this.state.token;
     const slicesData = this.props.slices.slides;
-
+    const services = this.props.services.services;
+    console.log(this.props.services.services);
     const arrNewStores = Object.keys(newStores).map(key => {
       newStores[key].id = key;
       return newStores[key];
@@ -340,24 +338,48 @@ class Home extends Component {
                 />
               )}
 
-              <View style={styles.divider} />
+              {/* <View style={styles.divider} />
               <View style={styles.category}>
-                <Text style={styles.text}>Top 10 khách hàng tốt nhất</Text>
+                <Text style={styles.text}>Top 10 dịch vụ ưa chuộng nhất</Text>
+              </View> */}
+
+              <View
+                style={{
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  padding: 10,
+                  justifyContent: 'center',
+                  marginTop: 5,
+                }}>
+                <Text style={styles.text}>Top 10 dịch vụ ưa chuộng</Text>
+                <Text
+                  style={styles.showall}
+                  onPress={() =>
+                    this.changeScreenShowAll(services, 'Dịch vụ ưa chuộng nhất')
+                  }>
+                  {t('xem_het')}
+                </Text>
               </View>
-              <FlatList
-                data={ReviewData}
-                renderItem={({item}) => (
-                  <ServiceItem
-                    image={item.image}
-                    name={item.name}
-                    orderCount={item.orderCount}
-                    extraInfor={'lượt order'}
-                  />
-                )}
-                horizontal={true}
-                keyExtractor={(item, index) => index.toString()}
-                showsHorizontalScrollIndicator={false}
-              />
+
+              {services.length === 0 ? (
+                <NoData />
+              ) : (
+                <FlatList
+                  data={services}
+                  renderItem={({item, index}) => (
+                    <ServiceItem
+                      item={item}
+                      index={index}
+                      parentFlatList={this}
+                      component={this.props.componentId}
+                    />
+                  )}
+                  horizontal={true}
+                  keyExtractor={(item, index) => index.toString()}
+                  showsHorizontalScrollIndicator={false}
+                />
+              )}
+
               <View style={styles.divider} />
             </View>
           </ScrollView>

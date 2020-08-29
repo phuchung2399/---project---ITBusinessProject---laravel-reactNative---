@@ -258,7 +258,7 @@ class Search extends Component {
           <TouchableOpacity
             onPress={() => this.onRestart()}
             style={{paddingHorizontal: 10}}>
-            <Ionicons name="ios-close" color="gray" size={20} />
+            <Ionicons name="ios-close" color="gray" size={26} />
           </TouchableOpacity>
         </View>
       </LinearGradient>

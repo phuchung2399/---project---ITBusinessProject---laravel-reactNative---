@@ -37,6 +37,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {deleteAllCarts, deleteStoreId} from '../../redux/orderRedux/action';
 import {onChangeIntoMainScreen} from '../../navigation';
 import TimePicker from 'react-native-24h-timepicker';
+import Colors from '../../themers/Colors';
 
 class Booking extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class Booking extends Component {
       voucher_name: '',
       totalDiscount: 0,
       discountPrice: 0,
-
+      disableButton: false,
       dateTimePickerVisible: false,
       dateOrTimeValue: new Date(),
     };
@@ -133,8 +134,16 @@ class Booking extends Component {
     );
   };
 
+  getAvatarDefault = user_name => {
+    var getUpperCase = user_name.replace(/[a-z]/g, '');
+    let removeSpace = getUpperCase.split(' ').join('');
+    var getLastLetters = removeSpace.slice(-2);
+    return getLastLetters;
+  };
+
   renderUserInfor = () => {
     const {userData} = this.props;
+    console.log(userData);
 
     if (userData != null) {
       return (
@@ -146,14 +155,38 @@ class Booking extends Component {
             padding: 10,
           }}>
           <View style={{paddingHorizontal: 30}}>
-            <Image
-              style={{
-                width: 80,
-                height: 80,
-                borderRadius: 60,
-              }}
-              source={{uri: userData.user.avatar}}
-            />
+            {userData.user.avatar && (
+              <Image
+                style={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: 60,
+                }}
+                source={{uri: userData.user.avatar}}
+              />
+            )}
+
+            {!userData.user.avatar && (
+              <View
+                style={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: 60,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: Colors.darkGray,
+                }}>
+                {userData.user.user_name && (
+                  <Text
+                    style={{
+                      fontSize: 35,
+                      color: 'white',
+                    }}>
+                    {this.getAvatarDefault(userData.user.user_name)}
+                  </Text>
+                )}
+              </View>
+            )}
           </View>
 
           <View style={{marginHorizontal: 5}}>
@@ -551,7 +584,9 @@ class Booking extends Component {
         .then(response => response.json())
         .then(responseData => {
           if (responseData.status === 201) {
-            this.onChangeNotifyScreen(store_id);
+            this.setState({disableButton: true}, () => {
+              this.onChangeNotifyScreen(store_id);
+            });
           } else if (responseData.status === 400) {
             Alert.alert('Thông báo', responseData.message);
           } else {
@@ -562,9 +597,6 @@ class Booking extends Component {
         .catch(error => {
           console.log('Error');
         });
-
-      // await this.props.onCreateOrder(data, token);
-      // this.onVerify();
     }
   };
 
@@ -786,7 +818,9 @@ class Booking extends Component {
               </Text>
             </View>
             <View style={{alignItems: 'flex-end'}}>
-              <TouchableOpacity onPress={this.onBooking}>
+              <TouchableOpacity
+                onPress={this.onBooking}
+                disabled={this.state.disableButton}>
                 <Text
                   style={{
                     borderRadius: 20,

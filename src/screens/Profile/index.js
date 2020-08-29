@@ -48,6 +48,13 @@ export default class Profile extends Component {
     Navigation.dismissModal(this.props.componentId);
   };
 
+  getAvatarDefault = user_name => {
+    var getUpperCase = user_name.replace(/[a-z]/g, '');
+    let removeSpace = getUpperCase.split(' ').join('');
+    var getLastLetters = removeSpace.slice(-2);
+    return getLastLetters;
+  };
+
   render() {
     console.log(this.state.user);
     const userInfor = this.state.user;
@@ -133,13 +140,27 @@ export default class Profile extends Component {
             )}
 
             {!userInfor.avatar && (
-              <Avatar
-                size="xlarge"
-                rounded
-                title="CR"
-                onPress={() => console.log('Works!')}
-                activeOpacity={0.7}
-              />
+              <View
+                style={{
+                  width: 150,
+                  height: 150,
+                  borderWidth: 2,
+                  borderColor: 'pink',
+                  borderRadius: 80,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: Colors.darkGray,
+                }}>
+                {userInfor.user_name && (
+                  <Text
+                    style={{
+                      fontSize: 40,
+                      color: 'white',
+                    }}>
+                    {this.getAvatarDefault(userInfor.user_name)}
+                  </Text>
+                )}
+              </View>
             )}
           </View>
 

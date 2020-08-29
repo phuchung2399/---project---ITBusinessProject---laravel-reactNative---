@@ -23,6 +23,7 @@ import {storageGet, removeItemValue} from '../../checkAsyncStorage';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import Fonts from '../../themers/Fonts';
 import {t} from '../../i18n/t';
+import Colors from '../../themers/Colors';
 
 class SideBarMenu extends Component {
   constructor(props) {
@@ -186,6 +187,13 @@ class SideBarMenu extends Component {
     alert('uddq');
   };
 
+  getAvatarDefault = user_name => {
+    var getUpperCase = user_name.replace(/[a-z]/g, '');
+    let removeSpace = getUpperCase.split(' ').join('');
+    var getLastLetters = removeSpace.slice(-2);
+    return getLastLetters;
+  };
+
   render() {
     const userInfor = this.state.user;
 
@@ -216,16 +224,42 @@ class SideBarMenu extends Component {
               }}>
               <View style={{flex: 1}}>
                 <TouchableOpacity onPress={() => this.changeProfileScreen()}>
-                  <Image
-                    style={{
-                      width: 80,
-                      height: 80,
-                      borderWidth: 1,
-                      borderColor: '#FFF',
-                      borderRadius: 60,
-                    }}
-                    source={{uri: userInfor.avatar}}
-                  />
+                  {userInfor.avatar && (
+                    <Image
+                      style={{
+                        width: 80,
+                        height: 80,
+                        borderWidth: 1,
+                        borderColor: '#FFF',
+                        borderRadius: 60,
+                      }}
+                      source={{uri: userInfor.avatar}}
+                    />
+                  )}
+
+                  {!userInfor.avatar && (
+                    <View
+                      style={{
+                        width: 80,
+                        height: 80,
+                        borderWidth: 1,
+                        borderColor: '#FFF',
+                        borderRadius: 60,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: Colors.darkGray,
+                      }}>
+                      {userInfor.user_name && (
+                        <Text
+                          style={{
+                            fontSize: 35,
+                            color: 'white',
+                          }}>
+                          {this.getAvatarDefault(userInfor.user_name)}
+                        </Text>
+                      )}
+                    </View>
+                  )}
                 </TouchableOpacity>
               </View>
               <View style={{flex: 2}}>

@@ -20,27 +20,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../../../assets/images/logo.png';
 const {width, height} = Dimensions.get('window');
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Fonts from '../../themers/Fonts';
 import {storageGet} from '../../checkAsyncStorage';
 import {connect} from 'react-redux';
 import {getStoreDetail} from '../../redux/storeRedux/action';
 import {deleteCart} from '../../redux/orderRedux/action';
-
-var data = [
-  {
-    name: 'Mong tay thiet ke tinh xao',
-    image: 'https://saida-nails.de/images/content/studio5.jpg',
-    rating: 3,
-    price: '12.000 đ',
-  },
-  {
-    name: 'Mong tay thiet ke tinh xao',
-    image: 'https://saida-nails.de/images/content/studio5.jpg',
-    rating: 5,
-    price: '12.000 đ',
-  },
-];
+import Colors from '../../themers/Colors';
 
 class index extends Component {
   constructor(props) {
@@ -109,8 +94,6 @@ class index extends Component {
             component: {
               name: 'Booking',
               passProps: {
-                // arrayServicesSelected,
-                // store_id,
                 userData,
                 dataCarts,
                 total,
@@ -129,6 +112,13 @@ class index extends Component {
         ],
       },
     });
+  };
+
+  getAvatarDefault = user_name => {
+    var getUpperCase = user_name.replace(/[a-z]/g, '');
+    let removeSpace = getUpperCase.split(' ').join('');
+    var getLastLetters = removeSpace.slice(-2);
+    return getLastLetters;
   };
 
   ItemSeparatorComponent = () => {
@@ -218,6 +208,13 @@ class index extends Component {
     this.props.onDeleteCartItem(service_id);
   };
 
+  getAvatarDefault = user_name => {
+    var getUpperCase = user_name.replace(/[a-z]/g, '');
+    let removeSpace = getUpperCase.split(' ').join('');
+    var getLastLetters = removeSpace.slice(-2);
+    return getLastLetters;
+  };
+
   renderDataUser = () => {
     const userData = this.state.userData;
 
@@ -237,15 +234,38 @@ class index extends Component {
               justifyContent: 'center',
               alignContent: 'center',
             }}>
-            <Image
-              style={{
-                width: 45,
-                height: 45,
-                borderRadius: 30,
-              }}
-              source={{uri: userData.user.avatar}}
-              // source={Logo}
-            />
+            {userData.user.avatar && (
+              <Image
+                style={{
+                  width: 45,
+                  height: 45,
+                  borderRadius: 30,
+                }}
+                source={{uri: userData.user.avatar}}
+              />
+            )}
+
+            {!userData.user.avatar && (
+              <View
+                style={{
+                  width: 45,
+                  height: 45,
+                  borderRadius: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: Colors.darkGray,
+                }}>
+                {userData.user.user_name && (
+                  <Text
+                    style={{
+                      fontSize: 25,
+                      color: 'white',
+                    }}>
+                    {this.getAvatarDefault(userData.user.user_name)}
+                  </Text>
+                )}
+              </View>
+            )}
           </View>
           <View
             style={{
@@ -375,20 +395,6 @@ class index extends Component {
               </Text>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.props.navigation.navigate('DetailScreen', {})
-            }
-            style={{
-              width: 30,
-              height: 30,
-              backgroundColor: 'white',
-              borderRadius: 15,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <AntDesign name="arrowright" color="green" size={15} />
-          </TouchableOpacity>
         </View>
       );
     }
