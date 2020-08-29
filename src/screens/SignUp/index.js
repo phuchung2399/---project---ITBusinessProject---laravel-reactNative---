@@ -21,11 +21,17 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_name: 'Thiet Huynh',
-      email: 'thiet.huyneh@student.passerellesnumeriques.org',
-      phone: '0989297654',
-      password: 'tuannui123',
-      confirmPass: 'tuannui123',
+      // user_name: 'Thiet Huynh',
+      // email: 'thiet.huyneh@student.passerellesnumeriques.org',
+      // phone: '0989297654',
+      // password: 'tuannui123',
+      // confirmPass: 'tuannui123',
+
+      user_name: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPass: '',
       errorName: '',
       errorEmail: '',
       errorPhoneNumber: '',

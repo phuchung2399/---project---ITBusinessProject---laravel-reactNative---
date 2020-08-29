@@ -25,12 +25,7 @@ class CartComponent extends React.Component {
             <Text style={styles.text}>{size}</Text>
           </View>
 
-          <CardIcon
-            name="shoppingcart"
-            size={35}
-            color="#7adaf7"
-            // onPress={() => this.changeShopping()}
-          />
+          <CardIcon name="shoppingcart" size={35} color="#7adaf7" />
         </TouchableOpacity>
       </View>
     );

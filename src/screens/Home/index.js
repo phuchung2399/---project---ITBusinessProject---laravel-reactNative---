@@ -170,7 +170,7 @@ class Home extends Component {
     const userToken = this.state.token;
     const slicesData = this.props.slices.slides;
     const services = this.props.services.services;
-    console.log(this.props.services.services);
+
     const arrNewStores = Object.keys(newStores).map(key => {
       newStores[key].id = key;
       return newStores[key];
@@ -179,6 +179,11 @@ class Home extends Component {
     const arrStoresByStar = Object.keys(storesByStar).map(key => {
       storesByStar[key].id = key;
       return storesByStar[key];
+    });
+
+    const servicesList = Object.keys(services).map(key => {
+      services[key].id = key;
+      return services[key];
     });
 
     setTimeout(function() {
@@ -355,17 +360,20 @@ class Home extends Component {
                 <Text
                   style={styles.showall}
                   onPress={() =>
-                    this.changeScreenShowAll(services, 'Dịch vụ ưa chuộng nhất')
+                    this.changeScreenShowAll(
+                      servicesList,
+                      'Dịch vụ ưa chuộng nhất',
+                    )
                   }>
                   {t('xem_het')}
                 </Text>
               </View>
 
-              {services.length === 0 ? (
+              {servicesList.length === 0 ? (
                 <NoData />
               ) : (
                 <FlatList
-                  data={services}
+                  data={servicesList}
                   renderItem={({item, index}) => (
                     <ServiceItem
                       item={item}
