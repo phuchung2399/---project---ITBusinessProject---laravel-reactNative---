@@ -373,7 +373,10 @@ class HistoryOrderDetail extends Component {
     this.props.onDeleteAllCart();
     this.props.onDeleteStoreId();
     Alert.alert('Thông báo', 'Xoá thành công');
-    this.setState({modalDeleteCart: !this.state.modalDeleteCart});
+
+    this.setState({modalDeleteCart: !this.state.modalDeleteCart}, () => {
+      this.onConfirmReorder();
+    });
   };
 
   renderStatusIcon = dataOrderDetail => {
@@ -1182,7 +1185,7 @@ class HistoryOrderDetail extends Component {
                   }}
                   onPress={() => {
                     this.setState({
-                      modalVisible: !this.state.modalVisible,
+                      modalDeleteCart: !this.state.modalDeleteCart,
                     });
                   }}>
                   <Text
