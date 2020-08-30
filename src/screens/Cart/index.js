@@ -208,13 +208,6 @@ class index extends Component {
     this.props.onDeleteCartItem(service_id);
   };
 
-  getAvatarDefault = user_name => {
-    var getUpperCase = user_name.replace(/[a-z]/g, '');
-    let removeSpace = getUpperCase.split(' ').join('');
-    var getLastLetters = removeSpace.slice(-2);
-    return getLastLetters;
-  };
-
   renderDataUser = () => {
     const userData = this.state.userData;
 
