@@ -11,8 +11,6 @@ import {
   Image,
   TouchableWithoutFeedback,
   TouchableOpacity,
-  SafeAreaView,
-  TextInput,
 } from 'react-native';
 import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
@@ -25,14 +23,6 @@ import {onSignIn} from '../../navigation';
 import {t} from '../../i18n/t';
 
 class Announcement extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  onSignUp = () => {
-    alert('0k');
-  };
-
   onSignin = () => {
     onSignIn();
   };
@@ -136,7 +126,7 @@ class Announcement extends Component {
                 color: 'white',
                 textAlign: 'center',
               }}>
-              Vui lòng xác nhận tại khoản tại email vừa đăng kí
+              Vui lòng xác nhận tài khoản tại email vừa đăng kí
             </Text>
           </View>
           <View

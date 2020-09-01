@@ -205,7 +205,7 @@ class SignUp extends Component {
         <Input
           getData={e => this.getData('password', e)}
           title="Mật khẩu *"
-          placeholder="Mật khẩu..."
+          placeholder="Nhập mật khẩu..."
           error={errorPassword}
           returnKeyType="go"
           secureTextEntry={true}
@@ -214,7 +214,7 @@ class SignUp extends Component {
         <Input
           getData={e => this.getData('confirmPass', e)}
           title="Xác nhận mật khẩu *"
-          placeholder="Xác nhận mật khẩu ..."
+          placeholder="Xác nhận mật khẩu..."
           error={errorConfirmPass}
           returnKeyType="go"
           secureTextEntry={true}
