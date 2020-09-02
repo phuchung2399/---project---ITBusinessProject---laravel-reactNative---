@@ -30,10 +30,10 @@ class SignIn extends Component {
     this.state = {
       // phoneNumber: '0967258205',
       // password: '123456789',
-      phoneNumber: '0779763016',
-      password: 'tuannui123',
-      // phoneNumber: '',
-      // password: '',
+      // phoneNumber: '0779763016',
+      // password: 'tuannui123',
+      phoneNumber: '',
+      password: '',
       errorPhoneNumber: '',
       errorPassword: '',
     };
