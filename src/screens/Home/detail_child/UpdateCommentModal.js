@@ -189,8 +189,8 @@ class UpdateCommentModal extends Component {
 
     return (
       <ScrollView>
-        <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
-          <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
+        <View style={{flex: 1, backgroundColor: Colors.orrange}}>
+          <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
             <View
               style={{
                 padding: 10,
@@ -385,13 +385,6 @@ class UpdateCommentModal extends Component {
 }
 
 const style = StyleSheet.create({
-  styleModal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowRadius: 40,
-    width: screen.width - 80,
-    height: 400,
-  },
   styleTitle: {
     fontSize: 25,
     fontWeight: 'bold',

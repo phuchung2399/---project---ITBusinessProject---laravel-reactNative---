@@ -21,12 +21,6 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // user_name: 'Thiet Huynh',
-      // email: 'thiet.huyneh@student.passerellesnumeriques.org',
-      // phone: '0989297654',
-      // password: 'tuannui123',
-      // confirmPass: 'tuannui123',
-
       user_name: '',
       email: '',
       phone: '',
@@ -122,7 +116,6 @@ class SignUp extends Component {
             errorPhoneNumber: responseData.errors.phone[0],
           });
         }
-        console.log('responeTotal', responseData);
       })
       .catch(error => {
         console.log('Error', error);
@@ -144,7 +137,6 @@ class SignUp extends Component {
     this.setState({
       [key]: value,
     });
-    console.log(key, value);
   };
 
   renderHeader = () => {
@@ -159,16 +151,18 @@ class SignUp extends Component {
 
   renderTitle = () => {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: '15%',
-          marginBottom: 15,
-        }}>
-        <Text style={{fontSize: 50, fontWeight: 'bold'}}>{t('txtSignUp')}</Text>
-      </View>
+      <>
+        <Text
+          style={{
+            fontSize: 50,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginTop: '10%',
+            marginBottom: 15,
+          }}>
+          {t('txtSignUp')}
+        </Text>
+      </>
     );
   };
 
@@ -231,23 +225,9 @@ class SignUp extends Component {
           colors={['#e511e8', '#F99A7C']}
           start={{x: 0, y: 1}}
           end={{x: 1, y: 0}}
-          style={{
-            paddingVertical: 5,
-            paddingHorizontal: 10,
-            borderRadius: 25,
-          }}>
+          style={style.btnSignUp}>
           <TouchableOpacity onPress={this.onSignUp}>
-            <Text
-              style={{
-                fontSize: 24,
-                fontWeight: 'bold',
-                textAlign: 'center',
-                color: 'white',
-                flex: 1,
-                margin: 7,
-              }}>
-              {t('txtSignUp')}
-            </Text>
+            <Text style={style.txtSignUp}>{t('txtSignUp')}</Text>
           </TouchableOpacity>
         </LinearGradient>
       </>
@@ -257,8 +237,7 @@ class SignUp extends Component {
   renderButtonBackSignIn = () => {
     return (
       <>
-        <View
-          style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
+        <View style={style.viewBack}>
           <Icon
             name="angle-left"
             size={40}
@@ -266,16 +245,7 @@ class SignUp extends Component {
             onPress={() => this.changScreenSearch()}
           />
           <TouchableOpacity onPress={this.onSignin}>
-            <Text
-              style={{
-                color: 'blue',
-                fontSize: 16,
-                fontWeight: 'bold',
-                textDecorationLine: 'underline',
-                marginHorizontal: 12,
-              }}>
-              Đã có tài khoản
-            </Text>
+            <Text style={style.txtBack}>{t('txt_da_co_tai_khoan')}</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -285,22 +255,7 @@ class SignUp extends Component {
   renderLogo = () => {
     return (
       <>
-        <View
-          iterationCount="infinite"
-          style={{
-            position: 'absolute',
-            right: '30%',
-            top: '12%',
-            overflow: 'hidden',
-          }}>
-          <Image
-            style={{
-              width: 170,
-              height: 170,
-            }}
-            source={Logo}
-          />
-        </View>
+        <Image style={style.logo} source={Logo} />
       </>
     );
   };
@@ -325,12 +280,12 @@ const style = StyleSheet.create({
   headerView: {
     flex: 1,
     alignItems: 'center',
-    height: height / 4,
+    height: height / 5,
   },
   txtBrandName: {
     fontSize: 50,
     fontWeight: 'bold',
-    marginTop: 20,
+    marginTop: 10,
     color: 'white',
   },
   container: {
@@ -344,6 +299,39 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 30,
     backgroundColor: 'white',
+  },
+  btnSignUp: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 25,
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    position: 'absolute',
+    right: '30%',
+    top: '10%',
+    overflow: 'hidden',
+  },
+  viewBack: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 15,
+  },
+  txtBack: {
+    color: 'blue',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+    marginHorizontal: 12,
+  },
+  txtSignUp: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white',
+    flex: 1,
+    margin: 7,
   },
 });
 

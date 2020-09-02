@@ -2,7 +2,6 @@ import React from 'react';
 import {Navigation} from 'react-native-navigation';
 import Home from '../screens/Home';
 import Order from '../screens/Order';
-import Love from '../screens/Love';
 import Profile from '../screens/Profile';
 import Contact from '../screens/Contact';
 import Booking from '../screens/Home/Booking';
@@ -15,13 +14,9 @@ import UploadProfile from '../screens/SignUp/UploadProfile';
 import SearchItems from '../screens/Home/components/SearchItems';
 import ShowAllStores from '../screens/Home/ShowAllStores';
 import Intro from '../screens/Intro';
-import BookingItems from '../screens/Home/components/BookingItems';
 import Announcement from '../screens/Announcement';
 import SideBarMenu from '../screens/SideBar';
 import home_Icon from '../../assets/images/home_icon.png';
-import order_Icon from '../../assets/images/booking_icon.png';
-import love_Icon from '../../assets/images/heart_icon.png';
-import profile_Icon from '../../assets/images/profile_icon.png';
 import noti_Icon from '../../assets/images/noti_icon.png';
 import Notification from '../screens/Notification';
 import NotificationItems from '../screens/Notification/components/NotifyItems';
@@ -36,7 +31,6 @@ import ConfirmOrder from '../screens/ConfirmOrder';
 import Voucher from '../screens/Voucher';
 import {Provider} from 'react-redux';
 import store from '../redux/store';
-import ServiceModal from '../screens/Home/components/ServiceModal';
 console.disableYellowBox = true;
 
 function ReduxProvider(Component) {
@@ -72,12 +66,6 @@ Navigation.registerComponent(
 );
 
 Navigation.registerComponent(
-  'Love',
-  () => ReduxProvider(Love),
-  () => Love,
-);
-
-Navigation.registerComponent(
   'Profile',
   () => ReduxProvider(Profile),
   () => Profile,
@@ -105,12 +93,6 @@ Navigation.registerComponent(
   'Booking',
   () => ReduxProvider(Booking),
   () => Booking,
-);
-
-Navigation.registerComponent(
-  'BookingItems',
-  () => ReduxProvider(BookingItems),
-  () => BookingItems,
 );
 
 Navigation.registerComponent(
@@ -210,12 +192,6 @@ Navigation.registerComponent(
 );
 
 Navigation.registerComponent(
-  'ServiceModal',
-  () => ReduxProvider(ServiceModal),
-  () => ServiceModal,
-);
-
-Navigation.registerComponent(
   'ConfirmOrder',
   () => ReduxProvider(ConfirmOrder),
   () => ConfirmOrder,
@@ -300,25 +276,6 @@ export const onChangeIntoMainScreen = () => {
                   },
                 },
               },
-              // {
-              //   stack: {
-              //     children: [
-              //       {
-              //         component: {
-              //           name: 'Announcement',
-              //         },
-              //       },
-              //     ],
-              //     options: {
-              //       topBar: {visible: false},
-              //       bottomTab: {
-              //         text: 'Yêu thích',
-              //         icon: love_Icon,
-              //         testID: 'THIRST_TAB_BAR_BUTTON',
-              //       },
-              //     },
-              //   },
-              // },
               {
                 stack: {
                   children: [

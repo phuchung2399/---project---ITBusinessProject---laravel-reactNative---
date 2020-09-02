@@ -4,112 +4,39 @@ import {
   View,
   Text,
   ScrollView,
-  Image,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  SafeAreaView,
-  TextInput,
   FlatList,
   Dimensions,
-  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import Card from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
-import * as Animatable from 'react-native-animatable';
-import Logo from '../../../assets/images/logo.png';
 import Carousel from '../../components/Carousel';
 import {dummyData} from '../../utils/index';
 import {Navigation} from 'react-native-navigation';
 import {t} from '../../i18n/t';
 import NailItem from './components/NailItems';
-import Services from './components/Services';
-import ReviewData from '../../utils/ReviewData';
 import ServiceItem from './components/ServiceItem';
-import {get, filter} from 'lodash';
+import {get} from 'lodash';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
-const {width, height} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 import Loading from '../Loading';
 import {connect} from 'react-redux';
 import {getNewStore, getStoreByStar} from '../../redux/storeRedux/action';
 import {getAllSlides} from '../../redux/slideRedux/action';
 import {storageGet} from '../../checkAsyncStorage';
 import {getAllServices} from '../../redux/serviceRedux/action';
-import Service from './detail_child/Service';
 import NoData from '../../components/NoData';
 import CartComponent from '../../components/CartComponent';
-import ServiceModal from './components/ServiceModal';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
-      userName: '',
-      isShowInfor: false,
-      showAlert: false,
       token: '',
-      items: 1,
     };
   }
-
-  changScreenSidebar = () => {
-    Navigation.mergeOptions('sideMenu', {
-      sideMenu: {
-        left: {
-          visible: true,
-        },
-      },
-    });
-  };
-
-  changScreenSearch = () => {
-    Navigation.showModal({
-      component: {
-        name: 'Search',
-      },
-    });
-  };
-
-  onPress = idBook => {
-    Navigation.showModal({
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Booking',
-              // passProps: {
-              //   IdStore: idStore,
-              // },
-              options: {
-                topBar: {
-                  title: {
-                    text: '',
-                    alignment: 'center',
-                  },
-                  visible: false,
-                },
-              },
-            },
-          },
-        ],
-      },
-    });
-  };
-
-  changeScreenShowAll = (data, title) => {
-    Navigation.showModal({
-      component: {
-        name: 'ShowAllStores',
-        passProps: {
-          data: data,
-          title: title,
-        },
-      },
-    });
-  };
 
   componentDidMount() {
     this.onGetUserData();
@@ -131,6 +58,36 @@ class Home extends Component {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  changScreenSidebar = () => {
+    Navigation.mergeOptions('sideMenu', {
+      sideMenu: {
+        left: {
+          visible: true,
+        },
+      },
+    });
+  };
+
+  changScreenSearch = () => {
+    Navigation.showModal({
+      component: {
+        name: 'Search',
+      },
+    });
+  };
+
+  changeScreenShowAll = (data, title) => {
+    Navigation.showModal({
+      component: {
+        name: 'ShowAllStores',
+        passProps: {
+          data: data,
+          title: title,
+        },
+      },
+    });
   };
 
   changeShopping = (idbasket, token) => {
@@ -157,19 +114,188 @@ class Home extends Component {
     });
   };
 
-  onShowService = () => {
-    this.refs.addModal.showAddModal();
+  renderCart = () => {
+    return (
+      <>
+        {this.props.orders.cartItems.length <= 0 ? null : (
+          <CartComponent
+            changeShopping={this.changeShopping}
+            size={this.props.orders.cartItems.length}
+          />
+        )}
+      </>
+    );
   };
 
-  render() {
-    const that = this;
-    const isLoading = this.state.isLoading;
+  renderLoading = () => {
+    return (
+      <View style={styles.Loading}>
+        <Loading />
+      </View>
+    );
+  };
+
+  renderHeader = () => {
+    return (
+      <View style={styles.viewHeader}>
+        <View style={styles.iconSideBar}>
+          <Icon
+            name="list"
+            size={30}
+            color="white"
+            onPress={() => this.changScreenSidebar()}
+          />
+        </View>
+        <View style={styles.iconSearch}>
+          <EvilIcons
+            name="search"
+            size={30}
+            color="white"
+            onPress={() => this.changScreenSearch()}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  renderPageTitle = () => {
+    return (
+      <LinearGradient colors={['#FC5895', '#F99A7C']}>
+        <View style={styles.viewPageTitle}>
+          <Text style={styles.txtPageTitle}>{t('home_page')}</Text>
+        </View>
+      </LinearGradient>
+    );
+  };
+
+  renderSlide = () => {
+    return (
+      <View style={styles.viewSlide}>
+        <Carousel data={dummyData} />
+      </View>
+    );
+  };
+
+  renderNewStore = arrNewStores => {
+    return (
+      <>
+        <View style={styles.category}>
+          <Text style={styles.text}>
+            {t('cua_hang_moi_nhat')} ({get(arrNewStores, 'length')})
+          </Text>
+          <Text
+            style={styles.showall}
+            onPress={() =>
+              this.changeScreenShowAll(arrNewStores, ' Cửa hàng mới nhất')
+            }>
+            {t('xem_het')}
+          </Text>
+        </View>
+        {arrNewStores.length === 0 ? (
+          <NoData />
+        ) : (
+          <FlatList
+            data={arrNewStores}
+            keyExtractor={(item, index) => `${index}`}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item, index}) => {
+              return (
+                <NailItem
+                  item={item}
+                  index={index}
+                  parentFlatList={this}
+                  component={this.props.componentId}
+                />
+              );
+            }}
+          />
+        )}
+        <View style={styles.divider} />
+      </>
+    );
+  };
+
+  renderBestStores = arrStoresByStar => {
+    return (
+      <>
+        <View style={styles.category}>
+          <Text style={styles.text}>
+            {t('cua_hang_chat_luong')} ({get(arrStoresByStar, 'length')}){' '}
+          </Text>
+          <Text
+            style={styles.showall}
+            onPress={() =>
+              this.changeScreenShowAll(
+                arrStoresByStar,
+                'Cửa hàng order nhiều nhất',
+              )
+            }>
+            {t('xem_het')}
+          </Text>
+        </View>
+
+        {arrStoresByStar.length === 0 ? (
+          <NoData />
+        ) : (
+          <FlatList
+            data={arrStoresByStar}
+            keyExtractor={(item, index) => `${index}`}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item, index}) => {
+              return (
+                <NailItem
+                  item={item}
+                  index={index}
+                  parentFlatList={this}
+                  component={this.props.componentId}
+                />
+              );
+            }}
+          />
+        )}
+        <View style={styles.divider} />
+      </>
+    );
+  };
+
+  renderBestServices = servicesList => {
+    return (
+      <>
+        <View style={styles.category}>
+          <Text style={styles.text}>Dịch vụ được yêu thích</Text>
+        </View>
+
+        {servicesList.length === 0 ? (
+          <NoData />
+        ) : (
+          <FlatList
+            data={servicesList}
+            renderItem={({item, index}) => (
+              <ServiceItem
+                item={item}
+                index={index}
+                parentFlatList={this}
+                component={this.props.componentId}
+              />
+            )}
+            horizontal={true}
+            keyExtractor={(item, index) => index.toString()}
+            showsHorizontalScrollIndicator={false}
+          />
+        )}
+        <View style={styles.divider} />
+      </>
+    );
+  };
+
+  renderBody = () => {
     const storesData = this.props.stores;
     const newStores = storesData.dataNewStores;
     const storesByStar = storesData.dataStoresByStar;
-    const userToken = this.state.token;
-    const slicesData = this.props.slices.slides;
     const services = this.props.services.services;
+    console.log(newStores);
 
     const arrNewStores = Object.keys(newStores).map(key => {
       newStores[key].id = key;
@@ -186,221 +312,43 @@ class Home extends Component {
       return services[key];
     });
 
+    return (
+      <View style={styles.viewBody}>
+        {this.renderNewStore(arrNewStores)}
+        {this.renderBestStores(arrStoresByStar)}
+        {this.renderBestServices(servicesList)}
+      </View>
+    );
+  };
+
+  renderData = () => {
+    const slicesData = this.props.slices.slides;
+    return (
+      <View style={styles.Loading}>
+        {this.renderHeader()}
+        <ScrollView style={styles.Loading}>
+          {this.renderPageTitle()}
+          {this.renderSlide()}
+          {this.renderBody()}
+        </ScrollView>
+        {this.renderCart()}
+      </View>
+    );
+  };
+
+  render() {
+    const that = this;
+    const isLoading = this.state.isLoading;
     setTimeout(function() {
       that.setState({isLoading: false});
     }, 10);
 
-    if (isLoading) {
-      return (
-        <View style={{flex: 1}}>
-          <Loading loadingText="Loading..." />
-        </View>
-      );
-    } else {
-      return (
-        <View style={{flex: 1}}>
-          <View
-            style={{
-              backgroundColor: '#FC5895',
-              padding: 10,
-              flexDirection: 'row',
-            }}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignContent: 'center',
-              }}>
-              <Icon
-                name="list"
-                size={30}
-                color="white"
-                onPress={() => this.changScreenSidebar()}
-              />
-            </View>
-            <View
-              style={{
-                alignItems: 'flex-end',
-                justifyContent: 'center',
-                borderWidth: 0.5,
-                borderColor: 'white',
-                borderRadius: 20,
-              }}>
-              <EvilIcons
-                name="search"
-                size={30}
-                color="white"
-                onPress={() => this.changScreenSearch()}
-              />
-            </View>
-          </View>
-          <ScrollView
-            style={{
-              flex: 1,
-            }}>
-            <LinearGradient colors={['#FC5895', '#F99A7C']}>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  height: height / 5,
-                }}>
-                <Text
-                  animation="zoomInUp"
-                  style={{
-                    fontSize: 40,
-                    fontWeight: 'bold',
-                    color: 'white',
-                    marginTop: -10,
-                    fontFamily: Fonts.serif,
-                  }}>
-                  {t('home_page')}
-                </Text>
-              </View>
-            </LinearGradient>
-
-            {/* <View style={{marginTop: '-25%'}}>
-              <Carousel data={dummyData} />
-            </View> */}
-
-            <View style={{padding: 2, paddingBottom: 10}}>
-              <View style={styles.category}>
-                <Text style={styles.text}>
-                  {t('cua_hang_moi_nhat')} ({get(arrNewStores, 'length')})
-                </Text>
-                <Text
-                  style={styles.showall}
-                  onPress={() =>
-                    this.changeScreenShowAll(arrNewStores, ' Cửa hàng mới nhất')
-                  }>
-                  {t('xem_het')}
-                </Text>
-              </View>
-              {arrNewStores.length === 0 ? (
-                <NoData />
-              ) : (
-                <FlatList
-                  data={arrNewStores}
-                  keyExtractor={(item, index) => `${index}`}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-                  renderItem={({item, index}) => {
-                    return (
-                      <NailItem
-                        item={item}
-                        index={index}
-                        parentFlatList={this}
-                        component={this.props.componentId}
-                      />
-                    );
-                  }}
-                />
-              )}
-
-              <View style={styles.divider} />
-
-              <View
-                style={{
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  padding: 10,
-                  justifyContent: 'center',
-                  marginTop: 5,
-                }}>
-                <Text style={styles.text}>
-                  {t('cua_hang_chat_luong')} ({get(arrStoresByStar, 'length')}){' '}
-                </Text>
-                <Text
-                  style={styles.showall}
-                  onPress={() =>
-                    this.changeScreenShowAll(
-                      arrStoresByStar,
-                      'Cửa hàng order nhiều nhất',
-                    )
-                  }>
-                  {t('xem_het')}
-                </Text>
-              </View>
-
-              {arrStoresByStar.length === 0 ? (
-                <NoData />
-              ) : (
-                <FlatList
-                  data={arrStoresByStar}
-                  keyExtractor={(item, index) => `${index}`}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-                  renderItem={({item, index}) => {
-                    return (
-                      <NailItem
-                        item={item}
-                        index={index}
-                        parentFlatList={this}
-                        component={this.props.componentId}
-                      />
-                    );
-                  }}
-                />
-              )}
-
-              {/* <View style={styles.divider} />
-              <View style={styles.category}>
-                <Text style={styles.text}>Top 10 dịch vụ ưa chuộng nhất</Text>
-              </View> */}
-
-              <View
-                style={{
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  padding: 10,
-                  justifyContent: 'center',
-                  marginTop: 5,
-                }}>
-                <Text style={styles.text}>Top 10 dịch vụ ưa chuộng</Text>
-                <Text
-                  style={styles.showall}
-                  onPress={() =>
-                    this.changeScreenShowAll(
-                      servicesList,
-                      'Dịch vụ ưa chuộng nhất',
-                    )
-                  }>
-                  {t('xem_het')}
-                </Text>
-              </View>
-
-              {servicesList.length === 0 ? (
-                <NoData />
-              ) : (
-                <FlatList
-                  data={servicesList}
-                  renderItem={({item, index}) => (
-                    <ServiceItem
-                      item={item}
-                      index={index}
-                      parentFlatList={this}
-                      component={this.props.componentId}
-                    />
-                  )}
-                  horizontal={true}
-                  keyExtractor={(item, index) => index.toString()}
-                  showsHorizontalScrollIndicator={false}
-                />
-              )}
-
-              <View style={styles.divider} />
-            </View>
-          </ScrollView>
-
-          {this.props.orders.cartItems.length <= 0 ? null : (
-            <CartComponent
-              changeShopping={this.changeShopping}
-              size={this.props.orders.cartItems.length}
-            />
-          )}
-        </View>
-      );
-    }
+    return (
+      <>
+        {isLoading && this.renderLoading()}
+        {!isLoading && this.renderData()}
+      </>
+    );
   }
 }
 
@@ -410,6 +358,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     justifyContent: 'center',
+    marginTop: 5,
   },
   text: {
     fontSize: 22,
@@ -429,15 +378,44 @@ const styles = StyleSheet.create({
     height: 7,
     marginTop: 10,
   },
-  container: {
+  Loading: {
+    flex: 1,
+  },
+  viewHeader: {
+    backgroundColor: Colors.pink,
+    padding: 10,
+    flexDirection: 'row',
+  },
+  iconSideBar: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  iconSearch: {
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    borderWidth: 0.5,
+    borderColor: 'white',
+    borderRadius: 20,
+  },
+  viewPageTitle: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    height: height / 5,
   },
-  iconContainer: {
-    paddingLeft: 20,
-    paddingTop: 10,
-    marginRight: 5,
+  txtPageTitle: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: -10,
+    fontFamily: Fonts.serif,
+  },
+  viewSlide: {
+    marginTop: '-25%',
+  },
+  viewBody: {
+    padding: 2,
+    paddingBottom: 10,
   },
 });
 

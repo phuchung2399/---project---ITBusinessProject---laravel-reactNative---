@@ -6,23 +6,18 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  TextInput,
   Dimensions,
-  Picker,
   Alert,
   TouchableHighlight,
   Modal,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-const {width, height} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 import {t} from '../../../i18n/t';
 import Fonts from '../../../themers/Fonts';
-import {get, filter, find, take} from 'lodash';
+import {get, find} from 'lodash';
 import NoData from '../../../components/NoData';
-import {storageSet} from '../../../checkAsyncStorage';
 import {Navigation} from 'react-native-navigation';
 import {
   addCart,
@@ -33,67 +28,20 @@ import {
 } from '../../../redux/orderRedux/action';
 import {connect} from 'react-redux';
 
-var data = [
-  {
-    name: 'Mai Spa',
-    image: require('../asset/namkho.jpg'),
-    rating: 3,
-    price: '$12',
-  },
-  {
-    name: 'Diu spa',
-    image: require('../asset/mitkho.jpg'),
-    rating: 5,
-    price: '$15',
-  },
-  {
-    name: 'Hung spa',
-    image: require('../asset/hutieu.jpg'),
-    rating: 4,
-    price: '$20',
-  },
-  {
-    name: 'Thinh spa',
-    image: require('../asset/cuonlalot.jpg'),
-    rating: 2,
-    price: '$12',
-  },
-  {
-    name: 'Tuan salon',
-    image: require('../asset/cuondiep.jpg'),
-    rating: 5,
-    price: '$13',
-  },
-];
-
 class Service extends React.Component {
   constructor(props) {
     super(props);
     this.dataRef = React.createRef();
     this.state = {
-      data: data,
-      data_temp: '',
-      search: '',
-      isChangeIcon: false,
-      menu: '',
-      arrayServicesSelected: [],
       modalVisible: false,
     };
   }
 
-  _rating(item) {
-    let rating = [];
-    let i = 0;
-    for (i = 0; i < item; i++) {
-      rating.push(
-        <Image
-          source={require('../asset/star.png')}
-          style={{width: 15, height: 15, marginRight: 3}}
-          resizeMode="cover"
-        />,
-      );
-    }
-    return rating;
+  componentDidMount() {
+    const dataServices = this.props.services;
+    this.setState({
+      data: dataServices,
+    });
   }
 
   onAddToCart = item => {
@@ -193,16 +141,12 @@ class Service extends React.Component {
           style={{
             width: 35,
             height: 35,
-            backgroundColor: !this.state.isChangeIcon ? '#FC5895' : 'green',
+            backgroundColor: '#FC5895',
             borderRadius: 30,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <AntDesign
-            name={!this.state.isChangeIcon ? 'plus' : 'check'}
-            color="white"
-            size={18}
-          />
+          <AntDesign name="plus" color="white" size={18} />
         </TouchableOpacity>
       </LinearGradient>
     );
@@ -217,26 +161,6 @@ class Service extends React.Component {
       />
     );
   };
-
-  _search(text) {
-    let data = [];
-    this.props.service_temp.map(function(value) {
-      if (value.name.indexOf(text) > -1) {
-        data.push(value);
-      }
-    });
-    this.setState({
-      data: data,
-      search: text,
-    });
-  }
-
-  componentDidMount() {
-    const dataServices = this.props.services;
-    this.setState({
-      data: dataServices,
-    });
-  }
 
   renderListService = dataServices => {
     return (
@@ -255,9 +179,6 @@ class Service extends React.Component {
   render() {
     const dataServices = this.props.services;
     const store_id = this.props.store_id;
-    console.log('cua hang', this.props.orders);
-
-    const arrayServicesSelected = this.state.arrayServicesSelected;
 
     if (
       this.dataRef.current &&
@@ -288,20 +209,6 @@ class Service extends React.Component {
     } else if (get(dataServices, 'length') > 0) {
       return (
         <View style={styles.container}>
-          <View style={styles.section}>
-            <TextInput
-              placeholder="Search.."
-              style={{flex: 1, marginLeft: 10}}
-              value={this.state.search}
-              onChangeText={text => this._search(text)}
-            />
-            <TouchableOpacity
-              onPress={() => this._search('')}
-              style={{paddingHorizontal: 10}}>
-              <Ionicons name="ios-close" color="gray" size={20} />
-            </TouchableOpacity>
-          </View>
-
           {this.renderListService(dataServices)}
 
           <Modal
@@ -404,7 +311,6 @@ var styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     marginBottom: 5,
-    backgroundColor: '#F99A7C',
     borderRadius: 200,
   },
   flatList: {

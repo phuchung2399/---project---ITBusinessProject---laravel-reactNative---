@@ -3,18 +3,16 @@ import {onSignUp} from './../../navigation';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import facebook_Icon from '../../../assets/images/facebook_icon.png';
+import googleIcon from '../../../assets/images/google_icon.jpg';
 import {
   StyleSheet,
   View,
   Text,
   ScrollView,
   Image,
-  TouchableWithoutFeedback,
   TouchableOpacity,
-  SafeAreaView,
-  TextInput,
   Dimensions,
-  TouchableHighlight,
+  Alert,
 } from 'react-native';
 import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
@@ -22,7 +20,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import {t} from '../../i18n/t';
 import {logIn} from '../../redux/userRedux/action';
 import Fonts from '../../themers/Fonts';
-const {width, height} = Dimensions.get('window');
+import Colors from '../../themers/Colors';
+const {height} = Dimensions.get('window');
 
 class SignIn extends Component {
   constructor(props) {
@@ -83,9 +82,17 @@ class SignIn extends Component {
     });
   };
 
+  onPress = () => {
+    Alert.alert('Thông báo!', 'Chưa hỗ trợ');
+  };
+
+  onForgotPass = () => {
+    Alert.alert('Thông báo!', 'Chưa hỗ trợ');
+  };
+
   renderHeader = () => {
     return (
-      <LinearGradient colors={['#FC5895', '#F99A7C']}>
+      <LinearGradient colors={[Colors.pink, Colors.orrange]}>
         <View style={style.headerView}>
           <Text style={style.branchText}>{t('brand_name')}</Text>
         </View>
@@ -111,17 +118,11 @@ class SignIn extends Component {
         </View>
         <View style={style.line}>
           <TouchableOpacity onPress={() => this.onPress()}>
-            <Image
-              source={require('../../../assets/images/facebook_icon.png')}
-              style={style.imageIcon}
-            />
+            <Image source={facebook_Icon} style={style.imageIcon} />
           </TouchableOpacity>
           <Text style={style.signUpWith}> or</Text>
           <TouchableOpacity onPress={() => this.onPress()}>
-            <Image
-              source={require('../../../assets/images/google_icon.jpg')}
-              style={style.imageIcon}
-            />
+            <Image source={googleIcon} style={style.imageIcon} />
           </TouchableOpacity>
         </View>
       </View>
@@ -138,7 +139,7 @@ class SignIn extends Component {
           <TouchableOpacity onPress={this.onSignUp}>
             <Text style={style.methodSignUp}>{t('txtSignUp')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.onSignUp}>
+          <TouchableOpacity onPress={this.onForgotPass}>
             <Text style={style.methodSignUp}>{t('forgot_pass')}</Text>
           </TouchableOpacity>
         </View>
@@ -196,7 +197,7 @@ const style = StyleSheet.create({
   button: {
     backgroundColor: '#e511e8',
     borderColor: '#e511e8',
-    color: 'white',
+    color: Colors.white,
     borderWidth: 1.5,
     borderRadius: 20,
     fontSize: 24,
@@ -218,7 +219,7 @@ const style = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold',
     marginTop: 5,
-    color: 'white',
+    color: Colors.white,
     fontFamily: Fonts.serif,
   },
   viewLogo: {
@@ -234,7 +235,6 @@ const style = StyleSheet.create({
   imageIcon: {
     width: 35,
     height: 35,
-    backgroundColor: '#ababab',
     marginHorizontal: 12,
     borderRadius: 20,
   },
@@ -258,7 +258,7 @@ const style = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
   },
   title: {
     fontSize: 40,

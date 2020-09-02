@@ -10,10 +10,7 @@ import {
 import {Navigation} from 'react-native-navigation';
 const {width, height} = Dimensions.get('window');
 import {connect} from 'react-redux';
-import {
-  getStoreDetail,
-  getStoreServices,
-} from '../../../redux/storeRedux/action';
+import {getStoreDetail} from '../../../redux/storeRedux/action';
 
 class NailItem extends Component {
   constructor(props) {
@@ -74,32 +71,18 @@ class NailItem extends Component {
     }
   };
 
-  changScreenSearch = () => {
-    Navigation.showModal({
-      component: {
-        name: 'Search',
-      },
-    });
-  };
-
   render() {
     const {item} = this.props;
 
     return (
-      <View
-        style={{
-          marginHorizontal: 12,
-          width: width - 200,
-        }}>
+      <View style={style.container}>
         <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
           <Image source={{uri: item.image}} style={style.styleImage} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.onPress(item.store_id)}>
           <Text style={style.styleText}>{this.state.status}</Text>
-          <Text style={{color: '#353638', fontWeight: 'bold', fontSize: 20}}>
-            {item.store_name}
-          </Text>
-          <Text style={{color: 'gray', fontSize: 15}} numberOfLines={1}>
+          <Text style={style.storeName}>{item.store_name}</Text>
+          <Text style={style.address} numberOfLines={1}>
             {item.address}
           </Text>
         </TouchableOpacity>
@@ -109,10 +92,14 @@ class NailItem extends Component {
 }
 
 const style = StyleSheet.create({
-  styleFlatListItem: {
-    fontSize: 16,
-    color: 'red',
-    padding: 10,
+  container: {
+    marginHorizontal: 12,
+    width: width - 200,
+  },
+  storeName: {
+    color: '#353638',
+    fontWeight: 'bold',
+    fontSize: 20,
   },
   styleText: {
     color: 'red',
@@ -124,9 +111,9 @@ const style = StyleSheet.create({
     backgroundColor: '#ababab',
     borderRadius: 10,
   },
-  styleView: {
-    flex: 1,
-    flexDirection: 'column',
+  address: {
+    color: 'gray',
+    fontSize: 15,
   },
 });
 

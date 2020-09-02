@@ -9,18 +9,15 @@ import {
   TouchableWithoutFeedback,
   TouchableHighlight,
   Modal,
+  Alert,
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import SideBar from './components/sidebar';
 import LinearGradient from 'react-native-linear-gradient';
-import Profile from '../../../assets/images/profile.png';
 import {connect} from 'react-redux';
 import {logOut} from '../../redux/userRedux/action';
-import {onSignIn} from '../../navigation';
 import {storageGet, removeItemValue} from '../../checkAsyncStorage';
-import AwesomeAlert from 'react-native-awesome-alerts';
 import Fonts from '../../themers/Fonts';
 import {t} from '../../i18n/t';
 import Colors from '../../themers/Colors';
@@ -31,22 +28,27 @@ class SideBarMenu extends Component {
     this.state = {
       user: '',
       token: '',
-      isShowInfor: false,
-      showAlert: false,
       modalVisible: false,
     };
   }
 
-  showAlert = () => {
-    this.setState({
-      showAlert: true,
-    });
-  };
+  componentDidMount() {
+    this.onCheckUserSignedIn();
+  }
 
-  hideAlert = () => {
-    this.setState({
-      showAlert: false,
-    });
+  onCheckUserSignedIn = async () => {
+    try {
+      let getUserAccount = await storageGet('user');
+      let parsedUser = JSON.parse(getUserAccount);
+      if (parsedUser) {
+        this.setState({
+          user: parsedUser.data.user,
+          token: parsedUser.data.token,
+        });
+      }
+    } catch (error) {
+      // alert(error);
+    }
   };
 
   onClickPerInfor = () => {
@@ -101,33 +103,13 @@ class SideBarMenu extends Component {
     let token = this.state.token;
     this.props.onLogOutUser(token);
     this.removeUser();
-    // onSignIn();
   };
-
-  componentDidMount() {
-    this.onCheckUserSignedIn();
-  }
 
   removeUser = async () => {
     try {
       await removeItemValue('user');
     } catch (e) {
       console.log('Logout failed', e);
-    }
-  };
-
-  onCheckUserSignedIn = async () => {
-    try {
-      let getUserAccount = await storageGet('user');
-      let parsedUser = JSON.parse(getUserAccount);
-      if (parsedUser) {
-        this.setState({
-          user: parsedUser.data.user,
-          token: parsedUser.data.token,
-        });
-      }
-    } catch (error) {
-      // alert(error);
     }
   };
 
@@ -179,12 +161,8 @@ class SideBarMenu extends Component {
     });
   };
 
-  onBooking = () => {
-    alert('bk');
-  };
-
-  onVoucherUnike = () => {
-    alert('uddq');
+  onNotSupport = () => {
+    Alert.alert('Thông báo!', 'Chưa hỗ trợ');
   };
 
   getAvatarDefault = user_name => {
@@ -194,91 +172,135 @@ class SideBarMenu extends Component {
     return getLastLetters;
   };
 
-  render() {
+  renderModal = () => {
+    return (
+      <>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}>
+          <View style={styles.viewModal}>
+            <View style={styles.modal}>
+              <Text style={styles.text_confirm}>
+                {t('confirm_text_singout')}
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableHighlight
+                  style={styles.buttonCancel}
+                  onPress={() => {
+                    this.setState({
+                      modalVisible: !this.state.modalVisible,
+                    });
+                  }}>
+                  <Text style={styles.txtCancel}>Quay lại</Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={styles.btnConfirm}
+                  onPress={() => {
+                    this.onVerify();
+                  }}>
+                  <Text style={styles.txtSignOut}>Đăng xuất</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </>
+    );
+  };
+
+  renderUserInfor = () => {
     const userInfor = this.state.user;
 
     return (
-      <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
-        <LinearGradient colors={['#FC5895', '#F99A7C']}>
-          <SafeAreaView
+      <LinearGradient colors={[Colors.pink, Colors.orrange]}>
+        <View
+          style={{
+            paddingTop: 10,
+            marginHorizontal: 15,
+            marginBottom: 10,
+          }}>
+          <View style={{alignItems: 'flex-end'}}>
+            <TouchableOpacity onPress={() => this.onPress()}>
+              <Icon
+                name="close"
+                size={30}
+                color="white"
+                onPress={() => this.onClose()}
+              />
+            </TouchableOpacity>
+          </View>
+          <View
             style={{
-              paddingTop: 10,
-              marginHorizontal: 15,
-              marginBottom: 10,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            <View style={{alignItems: 'flex-end'}}>
-              <TouchableOpacity onPress={() => this.onPress()}>
-                <Icon
-                  name="close"
-                  size={30}
-                  color="white"
-                  onPress={() => this.onClose()}
-                />
+            <View style={{flex: 1}}>
+              <TouchableOpacity onPress={() => this.changeProfileScreen()}>
+                {userInfor.avatar && (
+                  <Image
+                    style={{
+                      width: 80,
+                      height: 80,
+                      borderWidth: 1,
+                      borderColor: '#FFF',
+                      borderRadius: 60,
+                    }}
+                    source={{uri: userInfor.avatar}}
+                  />
+                )}
+
+                {!userInfor.avatar && (
+                  <View
+                    style={{
+                      width: 80,
+                      height: 80,
+                      borderWidth: 1,
+                      borderColor: '#FFF',
+                      borderRadius: 60,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: Colors.darkGray,
+                    }}>
+                    {userInfor.user_name && (
+                      <Text
+                        style={{
+                          fontSize: 35,
+                          color: 'white',
+                        }}>
+                        {this.getAvatarDefault(userInfor.user_name)}
+                      </Text>
+                    )}
+                  </View>
+                )}
               </TouchableOpacity>
             </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View style={{flex: 1}}>
-                <TouchableOpacity onPress={() => this.changeProfileScreen()}>
-                  {userInfor.avatar && (
-                    <Image
-                      style={{
-                        width: 80,
-                        height: 80,
-                        borderWidth: 1,
-                        borderColor: '#FFF',
-                        borderRadius: 60,
-                      }}
-                      source={{uri: userInfor.avatar}}
-                    />
-                  )}
-
-                  {!userInfor.avatar && (
-                    <View
-                      style={{
-                        width: 80,
-                        height: 80,
-                        borderWidth: 1,
-                        borderColor: '#FFF',
-                        borderRadius: 60,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: Colors.darkGray,
-                      }}>
-                      {userInfor.user_name && (
-                        <Text
-                          style={{
-                            fontSize: 35,
-                            color: 'white',
-                          }}>
-                          {this.getAvatarDefault(userInfor.user_name)}
-                        </Text>
-                      )}
-                    </View>
-                  )}
-                </TouchableOpacity>
-              </View>
-              <View style={{flex: 2}}>
-                <TouchableOpacity onPress={() => this.changeProfileScreen()}>
-                  <Text
-                    style={{
-                      fontSize: 25,
-                      fontWeight: 'bold',
-                      marginVertical: 8,
-                      color: 'white',
-                      fontFamily: Fonts.serif,
-                    }}>
-                    {userInfor.user_name}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+            <View style={{flex: 2}}>
+              <TouchableOpacity onPress={() => this.changeProfileScreen()}>
+                <Text
+                  style={{
+                    fontSize: 25,
+                    fontWeight: 'bold',
+                    marginVertical: 8,
+                    color: 'white',
+                    fontFamily: Fonts.serif,
+                  }}>
+                  {userInfor.user_name}
+                </Text>
+              </TouchableOpacity>
             </View>
-          </SafeAreaView>
-        </LinearGradient>
+          </View>
+        </View>
+      </LinearGradient>
+    );
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.renderUserInfor()}
 
         <View
           style={{
@@ -327,7 +349,7 @@ class SideBarMenu extends Component {
               <Icon name="form" size={22} color="#4290ea" />
             </View>
             <View style={{flex: 5, justifyContent: 'center'}}>
-              <TouchableOpacity onPress={() => this.onBooking()}>
+              <TouchableOpacity onPress={() => this.onNotSupport()}>
                 <Text
                   style={{
                     fontFamily: Fonts.serif,
@@ -352,7 +374,7 @@ class SideBarMenu extends Component {
               <Icon name="alipay-circle" size={22} color="#4290ea" />
             </View>
             <View style={{flex: 5, justifyContent: 'center'}}>
-              <TouchableOpacity onPress={() => this.onVoucherUnike()}>
+              <TouchableOpacity onPress={() => this.onNotSupport()}>
                 <Text
                   style={{
                     fontFamily: Fonts.serif,
@@ -405,7 +427,7 @@ class SideBarMenu extends Component {
                 color="#4290ea"
                 onPress={() => this.onSignOut()}
               />
-              <TouchableWithoutFeedback onPress={this.onSignOut}>
+              <TouchableWithoutFeedback onPress={this.onNotSupport}>
                 <Text
                   style={{
                     fontSize: 15,
@@ -446,92 +468,7 @@ class SideBarMenu extends Component {
           </View>
         </View>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 22,
-              height: 100,
-            }}>
-            <View
-              style={{
-                margin: 20,
-                backgroundColor: 'white',
-                borderRadius: 20,
-                padding: 35,
-                alignItems: 'center',
-                shadowColor: '#000',
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-                width: 300,
-                height: 200,
-              }}>
-              <Text
-                style={{
-                  marginBottom: 18,
-                  flex: 1,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  color: '#797777',
-                }}>
-                {t('confirm_text_singout')}
-              </Text>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableHighlight
-                  style={{
-                    backgroundColor: '#F194FF',
-                    borderRadius: 20,
-                    padding: 10,
-                    elevation: 2,
-                    width: 100,
-                    marginHorizontal: 20,
-                  }}
-                  onPress={() => {
-                    this.setState({
-                      modalVisible: !this.state.modalVisible,
-                    });
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                    }}>
-                    Quay lại
-                  </Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight
-                  style={{
-                    backgroundColor: '#2196F3',
-                    borderRadius: 20,
-                    padding: 10,
-                    elevation: 2,
-                    width: 100,
-                    marginHorizontal: 20,
-                  }}
-                  onPress={() => {
-                    this.onVerify();
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                    }}>
-                    Đăng xuất
-                  </Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </View>
-        </Modal>
+        {this.renderModal()}
       </View>
     );
   }
@@ -548,12 +485,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingHorizontal: 5,
-    paddingVertical: 25,
-    backgroundColor: 'white',
     flex: 1,
+    backgroundColor: '#F99A7C',
   },
   title: {
     fontSize: 25,
@@ -591,6 +524,59 @@ const styles = StyleSheet.create({
   viewIcon: {
     flex: 1,
     justifyContent: 'center',
+  },
+  viewModal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+    height: 100,
+  },
+  modal: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    width: 300,
+    height: 200,
+  },
+  text_confirm: {
+    marginBottom: 18,
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#797777',
+  },
+  buttonCancel: {
+    backgroundColor: '#F194FF',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    width: 100,
+    marginHorizontal: 20,
+  },
+  txtCancel: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  btnConfirm: {
+    backgroundColor: '#2196F3',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    width: 100,
+    marginHorizontal: 20,
+  },
+  txtSignOut: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

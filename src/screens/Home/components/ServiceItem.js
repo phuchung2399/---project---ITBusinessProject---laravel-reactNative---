@@ -12,8 +12,6 @@ import {
 import iconProfile from '../../../../assets/images/profile_icon.png';
 const {width, height} = Dimensions.get('window');
 import {Navigation} from 'react-native-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import ServiceModal from '../components/ServiceModal';
 
 class ServiceItem extends Component {
   constructor(props) {
@@ -210,7 +208,7 @@ const styles = StyleSheet.create({
   showflast: {
     width: width / 3,
     flex: 1,
-    height: height / 4,
+    height: height / 5,
     backgroundColor: 'white',
     margin: 10,
     borderRadius: 10,
@@ -230,7 +228,7 @@ const styles = StyleSheet.create({
 
   image: {
     width: '100%',
-    height: height / 4,
+    height: height / 5,
     shadowOpacity: 0.5,
     borderRadius: 10,
   },

@@ -3,29 +3,22 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  Platform,
   Image,
   Dimensions,
-  TouchableOpacity,
   View,
   Alert,
-  Textarea,
   ScrollView,
   TouchableWithoutFeedback,
   TouchableHighlight,
-  AsyncStorage,
 } from 'react-native';
-import {storageRemove, storageGet} from '../../../checkAsyncStorage';
-import Modal from 'react-native-modalbox';
+import {storageGet} from '../../../checkAsyncStorage';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import {onSignIn} from '../../navigation';
 import {connect} from 'react-redux';
 import {Navigation} from 'react-native-navigation';
 import {createComment} from '../../../redux/commentRedux/action';
 import {getStoreDetail} from '../../../redux/storeRedux/action';
 import LinearGradient from 'react-native-linear-gradient';
 const {width, height} = Dimensions.get('window');
-import {t} from '../../../i18n/t';
 var screen = Dimensions.get('window');
 import Colors from '../../../themers/Colors';
 import Fonts from '../../../themers/Fonts';
@@ -176,18 +169,16 @@ class CommentModal extends Component {
   render() {
     const {star1, star2, star3, star4, star5} = this.state;
     const {detailStore} = this.props.stores;
-    console.log('detailStore', detailStore);
 
     return (
       <ScrollView>
-        <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
-          <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
+        <View style={{flex: 1, backgroundColor: Colors.orrange}}>
+          <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
             <View
               style={{
                 padding: 10,
                 flexDirection: 'row',
                 height: height / 5,
-                // backgroundColor: 'red',
               }}>
               <View
                 style={{
@@ -376,13 +367,6 @@ class CommentModal extends Component {
 }
 
 const style = StyleSheet.create({
-  styleModal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowRadius: 40,
-    width: screen.width - 80,
-    height: 400,
-  },
   styleTitle: {
     fontSize: 25,
     fontWeight: 'bold',
