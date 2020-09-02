@@ -125,7 +125,6 @@ class index extends Component {
   };
   render() {
     const notificationsData = this.props.notifications.dataNotification;
-
     if (notificationsData === null) {
       return (
         <View style={{flex: 1}}>

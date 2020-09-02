@@ -1,205 +1,88 @@
 import React, {Component} from 'react';
-import {onSignUp} from './../../navigation';
-import {connect} from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import facebook_Icon from '../../../assets/images/facebook_icon.png';
 import {
   StyleSheet,
   View,
   Text,
   ScrollView,
   Image,
-  TouchableWithoutFeedback,
   TouchableOpacity,
-  SafeAreaView,
-  TextInput,
 } from 'react-native';
-import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
 import LinearGradient from 'react-native-linear-gradient';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import dl_Appstore from '../../../assets/images/dl_Appstore.png';
 import {onSignIn} from '../../navigation';
 import {t} from '../../i18n/t';
+import LogoAppStore from '../../../assets/images/dl-gg.png';
+import LogoGGPlay from '../../../assets/images/dl_Appstore.png';
+import Colors from '../../themers/Colors';
 
 class Announcement extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  onSignUp = () => {
-    alert('0k');
-  };
-
   onSignin = () => {
     onSignIn();
   };
 
-  render() {
-    const dataUser = this.props.data;
+  renderTitle = () => {
     return (
-      <LinearGradient colors={['#FC5895', '#F99A7C']}>
-        <ScrollView style={{height: '100%'}}>
-          <View
-            style={{
-              alignItems: 'center',
-              flex: 1,
-            }}>
-            <Animatable.Text
-              animation="zoomInUp"
-              style={{
-                fontSize: 50,
-                fontWeight: 'bold',
-                marginTop: 20,
-                color: 'white',
-              }}>
-              {t('brand_name')}
-            </Animatable.Text>
-            <Text
-              animation="zoomInUp"
-              style={{
-                fontSize: 35,
-                fontWeight: 'bold',
-                color: 'white',
-              }}>
-              Announcement
-            </Text>
-          </View>
-          <Animatable.View
-            animation="pulse"
-            easing="ease-out"
-            iterationCount="infinite"
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 20,
-            }}>
-            <Image
-              style={{
-                width: 170,
-                height: 170,
-              }}
-              source={Logo}
-            />
-          </Animatable.View>
-          <View
-            style={{
-              alignItems: 'center',
-              flex: 1,
-              marginVertical: 15,
-            }}>
-            <Text
-              animation="zoomInUp"
-              style={{
-                fontSize: 35,
-                fontWeight: 'bold',
-                color: 'white',
-              }}>
-              Xin chào
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              marginHorizontal: 25,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            {dataUser && (
-              <Text
-                animation="zoomInUp"
-                style={{
-                  fontSize: 22,
-                  fontWeight: 'bold',
-                  color: 'white',
-                  textAlign: 'center',
-                }}>
-                {dataUser.user_name}
-              </Text>
-            )}
-          </View>
-          <View
-            style={{
-              flex: 1,
-              marginHorizontal: 25,
-              marginVertical: 5,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text
-              animation="zoomInUp"
-              style={{
-                fontSize: 17,
-                fontWeight: 'bold',
-                color: 'white',
-                textAlign: 'center',
-              }}>
-              Vui lòng xác nhận tại khoản tại email vừa đăng kí
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 2,
-              justifyContent: 'center',
-              paddingHorizontal: '20%',
-              paddingVertical: 15,
-            }}>
-            <TouchableOpacity onPress={this.onSignin}>
-              <Text
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 20,
-                  fontSize: 24,
-                  fontWeight: 'bold',
-                  padding: 12,
-                  textAlign: 'center',
-                  backgroundColor: '#FC5895',
-                  borderColor: 'pink',
-                  color: 'white',
-                }}>
-                Đăng nhập ngay
-              </Text>
-            </TouchableOpacity>
-          </View>
+      <View style={style.viewTitle}>
+        <Text style={style.txtBranch_name}>{t('brand_name')}</Text>
+        <Text style={style.txt_annou}>{t('announcement')}</Text>
+      </View>
+    );
+  };
 
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginVertical: '5%',
-            }}>
-            <View>
-              <TouchableOpacity>
-                <Image
-                  source={require('../../../assets/images/dl_Appstore.png')}
-                  style={{
-                    width: 110,
-                    height: 40,
-                    marginHorizontal: 20,
-                    borderRadius: 10,
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
+  renderLogo = () => {
+    return (
+      <View style={style.viewLogoApp}>
+        <Image style={style.logo} source={Logo} />
+      </View>
+    );
+  };
 
-            <View>
-              <TouchableOpacity>
-                <Image
-                  source={require('../../../assets/images/dl-gg.png')}
-                  style={{
-                    width: 115,
-                    height: 42,
-                    marginHorizontal: 20,
-                    borderRadius: 10,
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
+  renderAnnouncement = () => {
+    const dataUser = this.props.data;
+
+    return (
+      <View style={style.viewAnnou}>
+        <Text style={style.txt_xinchao}>{t('txt_xin_chao')}</Text>
+        {dataUser && (
+          <Text style={style.txtUserName}>{dataUser.user_name}</Text>
+        )}
+        <Text style={style.txtAnnou}>{t('txt_announcement')}</Text>
+      </View>
+    );
+  };
+
+  renderButton = () => {
+    return (
+      <View style={style.viewButton}>
+        <TouchableOpacity onPress={this.onSignin}>
+          <Text style={style.txt_singIn}>{t('txt_dang_nhap_ngay')}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  renderLogoApp = () => {
+    return (
+      <View style={style.viewLogo}>
+        <TouchableOpacity>
+          <Image source={LogoGGPlay} style={style.logoAppStore} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={LogoAppStore} style={style.logoGGPlay} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  render() {
+    return (
+      <LinearGradient colors={[Colors.pink, Colors.orrange]}>
+        <ScrollView style={style.container}>
+          {this.renderTitle()}
+          {this.renderLogo()}
+          {this.renderAnnouncement()}
+          {this.renderButton()}
+          {this.renderLogoApp()}
         </ScrollView>
       </LinearGradient>
     );
@@ -207,18 +90,90 @@ class Announcement extends Component {
 }
 
 const style = StyleSheet.create({
-  button: {
-    borderWidth: 1.5,
+  container: {
+    height: '100%',
+  },
+  viewTitle: {alignItems: 'center', flex: 1},
+  txtBranch_name: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: Colors.white,
+  },
+  logoAppStore: {
+    width: 110,
+    height: 40,
+    marginHorizontal: 20,
+    borderRadius: 10,
+  },
+  logoGGPlay: {
+    width: 115,
+    height: 42,
+    marginHorizontal: 20,
+    borderRadius: 10,
+  },
+  viewLogo: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginVertical: '5%',
+  },
+  txt_annou: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  viewLogoApp: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  logo: {
+    width: 170,
+    height: 170,
+  },
+  viewButton: {
+    flex: 2,
+    justifyContent: 'center',
+    paddingHorizontal: '20%',
+    paddingVertical: 15,
+  },
+  txt_singIn: {
+    borderWidth: 1,
     borderRadius: 20,
     fontSize: 24,
     fontWeight: 'bold',
     padding: 12,
     textAlign: 'center',
-    flex: 1,
+    backgroundColor: Colors.pink,
+    borderColor: Colors.pink,
+    color: Colors.white,
   },
-
-  styleViewText: {},
-  styleButtonSignUp: {},
+  viewAnnou: {
+    alignItems: 'center',
+    flex: 1,
+    marginHorizontal: 25,
+    justifyContent: 'center',
+  },
+  txt_xinchao: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    color: Colors.white,
+  },
+  txtUserName: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: Colors.white,
+    textAlign: 'center',
+  },
+  txtAnnou: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: Colors.white,
+    textAlign: 'center',
+    marginTop: 10,
+  },
 });
 
 export default Announcement;

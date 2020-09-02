@@ -3,10 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  FlatList,
-  Image,
   Linking,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   Platform,
 } from 'react-native';
@@ -23,8 +20,6 @@ export default class Information extends React.Component {
   }
 
   onCallToStore = storePhoneNumber => {
-    // alert(storePhoneNumber);
-
     let phoneNumber = '';
     if (Platform.OS === 'android') {
       phoneNumber = `tel:${storePhoneNumber}`;
@@ -36,16 +31,7 @@ export default class Information extends React.Component {
 
   renderHeader = detailStore => {
     return (
-      <View
-        style={{
-          backgroundColor: 'white',
-          padding: 12,
-          borderBottomWidth: 7,
-          borderBottomColor: '#eaeaea',
-          justifyContent: 'center',
-          // marginTop: 5,
-          marginBottom: 10,
-        }}>
+      <View style={style.viewHeader}>
         <Text
           style={{
             flex: 1,
@@ -62,19 +48,8 @@ export default class Information extends React.Component {
 
   renderStorePhone = detailStore => {
     return (
-      <View
-        style={{
-          backgroundColor: 'white',
-          padding: 6,
-          borderBottomWidth: 7,
-          borderBottomColor: '#eaeaea',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 5,
-            marginBottom: 5,
-          }}>
+      <View style={style.viewContainer}>
+        <View style={style.viewIcon}>
           <Text
             style={{
               flex: 1,
@@ -92,7 +67,6 @@ export default class Information extends React.Component {
                 style={{
                   color: 'green',
                   fontSize: 16,
-                  // textDecorationLine: 'underline',
                 }}>
                 {t('goi_ngay')}
               </Text>
@@ -100,27 +74,14 @@ export default class Information extends React.Component {
           </View>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 7,
-            marginBottom: 5,
-          }}>
+        <View style={style.viewIcon}>
           <Feather
             name="phone-call"
             size={20}
             color="black"
             onPress={() => this.backMainScreen()}
           />
-          <Text
-            style={{
-              marginLeft: 10,
-              alignItems: 'flex-end',
-              fontSize: 15,
-              fontFamily: Fonts.serif,
-            }}>
-            {detailStore.phone}
-          </Text>
+          <Text style={style.text}>{detailStore.phone}</Text>
         </View>
       </View>
     );
@@ -128,45 +89,17 @@ export default class Information extends React.Component {
 
   renderStoreEmail = detailStore => {
     return (
-      <View
-        style={{
-          backgroundColor: 'white',
-          padding: 6,
-          borderBottomWidth: 7,
-          borderBottomColor: '#eaeaea',
-        }}>
-        <Text
-          style={{
-            marginTop: 5,
-            marginBottom: 5,
-            fontSize: 16,
-            fontWeight: 'bold',
-            fontFamily: Fonts.serif,
-          }}>
-          {t('email')}
-        </Text>
+      <View style={style.viewContainer}>
+        <Text style={style.title}>{t('email')}</Text>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 7,
-            marginBottom: 5,
-          }}>
+        <View style={style.viewIcon}>
           <AntDesign
             name="mail"
             size={20}
             color="black"
             onPress={() => this.backMainScreen()}
           />
-          <Text
-            style={{
-              marginLeft: 10,
-              alignItems: 'flex-end',
-              fontSize: 15,
-              fontFamily: Fonts.serif,
-            }}>
-            {detailStore.email}
-          </Text>
+          <Text style={style.text}>{detailStore.email}</Text>
         </View>
       </View>
     );
@@ -174,45 +107,17 @@ export default class Information extends React.Component {
 
   renderOpenTime = detailStore => {
     return (
-      <View
-        style={{
-          backgroundColor: 'white',
-          padding: 6,
-          borderBottomWidth: 7,
-          borderBottomColor: '#eaeaea',
-        }}>
-        <Text
-          style={{
-            marginTop: 5,
-            marginBottom: 5,
-            fontSize: 16,
-            fontWeight: 'bold',
-            fontFamily: Fonts.serif,
-          }}>
-          {t('gio_mo_cua')}
-        </Text>
+      <View style={style.viewContainer}>
+        <Text style={style.title}>{t('gio_mo_cua')}</Text>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 7,
-            marginBottom: 5,
-          }}>
+        <View style={style.viewIcon}>
           <AntDesign
             name="clockcircleo"
             size={20}
             color="black"
             onPress={() => this.backMainScreen()}
           />
-          <Text
-            style={{
-              marginLeft: 10,
-              alignItems: 'flex-end',
-              fontSize: 15,
-              fontFamily: Fonts.serif,
-            }}>
-            {detailStore.open_time}
-          </Text>
+          <Text style={style.text}>{detailStore.open_time}</Text>
         </View>
       </View>
     );
@@ -220,43 +125,17 @@ export default class Information extends React.Component {
 
   renderCloseTime = detailStore => {
     return (
-      <View
-        style={{
-          backgroundColor: 'white',
-          padding: 6,
-        }}>
-        <Text
-          style={{
-            marginTop: 5,
-            marginBottom: 5,
-            fontSize: 16,
-            fontWeight: 'bold',
-            fontFamily: Fonts.serif,
-          }}>
-          {t('gio_dong_cua')}
-        </Text>
+      <View style={style.viewContainer}>
+        <Text style={style.title}>{t('gio_dong_cua')}</Text>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 7,
-            marginBottom: 5,
-          }}>
+        <View style={style.viewIcon}>
           <Entypo
             name="back-in-time"
             size={22}
             color="black"
             onPress={() => this.backMainScreen()}
           />
-          <Text
-            style={{
-              marginLeft: 10,
-              alignItems: 'flex-end',
-              fontSize: 15,
-              fontFamily: Fonts.serif,
-            }}>
-            {detailStore.close_time}
-          </Text>
+          <Text style={style.text}>{detailStore.close_time}</Text>
         </View>
       </View>
     );
@@ -265,7 +144,7 @@ export default class Information extends React.Component {
   render() {
     const detailStore = this.props.detailStore;
     return (
-      <View style={styles.container}>
+      <View style={style.container}>
         {this.renderHeader(detailStore)}
         {this.renderStorePhone(detailStore)}
         {this.renderStoreEmail(detailStore)}
@@ -276,7 +155,7 @@ export default class Information extends React.Component {
   }
 }
 
-var styles = StyleSheet.create({
+var style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -284,5 +163,37 @@ var styles = StyleSheet.create({
     borderRadius: 35,
     padding: 13,
     marginHorizontal: 10,
+  },
+  viewContainer: {
+    backgroundColor: 'white',
+    padding: 6,
+    borderBottomWidth: 7,
+    borderBottomColor: '#eaeaea',
+  },
+  title: {
+    marginTop: 5,
+    marginBottom: 5,
+    fontSize: 16,
+    fontWeight: 'bold',
+    fontFamily: Fonts.serif,
+  },
+  viewIcon: {
+    flexDirection: 'row',
+    marginTop: 7,
+    marginBottom: 5,
+  },
+  text: {
+    marginLeft: 10,
+    alignItems: 'flex-end',
+    fontSize: 15,
+    fontFamily: Fonts.serif,
+  },
+  viewHeader: {
+    backgroundColor: 'white',
+    padding: 12,
+    borderBottomWidth: 7,
+    borderBottomColor: '#eaeaea',
+    justifyContent: 'center',
+    marginBottom: 10,
   },
 });

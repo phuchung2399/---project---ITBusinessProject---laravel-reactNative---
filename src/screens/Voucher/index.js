@@ -5,7 +5,6 @@ import {
   Text,
   View,
   FlatList,
-  TouchableOpacity,
   ScrollView,
   Alert,
   StyleSheet,
@@ -163,10 +162,8 @@ class index extends Component {
 
   renderMessageNoData = () => {
     return (
-      <View style={styles.container}>
-        <View style={styles.viewNoData}>
-          <Text style={styles.textNoData}>{t('khong_co_ma')}</Text>
-        </View>
+      <View style={styles.viewNoData}>
+        <Text style={styles.textNoData}>{t('khong_co_ma')}</Text>
       </View>
     );
   };
@@ -192,8 +189,10 @@ class index extends Component {
     return (
       <>
         {isLoading === true && this.renderLoading()}
-        {dataVouchers.length === 0 && this.renderMessageNoData()}
-        {dataVouchers.length != 0 && this.renderData(dataVouchers)}
+        {!isLoading && dataVouchers.length === 0 && this.renderMessageNoData()}
+        {!isLoading &&
+          dataVouchers.length !== 0 &&
+          this.renderData(dataVouchers)}
       </>
     );
   };
@@ -212,7 +211,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   item: {
     flex: 1,
     alignItems: 'center',
@@ -284,7 +282,7 @@ const styles = StyleSheet.create({
   viewBody: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     flex: 1,
   },
   swipeout: {
@@ -300,7 +298,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderWidth: 5,
-    borderColor: 'white',
+    borderColor: Colors.white,
     borderRadius: 10,
   },
   viewImage: {

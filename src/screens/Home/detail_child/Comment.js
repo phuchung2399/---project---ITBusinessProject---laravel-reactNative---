@@ -5,23 +5,20 @@ import {
   StyleSheet,
   FlatList,
   Image,
-  Picker,
-  TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
 import {t} from '../../../i18n/t';
 import Colors from '../../../themers/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Success from 'react-native-vector-icons/AntDesign';
 import Fonts from '../../../themers/Fonts';
-import {get, find, take} from 'lodash';
+import {take} from 'lodash';
 import {Navigation} from 'react-native-navigation';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import NoComment from '../../../components/NoComment';
-import Avatar from 'react-avatar';
-import {storageRemove, storageGet} from '../../../checkAsyncStorage';
+import {storageGet} from '../../../checkAsyncStorage';
+import star from '../../../../assets/images/star2.png';
+import Logo from '../../../../assets/images/logo.png';
 
 class Comment extends React.Component {
   constructor(props) {
@@ -61,7 +58,7 @@ class Comment extends React.Component {
     for (i = 0; i < item; i++) {
       rating.push(
         <Image
-          source={require('../asset/star2.png')}
+          source={star}
           style={{width: 15, height: 15, marginRight: 3}}
           resizeMode="cover"
         />,
@@ -69,48 +66,6 @@ class Comment extends React.Component {
     }
     return rating;
   }
-
-  renderItem = ({item}) => {
-    const user_id = this.state.user_id;
-    console.log(item.user_id);
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          padding: 10,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderBottomWidth: 2,
-          borderBottomColor: '#eaeaea',
-          marginVertical: -10,
-        }}>
-        <View style={{marginLeft: 20, justifyContent: 'center', marginTop: 5}}>
-          <Image source={{uri: item.user[0].avatar}} style={styles.image} />
-        </View>
-        <View style={{marginLeft: 20, flex: 1, justifyContent: 'center'}}>
-          <Text numberOfLines={1} style={styles.name}>
-            {item.user[0].user_name}
-          </Text>
-          <View style={{flexDirection: 'row'}}>{this._rating(item.star)}</View>
-          <Text numberOfLines={2} style={styles.comment}>
-            {item.title}
-          </Text>
-        </View>
-        {user_id === item.user_id ? (
-          <View style={{justifyContent: 'center', flexDirection: 'row'}}>
-            <View style={{justifyContent: 'center', marginHorizontal: 13}}>
-              <AntDesign
-                name="edit"
-                size={25}
-                color="green"
-                onPress={() => this.onEditComment(item.comment_id, item.title)}
-              />
-            </View>
-          </View>
-        ) : null}
-      </View>
-    );
-  };
 
   onEditComment = (comment_id, title) => {
     Navigation.showModal({
@@ -170,16 +125,49 @@ class Comment extends React.Component {
     });
   };
 
+  renderItem = ({item}) => {
+    const user_id = this.state.user_id;
+    return (
+      <View style={styles.viewItem}>
+        <View style={styles.viewImage}>
+          {item.user[0].avatar ? (
+            <Image source={{uri: item.user[0].avatar}} style={styles.image} />
+          ) : (
+            <Image source={Logo} style={styles.image} />
+          )}
+        </View>
+        <View style={{marginLeft: 20, flex: 1, justifyContent: 'center'}}>
+          <Text numberOfLines={1} style={styles.name}>
+            {item.user[0].user_name}
+          </Text>
+          <View style={{flexDirection: 'row'}}>{this._rating(item.star)}</View>
+          <Text numberOfLines={2} style={styles.comment}>
+            {item.title}
+          </Text>
+        </View>
+        {user_id === item.user_id ? (
+          <View style={{justifyContent: 'center', flexDirection: 'row'}}>
+            <View style={{justifyContent: 'center', marginHorizontal: 13}}>
+              <AntDesign
+                name="edit"
+                size={25}
+                color="green"
+                onPress={() => this.onEditComment(item.comment_id, item.title)}
+              />
+            </View>
+          </View>
+        ) : null}
+      </View>
+    );
+  };
+
   render() {
     const commentsData = this.props.comments.dataComments;
-
-    console.log(this.state.user_id);
 
     if (commentsData === '[]') {
       return <NoComment onShowForm={this.onShowForm} />;
     } else {
       const sortDataComments = _.orderBy(commentsData, 'updated_at', 'desc');
-      console.log(sortDataComments);
 
       return (
         <View style={styles.container}>
@@ -195,15 +183,7 @@ class Comment extends React.Component {
             showsVerticalScrollIndicator={false}
           />
 
-          <View
-            style={{
-              marginHorizontal: 10,
-              marginTop: 20,
-              padding: 10,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          <View style={styles.viewButton}>
             <View style={{width: 150}}>
               <TouchableOpacity onPress={this.onShowAllComment}>
                 <Text
@@ -220,27 +200,14 @@ class Comment extends React.Component {
                       : 'blue',
                     color: this.state.isShowAllComment ? 'black' : 'white',
                   }}>
-                  {this.state.isShowAllComment ? 'Thu gon' : 'Xem them'}
+                  {this.state.isShowAllComment ? 'Thu gọn' : 'Xem thêm'}
                 </Text>
               </TouchableOpacity>
             </View>
 
             <View style={{width: 150}}>
               <TouchableOpacity onPress={this.onShowForm}>
-                <Text
-                  style={{
-                    borderRadius: 20,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    marginLeft: 10,
-                    padding: 12,
-                    paddingHorizontal: 30,
-                    textAlign: 'center',
-                    backgroundColor: '#FCB1B6',
-                    color: 'black',
-                  }}>
-                  Binh Luan
-                </Text>
+                <Text style={styles.button}>Bình luận</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -257,14 +224,40 @@ var styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 35,
   },
-  item: {
+  viewImage: {
+    marginLeft: 20,
+    justifyContent: 'center',
+    marginTop: 5,
+  },
+  button: {
+    borderRadius: 20,
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    padding: 12,
+    paddingHorizontal: 30,
+    textAlign: 'center',
+    backgroundColor: '#FCB1B6',
+    color: 'black',
+  },
+  viewItem: {
     flexDirection: 'row',
-    // padding: 10,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 2,
     borderBottomColor: '#eaeaea',
+    marginVertical: -10,
   },
+  viewButton: {
+    marginHorizontal: 10,
+    marginTop: 20,
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   image: {
     width: 80,
     height: 80,
@@ -280,26 +273,6 @@ var styles = StyleSheet.create({
   comment: {
     fontStyle: 'italic',
     marginTop: 5,
-  },
-  viewNodata: {
-    flex: 1,
-    marginHorizontal: 12,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderBottomWidth: 2,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    textAlign: 'center',
-    backgroundColor: 'white',
-    borderColor: Colors.darkGray,
-  },
-  textNoData: {
-    fontSize: 17,
-    color: Colors.darkGray,
   },
 });
 

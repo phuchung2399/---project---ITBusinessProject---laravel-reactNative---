@@ -5,11 +5,8 @@ import {
   StyleSheet,
   ImageBackground,
   Dimensions,
-  TouchableWithoutFeedback,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
-  TextInput,
   Image,
 } from 'react-native';
 import CardIcon from 'react-native-vector-icons/AntDesign';
@@ -18,7 +15,6 @@ import Fonts from '../../themers/Fonts';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
-import ImageDemo from '../../../assets/images/imagedemo.jpg';
 import Logo from '../../../assets/images/logo.png';
 import Service from './detail_child/Service';
 import Information from './detail_child/Information';
@@ -26,18 +22,17 @@ import Comment from './detail_child/Comment';
 import LinearGradient from 'react-native-linear-gradient';
 import {connect} from 'react-redux';
 import ScrollableTabView from 'rn-collapsing-tab-bar';
-const {width, height} = Dimensions.get('window');
-import {storageRemove, storageGet} from '../../checkAsyncStorage';
-import {getStoreDetail, getStoreServices} from '../../redux/storeRedux/action';
+const {height} = Dimensions.get('window');
+import {storageGet} from '../../checkAsyncStorage';
+import {getStoreDetail} from '../../redux/storeRedux/action';
 import {getAllComments} from '../../redux/commentRedux/action';
-import CartComponent from '../../components/CartComponent';
+import Colors from '../../themers/Colors';
 
 class Detail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       token: '',
-      price: '',
       status: '',
       timeNow: '',
     };
@@ -100,10 +95,7 @@ class Detail extends React.Component {
           {
             component: {
               name: 'Cart',
-              passProps: {
-                // token: token,
-                // idbasket: idbasket,
-              },
+              passProps: {},
               options: {
                 topBar: {
                   title: {
@@ -132,23 +124,61 @@ class Detail extends React.Component {
 
   renderLoading = () => {
     return (
-      <View
-        style={{
-          padding: 12,
-          justifyContent: 'center',
-          alignItems: 'center',
-          flex: 1,
-        }}>
-        <Loading loadingText="Loading..." />
+      <View style={styles.viewLoading}>
+        <Loading />
       </View>
     );
   };
 
-  render() {
-    const {detailStore} = this.props.stores;
-    const dataServices = detailStore.services;
-    const price = this.state.price;
+  renderStoreImage = detailStore => {
+    return (
+      <View style={styles.viewImage}>
+        <ImageBackground
+          source={{uri: detailStore.image}}
+          style={styles.ImageBackground}>
+          <View style={styles.iconBack}>
+            <Icon
+              name="chevron-left"
+              size={25}
+              color="black"
+              onPress={() => this.backMainScreen()}
+            />
+          </View>
 
+          <View
+            style={{
+              flex: 1,
+            }}
+          />
+
+          {this.props.orders.cartItems.length <= 0 ? (
+            <View style={styles.viewLogo}>
+              <Image style={styles.logo} source={Logo} />
+            </View>
+          ) : (
+            <View style={styles.viewCart}>
+              <TouchableOpacity onPress={() => this.changeShopping()}>
+                <View style={styles.cart}>
+                  <Text style={styles.cartLength}>
+                    {this.props.orders.cartItems.length}
+                  </Text>
+                </View>
+
+                <CardIcon
+                  name="shoppingcart"
+                  size={35}
+                  color="#7adaf7"
+                  onPress={() => this.changeShopping()}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+        </ImageBackground>
+      </View>
+    );
+  };
+
+  renderInforData = (detailStore, dataServices) => {
     let star = [];
     for (let i = 0; i < detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="white" />);
@@ -156,259 +186,98 @@ class Detail extends React.Component {
     for (let i = 0; i < 5 - detailStore.rank; i++) {
       star.push(<Icon name="star" size={20} color="#c3c1c1" />);
     }
-    if (detailStore.length <= 0) {
-      return this.renderLoading();
-    }
 
     return (
-      <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: height / 3,
-          }}>
-          <ImageBackground
-            source={{uri: detailStore.image}}
-            style={{
-              flex: 1,
-              resizeMode: 'cover',
-              justifyContent: 'center',
-              flexDirection: 'row',
-              height: height / 3,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                padding: 10,
-                margin: 10,
-                justifyContent: 'center',
-                backgroundColor: 'white',
-                borderRadius: 50,
-                alignItems: 'center',
-                maxHeight: 45,
-                maxWidth: 45,
-              }}>
-              <Icon
-                name="chevron-left"
-                size={25}
-                color="black"
+      <ScrollView style={styles.ScrollView}>
+        <LinearGradient
+          colors={[Colors.pink, Colors.orrange, Colors.orrange, Colors.orrange]}
+          style={styles.liner}>
+          <View style={styles.viewStoreName}>
+            <Text style={styles.txtStoreName}>{detailStore.store_name}</Text>
+            <View style={{flexDirection: 'row'}}>{star}</View>
+          </View>
+
+          <View style={styles.viewStoreInfor}>
+            <View style={styles.viewAddress}>
+              <Entypo name="location-pin" size={25} color="white" />
+              <Text style={styles.address}>{detailStore.address}</Text>
+            </View>
+
+            <View style={styles.viewTime}>
+              <Entypo
+                name="back-in-time"
+                size={20}
+                color="white"
                 onPress={() => this.backMainScreen()}
               />
+              <Text style={styles.status}>{this.state.status}</Text>
             </View>
+          </View>
 
-            <View
-              style={{
-                flex: 1,
-              }}
-            />
+          <View style={styles.tabbar}>
+            <ScrollableTabView
+              initialPage={0}
+              tabBarActiveTextColor="white"
+              tabBarUnderlineStyle="white"
+              tabBarInactiveTextColor="black"
+              tabBarTextStyle={{fontFamily: 'Roboto', fontSize: 20}}
+              borderRadius="20">
+              <Service
+                tabLabel="Dịch vụ"
+                props={this.props}
+                services={dataServices}
+                store_id={detailStore.store_id}
+              />
+              <Comment
+                tabLabel=" Bình luận"
+                props={this.props}
+                store_id={detailStore.store_id}
+              />
+              <Information
+                tabLabel="Thông tin"
+                props={this.props}
+                detailStore={detailStore}
+              />
+            </ScrollableTabView>
+          </View>
+        </LinearGradient>
+      </ScrollView>
+    );
+  };
 
-            {this.props.orders.cartItems.length <= 0 ? (
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignContent: 'flex-end',
-                  marginTop: 5,
-                  alignItems: 'center',
-                  paddingRight: 10,
-                  paddingTop: 7,
-                  marginRight: 5,
-                  width: 50,
-                  height: 50,
-                }}>
-                <Image
-                  style={{
-                    width: 50,
-                    height: 50,
-                  }}
-                  source={Logo}
-                />
-              </View>
-            ) : (
-              <View
-                style={{
-                  margin: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'white',
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  borderColor: '#7adaf7',
-                  paddingRight: 10,
-                  paddingTop: 7,
-                  marginRight: 5,
-                  width: 50,
-                  height: 50,
-                }}>
-                <TouchableOpacity onPress={() => this.changeShopping()}>
-                  <View
-                    style={{
-                      position: 'absolute',
-                      height: 20,
-                      width: 20,
-                      borderRadius: 15,
-                      backgroundColor: 'rgba(95,197,123,0.8)',
-                      right: -5,
-                      bottom: 20,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      zIndex: 2000,
-                    }}>
-                    <Text style={{color: 'white', fontWeight: 'bold'}}>
-                      {this.props.orders.cartItems.length}
-                    </Text>
-                  </View>
-
-                  <CardIcon
-                    name="shoppingcart"
-                    size={35}
-                    color="#7adaf7"
-                    onPress={() => this.changeShopping()}
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
-          </ImageBackground>
-        </View>
-
-        <ScrollView style={{marginTop: -30}}>
-          <LinearGradient
-            colors={['#f75799', '#F99A7C', '#F99A7C', '#F99A7C']}
-            style={{
-              // flex: 1,
-              backgroundColor: 'red',
-              borderTopLeftRadius: 35,
-              borderTopRightRadius: 35,
-              paddingVertical: 20,
-            }}>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Text
-                style={{
-                  fontSize: 30,
-                  color: 'black',
-                  fontFamily: Fonts.serif,
-                }}>
-                {detailStore.store_name}
-              </Text>
-              <View style={{flexDirection: 'row'}}>{star}</View>
-            </View>
-
-            <View
-              style={{
-                marginHorizontal: 20,
-                justifyContent: 'center',
-                marginVertical: 10,
-              }}>
-              <View
-                style={{
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                }}>
-                <Entypo name="location-pin" size={25} color="white" />
-                <Text
-                  style={{
-                    marginHorizontal: 18,
-                    fontSize: 20,
-                    color: 'black',
-                    fontFamily: Fonts.serif,
-                  }}>
-                  {detailStore.address}
-                </Text>
-              </View>
-
-              <View
-                style={{
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                }}>
-                <Entypo
-                  name="back-in-time"
-                  size={20}
-                  color="white"
-                  onPress={() => this.backMainScreen()}
-                />
-                <Text
-                  style={{
-                    fontSize: 20,
-                    marginHorizontal: 20,
-                    color: 'white',
-                    fontFamily: Fonts.serif,
-                  }}>
-                  {this.state.status}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.tabbar}>
-              <ScrollableTabView
-                initialPage={0}
-                tabBarActiveTextColor="white"
-                tabBarUnderlineStyle="white"
-                tabBarInactiveTextColor="black"
-                tabBarTextStyle={{fontFamily: 'Roboto', fontSize: 20}}
-                borderRadius="20">
-                <Service
-                  tabLabel="Dịch vụ"
-                  props={this.props}
-                  services={dataServices}
-                  store_id={detailStore.store_id}
-                />
-                <Comment
-                  tabLabel=" Bình luận"
-                  props={this.props}
-                  store_id={detailStore.store_id}
-                />
-                <Information
-                  tabLabel="Thông tin"
-                  props={this.props}
-                  detailStore={detailStore}
-                />
-              </ScrollableTabView>
-            </View>
-          </LinearGradient>
-        </ScrollView>
-
+  renderPrice = () => {
+    return (
+      <>
         {this.props.orders.cartItems.length <= 0 ? null : (
-          <View
-            style={{
-              marginHorizontal: 10,
-              padding: 10,
-              flexDirection: 'row',
-              backgroundColor: '#F99A7C',
-            }}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignContent: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                  color: 'black',
-                }}>
+          <View style={styles.viewFooter}>
+            <View style={styles.viewTotal}>
+              <Text style={styles.txtTotal}>
                 Tổng cộng: {this.sumTotalPrice()} đ
               </Text>
             </View>
-            <View style={{alignItems: 'flex-end'}}>
+            <View style={styles.viewButton}>
               <TouchableOpacity onPress={this.changeShopping}>
-                <Text
-                  style={{
-                    borderRadius: 20,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    padding: 12,
-                    paddingHorizontal: 30,
-                    textAlign: 'center',
-                    backgroundColor: '#FCB1B6',
-                    color: 'black',
-                  }}>
-                  Đặt ngay
-                </Text>
+                <Text style={styles.textButton}>Đặt ngay</Text>
               </TouchableOpacity>
             </View>
           </View>
         )}
+      </>
+    );
+  };
+
+  render() {
+    const {detailStore} = this.props.stores;
+    const dataServices = detailStore.services;
+
+    if (detailStore.length <= 0) {
+      return this.renderLoading();
+    }
+    return (
+      <View style={styles.viewBody}>
+        {this.renderStoreImage(detailStore)}
+        {this.renderInforData(detailStore, dataServices)}
+        {this.renderPrice()}
       </View>
     );
   }
@@ -417,16 +286,162 @@ class Detail extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: Colors.error,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     paddingVertical: 20,
   },
-
+  cartLength: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  viewLoading: {
+    padding: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
   tabbar: {
     flex: 1,
-    // marginTop: width * 0.1,
     paddingHorizontal: 10,
+  },
+  viewBody: {
+    flex: 1,
+    backgroundColor: Colors.orrange,
+  },
+  viewImage: {
+    flexDirection: 'row',
+    height: height / 3,
+  },
+  ImageBackground: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    height: height / 3,
+  },
+  iconBack: {
+    flex: 1,
+    padding: 10,
+    margin: 10,
+    justifyContent: 'center',
+    backgroundColor: Colors.white,
+    borderRadius: 50,
+    alignItems: 'center',
+    maxHeight: 45,
+    maxWidth: 45,
+  },
+  viewLogo: {
+    justifyContent: 'center',
+    alignContent: 'flex-end',
+    marginTop: 5,
+    alignItems: 'center',
+    paddingRight: 10,
+    paddingTop: 7,
+    marginRight: 5,
+    width: 50,
+    height: 50,
+  },
+  logo: {
+    width: 50,
+    height: 50,
+  },
+  viewCart: {
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: Colors.blue,
+    paddingRight: 10,
+    paddingTop: 7,
+    marginRight: 5,
+    width: 50,
+    height: 50,
+  },
+  cart: {
+    position: 'absolute',
+    height: 20,
+    width: 20,
+    borderRadius: 15,
+    backgroundColor: 'rgba(95,197,123,0.8)',
+    right: -5,
+    bottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2000,
+  },
+  viewFooter: {
+    marginHorizontal: 10,
+    padding: 10,
+    flexDirection: 'row',
+    backgroundColor: Colors.orrange,
+  },
+  viewTotal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  txtTotal: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  viewButton: {
+    alignItems: 'flex-end',
+  },
+  textButton: {
+    borderRadius: 20,
+    fontSize: 15,
+    fontWeight: 'bold',
+    padding: 12,
+    paddingHorizontal: 30,
+    textAlign: 'center',
+    backgroundColor: '#FCB1B6',
+    color: 'black',
+  },
+  liner: {
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    paddingVertical: 20,
+  },
+  viewStoreName: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  txtStoreName: {
+    fontSize: 30,
+    color: 'black',
+    fontFamily: Fonts.serif,
+  },
+  viewStoreInfor: {
+    marginHorizontal: 20,
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  viewAddress: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  address: {
+    marginHorizontal: 18,
+    fontSize: 20,
+    color: 'black',
+    fontFamily: Fonts.serif,
+  },
+  viewTime: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  status: {
+    fontSize: 20,
+    marginHorizontal: 20,
+    color: 'white',
+    fontFamily: Fonts.serif,
+  },
+  ScrollView: {
+    marginTop: -30,
   },
 });
 

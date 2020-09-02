@@ -3,31 +3,18 @@ import {
   Text,
   StyleSheet,
   View,
-  FlatList,
   TouchableOpacity,
   Dimensions,
-  Image,
-  ScrollView,
-  Alert,
-  TouchableWithoutFeedback,
 } from 'react-native';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Navigation} from 'react-native-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import {t} from '../../i18n/t';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Success from 'react-native-vector-icons/AntDesign';
-import Logo from '../../../assets/images/logo.png';
-const {width, height} = Dimensions.get('window');
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Entypo from 'react-native-vector-icons/Entypo';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Colors from '../../themers/Colors';
 import Fonts from '../../themers/Fonts';
 import {connect} from 'react-redux';
-import {getOrderDetail, cancelOrder} from '../../redux/orderRedux/action';
-import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import {storageGet} from '../../checkAsyncStorage';
 import Loading from '../Loading';
-import {addCart, deleteCart, addStoreId} from '../../redux/orderRedux/action';
 import {onChangeIntoMainScreen} from '../../navigation';
 import {
   deleteAllCarts,
@@ -80,37 +67,7 @@ class HistoryOrderDetail extends Component {
           {
             component: {
               name: 'HistoryOrder',
-              // passProps: {
-              //   IdStore: idStore,
-              // },
-              options: {
-                topBar: {
-                  title: {
-                    text: '',
-                    alignment: 'center',
-                  },
-                  visible: false,
-                },
-              },
-            },
-          },
-        ],
-      },
-    });
-  };
 
-  onNavigateStore = store_id => {
-    this.props.onDeleteAllCart();
-    this.props.onDeleteStoreId();
-    Navigation.showModal({
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Detail',
-              passProps: {
-                store_id: store_id,
-              },
               options: {
                 topBar: {
                   title: {
@@ -129,12 +86,12 @@ class HistoryOrderDetail extends Component {
 
   renderHeader = () => {
     return (
-      <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
+      <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
         <View
           style={{
             flexDirection: 'row',
             padding: 5,
-            height: 80,
+            height: 60,
           }}
         />
       </LinearGradient>
@@ -158,7 +115,7 @@ class HistoryOrderDetail extends Component {
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1}}>
-          <Loading loadingText="Loading..." />
+          <Loading />
         </View>
       );
     }
@@ -166,7 +123,7 @@ class HistoryOrderDetail extends Component {
       <View style={{flex: 1}}>
         {this.renderHeader()}
 
-        <ScrollView>
+        <View>
           <LinearGradient colors={['#F99A7C', '#FC5895']}>
             <View
               style={{
@@ -200,7 +157,6 @@ class HistoryOrderDetail extends Component {
                   fontWeight: 'bold',
                   fontSize: 20,
                   fontFamily: Fonts.serif,
-                  // textTransform: 'capitalize',
                   color: 'white',
                 }}>
                 Đặt hàng thành công
@@ -382,7 +338,7 @@ class HistoryOrderDetail extends Component {
               </TouchableOpacity>
             </LinearGradient>
           </View>
-        </ScrollView>
+        </View>
       </View>
     );
   }

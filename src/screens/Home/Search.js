@@ -6,17 +6,11 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  BackHandler,
-  Picker,
   ScrollView,
-  SafeAreaView,
-  AsyncStorage,
-  TouchableWithoutFeedback,
   TextInput,
-  Switch,
   Dimensions,
 } from 'react-native';
-import {get, filter, find, take} from 'lodash';
+import {find} from 'lodash';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {storageGet} from '../../checkAsyncStorage';
 import {Navigation} from 'react-native-navigation';
@@ -24,12 +18,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../../../assets/images/logo.png';
-import Img from '../../../assets/images/service-img.jpg';
-import Items from './components/BookingItems';
 import Colors from '../../themers/Colors';
 import Fonts from '../../themers/Fonts';
-import Location from 'react-native-vector-icons/Entypo';
-import SearchItems from './components/SearchItems';
 import {searchStore, addKey, deleteKey} from '../../redux/searchRedux/action';
 import {getAllStores} from '../../redux/storeRedux/action';
 import {connect} from 'react-redux';

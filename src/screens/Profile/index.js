@@ -18,7 +18,6 @@ import {t} from '../../i18n/t';
 import LinearGradient from 'react-native-linear-gradient';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
-import {Avatar, Accessory} from 'react-native-elements';
 
 export default class Profile extends Component {
   constructor() {
