@@ -15,9 +15,9 @@ import {
 import {connect} from 'react-redux';
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Entypo from 'react-native-vector-icons/Entypo';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../../../assets/images/logo.png';
 import Fonts from '../../themers/Fonts';
@@ -86,12 +86,7 @@ class Booking extends Component {
               maxHeight: 40,
               maxWidth: 40,
             }}>
-            <Icon
-              name="chevron-left"
-              size={25}
-              color="black"
-              onPress={() => this.backMainScreen()}
-            />
+            <Icon name="chevron-left" size={25} color="black" />
           </View>
 
           <View
@@ -348,40 +343,6 @@ class Booking extends Component {
                   Áp dụng
                 </Text>
               </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
-    );
-  };
-
-  renderMethodToPay = () => {
-    return (
-      <View
-        style={{
-          borderBottomWidth: 2,
-          borderBottomColor: '#FC959C',
-        }}>
-        <View style={{marginHorizontal: 20, marginVertical: 10}}>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-            Phương thức thanh toán
-          </Text>
-
-          <View style={{flexDirection: 'row', marginVertical: 5}}>
-            <View style={{flex: 1}}>
-              <TouchableWithoutFeedback onPress={this.onSignUp}>
-                <Text
-                  style={{
-                    color: 'blue',
-                    fontSize: 16,
-                    textDecorationLine: 'underline',
-                  }}>
-                  Thanh toán trực tiếp
-                </Text>
-              </TouchableWithoutFeedback>
-            </View>
-            <View>
-              <AntDesign name="edit" size={25} color="#3e3e3e" />
             </View>
           </View>
         </View>
@@ -703,33 +664,49 @@ class Booking extends Component {
                 </Text>
                 <View
                   style={{
+                    flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderWidth: 1,
-                    height: 40,
                   }}>
-                  <TouchableOpacity
-                    onPress={() => this.TimePicker.open()}
-                    style={styles.button}>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontSize: 16,
-                        fontWeight: '600',
-                      }}>
-                      {this.state.order_time}
-                    </Text>
-                  </TouchableOpacity>
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderWidth: 1,
+                      height: 40,
+                      flex: 1,
+                    }}>
+                    <TouchableOpacity
+                      onPress={() => this.TimePicker.open()}
+                      style={styles.button}>
+                      <Text
+                        style={{
+                          color: 'black',
+                          fontSize: 16,
+                          fontWeight: '600',
+                        }}>
+                        {this.state.order_time}
+                      </Text>
+                    </TouchableOpacity>
 
-                  <TimePicker
-                    ref={ref => {
-                      this.TimePicker = ref;
-                    }}
-                    onCancel={() => this.onCancel()}
-                    onConfirm={(hour, minute, second) =>
-                      this.onConfirm(hour, minute, second)
-                    }
-                  />
+                    <TimePicker
+                      ref={ref => {
+                        this.TimePicker = ref;
+                      }}
+                      onCancel={() => this.onCancel()}
+                      onConfirm={(hour, minute, second) =>
+                        this.onConfirm(hour, minute, second)
+                      }
+                    />
+                  </View>
+                  <View style={{alignContent: 'flex-end', marginLeft: 10}}>
+                    <Entypo
+                      name="clock"
+                      size={25}
+                      color="black"
+                      onPress={() => this.TimePicker.open()}
+                    />
+                  </View>
                 </View>
               </View>
             </View>
@@ -763,7 +740,6 @@ class Booking extends Component {
             </View>
           </View>
 
-          {this.renderMethodToPay()}
           {this.renderVoucher()}
           {this.renderShowPrice()}
         </ScrollView>

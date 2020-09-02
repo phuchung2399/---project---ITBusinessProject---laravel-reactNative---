@@ -16,7 +16,6 @@ import {onSignIn} from '../../navigation';
 // import IconLogin from '../../../assets/images/login_image.png';
 // import {connect} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
-import * as Animatable from 'react-native-animatable';
 import Logo from '../../../assets/images/logo.png';
 import UploadProfileImage from '../../../assets/images/profile_icon.png';
 import Icon from 'react-native-vector-icons/FontAwesome';

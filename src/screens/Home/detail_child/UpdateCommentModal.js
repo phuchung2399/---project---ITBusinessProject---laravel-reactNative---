@@ -16,7 +16,6 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import {storageRemove, storageGet} from '../../../checkAsyncStorage';
-import Modal from 'react-native-modalbox';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // import {onSignIn} from '../../navigation';
 import {connect} from 'react-redux';
