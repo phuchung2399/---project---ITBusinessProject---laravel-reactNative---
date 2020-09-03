@@ -317,4 +317,9 @@ class OrderController extends Controller
     {
         return $this->orderService->selectOrder($request);
     }
+
+    function chartCountUser()
+    {
+        return $this->orderService->chart();
+    }
 }

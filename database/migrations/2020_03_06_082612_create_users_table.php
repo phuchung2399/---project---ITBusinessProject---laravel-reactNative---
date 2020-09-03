@@ -17,12 +17,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->Increments('user_id')->unsigned()->unique();
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->string('user_name', 20);
             $table->string('phone', 10)->unique();
             $table->string('email', 50)->unique();
-            $table->string('password')->unique();
+            $table->string('password');
             $table->string('auth', 10)->nullable();
+            $table->boolean('active');
             $table->timestamps();
         });
         DB::update('ALTER TABLE users AUTO_INCREMENT = 111111;');

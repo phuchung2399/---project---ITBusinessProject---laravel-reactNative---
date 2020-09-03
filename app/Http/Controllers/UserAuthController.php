@@ -432,4 +432,24 @@ class UserAuthController extends Controller
 	{
 		return $this->userService->updateUserName($request);
 	}
+
+	function lockAccount($id)
+	{
+		return $this->userService->lockAccount($id);
+	}
+
+	function activeAccount($id)
+	{
+		return $this->userService->activeAccount($id);
+	}
+
+	function selectAllUser()
+	{
+		return $this->userService->selectAllUser();
+	}
+
+	function chartCountUser()
+	{
+		return $this->userService->chart();
+	}
 }

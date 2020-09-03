@@ -33,7 +33,7 @@ class OrderInsertRequest extends FormRequest
             'order_day'  => ['required', 'regex:/(\d{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$)+/'],
             'order_time' => ['required', 'regex:/(^(0[0-1]?[0-9]|1[0-1]?[0-9]|2[0-3]):([0-5][0-9]:([0-5][0-9]))$)+/'],
             'total'      => ['required', 'numeric'],
-            'note'       => ['regex:/([^!@#$%^&*()_+\-=\[\]{};:"\\|<>\?]+$)+/'],
+             // 'note'       => ['regex:/([^!@#$%^&*()_+\-=\[\]{};:"\\|<>\?]+$)+/'],
             'store'      => ['required'],
             'service'    => ['required'],
         ];

@@ -768,4 +768,19 @@ class StoreAuthController extends Controller
     {
         return $this->storeSevice->updateLocationStore($request);
     }
+
+    function lockAccount($id)
+    {
+        return $this->storeSevice->lockAccount($id);
+    }
+
+    function activeAccount($id)
+    {
+        return $this->storeSevice->activeAccount($id);
+    }
+
+    function chartCountStore()
+    {
+        return $this->storeSevice->chart();
+    }
 }

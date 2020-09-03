@@ -66,6 +66,10 @@ Route::prefix('v1/user')->group(function () {
         Route::put('update-user-name', 'UserAuthController@updateUserName');
     });
     Route::post('mail-reset-password', 'UserAuthController@sendEmailResetPassword');
+    Route::middleware(['auth:admins'])->put('user-lock/{id}', 'UserAuthController@lockAccount');
+    Route::middleware(['auth:admins'])->put('user-active/{id}', 'UserAuthController@activeAccount');
+    Route::middleware(['auth:admins'])->get('user-all', 'UserAuthController@selectAllUser');
+    Route::middleware(['auth:admins'])->get('count-user', 'UserAuthController@chartCountUser');
 });
 
 Route::prefix('v1/store')->group(function () {
@@ -88,14 +92,17 @@ Route::prefix('v1/store')->group(function () {
     });
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('store-detail/{id}', 'StoreAuthController@selectStoreById');
-        Route::get('store-all', 'StoreAuthController@selectAllStore');
         Route::post('store-search-star', 'StoreAuthController@selectStoreByStar'); // search auth for user
         Route::get('store-sort-star-home', 'StoreAuthController@selectStoreByStarInHome');
         Route::get('store-new-home', 'StoreAuthController@selectStoreNewByInHome');
     });
     Route::post('mail-reset-password', 'StoreAuthController@sendEmailResetPassword');
     Route::middleware(['auth:api,admins'])->post('store-search', 'StoreAuthController@searchStore'); // search auth for user and admin
+    Route::middleware(['auth:api,admins'])->get('store-all', 'StoreAuthController@selectAllStore');
     Route::middleware(['auth:admins'])->post('store-point-search/{id}', 'StoreAuthController@updatePointSearch'); // search auth admin
+    Route::middleware(['auth:admins'])->put('store-lock/{id}', 'StoreAuthController@lockAccount');
+    Route::middleware(['auth:admins'])->put('store-active/{id}', 'StoreAuthController@activeAccount');
+    Route::middleware(['auth:admins'])->get('count-store', 'StoreAuthController@chartCountStore');
 });
 
 Route::prefix('v1/')->group(function () {
@@ -155,4 +162,6 @@ Route::prefix('v1')->group(function () {
         Route::post('order-finish/{id}', 'OrderController@confirmFinishOrderFromStore');
     });
     Route::middleware(['auth:api,stores'])->get('order-detail/{id}', 'OrderController@selectDetailOrderById');
+    Route::post('order-finish/{id}', 'OrderController@confirmFinishOrderFromStore');
+    Route::get('count-order', 'OrderController@chartCountUser');
 });

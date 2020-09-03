@@ -18,6 +18,7 @@ use App\Helper\Validation; // container check validate
 use App\Helper\Response; // container Response
 use App\Helper\Support; // container function to hanld string, image, number
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 
 class UserService
@@ -42,16 +43,20 @@ class UserService
     {
         try {
             if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password, 'auth' => 'user'])) {
-                $user = Auth::user();
-                $token_user =  $user->createToken('token')->accessToken;
-                $data['user_id'] = $user->user_id;
-                $data['user_name'] = $user->user_name;
-                $data['avatar'] = $user->avatar;
-                $data['phone'] = $user->phone;
-                $data['email'] = $user->email;
-                return Response::responseLoginSuccess($token_user, $data, 'user');
+                if (Auth::user()->active == 0) {
+                    return Response::responseMessage(HttpStatus::BAD_REQUEST,  'Tài khoản của bạn đã bị khóa do bạn đã vi phạm nội dung khỏa thuận của NAILL APP');
+                } else {
+                    $user = Auth::user();
+                    $token_user =  $user->createToken('token')->accessToken;
+                    $data['user_id'] = $user->user_id;
+                    $data['user_name'] = $user->user_name;
+                    $data['avatar'] = $user->avatar;
+                    $data['phone'] = $user->phone;
+                    $data['email'] = $user->email;
+                    return Response::responseLoginSuccess($token_user, $data, 'user');
+                }
             } else {
-                return Response::responseMessage(HttpStatus::SUCCESS_RESPONSE,  'Số điện thoại hoặc mật khẩu không đúng');
+                return Response::responseMessage(HttpStatus::BAD_REQUEST,  'Số điện thoại hoặc mật khẩu không đúng');
             }
         } catch (\Exception $exception) {
             return Response::responseMessage(HttpStatus::BAD_REQUEST, $exception->getMessage());
@@ -67,7 +72,9 @@ class UserService
     {
         try {
             $user =  $this->handleRequestData($this->user, $request);
-            $user->avatar = Support::handleImageGetLink(FolderID::AVATAR_ID, $request->file('avatar')->store(FolderID::AVATAR_ID, 'google'));
+            if ($request->avatar != null) {
+                $user->avatar = Support::handleImageGetLink(FolderID::AVATAR_ID, $request->file('avatar')->store(FolderID::AVATAR_ID, 'google'));
+            }
             $password = $request->password;
             $user->password = bcrypt($password);
             $this->userRepository->insertUser($user);
@@ -353,10 +360,65 @@ class UserService
      **/
     function handleRequestData($user, $request)
     {
-        $user->avatar = Support::handleImageGetLink(FolderID::AVATAR_ID, $request->file('avatar')->store(FolderID::AVATAR_ID, 'google'));
+        // $user->avatar = Support::handleImageGetLink(FolderID::AVATAR_ID, $request->file('avatar')->store(FolderID::AVATAR_ID, 'google'));
         $user->user_name = Validation::handleSpace($request->user_name);
         $user->phone = $request->phone;
         $user->email = $request->email;
+        $user->active = 1;
         return $user;
+    }
+
+    /**
+     * active
+     * @param request
+     **/
+    function lockAccount($id)
+    {
+        if ($this->userRepository->checkUserById($id)) {
+            $user =  $this->userRepository->selectUserById($id);
+            $user->active = 0;
+            $this->userRepository->updateUser($user);
+            return Response::responseMessage(HttpStatus::SUCCESS_CREATED, "Tài khoản đã khóa");
+        } else {
+            return Response::responseMessage(HttpStatus::BAD_REQUEST, "Khóa tài khoản không thành công");
+        }
+    }
+
+    /**
+     * active
+     * @param request
+     **/
+    function activeAccount($id)
+    {
+        if ($this->userRepository->checkUserById($id)) {
+            $user =  $this->userRepository->selectUserById($id);
+            $user->active = 1;
+            $this->userRepository->updateUser($user);
+            return Response::responseMessage(HttpStatus::SUCCESS_CREATED, "Tài khoản đã mở khóa");
+        } else {
+            return Response::responseMessage(HttpStatus::BAD_REQUEST, "Khóa tài khoản mở khóa không thành công");
+        }
+    }
+
+    /**
+     * selectAllUser
+     **/
+    function selectAllUser()
+    {
+        return Response::responseSuccess($this->userRepository->selectAllUser());
+    }
+
+    /**
+     * chart 
+     * count user register in day 
+     **/
+    function chart()
+    {
+        $collection = DB::table('users')
+            ->select(DB::raw("count(created_at) as quantity, DATE_FORMAT(created_at, '%d-%m-%Y') as created_at"))
+            ->whereMonth('created_at', date('m'))
+            ->groupBy('created_at')
+            ->get();
+        return Response::responseSuccess($collection);
     }
 }

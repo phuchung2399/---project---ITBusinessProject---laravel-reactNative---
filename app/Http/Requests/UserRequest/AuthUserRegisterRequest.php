@@ -30,7 +30,8 @@ class AuthUserRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'avatar'           => 'mimes:jpeg,jpg,png|required|max:5000',
+            // 'avatar'           => 'mimes:jpeg,jpg,png|required|max:5000',
+            'avatar'           => 'max:5000',
             'user_name'        => ['required', 'string', 'min:2', 'max:20', 'regex:/([^!@#$%^&*()_+\-=\[\]{};:"\\|<>\?]+$)+/'],
             'email'            => ['required', 'string', 'email', 'max:50', 'unique:users', 'regex:/(^[a-zA-Z0-9||@.]+$)+/'],
             'phone'            => ['required', 'string', 'min:10', 'max:10', 'unique:users', 'regex:/((09|08|05|03|07)+([0-9]{8})\b)+/'],
@@ -48,8 +49,8 @@ class AuthUserRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'avatar.required'           => 'Vui lòng chọn hình ảnh',
-            'avatar.mimes'              => 'Hình ảnh không hợp lệ',
+            //  'avatar.required'           => 'Vui lòng chọn hình ảnh',
+            // 'avatar.mimes'              => 'Hình ảnh không hợp lệ',
             'avatar.max'                => 'Lưu lượng ảnh quá lớn',
             'user_name.required'        => 'Vui lòng nhập tên của bạn',
             'user_name.string'          => 'Tên của bạn không hợp lệ',

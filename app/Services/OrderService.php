@@ -20,6 +20,7 @@ use App\Helper\Validation; // container check validate
 use App\Helper\Response; // container Response
 use Ramsey\Uuid\Uuid;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 use App\Services\VoucherService;
 
@@ -68,7 +69,6 @@ class OrderService
      */
     function insertOrder($request)
     {
-        var_dump(strlen($request->address));
         $order =  $this->order;
         $date_now = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now 
         $date_add_to_week = (Carbon::now('Asia/Ho_Chi_Minh')->addWeek())->toDateString(); // get day now + 7 day
@@ -537,5 +537,19 @@ class OrderService
         } catch (\Exception $exception) {
             return Response::responseMessage(HttpStatus::BAD_REQUEST, $exception->getMessage());
         }
+    }
+
+    /**
+     * chart 
+     * count user register in day 
+     **/
+    function chart()
+    {
+        $collection = DB::table('orders')
+            ->select(DB::raw("count(created_at) as quantity, DATE_FORMAT(created_at, '%d-%m-%Y') as created_at"))
+            ->whereMonth('created_at', date('m'))
+            ->groupBy('created_at')
+            ->get();
+        return Response::responseSuccess($collection);
     }
 }

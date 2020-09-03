@@ -13,7 +13,7 @@ class Store extends Authenticatable
     protected $guard = "stores";
     protected $table = 'stores';
     protected $primaryKey = 'store_id';
-    protected $fillable = ['store_id', 'store_name', 'phone', 'email', 'password', 'address', 'open_time', 'close_time', 'image', 'status', 'location_id', 'auth', 'star'];
+    protected $fillable = ['store_id', 'store_name', 'phone', 'email', 'password', 'address', 'open_time', 'close_time', 'image', 'status', 'location_id', 'auth', 'star', 'active'];
     public $timestamps = true;
 
     /**
@@ -24,7 +24,7 @@ class Store extends Authenticatable
     public $incrementing = true;
 
     protected $hidden = [
-        'password', 'remember_token', 'star', 'point_search', 'auth'
+        'password', 'remember_token', 'star', 'auth'
     ];
 
     public function location()

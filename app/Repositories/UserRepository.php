@@ -122,4 +122,9 @@ class UserRepository
     {
         return $this->user::find($id);
     }
+
+    function selectAllUser()
+    {
+        return $this->user::all();
+    }
 }

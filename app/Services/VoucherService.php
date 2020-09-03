@@ -77,15 +77,12 @@ class VoucherService
     {
         try {
             $voucher = $this->voucherRepository->selectVoucherByName($request->voucher_name);
-            var_dump($voucher);
             if (count($voucher) == 0) {
                 return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Mã không tồn tại');
             }
             if ($voucher[0]->quantity == 0) {
                 return Response::responseMessage(HttpStatus::BAD_REQUEST, 'Số lượng mã đã dùng hết');
             } else {
-                $voucher[0]->quantity = $voucher[0]->quantity - 1;
-                $this->voucherRepository->updateVoucher($voucher[0]);
                 return Response::responseSuccess($request->total - $voucher[0]->price);
             }
         } catch (\Exception $exception) {
@@ -103,6 +100,8 @@ class VoucherService
     {
         $voucher = $this->voucherRepository->selectVoucherByName($voucher_name);
         if (count($voucher)) {
+            $voucher[0]->quantity = $voucher[0]->quantity - 1;
+            $this->voucherRepository->updateVoucher($voucher[0]);
             return $voucher[0]->price;
         } else {
             return 0;
@@ -141,10 +140,9 @@ class VoucherService
             if ($this->voucherRepository->checkVoucherById($id)) {
                 $voucher = $this->voucher::find($id);
                 if ($voucher->voucher_name == $request->voucher_name) {
-                    var_dump("1");
                     return $this->handleUpdateVoucher($voucher, $request);
                 } elseif (count($this->voucherRepository->selectManyVoucherByName($request->voucher_name)) >= 1) {
-                    return Response::responseMessage(HttpStatus::SUCCESS_RESPONSE,  "Mã đã tồn tại");
+                    return Response::responseMessage(HttpStatus::SUCCESS_RESPONSE, "Mã đã tồn tại");
                 } else {
                     return $this->handleUpdateVoucher($voucher, $request);
                 }

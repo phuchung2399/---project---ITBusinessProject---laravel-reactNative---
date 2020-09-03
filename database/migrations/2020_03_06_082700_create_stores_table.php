@@ -30,6 +30,7 @@ class CreateStoresTable extends Migration
             $table->integer('star')->nullable();
             $table->string('auth', 10)->nullable();
             $table->integer('point_search')->nullable();
+            $table->boolean('active');
             $table->timestamps();
         });
         DB::update('ALTER TABLE stores AUTO_INCREMENT = 22222222;');

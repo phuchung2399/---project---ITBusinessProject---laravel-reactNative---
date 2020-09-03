@@ -20,6 +20,7 @@ use App\Helper\Validation; // container check validate
 use App\Helper\Response; // container Response
 use App\Helper\Support; // container function to hanld string, image, number
 use App\Models\Store;
+use Illuminate\Support\Facades\DB;
 
 class StoreSevice
 {
@@ -47,6 +48,9 @@ class StoreSevice
         try {
             $store = $this->storeRepository->selectStoreByPhone($request->phone);
             if ($store != null) {
+                if ($store->active == 0) {
+                    return Response::responseMessage(HttpStatus::BAD_REQUEST,  'Tài khoản của bạn đã bị khóa do bạn đã vi pham nội dung khỏa thuận của NAILL APP');
+                }
                 if ($store->auth == 'store' && Hash::check($request->password,  $store->password)) {
                     $token_store =  $store->createToken('token')->accessToken;
                     return Response::responseLoginSuccess($token_store, $this->hanldeDataResponse($store), 'store');
@@ -495,6 +499,7 @@ class StoreSevice
         $store->open_time = $request->open_time;
         $store->close_time = $request->close_time;
         $store->location_id = $request->location_id;
+        $store->active = 1;
         return $store;
     }
 
@@ -561,6 +566,8 @@ class StoreSevice
         $data['close_time'] = $store->close_time;
         $data['location'] =  $store->location()->get();
         $data['rank'] =  $store->star;
+        $data['point_search'] =  $store->point_search;
+        $data['active'] =  $store->active;
         return $data;
     }
 
@@ -654,5 +661,51 @@ class StoreSevice
     function hanldeAddress($address, $location_id)
     {
         return json_decode(Support::handleGetCoordinate($address . ' ' .  $this->locationService->getNameLocation($location_id)))->results[0]->formatted_address;
+    }
+
+    /**
+     * loack account
+     * @param request
+     **/
+    function lockAccount($id)
+    {
+        if ($this->storeRepository->checkStoreById($id)) {
+            $store =  $this->storeRepository->selectStoreById($id);
+            $store->active = 0;
+            $this->storeRepository->updateStore($store);
+            return Response::responseMessage(HttpStatus::SUCCESS_CREATED, "Tài khoản đã khóa");
+        } else {
+            return Response::responseMessage(HttpStatus::BAD_REQUEST, "Khóa tài khoản không thành công");
+        }
+    }
+
+    /**
+     * active
+     * @param request
+     **/
+    function activeAccount($id)
+    {
+        if ($this->storeRepository->checkStoreById($id)) {
+            $store =  $this->storeRepository->selectStoreById($id);
+            $store->active = 1;
+            $this->storeRepository->updateStore($store);
+            return Response::responseMessage(HttpStatus::SUCCESS_CREATED, "Tài khoản đã được mở khóa");
+        } else {
+            return Response::responseMessage(HttpStatus::BAD_REQUEST, "Khóa tài khoản mở khóa không thành công");
+        }
+    }
+
+    /**
+     * chart 
+     * count user register in day 
+     **/
+    function chart()
+    {
+        $collection = DB::table('stores')
+            ->select(DB::raw("count(created_at) as quantity, DATE_FORMAT(created_at, '%d-%m-%Y') as created_at"))
+            ->whereMonth('created_at', date('m'))
+            ->groupBy('created_at')
+            ->get();
+        return Response::responseSuccess($collection);
     }
 }

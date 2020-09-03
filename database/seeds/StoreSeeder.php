@@ -29,8 +29,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 4,
                 'point_search' => 2,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-22 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ],
             [
                 'store_id' => 22222224,
@@ -47,8 +48,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 4,
                 'point_search' => 2,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-22 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ],
             [
                 'store_id' => 22222225,
@@ -65,8 +67,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 2,
                 'point_search' => 2,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-19 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ],
             [
                 'store_id' => 22222226,
@@ -83,8 +86,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 1,
                 'point_search' => 2,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-19 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ],
             [
                 'store_id' => 22222227,
@@ -101,8 +105,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 1,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-19 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222228,
                 'store_name' => 'Hải Châu nail',
@@ -118,8 +123,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-18 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222229,
                 'store_name' => 'Ngũ Hành Sơn Nail',
@@ -135,8 +141,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-18 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 222222230,
                 'store_name' => 'Cẩm Lệ Nail',
@@ -152,8 +159,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-22 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222231,
                 'store_name' => 'Liên Chiểu Nail',
@@ -169,8 +177,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-17 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222232,
                 'store_name' => 'An Hải Đông Nail',
@@ -186,8 +195,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-17 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ],
             [
                 'store_id' => 22222233,
@@ -204,8 +214,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 2,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-17 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222234,
                 'store_name' => 'An Hải Tây Nail',
@@ -221,8 +232,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 2,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-17 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222235,
                 'store_name' => 'An Hải Nam Nail',
@@ -238,8 +250,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-21 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222236,
                 'store_name' => 'An Hải Trung Nail',
@@ -255,8 +268,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-21 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222237,
                 'store_name' => 'An Trung Đông Nail',
@@ -272,8 +286,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-21 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222238,
                 'store_name' => 'An Trung Tây Nail',
@@ -289,8 +304,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-21 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222239,
                 'store_name' => 'An Trung Bắc Nail',
@@ -306,8 +322,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-21 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222240,
                 'store_name' => 'Love Nail',
@@ -323,8 +340,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 2,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-22 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222241,
                 'store_name' => 'Đại Chiến Nail',
@@ -340,8 +358,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-22 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ],
             [
                 'store_id' => 22222242,
@@ -359,7 +378,8 @@ class StoreSeeder extends Seeder
                 'star' => 0,
                 'point_search' => 1,
                 'created_at' => new DateTime,
-                'updated_at' => new DateTime
+                'updated_at' => new DateTime,
+                'active' => 1
             ],
             [
                 'store_id' => 22222243,
@@ -377,7 +397,8 @@ class StoreSeeder extends Seeder
                 'star' => 0,
                 'point_search' => 1,
                 'created_at' => new DateTime,
-                'updated_at' => new DateTime
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222244,
                 'store_name' => 'Iphone Nail',
@@ -394,7 +415,8 @@ class StoreSeeder extends Seeder
                 'star' => 0,
                 'point_search' => 1,
                 'created_at' => new DateTime,
-                'updated_at' => new DateTime
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222245,
                 'store_name' => 'Xiaomi Nail',
@@ -411,7 +433,8 @@ class StoreSeeder extends Seeder
                 'star' => 1,
                 'point_search' => 0,
                 'created_at' => new DateTime,
-                'updated_at' => new DateTime
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222246,
                 'store_name' => 'Oppo Nail',
@@ -427,8 +450,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-22 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222247,
                 'store_name' => 'Samsung Nail',
@@ -445,7 +469,8 @@ class StoreSeeder extends Seeder
                 'star' => 1,
                 'point_search' => 0,
                 'created_at' => new DateTime,
-                'updated_at' => new DateTime
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222248,
                 'store_name' => 'Vivo Nail',
@@ -461,8 +486,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-22 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222249,
                 'store_name' => 'Fly Nail',
@@ -479,7 +505,8 @@ class StoreSeeder extends Seeder
                 'star' => 1,
                 'point_search' => 0,
                 'created_at' => new DateTime,
-                'updated_at' => new DateTime
+                'updated_at' => new DateTime,
+                'active' => 1
             ], [
                 'store_id' => 22222250,
                 'store_name' => 'Key Nail',
@@ -495,8 +522,9 @@ class StoreSeeder extends Seeder
                 'auth' => 'store',
                 'star' => 3,
                 'point_search' => 0,
-                'created_at' => '2020-07-27 06:24:50',
-                'updated_at' => new DateTime
+                'created_at' => '2020-09-22 06:24:50',
+                'updated_at' => new DateTime,
+                'active' => 1
             ]
         ]);
     }
