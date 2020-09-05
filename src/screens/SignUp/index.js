@@ -16,6 +16,8 @@ import Logo from '../../../assets/images/logo.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {t} from '../../i18n/t';
 const {height} = Dimensions.get('window');
+import * as config from '../../api/config';
+import Colors from '../../themers/Colors';
 
 class SignUp extends Component {
   constructor(props) {
@@ -49,41 +51,25 @@ class SignUp extends Component {
   };
 
   onSignUp = event => {
-    var {user_name, email, phone, password, confirmPass} = this.state;
-    const formatEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const {
+      isLoading,
+      user_name,
+      email,
+      phone,
+      password,
+      confirmPass,
+    } = this.state;
 
     this.onRestart();
 
-    if (user_name === '') {
-      this.setState({errorName: 'Nhập tên!'});
-    } else if (email === '') {
-      this.setState({errorEmail: 'Nhập email!'});
-    } else if (formatEmail.test(email) === false) {
-      this.setState({errorEmail: 'Email không hợp lệ!'});
-    } else if (phone === '') {
-      this.setState({errorPhoneNumber: 'Nhập số điện thoại!'});
-    } else if (isNaN(phone)) {
-      this.setState({errorPhoneNumber: 'Số điện thoại không hợp lệ!'});
-    } else if (phone.length > 10 || phone.length < 10) {
-      this.setState({errorPhoneNumber: 'Số điện thoại không hợp lệ!'});
-    } else if (password === '') {
-      this.setState({errorPassword: 'Nhập password!'});
-    } else if (password.length < 8) {
-      this.setState({errorPassword: 'Password không hợp lệ!'});
-    } else if (password.length > 64) {
-      this.setState({errorPassword: 'Password không hợp lệ!'});
-    } else if (confirmPass != password) {
-      this.setState({errorConfirmPass: 'Password không khớp!'});
-    } else {
-      const data = {
-        user_name,
-        email,
-        phone,
-        password,
-        confirm_password: password,
-      };
-      this.onHandleSignUp(data);
-    }
+    const data = {
+      user_name,
+      email,
+      phone,
+      password,
+      confirmPass,
+    };
+    this.onHandleSignUp(data);
   };
 
   onHandleSignUp = async dataUser => {
@@ -93,9 +79,9 @@ class SignUp extends Component {
     data.append('email', dataUser.email);
     data.append('phone', dataUser.phone);
     data.append('password', dataUser.password);
-    data.append('confirm_password', dataUser.password);
+    data.append('confirm_password', dataUser.confirmPass);
 
-    return fetch('http://13.124.107.54/api/v1/user/register', {
+    return fetch(`${config.API_URL}/api/v1/user/register`, {
       method: 'POST',
       body: data,
       headers: {
@@ -105,16 +91,27 @@ class SignUp extends Component {
     })
       .then(response => response.json())
       .then(responseData => {
-        if (responseData.status === 200) {
-          this.onChangeUploadScreen(dataUser);
-        } else if (responseData.errors.email) {
-          this.setState({
-            errorEmail: responseData.errors.email[0],
-          });
-        } else if (responseData.errors.phone) {
-          this.setState({
-            errorPhoneNumber: responseData.errors.phone[0],
-          });
+        if (responseData.errors) {
+          const errors = responseData.errors;
+          if (errors.user_name) {
+            this.setState({errorName: errors.user_name[0]});
+          }
+          if (errors.email) {
+            this.setState({errorEmail: errors.email[0]});
+          }
+          if (errors.phone) {
+            this.setState({errorPhoneNumber: errors.phone[0]});
+          }
+          if (errors.password) {
+            this.setState({errorPassword: errors.password[0]});
+          }
+          if (errors.confirm_password) {
+            this.setState({errorConfirmPass: errors.confirm_password[0]});
+          }
+        } else if (responseData.status) {
+          if (responseData.status === 200) {
+            this.onChangeAnnouncementScreen(dataUser);
+          }
         }
       })
       .catch(error => {
@@ -122,7 +119,7 @@ class SignUp extends Component {
       });
   };
 
-  onChangeUploadScreen = data => {
+  onChangeAnnouncementScreen = data => {
     Navigation.showModal({
       component: {
         name: 'Announcement',
@@ -141,7 +138,7 @@ class SignUp extends Component {
 
   renderHeader = () => {
     return (
-      <LinearGradient colors={['#FC5895', '#F99A7C', '#F99A7C']}>
+      <LinearGradient colors={[Colors.pink, Colors.orrange, Colors.orrange]}>
         <View style={style.headerView}>
           <Text style={style.txtBrandName}>{t('brand_name')}</Text>
         </View>
@@ -181,12 +178,14 @@ class SignUp extends Component {
           title="Tên đăng nhập *"
           placeholder="Tên đăng nhập..."
           error={errorName}
+          onSubmitEditing={this.onSignUp}
         />
         <Input
           getData={e => this.getData('email', e)}
           title="Email*"
           placeholder="Nhập email..."
           error={errorEmail}
+          onSubmitEditing={this.onSignUp}
           keyboardType={'email-address'}
         />
         <Input
@@ -195,6 +194,7 @@ class SignUp extends Component {
           placeholder="Nhập số điện thoại..."
           error={errorPhoneNumber}
           keyboardType="numeric"
+          onSubmitEditing={this.onSignUp}
         />
         <Input
           getData={e => this.getData('password', e)}
@@ -204,15 +204,16 @@ class SignUp extends Component {
           returnKeyType="go"
           secureTextEntry={true}
           autoCorrect={false}
+          onSubmitEditing={this.onSignUp}
         />
         <Input
           getData={e => this.getData('confirmPass', e)}
           title="Xác nhận mật khẩu *"
           placeholder="Xác nhận mật khẩu..."
           error={errorConfirmPass}
-          returnKeyType="go"
           secureTextEntry={true}
           autoCorrect={false}
+          onSubmitEditing={this.onSignUp}
         />
       </>
     );
@@ -222,7 +223,7 @@ class SignUp extends Component {
     return (
       <>
         <LinearGradient
-          colors={['#e511e8', '#F99A7C']}
+          colors={[Colors.pink, Colors.orrange]}
           start={{x: 0, y: 1}}
           end={{x: 1, y: 0}}
           style={style.btnSignUp}>
@@ -286,11 +287,11 @@ const style = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold',
     marginTop: 10,
-    color: 'white',
+    color: Colors.white,
   },
   container: {
     flex: 1,
-    backgroundColor: '#F99A7C',
+    backgroundColor: Colors.orrange,
   },
   ViewContainer: {
     flex: 1,
@@ -301,6 +302,7 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
   },
   btnSignUp: {
+    marginTop: 5,
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 25,
@@ -329,7 +331,7 @@ const style = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'white',
+    color: Colors.white,
     flex: 1,
     margin: 7,
   },

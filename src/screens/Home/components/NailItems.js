@@ -128,9 +128,6 @@ const mapDispatchToProps = (dispatch, props) => {
     onGetStoreDetail: (storeId, token) => {
       dispatch(getStoreDetail(storeId, token));
     },
-    // onGetStoresByStar: token => {
-    //   dispatch(getStoreByStar(token));
-    // },
   };
 };
 

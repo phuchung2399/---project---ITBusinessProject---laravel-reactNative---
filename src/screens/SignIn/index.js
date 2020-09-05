@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import {onSignUp} from './../../navigation';
-import {connect} from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import facebook_Icon from '../../../assets/images/facebook_icon.png';
 import googleIcon from '../../../assets/images/google_icon.jpg';
 import {
@@ -18,22 +16,23 @@ import Input from '../../components/Input';
 import Logo from '../../../assets/images/logo.png';
 import LinearGradient from 'react-native-linear-gradient';
 import {t} from '../../i18n/t';
-import {logIn} from '../../redux/userRedux/action';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
 const {height} = Dimensions.get('window');
+import * as config from '../../api/config';
+import {storageSet} from '../../checkAsyncStorage';
+import {onChangeIntoMainScreen} from '../../navigation';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.myRef = React.createRef();
     this.state = {
       // phoneNumber: '0967258205',
       // password: '123456789',
-      // phoneNumber: '0779763016',
-      // password: 'tuannui123',
-      phoneNumber: '',
-      password: '',
+      phoneNumber: '0779763016',
+      password: 'tuannui123',
+      // phoneNumber: '',
+      // password: '',
       errorPhoneNumber: '',
       errorPassword: '',
     };
@@ -55,25 +54,51 @@ class SignIn extends Component {
     let phone = phoneNumber.replace('.', '');
     this.onRestart();
 
-    if (phoneNumber === '') {
-      this.setState({errorPhoneNumber: 'Nhập số điện thoại!'});
-    } else if (phoneNumber.length < 10 || phoneNumber.length > 10) {
-      this.setState({errorPhoneNumber: 'Số điện thoại không hợp lệ!'});
-    } else if (isNaN(phoneNumber)) {
-      this.setState({errorPhoneNumber: 'Số điện thoại không hợp lệ!'});
-    } else if (password === '') {
-      this.setState({errorPassword: 'Nhập password!'});
-    } else if (password.length < 8) {
-      this.setState({errorPassword: 'Pasword không hợp lệ!'});
-    } else if (password.length > 64) {
-      this.setState({errorPassword: 'Pasword không hợp lệ!'});
-    } else {
-      var userAccount = {
-        phone,
-        password,
-      };
-      this.props.onLogInUser(userAccount);
-    }
+    var userAccount = {
+      phone,
+      password,
+    };
+    this.onHandleSignIn(userAccount);
+  };
+
+  onHandleSignIn = async dataUser => {
+    return fetch(`${config.API_URL}/api/v1/user/login`, {
+      method: 'POST',
+      body: JSON.stringify(dataUser),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        if (responseData.errors) {
+          const errors = responseData.errors;
+          if (errors.phone) {
+            this.setState({errorPhoneNumber: errors.phone[0]});
+          }
+          if (errors.password) {
+            this.setState({errorPassword: errors.password[0]});
+          }
+        } else if (responseData.data) {
+          const response = responseData.data;
+          if (response.status && response.status === 200) {
+            try {
+              storageSet('user', JSON.stringify(responseData));
+            } catch (e) {
+              console.log('Login failed', e);
+            }
+            onChangeIntoMainScreen();
+          }
+        } else if (responseData.status) {
+          if (responseData.status === 400) {
+            this.setState({errorPassword: responseData.message});
+          }
+        }
+      })
+      .catch(error => {
+        console.log('Error', error);
+      });
   };
 
   getData = (key, value) => {
@@ -159,20 +184,18 @@ class SignIn extends Component {
           placeholder="Nhập số điện thoại..."
           error={errorPhoneNumber}
           keyboardType="numeric"
+          onSubmitEditing={this.onSignin}
         />
         <Input
           getData={e => this.getData('password', e)}
           title=""
           placeholder="Nhập mật khẩu..."
-          error={
-            this.props.userData.error != ''
-              ? this.props.userData.error
-              : errorPassword
-          }
+          error={errorPassword}
           returnKeyType="go"
           secureTextEntry={true}
           autoCorrect={false}
           ref={'txtPassword'}
+          onSubmitEditing={this.onSignin}
         />
       </>
     );
@@ -285,18 +308,4 @@ const style = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
-  return {
-    userData: state.user,
-  };
-};
-
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    onLogInUser: userAccount => {
-      dispatch(logIn(userAccount));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

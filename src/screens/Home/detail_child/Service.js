@@ -349,6 +349,7 @@ var styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 18,
+    textTransform: 'capitalize',
   },
   rating: {
     marginTop: 5,
