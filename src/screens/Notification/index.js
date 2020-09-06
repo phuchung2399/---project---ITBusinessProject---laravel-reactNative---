@@ -1,30 +1,18 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  FlatList,
-  TouchableOpacity,
-  AsyncStorage,
-  TouchableWithoutFeedback,
-  ScrollView,
-  Dimensions,
-  Alert,
-  Image,
-} from 'react-native';
+import {Text, StyleSheet, View, FlatList, Image} from 'react-native';
 import NotifyData from '../../utils/NotificationData';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Navigation} from 'react-native-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import {t} from '../../i18n/t';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../../../assets/images/logo.png';
 import NotifyItems from './components/NotifyItems';
-const {width, height} = Dimensions.get('window');
 import {connect} from 'react-redux';
 import {getNotificationOfUser} from '../../redux/notificationRedux/action';
-import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import {storageGet} from '../../checkAsyncStorage';
 import Fonts from '../../themers/Fonts';
+import Colors from '../../themers/Colors';
+
 class index extends Component {
   constructor(props) {
     super(props);
@@ -64,19 +52,9 @@ class index extends Component {
   renderHeader = () => {
     return (
       <>
-        <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
-          <View
-            style={{
-              flexDirection: 'row',
-              padding: 5,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-              }}>
+        <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
+          <View style={styles.viewHeader}>
+            <View style={styles.viewOption}>
               <Icon
                 name="list"
                 size={30}
@@ -85,82 +63,31 @@ class index extends Component {
               />
             </View>
 
-            <View
-              style={{
-                flex: 6,
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-                marginTop: 20,
-              }}>
-              <Text
-                animation="zoomInUp"
-                style={{
-                  fontSize: 30,
-                  fontWeight: 'bold',
-                  color: 'white',
-                }}>
-                {t('thong_bao')}
-              </Text>
+            <View style={styles.viewTitle}>
+              <Text style={styles.title}>{t('thong_bao')}</Text>
             </View>
-            <View
-              style={{
-                alignItems: 'flex-end',
-                flex: 1,
-                justifyContent: 'center',
-                alignContent: 'center',
-              }}>
-              <Image
-                style={{
-                  width: 50,
-                  height: 50,
-                }}
-                source={Logo}
-              />
+
+            <View style={styles.viewLogo}>
+              <Image style={styles.logo} source={Logo} />
             </View>
           </View>
         </LinearGradient>
       </>
     );
   };
-  render() {
-    const notificationsData = this.props.notifications.dataNotification;
-    if (notificationsData === null) {
-      return (
-        <View style={{flex: 1}}>
-          {this.renderHeader()}
 
-          <View
-            style={{
-              padding: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
-            }}>
-            <Text
-              style={{
-                fontSize: 20,
-                color: 'gray',
-                fontFamily: Fonts.serif,
-              }}>
-              {t('khong_co_thong_bao')}
-            </Text>
-          </View>
-        </View>
-      );
-    }
-
+  renderNoData = () => {
     return (
-      <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
-        {this.renderHeader()}
+      <View style={styles.viewNodata}>
+        <Text style={styles.txtNodata}>{t('khong_co_thong_bao')}</Text>
+      </View>
+    );
+  };
 
-        <View
-          style={{
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            backgroundColor: 'white',
-            flex: 1,
-          }}>
+  renderListNotis = () => {
+    return (
+      <>
+        <View style={styles.viewFlastList}>
           <FlatList
             data={NotifyData}
             renderItem={({item}) => (
@@ -174,44 +101,75 @@ class index extends Component {
             showsVerticalScrollIndicator={false}
           />
         </View>
+      </>
+    );
+  };
+
+  render() {
+    const notificationsData = this.props.notifications.dataNotification;
+
+    return (
+      <View style={styles.container}>
+        {this.renderHeader()}
+        {notificationsData === null && this.renderNoData()}
+        {notificationsData != null && this.renderListNotis()}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  noti: {
-    color: '#4a4a4a',
-    paddingTop: 15,
-    fontSize: 33,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  top: {
+  container: {
     flex: 1,
   },
-  bot: {
-    flex: 9,
+  viewHeader: {
+    flexDirection: 'row',
+    padding: 5,
   },
-  container: {
+  viewOption: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  viewTitle: {
+    flex: 6,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  viewLogo: {
+    alignItems: 'flex-end',
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  logo: {
+    width: 50,
+    height: 50,
+  },
+  viewFlastList: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 20,
     backgroundColor: 'white',
     flex: 1,
   },
-
-  button: {
-    margin: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
-    borderRadius: 5,
-    backgroundColor: '#AEDEF4',
+  viewNodata: {
+    padding: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
   },
-  text: {
-    color: '#fff',
-    fontSize: 15,
+  txtNodata: {
+    fontSize: 20,
+    color: 'gray',
+    fontFamily: Fonts.serif,
   },
 });
 

@@ -43,19 +43,6 @@ const orderReducer = (state = initState, action) => {
         loading: false,
       };
 
-    case types.CREATE_ORDER:
-      return {...state, loading: true};
-
-    case types.CREATE_ORDER_SUCCESS:
-      return {...state, messageOrderSuccess: action.payload, loading: false};
-
-    case types.CREATE_ORDER_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-        loading: false,
-      };
-
     case types.CANCEL_ORDER:
       return {...state, loading: true};
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,48 +6,34 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  Dimensions,
   Alert,
-  TouchableHighlight,
-  Modal,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-const {height} = Dimensions.get('window');
 import {t} from '../../../i18n/t';
-import Fonts from '../../../themers/Fonts';
 import {get, find} from 'lodash';
 import NoData from '../../../components/NoData';
-import {Navigation} from 'react-native-navigation';
 import {
   addCart,
-  deleteCart,
   addStoreId,
   deleteAllCarts,
   deleteStoreId,
 } from '../../../redux/orderRedux/action';
 import {connect} from 'react-redux';
+import ModalComponent from '../../../components/Modal';
+import Colors from '../../../themers/Colors';
 
 class Service extends React.Component {
   constructor(props) {
     super(props);
-    this.dataRef = React.createRef();
     this.state = {
       modalVisible: false,
     };
   }
 
-  componentDidMount() {
-    const dataServices = this.props.services;
-    this.setState({
-      data: dataServices,
-    });
-  }
-
   onAddToCart = item => {
     const recent_store_id = this.props.orders.store_id;
     const cartitems = this.props.orders.cartItems;
-
     const store_id_clicked = this.props.store_id;
 
     if (store_id_clicked === recent_store_id || recent_store_id === '') {
@@ -90,34 +76,6 @@ class Service extends React.Component {
     });
   };
 
-  onDeleteCart = service_id => {
-    this.props.onDeleteCartItem(service_id);
-  };
-
-  changeShopping = () => {
-    Navigation.showModal({
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Cart',
-              passProps: {},
-              options: {
-                topBar: {
-                  title: {
-                    text: '',
-                    alignment: 'center',
-                  },
-                  visible: false,
-                },
-              },
-            },
-          },
-        ],
-      },
-    });
-  };
-
   renderItem = ({item}) => {
     return (
       <LinearGradient
@@ -138,14 +96,7 @@ class Service extends React.Component {
         </View>
         <TouchableOpacity
           onPress={() => this.onAddToCart(item)}
-          style={{
-            width: 35,
-            height: 35,
-            backgroundColor: '#FC5895',
-            borderRadius: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          style={styles.btnAdd}>
           <AntDesign name="plus" color="white" size={18} />
         </TouchableOpacity>
       </LinearGradient>
@@ -153,13 +104,7 @@ class Service extends React.Component {
   };
 
   ItemSeparatorComponent = () => {
-    return (
-      <View
-        style={{
-          height: 10,
-        }}
-      />
-    );
+    return <View style={styles.Separator} />;
   };
 
   renderListService = dataServices => {
@@ -176,128 +121,38 @@ class Service extends React.Component {
     );
   };
 
+  onCancel = () => {
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
+  };
+
+  renderModal = () => {
+    const {modalVisible} = this.state;
+
+    return (
+      <>
+        <ModalComponent
+          modalVisible={modalVisible}
+          onCancel={this.onCancel}
+          onConfirm={this.onDeleteCartItems}
+          message={t('messageExistItems')}
+          txtBackButton={t('txt_understand')}
+          txtConfirmButton={t('txt_cancel')}
+          height={240}
+        />
+      </>
+    );
+  };
+
   render() {
     const dataServices = this.props.services;
-    const store_id = this.props.store_id;
 
-    if (
-      this.dataRef.current &&
-      this.dataRef.current.isLoading &&
-      get(dataServices, 'length') <= 0
-    ) {
-      return (
-        <View style={styles.container}>
-          <View
-            style={{
-              height: height / 4,
-              marginTop: 10,
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              borderRadius: 10,
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-            }}>
-            <Text
-              style={{fontSize: 20, color: 'gray', fontFamily: Fonts.serif}}>
-              {t('loading_message')}
-            </Text>
-          </View>
-        </View>
-      );
-    } else if (get(dataServices, 'length') > 0) {
+    if (get(dataServices, 'length') > 0) {
       return (
         <View style={styles.container}>
           {this.renderListService(dataServices)}
-
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.modalVisible}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 22,
-                height: 100,
-              }}>
-              <View
-                style={{
-                  margin: 20,
-                  backgroundColor: 'white',
-                  borderRadius: 20,
-                  padding: 35,
-                  alignItems: 'center',
-                  shadowColor: '#000',
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                  width: 300,
-                  height: 240,
-                }}>
-                <Text
-                  style={{
-                    marginBottom: 18,
-                    flex: 1,
-                    textAlign: 'center',
-                    fontSize: 16,
-                    color: '#797777',
-                  }}>
-                  Hiện tại giỏ hàng của bạn đang có dịch vụ của cửa hàng khác,
-                  bạn có muốn xoá giỏ hàng không?
-                </Text>
-                <View style={{flexDirection: 'row'}}>
-                  <TouchableHighlight
-                    style={{
-                      backgroundColor: '#F194FF',
-                      borderRadius: 20,
-                      padding: 10,
-                      elevation: 2,
-                      width: 100,
-                      marginHorizontal: 20,
-                    }}
-                    onPress={() => {
-                      this.setState({
-                        modalVisible: !this.state.modalVisible,
-                      });
-                    }}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                      }}>
-                      Đã hiểu
-                    </Text>
-                  </TouchableHighlight>
-
-                  <TouchableHighlight
-                    style={{
-                      backgroundColor: '#2196F3',
-                      borderRadius: 20,
-                      padding: 10,
-                      elevation: 2,
-                      width: 100,
-                      marginHorizontal: 20,
-                    }}
-                    onPress={() => {
-                      this.onDeleteCartItems();
-                    }}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                      }}>
-                      Huỷ bỏ
-                    </Text>
-                  </TouchableHighlight>
-                </View>
-              </View>
-            </View>
-          </Modal>
+          {this.renderModal()}
         </View>
       );
     } else {
@@ -337,7 +192,7 @@ var styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderWidth: 5,
-    borderColor: 'white',
+    borderColor: Colors.white,
     borderRadius: 10,
   },
   content: {
@@ -346,7 +201,7 @@ var styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
     fontSize: 18,
     textTransform: 'capitalize',
@@ -358,7 +213,7 @@ var styles = StyleSheet.create({
   button: {
     width: 30,
     height: 30,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
@@ -368,7 +223,7 @@ var styles = StyleSheet.create({
     marginTop: 10,
   },
   price: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     paddingVertical: 5,
     paddingHorizontal: 15,
     borderRadius: 50,
@@ -386,6 +241,17 @@ var styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     marginTop: -10,
   },
+  Separator: {
+    height: 10,
+  },
+  btnAdd: {
+    width: 35,
+    height: 35,
+    backgroundColor: '#FC5895',
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 const mapStateToProps = state => {
@@ -402,9 +268,7 @@ const mapDispatchToProps = (dispatch, props) => {
     onAddStoreId: store_id => {
       dispatch(addStoreId(store_id));
     },
-    onDeleteCartItem: id => {
-      dispatch(deleteCart(id));
-    },
+
     onDeleteAllCart: () => {
       dispatch(deleteAllCarts());
     },

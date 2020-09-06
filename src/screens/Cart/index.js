@@ -5,20 +5,14 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Dimensions,
   Image,
   ScrollView,
-  Modal,
-  TouchableWithoutFeedback,
-  TouchableHighlight,
 } from 'react-native';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Navigation} from 'react-native-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import {t} from '../../i18n/t';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../../../assets/images/logo.png';
-const {width, height} = Dimensions.get('window');
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fonts from '../../themers/Fonts';
 import {storageGet} from '../../checkAsyncStorage';
@@ -26,13 +20,13 @@ import {connect} from 'react-redux';
 import {getStoreDetail} from '../../redux/storeRedux/action';
 import {deleteCart} from '../../redux/orderRedux/action';
 import Colors from '../../themers/Colors';
+import ModalComponent from '../../components/Modal';
 
 class index extends Component {
   constructor(props) {
     super(props);
     this.dataRef = React.createRef();
     this.state = {
-      dataCartitems: [],
       userData: null,
       total: 0,
       token: '',
@@ -48,7 +42,6 @@ class index extends Component {
     try {
       let getUserAccount = await storageGet('user');
       let parsedUser = JSON.parse(getUserAccount);
-      // console.log(parsedUser.data);
       if (parsedUser) {
         this.setState(
           {userData: parsedUser.data, token: parsedUser.data.token},
@@ -61,18 +54,8 @@ class index extends Component {
         );
       }
     } catch (error) {
-      // alert(error);
+      console.log(error);
     }
-  };
-
-  changScreenSidebar = () => {
-    Navigation.mergeOptions('sideMenu', {
-      sideMenu: {
-        left: {
-          visible: true,
-        },
-      },
-    });
   };
 
   onContinued = (userData, dataCarts, total) => {
@@ -122,13 +105,7 @@ class index extends Component {
   };
 
   ItemSeparatorComponent = () => {
-    return (
-      <View
-        style={{
-          height: 10,
-        }}
-      />
-    );
+    return <View style={styles.separator} />;
   };
 
   renderItem = ({item}) => {
@@ -137,63 +114,20 @@ class index extends Component {
         colors={['#fdf6f6', 'white']}
         start={{x: 0, y: 1}}
         end={{x: 1, y: 0}}
-        style={{
-          flex: 1,
-          paddingVertical: 10,
-          paddingHorizontal: 10,
-          flexDirection: 'row',
-          borderRadius: 10,
-          borderBottomWidth: 2,
-          borderBottomColor: '#eaeaea',
-        }}>
-        <View style={{width: 100, height: 90}}>
-          <Image
-            source={{uri: item.image}}
-            style={{
-              width: '100%',
-              height: '100%',
-              borderWidth: 5,
-              borderColor: 'white',
-              borderRadius: 10,
-            }}
-          />
+        style={styles.viewItem}>
+        <View style={styles.viewImage}>
+          <Image source={{uri: item.image}} style={styles.image} />
         </View>
-        <View
-          style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
-          <Text
-            style={{
-              color: '#5a5555',
-              fontWeight: 'bold',
-              fontSize: 17,
-              fontFamily: Fonts.serif,
-              textTransform: 'capitalize',
-            }}>
-            {item.service_name}
-          </Text>
-          <View style={{flexDirection: 'row', marginTop: 10}}>
-            <View
-              style={{
-                backgroundColor: 'white',
-                paddingVertical: 5,
-                paddingHorizontal: 15,
-                borderRadius: 50,
-              }}>
-              <Text style={{color: 'green', fontWeight: 'bold'}}>
-                {item.price}
-              </Text>
-            </View>
+        <View style={styles.viewInforItem}>
+          <Text style={styles.service_name}>{item.service_name}</Text>
+
+          <View style={styles.viewPrice}>
+            <Text style={styles.priceItem}>{item.price}</Text>
           </View>
         </View>
         <TouchableOpacity
           onPress={() => this.onDeleteCart(item.service_id)}
-          style={{
-            width: 30,
-            height: 30,
-            backgroundColor: 'white',
-            borderRadius: 15,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          style={styles.btnDelete}>
           <AntDesign name="minuscircleo" color="green" size={18} />
         </TouchableOpacity>
       </LinearGradient>
@@ -208,78 +142,68 @@ class index extends Component {
     this.props.onDeleteCartItem(service_id);
   };
 
+  renderHeader = () => {
+    return (
+      <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
+        <View style={styles.viewHeader}>
+          <View style={styles.viewIconBack}>
+            <Icon
+              name="chevron-left"
+              size={25}
+              color="black"
+              onPress={() => this.backMainScreen()}
+            />
+          </View>
+
+          <View style={styles.viewTitle}>
+            <Text style={styles.title}>{t('gio_hang_cua_ban')}</Text>
+          </View>
+
+          <View style={styles.viewLogo}>
+            <Image style={styles.logo} source={Logo} />
+          </View>
+        </View>
+      </LinearGradient>
+    );
+  };
+
   renderDataUser = () => {
     const userData = this.state.userData;
 
     if (userData != null) {
       return (
-        <View
-          style={{
-            backgroundColor: 'white',
-            padding: 12,
-            flexDirection: 'row',
-            borderBottomWidth: 5,
-            borderBottomColor: '#eaeaea',
-          }}>
-          <View
-            style={{
-              marginHorizontal: 10,
-              justifyContent: 'center',
-              alignContent: 'center',
-            }}>
+        <View style={styles.viewUserData}>
+          <View style={styles.viewProfile}>
             {userData.user.avatar && (
               <Image
-                style={{
-                  width: 45,
-                  height: 45,
-                  borderRadius: 30,
-                }}
+                style={styles.imageProfile}
                 source={{uri: userData.user.avatar}}
               />
             )}
 
             {!userData.user.avatar && (
-              <View
-                style={{
-                  width: 45,
-                  height: 45,
-                  borderRadius: 30,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: Colors.darkGray,
-                }}>
+              <View style={styles.viewDefaultAvatar}>
                 {userData.user.user_name && (
-                  <Text
-                    style={{
-                      fontSize: 25,
-                      color: 'white',
-                    }}>
+                  <Text style={styles.txtAvatar}>
                     {this.getAvatarDefault(userData.user.user_name)}
                   </Text>
                 )}
               </View>
             )}
           </View>
-          <View
-            style={{
-              marginHorizontal: 10,
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'row',
-            }}>
+
+          <View style={styles.viewUserName}>
             <Text
               style={{
-                fontWeight: 'bold',
-                fontSize: 17,
-                fontFamily: Fonts.serif,
+                ...styles.txtName,
+                ...{fontWeight: 'bold'},
               }}>
               {userData.user.user_name}
             </Text>
             <Text
               style={{
-                fontSize: 17,
-                marginHorizontal: 5,
-                fontFamily: Fonts.serif,
+                ...styles.txtName,
+                ...{marginHorizontal: 5},
               }}>
               (bạn)
             </Text>
@@ -290,103 +214,16 @@ class index extends Component {
     return null;
   };
 
-  renderHeader = () => {
-    return (
-      <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
-        <View
-          style={{
-            flexDirection: 'row',
-            padding: 5,
-            height: 80,
-          }}>
-          <View
-            style={{
-              flex: 1,
-              padding: 10,
-              margin: 10,
-              justifyContent: 'center',
-              backgroundColor: 'white',
-              borderRadius: 50,
-              alignItems: 'center',
-              maxHeight: 45,
-              maxWidth: 45,
-            }}>
-            <Icon
-              name="chevron-left"
-              size={25}
-              color="black"
-              onPress={() => this.backMainScreen()}
-            />
-          </View>
-
-          <View
-            style={{
-              flex: 6,
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-              marginTop: 20,
-            }}>
-            <Text
-              animation="zoomInUp"
-              style={{
-                fontSize: 25,
-                fontWeight: 'bold',
-                color: 'white',
-              }}>
-              {t('gio_hang_cua_ban')}
-            </Text>
-          </View>
-          <View
-            style={{
-              alignItems: 'flex-end',
-              flex: 1,
-              justifyContent: 'center',
-              alignContent: 'center',
-              marginTop: -5,
-            }}>
-            <Image
-              style={{
-                width: 50,
-                height: 50,
-              }}
-              source={Logo}
-            />
-          </View>
-        </View>
-      </LinearGradient>
-    );
-  };
-
   renderStoreData = () => {
     const storeData = this.props.stores.detailStore;
 
     if (storeData != '') {
       return (
-        <View
-          style={{
-            backgroundColor: 'white',
-            padding: 10,
-            flexDirection: 'row',
-            borderBottomWidth: 10,
-            borderBottomColor: '#eaeaea',
-            borderTopWidth: 10,
-            borderTopColor: '#eaeaea',
-          }}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              paddingHorizontal: 10,
-            }}>
-            <Text style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
-              {storeData.store_name}
-            </Text>
-            <View style={{flexDirection: 'row', marginTop: 6}}>
-              <Text style={{color: '#ababab', fontWeight: 'bold'}}>
-                {storeData.address}
-              </Text>
-            </View>
+        <View style={styles.viewStoreData}>
+          <View style={styles.viewStoreDataContainer}>
+            <Text style={styles.store_name}>{storeData.store_name}</Text>
+
+            <Text style={styles.address}>{storeData.address}</Text>
           </View>
         </View>
       );
@@ -396,16 +233,9 @@ class index extends Component {
 
   renderListCarts = () => {
     const dataCarts = this.props.orders.cartItems;
-    console.log(dataCarts);
     if (dataCarts.length > 0) {
       return (
-        <View
-          style={{
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            backgroundColor: 'white',
-            flex: 1,
-          }}>
+        <View style={styles.FlatList}>
           <FlatList
             data={dataCarts}
             renderItem={this.renderItem}
@@ -417,21 +247,8 @@ class index extends Component {
       );
     }
     return (
-      <View
-        style={{
-          padding: 12,
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 50,
-        }}>
-        <Text
-          style={{
-            fontSize: 20,
-            color: 'gray',
-            fontFamily: Fonts.serif,
-          }}>
-          {t('khong_co_du_lieu')}
-        </Text>
+      <View style={styles.viewNodata}>
+        <Text style={styles.txtNodata}>{t('khong_co_du_lieu')}</Text>
       </View>
     );
   };
@@ -446,197 +263,296 @@ class index extends Component {
     return totalPrice;
   };
 
+  onCancel = () => {
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
+  };
+
+  renderModal = () => {
+    const {modalVisible} = this.state;
+    return (
+      <>
+        <ModalComponent
+          modalVisible={modalVisible}
+          onCancel={this.onCancel}
+          onConfirm={this.backMainScreen}
+          message={t('notify_null_cart')}
+          txtBackButton={t('txt_understand')}
+          txtConfirmButton={t('back')}
+          height={220}
+        />
+      </>
+    );
+  };
+
+  renderTotalPrice = dataServices => {
+    return (
+      <View style={styles.viewTotalPrice}>
+        <View style={styles.viewTextTotal}>
+          <Text style={styles.titleTotal}>{t('tong_tien')}</Text>
+        </View>
+        <View style={styles.viewtextPrice}>
+          {dataServices.length > 0 ? (
+            <Text style={styles.price}> {this.sumTotalPrice()} đ</Text>
+          ) : null}
+        </View>
+      </View>
+    );
+  };
+
+  renderButton = (userData, dataCarts) => {
+    return (
+      <LinearGradient
+        colors={[Colors.pink, Colors.orrange]}
+        start={{x: 0, y: 1}}
+        end={{x: 1, y: 0}}
+        style={styles.viewListService}>
+        <TouchableOpacity
+          onPress={() =>
+            this.onContinued(userData, dataCarts, this.sumTotalPrice())
+          }>
+          <Text style={styles.txtBtn}>Tiếp tục</Text>
+        </TouchableOpacity>
+      </LinearGradient>
+    );
+  };
+
   render() {
-    const {arrayServicesSelected, store_id} = this.props;
     const userData = this.state.userData;
     const dataServices = this.props.orders.cartItems;
     const dataCarts = this.props.orders.cartItems;
 
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         {this.renderHeader()}
+
         <ScrollView>
           {this.renderStoreData()}
           {this.renderDataUser()}
           {this.renderListCarts()}
         </ScrollView>
 
-        <View
-          style={{
-            paddingVertical: 15,
-            borderTopWidth: 2,
-            borderTopColor: '#eaeaea',
-            flexDirection: 'row',
-          }}>
-          <View style={{flex: 1, marginHorizontal: 13}}>
-            <Text style={{fontSize: 17}}>{t('tong_tien')}</Text>
-          </View>
-          <View style={{alignItems: 'flex-end', marginHorizontal: 14}}>
-            {dataServices.length > 0 ? (
-              <Text style={{fontWeight: 'bold', fontSize: 17}}>
-                {' '}
-                {this.sumTotalPrice()} đ
-              </Text>
-            ) : null}
-          </View>
-        </View>
-
-        <LinearGradient
-          colors={['#e511e8', '#F99A7C']}
-          start={{x: 0, y: 1}}
-          end={{x: 1, y: 0}}
-          style={{
-            paddingVertical: 10,
-            paddingHorizontal: 110,
-            borderRadius: 5,
-            marginHorizontal: 10,
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity
-            onPress={() =>
-              this.onContinued(userData, dataCarts, this.sumTotalPrice())
-            }>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                color: 'white',
-                textAlign: 'center',
-                fontFamily: Fonts.serif,
-              }}>
-              Tiếp tục
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 22,
-              height: 100,
-            }}>
-            <View
-              style={{
-                margin: 20,
-                backgroundColor: 'white',
-                borderRadius: 20,
-                padding: 35,
-                alignItems: 'center',
-                shadowColor: '#000',
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-                width: 300,
-                height: 220,
-              }}>
-              <Text
-                style={{
-                  marginBottom: 18,
-                  flex: 1,
-                  textAlign: 'center',
-                  fontSize: 18,
-                }}>
-                {t('notify_null_cart')}
-              </Text>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableHighlight
-                  style={{
-                    backgroundColor: '#F194FF',
-                    borderRadius: 20,
-                    padding: 10,
-                    elevation: 2,
-                    width: 100,
-                    marginHorizontal: 20,
-                  }}
-                  onPress={() => {
-                    this.setState({
-                      modalVisible: !this.state.modalVisible,
-                    });
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                    }}>
-                    Đã hiểu
-                  </Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight
-                  style={{
-                    backgroundColor: '#2196F3',
-                    borderRadius: 20,
-                    padding: 10,
-                    elevation: 2,
-                    width: 100,
-                    marginHorizontal: 20,
-                  }}
-                  onPress={() => {
-                    this.backMainScreen();
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                    }}>
-                    Quay lại
-                  </Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </View>
-        </Modal>
+        {this.renderTotalPrice(dataServices)}
+        {this.renderButton(userData, dataCarts)}
+        {this.renderModal()}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  noti: {
-    color: '#4a4a4a',
-    paddingTop: 15,
-    fontSize: 33,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  top: {
+  container: {
     flex: 1,
   },
-  bot: {
-    flex: 9,
+  viewTotalPrice: {
+    paddingVertical: 15,
+    borderTopWidth: 2,
+    borderTopColor: '#eaeaea',
+    flexDirection: 'row',
   },
-  container: {
+  viewTextTotal: {
+    flex: 1,
+    marginHorizontal: 13,
+  },
+  viewtextPrice: {
+    alignItems: 'flex-end',
+    marginHorizontal: 14,
+  },
+  titleTotal: {
+    fontSize: 17,
+  },
+  price: {
+    fontWeight: 'bold',
+    fontSize: 17,
+  },
+  viewListService: {
+    paddingVertical: 10,
+    paddingHorizontal: 110,
+    borderRadius: 5,
+    marginHorizontal: 10,
+    justifyContent: 'center',
+  },
+  txtBtn: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+    fontFamily: Fonts.serif,
+  },
+  separator: {
+    height: 10,
+  },
+  viewUserData: {
+    backgroundColor: 'white',
+    padding: 12,
+    flexDirection: 'row',
+    borderBottomWidth: 5,
+    borderBottomColor: '#eaeaea',
+  },
+  viewStoreData: {
+    backgroundColor: 'white',
+    padding: 10,
+    flexDirection: 'row',
+    borderBottomWidth: 10,
+    borderBottomColor: '#eaeaea',
+    borderTopWidth: 10,
+    borderTopColor: '#eaeaea',
+  },
+  viewProfile: {
+    marginHorizontal: 10,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  imageProfile: {
+    width: 45,
+    height: 45,
+    borderRadius: 30,
+  },
+  viewDefaultAvatar: {
+    width: 45,
+    height: 45,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.darkGray,
+  },
+  txtAvatar: {
+    fontSize: 25,
+    color: 'white',
+  },
+  viewUserName: {
+    marginHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  txtName: {
+    fontSize: 17,
+    fontFamily: Fonts.serif,
+  },
+  viewHeader: {
+    flexDirection: 'row',
+    padding: 5,
+    height: 80,
+  },
+  viewIconBack: {
+    flex: 1,
+    padding: 10,
+    margin: 10,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 50,
+    alignItems: 'center',
+    maxHeight: 45,
+    maxWidth: 45,
+  },
+  viewTitle: {
+    flex: 6,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  viewLogo: {
+    alignItems: 'flex-end',
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    marginTop: -5,
+  },
+  logo: {
+    width: 50,
+    height: 50,
+  },
+  viewStoreDataContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  store_name: {
+    color: '#5a5555',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  address: {
+    color: '#ababab',
+    fontWeight: 'bold',
+    marginTop: 7,
+  },
+  FlatList: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 20,
     backgroundColor: 'white',
     flex: 1,
   },
-
-  button: {
-    margin: 10,
+  viewNodata: {
+    padding: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  txtNodata: {
+    fontSize: 20,
+    color: 'gray',
+    fontFamily: Fonts.serif,
+  },
+  viewItem: {
+    flex: 1,
+    paddingVertical: 10,
     paddingHorizontal: 10,
-    paddingVertical: 7,
-    borderRadius: 5,
-    backgroundColor: '#AEDEF4',
+    flexDirection: 'row',
+    borderRadius: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: '#eaeaea',
   },
-  text: {
-    color: '#fff',
-    fontSize: 15,
+  viewImage: {
+    width: 100,
+    height: 90,
   },
-  divider: {
-    backgroundColor: '#eaeaea',
-    height: 7,
+  image: {
+    width: '100%',
+    height: '100%',
+    borderWidth: 5,
+    borderColor: 'white',
+    borderRadius: 10,
+  },
+  btnDelete: {
+    width: 30,
+    height: 30,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  viewInforItem: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  service_name: {
+    color: '#5a5555',
+    fontWeight: 'bold',
+    fontSize: 17,
+    fontFamily: Fonts.serif,
+    textTransform: 'capitalize',
+  },
+  viewPrice: {
+    backgroundColor: 'white',
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 50,
+    flexDirection: 'row',
     marginTop: 10,
+  },
+  priceItem: {
+    color: 'green',
+    fontWeight: 'bold',
   },
 });
 

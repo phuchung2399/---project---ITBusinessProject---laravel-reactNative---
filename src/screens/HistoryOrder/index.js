@@ -5,27 +5,20 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Dimensions,
   Image,
-  Alert,
   ScrollView,
-  TouchableWithoutFeedback,
-  Modal,
-  TouchableHighlight,
 } from 'react-native';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {Navigation} from 'react-native-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import {t} from '../../i18n/t';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../../../assets/images/logo.png';
-const {width, height} = Dimensions.get('window');
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Colors from '../../themers/Colors';
 import Fonts from '../../themers/Fonts';
 import {connect} from 'react-redux';
 import {getAllOrders, cancelOrder} from '../../redux/orderRedux/action';
-import {storageRemove, storageGet} from '../../checkAsyncStorage';
+import {storageGet} from '../../checkAsyncStorage';
+import ModalComponent from '../../components/Modal';
 
 class index extends Component {
   constructor(props) {
@@ -51,7 +44,7 @@ class index extends Component {
         });
       }
     } catch (error) {
-      // alert(error);
+      console.log(error);
     }
   };
 
@@ -63,42 +56,6 @@ class index extends Component {
         },
       },
     });
-  };
-
-  onContinued = () => {
-    Navigation.showModal({
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Booking',
-              // passProps: {
-              //   IdStore: idStore,
-              // },
-              options: {
-                topBar: {
-                  title: {
-                    text: '',
-                    alignment: 'center',
-                  },
-                  visible: false,
-                },
-              },
-            },
-          },
-        ],
-      },
-    });
-  };
-
-  ItemSeparatorComponent = () => {
-    return (
-      <View
-        style={{
-          height: 10,
-        }}
-      />
-    );
   };
 
   onPress = order_id => {
@@ -127,7 +84,9 @@ class index extends Component {
     });
   };
 
-  onConfirm = order_id => {
+  onConfirm = () => {
+    const {order_id} = this.state;
+
     this.props.onCancelOrder(order_id, this.state.token);
     this.setState({
       order_id: '',
@@ -142,134 +101,15 @@ class index extends Component {
     });
   };
 
-  renderItem = ({item}) => {
-    return (
-      <LinearGradient
-        colors={['#fdf6f6', 'white']}
-        start={{x: 0, y: 1}}
-        end={{x: 1, y: 0}}
-        style={{
-          flex: 1,
-          paddingVertical: 10,
-          paddingHorizontal: 10,
-          flexDirection: 'row',
-          borderRadius: 10,
-          borderBottomWidth: 2,
-          borderBottomColor: '#eaeaea',
-        }}>
-        <View style={{width: 100, height: 90}}>
-          <TouchableOpacity onPress={() => this.onPress(item.order_id)}>
-            <Image
-              source={{uri: item.store.image}}
-              style={{
-                width: '100%',
-                height: '100%',
-                borderWidth: 5,
-                borderColor: 'white',
-                borderRadius: 10,
-              }}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{flex: 1, justifyContent: 'center', paddingHorizontal: 10}}>
-          <TouchableOpacity onPress={() => this.onPress(item.order_id)}>
-            <View>
-              <Text
-                style={{color: '#5a5555', fontWeight: 'bold', fontSize: 18}}>
-                {item.store.store_name}
-              </Text>
-
-              <View style={{flexDirection: 'row', marginTop: 7}}>
-                <Text style={{color: 'gray'}}>{t('dat_hang_luc')}</Text>
-
-                <Text style={{marginLeft: 5, color: 'gray'}}>
-                  {item.order_time}
-                </Text>
-                <Text style={{marginLeft: 10, color: 'gray'}}>
-                  {item.order_day}
-                </Text>
-              </View>
-
-              <View style={{flexDirection: 'row', marginTop: 5}}>
-                <Text style={{}}>{t('tong_tien_d')}</Text>
-
-                <Text style={{marginLeft: 10}}>{item.total} đ</Text>
-              </View>
-              <Text style={{marginTop: 7, color: 'green', fontWeight: 'bold'}}>
-                {item.status[0].massage}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        {item.status[0].massage === 'Đơn đang chờ xác nhận' ? (
-          <View
-            style={{
-              width: 90,
-              height: 30,
-              backgroundColor: 'red',
-              borderRadius: 15,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            <TouchableOpacity onPress={() => this.onCancelOrder(item.order_id)}>
-              <Text
-                style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
-                {t('huy_don')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View
-            style={{
-              width: 90,
-              height: 30,
-              backgroundColor: 'blue',
-              borderRadius: 15,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            <TouchableOpacity onPress={() => this.onPress(item.order_id)}>
-              <Text
-                style={{color: 'white', fontWeight: 'bold', marginRight: 5}}>
-                {t('dat_lai')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </LinearGradient>
-    );
-  };
-
-  changScreenSidebar = () => {
-    Navigation.mergeOptions('sideMenu', {
-      sideMenu: {
-        left: {
-          visible: true,
-        },
-      },
-    });
+  ItemSeparatorComponent = () => {
+    return <View style={styles.separator} />;
   };
 
   renderHeader = () => {
     return (
-      <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
-        <View
-          style={{
-            flexDirection: 'row',
-            padding: 5,
-            height: 80,
-          }}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignContent: 'center',
-            }}>
+      <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
+        <View style={styles.containerHeader}>
+          <View style={styles.sideBarOptions}>
             <Icon
               name="list"
               size={30}
@@ -278,129 +118,129 @@ class index extends Component {
             />
           </View>
 
-          <View
-            style={{
-              flex: 6,
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-              marginTop: 20,
-            }}>
-            <Text
-              animation="zoomInUp"
-              style={{
-                fontSize: 25,
-                fontWeight: 'bold',
-                color: 'white',
-              }}>
+          <View style={styles.viewTitle}>
+            <Text animation="zoomInUp" style={styles.title}>
               {t('lich_su_giao_dich')}
             </Text>
           </View>
-          <View
-            style={{
-              alignItems: 'flex-end',
-              flex: 1,
-              justifyContent: 'center',
-              alignContent: 'center',
-              marginTop: -5,
-            }}>
-            <Image
-              style={{
-                width: 50,
-                height: 50,
-              }}
-              source={Logo}
-            />
+          <View style={styles.viewLogo}>
+            <Image style={styles.logo} source={Logo} />
           </View>
         </View>
       </LinearGradient>
     );
   };
 
-  render() {
-    const ordersData = this.props.orders.dataOrders;
-    console.log('data', this.state.order_id);
+  onCancel = () => {
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
+  };
 
-    if (ordersData.length === 0) {
-      return (
-        <View style={{flex: 1}}>
-          {this.renderHeader()}
+  renderModal = () => {
+    const {modalVisible} = this.state;
+    return (
+      <>
+        <ModalComponent
+          modalVisible={modalVisible}
+          onCancel={this.onCancel}
+          onConfirm={this.onConfirm}
+          message={t('message_cancel_order')}
+          txtBackButton={t('txt_back')}
+          txtConfirmButton={t('txt_cancel')}
+          height={200}
+        />
+      </>
+    );
+  };
 
+  renderItem = ({item}) => {
+    return (
+      <LinearGradient
+        colors={['#fdf6f6', Colors.white]}
+        start={{x: 0, y: 1}}
+        end={{x: 1, y: 0}}
+        style={styles.containerListItem}>
+        <View style={styles.viewImage}>
+          <TouchableOpacity onPress={() => this.onPress(item.order_id)}>
+            <Image source={{uri: item.store.image}} style={styles.image} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.viewInfor}>
+          <TouchableOpacity onPress={() => this.onPress(item.order_id)}>
+            <View>
+              <Text style={styles.name}>{item.store.store_name}</Text>
+
+              <View style={styles.viewTime}>
+                <Text style={styles.txtTitleTime}>{t('dat_hang_luc')}</Text>
+
+                <Text style={styles.order_time}>{item.order_time}</Text>
+                <Text style={styles.order_day}>{item.order_day}</Text>
+              </View>
+
+              <View style={styles.viewTotal}>
+                <Text>{t('tong_tien_d')}</Text>
+
+                <Text style={styles.total}>{item.total} đ</Text>
+              </View>
+              <Text style={styles.status}>{item.status[0].massage}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        {item.status[0].massage === 'Đơn đang chờ xác nhận' ? (
           <View
             style={{
-              padding: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
+              ...styles.button,
+              backgroundColor: Colors.red,
             }}>
-            <Text
-              style={{
-                fontSize: 20,
-                color: 'gray',
-                fontFamily: Fonts.serif,
-              }}>
-              {t('khong_co_don_hang')}
-            </Text>
+            <TouchableOpacity onPress={() => this.onCancelOrder(item.order_id)}>
+              <Text style={styles.txtButton}>{t('huy_don')}</Text>
+            </TouchableOpacity>
           </View>
-        </View>
-      );
-    } else if (ordersData.length < 0) {
-      return (
-        <View style={{flex: 1}}>
+        ) : (
           <View
             style={{
-              padding: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
+              ...styles.button,
+              backgroundColor: Colors.blue,
             }}>
-            <Text
-              style={{
-                fontSize: 20,
-                color: 'gray',
-                fontFamily: Fonts.serif,
-              }}>
-              {t('Loading')}
-            </Text>
+            <TouchableOpacity onPress={() => this.onPress(item.order_id)}>
+              <Text style={styles.txtButton}>{t('dat_lai')}</Text>
+            </TouchableOpacity>
           </View>
-        </View>
-      );
-    }
+        )}
+      </LinearGradient>
+    );
+  };
 
+  renderNoData = () => {
+    return (
+      <View style={styles.viewNoData}>
+        <Text style={styles.textNoData}>{t('khong_co_don_hang')}</Text>
+      </View>
+    );
+  };
+
+  renderLoading = () => {
+    return (
+      <View style={styles.viewLoading}>
+        <Text style={styles.txtLoading}>{t('Loading')}</Text>
+      </View>
+    );
+  };
+
+  renderListItems = ordersData => {
     const arrOrderList = Object.keys(ordersData).map(key => {
       ordersData[key].id = key;
       return ordersData[key];
     });
-    console.log(arrOrderList);
 
     return (
-      <View style={{flex: 1}}>
-        {this.renderHeader()}
+      <>
         <ScrollView>
-          <View
-            style={{
-              backgroundColor: 'white',
-              padding: 12,
-              borderBottomWidth: 5,
-              borderBottomColor: '#eaeaea',
-            }}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 20,
-                fontFamily: Fonts.serif,
-              }}>
-              Lịch sử đơn hàng
-            </Text>
-          </View>
-
-          <View
-            style={{
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
-              backgroundColor: 'white',
-              flex: 1,
-            }}>
+          <Text style={styles.txtHistory}>{t('history')}</Text>
+          <View style={styles.viewListOrder}>
             <FlatList
               data={arrOrderList}
               renderItem={this.renderItem}
@@ -411,135 +251,170 @@ class index extends Component {
           </View>
         </ScrollView>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 22,
-              height: 100,
-            }}>
-            <View
-              style={{
-                margin: 20,
-                backgroundColor: 'white',
-                borderRadius: 20,
-                padding: 35,
-                alignItems: 'center',
-                shadowColor: '#000',
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-                width: 300,
-                height: 200,
-              }}>
-              <Text
-                style={{
-                  marginBottom: 18,
-                  flex: 1,
-                  textAlign: 'center',
-                  fontSize: 16,
-                  color: '#797777',
-                }}>
-                Bạn có chắc muốn huỷ giao dịch này không?
-              </Text>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableHighlight
-                  style={{
-                    backgroundColor: '#F194FF',
-                    borderRadius: 20,
-                    padding: 10,
-                    elevation: 2,
-                    width: 100,
-                    marginHorizontal: 20,
-                  }}
-                  onPress={() => {
-                    this.setState({
-                      modalVisible: !this.state.modalVisible,
-                    });
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                    }}>
-                    Quay lại
-                  </Text>
-                </TouchableHighlight>
+        {this.renderModal()}
+      </>
+    );
+  };
 
-                <TouchableHighlight
-                  style={{
-                    backgroundColor: '#2196F3',
-                    borderRadius: 20,
-                    padding: 10,
-                    elevation: 2,
-                    width: 100,
-                    marginHorizontal: 20,
-                  }}
-                  onPress={() => {
-                    this.onConfirm(this.state.order_id);
-                  }}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                    }}>
-                    Huỷ bỏ
-                  </Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </View>
-        </Modal>
+  render() {
+    const ordersData = this.props.orders.dataOrders;
+
+    return (
+      <View style={styles.container}>
+        {this.renderHeader()}
+        {ordersData.length === 0 && this.renderNoData()}
+        {ordersData.length < 0 && this.renderLoading()}
+        {ordersData.length > 0 && this.renderListItems(ordersData)}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  noti: {
-    color: '#4a4a4a',
-    paddingTop: 15,
-    fontSize: 33,
-    alignSelf: 'center',
+  containerHeader: {
+    flexDirection: 'row',
+    padding: 5,
+    height: 80,
+  },
+  sideBarOptions: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  viewTitle: {
+    flex: 6,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  viewLogo: {
+    alignItems: 'flex-end',
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    marginTop: -5,
+  },
+  logo: {
+    width: 50,
+    height: 50,
+  },
+  viewNoData: {
+    padding: 12,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  top: {
     flex: 1,
   },
-  bot: {
-    flex: 9,
+  textNoData: {
+    fontSize: 20,
+    color: 'gray',
+    fontFamily: Fonts.serif,
+  },
+  viewLoading: {
+    padding: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  txtLoading: {
+    fontSize: 20,
+    color: 'gray',
+    fontFamily: Fonts.serif,
   },
   container: {
+    flex: 1,
+  },
+  txtHistory: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: Fonts.serif,
+    padding: 12,
+    borderBottomWidth: 5,
+    borderBottomColor: '#eaeaea',
+  },
+  viewListOrder: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 20,
     backgroundColor: 'white',
     flex: 1,
   },
-
-  button: {
-    margin: 10,
+  separator: {
+    height: 10,
+  },
+  containerListItem: {
+    flex: 1,
+    paddingVertical: 10,
     paddingHorizontal: 10,
-    paddingVertical: 7,
-    borderRadius: 5,
-    backgroundColor: '#AEDEF4',
+    flexDirection: 'row',
+    borderRadius: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: '#eaeaea',
   },
-  text: {
-    color: '#fff',
-    fontSize: 15,
+  viewImage: {
+    width: 100,
+    height: 90,
   },
-  divider: {
-    backgroundColor: '#eaeaea',
-    height: 7,
-    marginTop: 10,
+  image: {
+    width: '100%',
+    height: '100%',
+    borderWidth: 5,
+    borderColor: 'white',
+    borderRadius: 10,
+  },
+  name: {
+    color: '#5a5555',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  viewInfor: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  viewTime: {
+    flexDirection: 'row',
+    marginTop: 7,
+  },
+  txtTitleTime: {
+    color: 'gray',
+  },
+  order_time: {
+    marginLeft: 5,
+    color: 'gray',
+  },
+  order_day: {
+    marginLeft: 10,
+    color: 'gray',
+  },
+  viewTotal: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  total: {
+    marginLeft: 10,
+  },
+  status: {
+    marginTop: 7,
+    color: 'green',
+    fontWeight: 'bold',
+  },
+  button: {
+    width: 90,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  txtButton: {
+    color: 'white',
+    fontWeight: 'bold',
+    marginRight: 5,
   },
 });
 

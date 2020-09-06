@@ -3,12 +3,10 @@ import {
   StyleSheet,
   View,
   Text,
-  Image,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-const {width, height} = Dimensions.get('window');
-import UpdateDataImage from '../../assets/images/updatedata.jpg';
+const {height} = Dimensions.get('window');
 import Colors from '../themers/Colors';
 import {t} from '../i18n/t';
 import Fonts from '../themers/Fonts';
@@ -31,20 +29,7 @@ class NoComment extends Component {
         <Text style={styles.styleText}>{t('no_data')}</Text>
         <View style={{width: 150, marginTop: 15}}>
           <TouchableOpacity onPress={this.onShowForm}>
-            <Text
-              style={{
-                borderRadius: 20,
-                fontSize: 15,
-                fontWeight: 'bold',
-                marginLeft: 10,
-                padding: 12,
-                paddingHorizontal: 30,
-                textAlign: 'center',
-                backgroundColor: '#FCB1B6',
-                color: 'black',
-              }}>
-              Bình luận
-            </Text>
+            <Text style={styles.btnComment}>Bình luận</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -69,13 +54,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: 'white',
   },
-
-  styleImage: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#ababab',
-    borderRadius: 10,
-    marginBottom: 10,
+  btnComment: {
+    borderRadius: 20,
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    padding: 12,
+    paddingHorizontal: 30,
+    textAlign: 'center',
+    backgroundColor: '#FCB1B6',
+    color: 'black',
   },
   styleText: {
     fontSize: 15,

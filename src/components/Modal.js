@@ -1,48 +1,55 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableHighlight, Modal} from 'react-native';
-import {t} from '../i18n/t';
 
 class index extends Component {
   onCancel = () => {
     this.props.onCancel();
   };
 
-  onVerify = () => {
-    this.props.onVerify();
+  onConfirm = () => {
+    this.props.onConfirm();
   };
 
   render() {
-    const {modalVisible} = this.props;
+    const {
+      modalVisible,
+      message,
+      txtBackButton,
+      txtConfirmButton,
+      height,
+    } = this.props;
 
     return (
-      <View style={styles.container}>
+      <>
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <View style={styles.viewModal}>
-            <View style={styles.modal}>
-              <Text style={styles.text_confirm}>
-                {t('confirm_text_singout')}
-              </Text>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableHighlight
-                  style={styles.buttonCancel}
-                  onPress={() => {
-                    this.onCancel();
-                  }}>
-                  <Text style={styles.txtCancel}>Quay lại</Text>
-                </TouchableHighlight>
+          <View style={styles.container}>
+            <View style={{...styles.viewContainer, ...{height: height}}}>
+              {message && <Text style={styles.message}>{message}</Text>}
+              <View style={styles.viewButton}>
+                {txtBackButton && (
+                  <TouchableHighlight
+                    style={styles.buttonBack}
+                    onPress={() => {
+                      this.onCancel();
+                    }}>
+                    <Text style={styles.txtBack}>{txtBackButton}</Text>
+                  </TouchableHighlight>
+                )}
 
-                <TouchableHighlight
-                  style={styles.btnConfirm}
-                  onPress={() => {
-                    this.onVerify();
-                  }}>
-                  <Text style={styles.txtSignOut}>Đăng xuất</Text>
-                </TouchableHighlight>
+                {txtConfirmButton && (
+                  <TouchableHighlight
+                    style={styles.btnConfirm}
+                    onPress={() => {
+                      this.onConfirm();
+                    }}>
+                    <Text style={styles.txtConfirm}>{txtConfirmButton}</Text>
+                  </TouchableHighlight>
+                )}
               </View>
             </View>
           </View>
         </Modal>
-      </View>
+      </>
     );
   }
 }
@@ -50,17 +57,12 @@ class index extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F99A7C',
-  },
-
-  viewModal: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
     height: 100,
   },
-  modal: {
+  viewContainer: {
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
@@ -71,16 +73,19 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     width: 300,
-    height: 200,
+    // height: 200,
   },
-  text_confirm: {
+  message: {
     marginBottom: 18,
     flex: 1,
     textAlign: 'center',
     fontSize: 16,
     color: '#797777',
   },
-  buttonCancel: {
+  viewButton: {
+    flexDirection: 'row',
+  },
+  buttonBack: {
     backgroundColor: '#F194FF',
     borderRadius: 20,
     padding: 10,
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     width: 100,
     marginHorizontal: 20,
   },
-  txtCancel: {
+  txtBack: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
     width: 100,
     marginHorizontal: 20,
   },
-  txtSignOut: {
+  txtConfirm: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',

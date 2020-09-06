@@ -22,9 +22,13 @@ const colors = {
   success: '#28a645',
   error: '#dc3446',
   warning: '#ffc104',
+  red: 'red',
+  successful: '#57f307',
 
   //Cart color
   blue: '#7adaf7',
+  blueDark: 'blue',
+  blueWhite: '#767fef',
 };
 
 export default colors;

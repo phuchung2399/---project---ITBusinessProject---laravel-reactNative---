@@ -25,7 +25,6 @@ class Comment extends React.Component {
     super(props);
     this.state = {
       isShowAllComment: false,
-      menu: '',
       user_id: '',
     };
   }
@@ -188,17 +187,14 @@ class Comment extends React.Component {
               <TouchableOpacity onPress={this.onShowAllComment}>
                 <Text
                   style={{
-                    borderRadius: 20,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    padding: 12,
-                    paddingHorizontal: 30,
-                    textAlign: 'center',
-                    marginRight: 10,
-                    backgroundColor: this.state.isShowAllComment
-                      ? '#FCB1B6'
-                      : 'blue',
-                    color: this.state.isShowAllComment ? 'black' : 'white',
+                    ...styles.button,
+                    ...{
+                      marginRight: 10,
+                      backgroundColor: this.state.isShowAllComment
+                        ? '#FCB1B6'
+                        : 'blue',
+                      color: this.state.isShowAllComment ? 'black' : 'white',
+                    },
                   }}>
                   {this.state.isShowAllComment ? 'Thu gọn' : 'Xem thêm'}
                 </Text>
@@ -207,7 +203,17 @@ class Comment extends React.Component {
 
             <View style={{width: 150}}>
               <TouchableOpacity onPress={this.onShowForm}>
-                <Text style={styles.button}>Bình luận</Text>
+                <Text
+                  style={{
+                    ...styles.button,
+                    ...{
+                      backgroundColor: '#FCB1B6',
+                      color: 'black',
+                      marginLeft: 10,
+                    },
+                  }}>
+                  Bình luận
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -233,12 +239,9 @@ var styles = StyleSheet.create({
     borderRadius: 20,
     fontSize: 15,
     fontWeight: 'bold',
-    marginLeft: 10,
     padding: 12,
     paddingHorizontal: 30,
     textAlign: 'center',
-    backgroundColor: '#FCB1B6',
-    color: 'black',
   },
   viewItem: {
     flexDirection: 'row',
