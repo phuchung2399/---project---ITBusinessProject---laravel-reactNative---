@@ -1,13 +1,3 @@
-// Register
-export const ADD_USER = 'ADD_USER';
-export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
-export const ADD_USER_FAILURE = 'ADD_USER_FAILURE';
-
-//Login
-export const LOG_IN = 'LOG_IN';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-
 //Logout
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
@@ -72,11 +62,6 @@ export const GET_ALL_ORDER_FAILURE = 'GET_ALL_ORDER_FAILURE';
 export const GET_ORDER_DETAIL = 'GET_ORDER_DETAIL';
 export const GET_ORDER_DETAIL_SUCCESS = 'GET_ORDER_DETAIL_SUCCESS';
 export const GET_ORDER_DETAIL_FAILURE = 'GET_ORDER_DETAIL_FAILURE';
-
-// Create order
-export const CREATE_ORDER = 'CREATE_ORDER';
-export const CREATE_ORDER_SUCCESS = 'CREATE_ORDER_SUCCESS';
-export const CREATE_ORDER_FAILURE = 'CREATE_ORDER_FAILURE';
 
 // Cancel order
 export const CANCEL_ORDER = 'CANCEL_ORDER';

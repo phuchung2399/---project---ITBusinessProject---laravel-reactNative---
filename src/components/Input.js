@@ -22,6 +22,7 @@ class Input extends Component {
           {...this.props}
           value={this.state.value}
           onChangeText={text => this.getData(text)}
+          returnKeyType="submit"
         />
         <Text animation="pulse" style={style.styleError}>
           {error}
@@ -42,6 +43,7 @@ const style = StyleSheet.create({
   },
   styleView: {
     padding: 2,
+    marginBottom: 7,
   },
   styleError: {
     fontSize: 15,
