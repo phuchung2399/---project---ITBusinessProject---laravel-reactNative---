@@ -21,6 +21,7 @@ use App\Helper\Response; // container Response
 use App\Helper\Support; // container function to hanld string, image, number
 use App\Models\Store;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class StoreSevice
 {
@@ -500,6 +501,8 @@ class StoreSevice
         $store->close_time = $request->close_time;
         $store->location_id = $request->location_id;
         $store->active = 1;
+        $store->created_at = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now
+        $store->updated_at = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now 
         return $store;
     }
 

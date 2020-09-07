@@ -19,6 +19,7 @@ use App\Helper\Response; // container Response
 use App\Helper\Support; // container function to hanld string, image, number
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 
 class UserService
@@ -365,6 +366,8 @@ class UserService
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->active = 1;
+        $user->created_at = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now
+        $user->updated_at = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now 
         return $user;
     }
 

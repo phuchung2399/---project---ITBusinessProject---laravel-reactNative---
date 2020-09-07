@@ -141,6 +141,8 @@ class OrderService
         $order->massage_id = 29; // 'massage' => 'Đơn đang chờ xác nhận'
         $order->store_id = ($request->store); // $request->store_id;
         $order->user_id = (Auth::user())->user_id; // get id in token
+        $order->created_at = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now
+        $order->updated_at = (Carbon::now('Asia/Ho_Chi_Minh'))->toDateString(); // get date at now 
         $this->orderRepository->insertOrder($order); // save info order
         $this->orderServiceService->insertOrderServiceUser($request->service, $order->order_id); // save data service of order
         $this->orderNotificationToStore((Auth::user())->user_name, 'store', $order->store_id); // save notificaton to database
