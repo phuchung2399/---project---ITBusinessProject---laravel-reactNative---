@@ -27,12 +27,12 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      phoneNumber: '0967258205',
-      password: '123456789',
+      // phoneNumber: '0967258205',
+      // password: '123456789',
       // phoneNumber: '0765301358',
       // password: '123123123',
-      // phoneNumber: '',
-      // password: '',
+      phoneNumber: '',
+      password: '',
       errorPhoneNumber: '',
       errorPassword: '',
     };

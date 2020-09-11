@@ -95,8 +95,6 @@ class HistoryOrderDetail extends Component {
     const {responseData} = this.props;
     const that = this;
 
-    console.log(responseData);
-
     setTimeout(function() {
       that.setState({isLoading: false});
     }, 100);
