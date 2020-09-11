@@ -331,9 +331,9 @@ class Booking extends Component {
             </View>
             <View
               style={{
-                // alignItems: 'flex-end',
                 justifyContent: 'center',
                 alignItems: 'center',
+                marginTop: 20,
               }}>
               <TouchableOpacity onPress={this.applyVoucher}>
                 <Text
