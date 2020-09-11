@@ -295,7 +295,6 @@ class Home extends Component {
     const newStores = storesData.dataNewStores;
     const storesByStar = storesData.dataStoresByStar;
     const services = this.props.services.services;
-    console.log(newStores);
 
     const arrNewStores = Object.keys(newStores).map(key => {
       newStores[key].id = key;

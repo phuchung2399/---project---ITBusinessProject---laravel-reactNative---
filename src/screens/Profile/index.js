@@ -7,9 +7,11 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {storageGet} from '../../checkAsyncStorage';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const {width, height} = Dimensions.get('window');
 import {Navigation} from 'react-native-navigation';
@@ -54,12 +56,16 @@ export default class Profile extends Component {
     return getLastLetters;
   };
 
+  onNotSupport = () => {
+    Alert.alert('Thông báo!', 'Chức năng chưa được hỗ trợ');
+  };
+
   render() {
     console.log(this.state.user);
     const userInfor = this.state.user;
     return (
-      <View style={{flex: 1, backgroundColor: '#F99A7C'}}>
-        <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
+      <View style={{flex: 1, backgroundColor: Colors.orrange}}>
+        <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
           <View
             style={{
               padding: 10,
@@ -187,15 +193,12 @@ export default class Profile extends Component {
                 }}>
                 {t('thong_tin_ca_nhan')}
               </Text>
-
               <View style={{alignContent: 'flex-end', flexDirection: 'row'}}>
-                <TouchableWithoutFeedback
-                  onPress={() => this.onNavigateStore()}>
+                <TouchableWithoutFeedback onPress={() => this.onNotSupport()}>
                   <Text
                     style={{
                       color: 'green',
                       fontSize: 14,
-                      // textDecorationLine: 'underline',
                     }}>
                     {t('thay_doi')}
                   </Text>
@@ -208,12 +211,7 @@ export default class Profile extends Component {
                 flexDirection: 'row',
                 marginTop: 7,
               }}>
-              <AntDesign
-                name="user"
-                size={22}
-                color="black"
-                onPress={() => this.backMainScreen()}
-              />
+              <AntDesign name="user" size={22} color="black" />
               <Text
                 style={{
                   marginLeft: 10,
@@ -230,12 +228,7 @@ export default class Profile extends Component {
                 flexDirection: 'row',
                 marginTop: 8,
               }}>
-              <AntDesign
-                name="mail"
-                size={20}
-                color="black"
-                onPress={() => this.backMainScreen()}
-              />
+              <AntDesign name="mail" size={20} color="black" />
               <Text
                 style={{
                   marginLeft: 10,
@@ -252,12 +245,7 @@ export default class Profile extends Component {
                 flexDirection: 'row',
                 marginTop: 8,
               }}>
-              <AntDesign
-                name="profile"
-                size={20}
-                color="black"
-                onPress={() => this.backMainScreen()}
-              />
+              <AntDesign name="profile" size={20} color="black" />
               <Text
                 style={{
                   marginLeft: 10,
@@ -295,13 +283,11 @@ export default class Profile extends Component {
               </Text>
 
               <View style={{alignContent: 'flex-end', flexDirection: 'row'}}>
-                <TouchableWithoutFeedback
-                  onPress={() => this.onNavigateStore()}>
+                <TouchableWithoutFeedback onPress={() => this.onNotSupport()}>
                   <Text
                     style={{
                       color: 'green',
                       fontSize: 14,
-                      // textDecorationLine: 'underline',
                     }}>
                     {t('thay_doi')}
                   </Text>
@@ -314,12 +300,7 @@ export default class Profile extends Component {
                 flexDirection: 'row',
                 marginTop: 10,
               }}>
-              <AntDesign
-                name="phone"
-                size={20}
-                color="black"
-                onPress={() => this.backMainScreen()}
-              />
+              <Feather name="phone-call" size={20} color="black" />
               <Text
                 style={{
                   marginLeft: 10,
@@ -341,12 +322,7 @@ export default class Profile extends Component {
               flexDirection: 'row',
               marginTop: 5,
             }}>
-            <AntDesign
-              name="lock1"
-              size={20}
-              color="black"
-              onPress={() => this.backMainScreen()}
-            />
+            <AntDesign name="lock1" size={20} color="black" />
 
             <Text
               style={{
@@ -363,12 +339,12 @@ export default class Profile extends Component {
               name="right"
               size={22}
               color="black"
-              onPress={() => this.backMainScreen()}
+              onPress={() => this.onNotSupport()}
             />
           </View>
         </View>
 
-        <LinearGradient colors={['#F99A7C', '#FC5895']}>
+        <LinearGradient colors={[Colors.orrange, Colors.pink]}>
           <View
             style={{
               padding: 10,

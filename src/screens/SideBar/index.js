@@ -162,7 +162,7 @@ class SideBarMenu extends Component {
   };
 
   onNotSupport = () => {
-    Alert.alert('Thông báo!', 'Chưa hỗ trợ');
+    Alert.alert('Thông báo!', 'Chức năng chưa được hỗ trợ');
   };
 
   getAvatarDefault = user_name => {

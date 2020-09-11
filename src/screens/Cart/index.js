@@ -372,6 +372,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 10,
     justifyContent: 'center',
+    marginBottom: 15,
   },
   txtBtn: {
     fontSize: 20,
