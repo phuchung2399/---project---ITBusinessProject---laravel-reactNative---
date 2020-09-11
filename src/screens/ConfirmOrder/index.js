@@ -4,7 +4,7 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  Dimensions,
+  ScrollView,
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import LinearGradient from 'react-native-linear-gradient';
@@ -84,20 +84,6 @@ class HistoryOrderDetail extends Component {
     });
   };
 
-  renderHeader = () => {
-    return (
-      <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
-        <View
-          style={{
-            flexDirection: 'row',
-            padding: 5,
-            height: 60,
-          }}
-        />
-      </LinearGradient>
-    );
-  };
-
   onBackHome = () => {
     this.props.onDeleteAllCart();
     this.props.onDeleteStoreId();
@@ -106,6 +92,7 @@ class HistoryOrderDetail extends Component {
 
   render() {
     const {detailStore} = this.props.stores;
+    const {responseData} = this.props;
     const that = this;
 
     setTimeout(function() {
@@ -120,11 +107,9 @@ class HistoryOrderDetail extends Component {
       );
     }
     return (
-      <View style={{flex: 1}}>
-        {this.renderHeader()}
-
+      <ScrollView style={{flex: 1}}>
         <View>
-          <LinearGradient colors={['#F99A7C', '#FC5895']}>
+          <LinearGradient colors={['#FC5895', '#F99A7C', '#FC5895']}>
             <View
               style={{
                 padding: 12,
@@ -132,7 +117,7 @@ class HistoryOrderDetail extends Component {
                 borderBottomColor: '#eaeaea',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: 200,
+                height: 220,
               }}>
               <View
                 style={{
@@ -159,7 +144,7 @@ class HistoryOrderDetail extends Component {
                   fontFamily: Fonts.serif,
                   color: 'white',
                 }}>
-                Đặt hàng thành công
+                {responseData && responseData.message}
               </Text>
             </View>
           </LinearGradient>
@@ -168,7 +153,6 @@ class HistoryOrderDetail extends Component {
             style={{
               backgroundColor: 'white',
               padding: 12,
-              // height: 120,
               borderBottomWidth: 8,
               borderBottomColor: '#eaeaea',
             }}>
@@ -181,6 +165,7 @@ class HistoryOrderDetail extends Component {
                 marginHorizontal: 80,
                 borderBottomWidth: 3,
                 borderBottomColor: '#eaeaea',
+                padding: 10,
               }}>
               <Text
                 style={{
@@ -339,7 +324,7 @@ class HistoryOrderDetail extends Component {
             </LinearGradient>
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

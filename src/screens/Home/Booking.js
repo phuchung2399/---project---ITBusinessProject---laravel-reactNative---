@@ -30,6 +30,7 @@ import {deleteAllCarts, deleteStoreId} from '../../redux/orderRedux/action';
 import {onChangeIntoMainScreen} from '../../navigation';
 import TimePicker from 'react-native-24h-timepicker';
 import Colors from '../../themers/Colors';
+import ModalComponent from '../../components/Modal';
 
 class Booking extends Component {
   constructor(props) {
@@ -68,7 +69,7 @@ class Booking extends Component {
 
   renderHeader = () => {
     return (
-      <LinearGradient colors={['#FC5895', '#FC5895', '#F99A7C']}>
+      <LinearGradient colors={[Colors.pink, Colors.pink, Colors.orrange]}>
         <View
           style={{
             padding: 10,
@@ -86,7 +87,12 @@ class Booking extends Component {
               maxHeight: 40,
               maxWidth: 40,
             }}>
-            <Icon name="chevron-left" size={25} color="black" />
+            <Icon
+              name="chevron-left"
+              size={25}
+              color="black"
+              onPress={() => this.backMainScreen()}
+            />
           </View>
 
           <View
@@ -235,6 +241,7 @@ class Booking extends Component {
                 color: 'black',
                 fontSize: 18,
                 fontWeight: 'bold',
+                textTransform: 'capitalize',
               }}>
               {item.service_name}
             </Text>
@@ -452,7 +459,7 @@ class Booking extends Component {
     });
   }
 
-  onChangeNotifyScreen = store_id => {
+  onChangeNotifyScreen = (store_id, responseData) => {
     Navigation.showModal({
       stack: {
         children: [
@@ -461,6 +468,7 @@ class Booking extends Component {
               name: 'ConfirmOrder',
               passProps: {
                 store_id,
+                responseData,
               },
               options: {
                 topBar: {
@@ -538,7 +546,7 @@ class Booking extends Component {
         .then(responseData => {
           if (responseData.status === 201) {
             this.setState({disableButton: true}, () => {
-              this.onChangeNotifyScreen(store_id);
+              this.onChangeNotifyScreen(store_id, responseData);
             });
           } else if (responseData.status === 400) {
             Alert.alert('Thông báo', responseData.message);
@@ -553,29 +561,6 @@ class Booking extends Component {
     }
   };
 
-  onBackHome = () => {
-    this.props.onDeleteAllCart();
-    this.props.onDeleteStoreId();
-    onChangeIntoMainScreen();
-  };
-
-  onVerify = () => {
-    Alert.alert(
-      'Thông báo',
-      'Đơn hàng của bạn đã được đặt thành công!',
-      [
-        {
-          text: 'Quay lại',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'Quay về  trang chủ', onPress: () => this.onBackHome()},
-        ,
-      ],
-      {cancelable: false},
-    );
-  };
-
   onCancel() {
     this.TimePicker.close();
   }
@@ -584,6 +569,12 @@ class Booking extends Component {
     this.setState({order_time: `${hour}:${minute}` + ':00'});
     this.TimePicker.close();
   }
+
+  onCloseNotifyOrder = () => {
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+    });
+  };
 
   render() {
     const {userData} = this.props;
@@ -654,6 +645,7 @@ class Booking extends Component {
                 style={{
                   marginTop: 10,
                   marginLeft: 10,
+                  flex: 1,
                 }}>
                 <Text
                   style={{
