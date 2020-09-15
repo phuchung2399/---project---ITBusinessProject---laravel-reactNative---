@@ -108,7 +108,7 @@ class SignUp extends Component {
           if (errors.confirm_password) {
             this.setState({errorConfirmPass: errors.confirm_password[0]});
           }
-        } else if (responseData.status) {
+        } else if (!responseData.errors && responseData.status) {
           if (responseData.status === 200) {
             this.onChangeAnnouncementScreen(dataUser);
           }
