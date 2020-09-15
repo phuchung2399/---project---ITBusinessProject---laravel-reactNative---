@@ -35,7 +35,9 @@ export default class ShowAllStores extends Component {
             />
           </View>
           <View style={styles.viewTitle}>
-            <Text style={styles.txtTitle}>{title}</Text>
+            <Text style={styles.txtTitle} numberOfLines={1}>
+              {title}
+            </Text>
           </View>
           <View style={styles.viewLogo}>
             <Image style={styles.logo} source={Logo} />
