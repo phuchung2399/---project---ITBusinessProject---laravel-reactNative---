@@ -1,16 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  AsyncStorage,
-  TouchableWithoutFeedback,
-  Dimensions,
-} from 'react-native';
-import fonts from '../../../themers/Fonts';
-const {width, height} = Dimensions.get('window');
+import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Logo from '../../../../assets/images/logo.png';
 
 class NotifyItems extends Component {

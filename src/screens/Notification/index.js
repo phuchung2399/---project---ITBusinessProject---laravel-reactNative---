@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, FlatList, Image} from 'react-native';
-import NotifyData from '../../utils/NotificationData';
 import {Navigation} from 'react-native-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import {t} from '../../i18n/t';
@@ -102,7 +101,6 @@ class index extends Component {
   render() {
     const notificationsData = this.props.notifications.dataNotification
       .notifications;
-    console.log(notificationsData);
     return (
       <View style={styles.container}>
         {this.renderHeader()}
