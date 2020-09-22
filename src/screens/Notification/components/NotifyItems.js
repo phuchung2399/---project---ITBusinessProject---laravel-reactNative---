@@ -11,35 +11,33 @@ import {
 } from 'react-native';
 import fonts from '../../../themers/Fonts';
 const {width, height} = Dimensions.get('window');
+import Logo from '../../../../assets/images/logo.png';
 
 class NotifyItems extends Component {
   constructor(props) {
     super(props);
   }
 
-  onPress = () => {
-    alert('0k');
-  };
   render() {
-    const {description, image, time} = this.props;
+    const {item} = this.props;
 
     return (
       <View style={{borderBottomWidth: 2, borderBottomColor: '#eaeaea'}}>
         <View style={{flexDirection: 'row', padding: 15}}>
           <View style={{flex: 1}}>
-            <TouchableOpacity onPress={() => this.onPress()}>
+            <TouchableOpacity>
               <Image
-                source={{uri: image}}
+                source={Logo}
                 style={{
-                  width: width / 5,
-                  height: height / 10,
+                  width: 70,
+                  height: 70,
                   borderRadius: 20,
                 }}
               />
             </TouchableOpacity>
           </View>
           <View style={{flex: 3, justifyContent: 'center'}}>
-            <TouchableOpacity onPress={() => this.onPress()}>
+            <TouchableOpacity>
               <Text
                 style={{
                   flexDirection: 'row',
@@ -48,11 +46,9 @@ class NotifyItems extends Component {
                   fontSize: 17,
                 }}
                 numberOfLines={2}>
-                {description}
+                {item.content.massage}
               </Text>
             </TouchableOpacity>
-
-            <Text style={{color: '#7f7f7f', fontSize: 15}}>{time} giờ</Text>
           </View>
         </View>
       </View>
