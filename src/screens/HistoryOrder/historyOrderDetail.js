@@ -244,32 +244,20 @@ class HistoryOrderDetail extends Component {
   };
 
   renderStatusIcon = dataOrderDetail => {
+    console.log(dataOrderDetail.status[0].massage);
     if (dataOrderDetail.status[0].massage === 'Đơn đang chờ xác nhận') {
-      return (
-        <Success
-          name="hourglass"
-          size={40}
-          color={Colors.successful}
-          onPress={() => this.backMainScreen()}
-        />
-      );
+      return <Success name="hourglass" size={40} color={Colors.successful} />;
     } else if (dataOrderDetail.status[0].massage === 'Đã hủy') {
       return (
-        <Success
-          name="minuscircleo"
-          size={40}
-          color={Colors.successful}
-          onPress={() => this.backMainScreen()}
-        />
+        <Success name="minuscircleo" size={40} color={Colors.successful} />
+      );
+    } else if (dataOrderDetail.status[0].massage === 'Đơn bị từ chối') {
+      return (
+        <Success name="minuscircleo" size={40} color={Colors.successful} />
       );
     } else {
       return (
-        <Success
-          name="checkcircleo"
-          size={40}
-          color={Colors.successful}
-          onPress={() => this.backMainScreen()}
-        />
+        <Success name="checkcircleo" size={40} color={Colors.successful} />
       );
     }
   };
