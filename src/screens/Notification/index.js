@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, FlatList, Image} from 'react-native';
-import NotifyData from '../../utils/NotificationData';
 import {Navigation} from 'react-native-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import {t} from '../../i18n/t';
@@ -84,19 +83,13 @@ class index extends Component {
     );
   };
 
-  renderListNotis = () => {
+  renderListNotis = notificationsData => {
     return (
       <>
         <View style={styles.viewFlastList}>
           <FlatList
-            data={NotifyData}
-            renderItem={({item}) => (
-              <NotifyItems
-                description={item.description}
-                image={item.image}
-                time={item.time}
-              />
-            )}
+            data={notificationsData}
+            renderItem={({item}) => <NotifyItems item={item} />}
             keyExtractor={(item, index) => index.toString()}
             showsVerticalScrollIndicator={false}
           />
@@ -106,13 +99,13 @@ class index extends Component {
   };
 
   render() {
-    const notificationsData = this.props.notifications.dataNotification;
-
+    const notificationsData = this.props.notifications.dataNotification
+      .notifications;
     return (
       <View style={styles.container}>
         {this.renderHeader()}
         {notificationsData === null && this.renderNoData()}
-        {notificationsData != null && this.renderListNotis()}
+        {notificationsData != null && this.renderListNotis(notificationsData)}
       </View>
     );
   }
