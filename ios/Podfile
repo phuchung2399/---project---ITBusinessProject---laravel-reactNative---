@@ -83,6 +83,8 @@ target 'nail' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'nailTests' do
     inherit! :complete
     # Pods for testing
