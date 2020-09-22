@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  AsyncStorage,
   Alert,
 } from 'react-native';
 import {storageGet} from '../../checkAsyncStorage';
@@ -20,18 +21,26 @@ import {t} from '../../i18n/t';
 import LinearGradient from 'react-native-linear-gradient';
 import Fonts from '../../themers/Fonts';
 import Colors from '../../themers/Colors';
+import Pusher from 'pusher-js/react-native';
+
+Pusher.logToConsole = true;
 
 export default class Profile extends Component {
   constructor() {
     super();
     this.state = {
       user: '',
+      number: '',
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    const value = await AsyncStorage.getItem('number');
+    this.setState({
+      number: value,
+    });
     this.getUserInfor();
-  }
+  };
 
   getUserInfor = async () => {
     try {
@@ -61,7 +70,30 @@ export default class Profile extends Component {
   };
 
   render() {
-    console.log(this.state.user);
+    
+    var pusher = new Pusher('99ac8370b9aa803cb529', {
+      cluster: 'ap1',
+    });
+
+    var channel_status_order = pusher.subscribe(
+      'channel-status-order-notification-id.' + this.state.number,
+    );
+
+    channel_status_order.bind('event-status-order-notification', function(
+      data,
+    ) {
+      Alert.alert(
+        'Thông báo',
+        data.data.massage,
+        [
+          {
+            text: 'Trở lại',
+            style: 'cancel',
+          },
+        ],
+        {cancelable: false},
+      );
+    });
     const userInfor = this.state.user;
     return (
       <View style={{flex: 1, backgroundColor: Colors.orrange}}>

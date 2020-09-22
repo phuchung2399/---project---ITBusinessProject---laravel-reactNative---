@@ -6,6 +6,8 @@ import {
   ScrollView,
   FlatList,
   Dimensions,
+  AsyncStorage,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -35,6 +37,7 @@ class Home extends Component {
     this.state = {
       isLoading: true,
       token: '',
+      number: '',
     };
   }
 

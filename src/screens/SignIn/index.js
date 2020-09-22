@@ -82,9 +82,12 @@ class SignIn extends Component {
           }
         } else if (responseData.data) {
           const response = responseData.data;
+          console.log(responseData.data.store);
+          let number = responseData.data.user.user_id;
           if (response.status && response.status === 200) {
             try {
               storageSet('user', JSON.stringify(responseData));
+              storageSet('number', String(number));
             } catch (e) {
               console.log('Login failed', e);
             }
