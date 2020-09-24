@@ -93,19 +93,7 @@ class HistoryOrderDetail extends Component {
   render() {
     const {detailStore} = this.props.stores;
     const {responseData} = this.props;
-    const that = this;
 
-    setTimeout(function() {
-      that.setState({isLoading: false});
-    }, 100);
-
-    if (this.state.isLoading) {
-      return (
-        <View style={{flex: 1}}>
-          <Loading />
-        </View>
-      );
-    }
     return (
       <ScrollView style={{flex: 1}}>
         <View>

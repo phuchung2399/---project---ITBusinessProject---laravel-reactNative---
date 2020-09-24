@@ -31,6 +31,7 @@ import {onChangeIntoMainScreen} from '../../navigation';
 import TimePicker from 'react-native-24h-timepicker';
 import Colors from '../../themers/Colors';
 import ModalComponent from '../../components/Modal';
+import {formatPrice} from '../../formatPrice';
 
 class Booking extends Component {
   constructor(props) {
@@ -257,7 +258,7 @@ class Booking extends Component {
             </Text>
             <View style={{flexDirection: 'row', marginHorizontal: 10}}>
               <View style={{flex: 1}}>
-                <Text>{item.price} đ</Text>
+                <Text>{formatPrice(item.price, ',', '.')} đ</Text>
               </View>
             </View>
           </View>

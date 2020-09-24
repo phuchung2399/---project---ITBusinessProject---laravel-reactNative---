@@ -19,6 +19,7 @@ import {connect} from 'react-redux';
 import {getAllOrders, cancelOrder} from '../../redux/orderRedux/action';
 import {storageGet} from '../../checkAsyncStorage';
 import ModalComponent from '../../components/Modal';
+import {formatPrice} from '../../formatPrice';
 
 class index extends Component {
   constructor(props) {
@@ -182,7 +183,9 @@ class index extends Component {
               <View style={styles.viewTotal}>
                 <Text>{t('tong_tien_d')}</Text>
 
-                <Text style={styles.total}>{item.total} đ</Text>
+                <Text style={styles.total}>
+                  {formatPrice(item.total, ',', '.')} đ
+                </Text>
               </View>
               <Text style={styles.status}>{item.status[0].massage}</Text>
             </View>

@@ -21,6 +21,7 @@ import {getStoreDetail} from '../../redux/storeRedux/action';
 import {deleteCart} from '../../redux/orderRedux/action';
 import Colors from '../../themers/Colors';
 import ModalComponent from '../../components/Modal';
+import {formatPrice} from '../../formatPrice';
 
 class index extends Component {
   constructor(props) {
@@ -122,7 +123,9 @@ class index extends Component {
           <Text style={styles.service_name}>{item.service_name}</Text>
 
           <View style={styles.viewPrice}>
-            <Text style={styles.priceItem}>{item.price}</Text>
+            <Text style={styles.priceItem}>
+              {formatPrice(item.price, ',', '.')}
+            </Text>
           </View>
         </View>
         <TouchableOpacity

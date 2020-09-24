@@ -339,18 +339,7 @@ class Home extends Component {
   };
 
   render() {
-    const that = this;
-    const isLoading = this.state.isLoading;
-    setTimeout(function() {
-      that.setState({isLoading: false});
-    }, 10);
-
-    return (
-      <>
-        {isLoading && this.renderLoading()}
-        {!isLoading && this.renderData()}
-      </>
-    );
+    return <>{this.renderData()}</>;
   }
 }
 

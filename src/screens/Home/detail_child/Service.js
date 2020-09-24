@@ -22,6 +22,7 @@ import {
 import {connect} from 'react-redux';
 import ModalComponent from '../../../components/Modal';
 import Colors from '../../../themers/Colors';
+import {formatPrice} from '../../../formatPrice';
 
 class Service extends React.Component {
   constructor(props) {
@@ -90,7 +91,9 @@ class Service extends React.Component {
           <Text style={styles.name}>{item.service_name}</Text>
           <View style={styles.price_container}>
             <View style={styles.price}>
-              <Text style={styles.textPrice}>{item.price}</Text>
+              <Text style={styles.textPrice}>
+                {formatPrice(item.price, ',', '.')}
+              </Text>
             </View>
           </View>
         </View>

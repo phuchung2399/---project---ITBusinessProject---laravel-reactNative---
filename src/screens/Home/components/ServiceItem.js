@@ -12,6 +12,7 @@ import {
 import iconProfile from '../../../../assets/images/profile_icon.png';
 const {width, height} = Dimensions.get('window');
 import {Navigation} from 'react-native-navigation';
+import {formatPrice} from '../../../formatPrice';
 
 class ServiceItem extends Component {
   constructor(props) {
@@ -73,7 +74,9 @@ class ServiceItem extends Component {
               <Text style={styles.itemTitle} numberOfLines={1}>
                 {item.service_name}
               </Text>
-              <Text style={styles.itemPrice}>{item.price}</Text>
+              <Text style={styles.itemPrice}>
+                {formatPrice(item.price, ',', '.')} đ
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -140,7 +143,7 @@ class ServiceItem extends Component {
                   fontSize: 16,
                   color: 'red',
                 }}>
-                {item.price}
+                {formatPrice(item.price, ',', '.')} đ
               </Text>
 
               <View

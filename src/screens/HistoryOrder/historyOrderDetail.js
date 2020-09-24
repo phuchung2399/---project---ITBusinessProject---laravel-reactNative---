@@ -31,6 +31,7 @@ import {
   deleteStoreId,
 } from '../../redux/orderRedux/action';
 import ModalComponent from '../../components/Modal';
+import {formatPrice} from '../../formatPrice';
 
 class HistoryOrderDetail extends Component {
   constructor(props) {
@@ -350,7 +351,9 @@ class HistoryOrderDetail extends Component {
           <Text style={styles.item_name}>
             {item.service_name.substring(0, 30)}
           </Text>
-          <Text style={styles.price}>{item.price}</Text>
+          <Text style={styles.price}>
+            {formatPrice(item.price, ',', '.')} đ
+          </Text>
         </View>
       </View>
     );
